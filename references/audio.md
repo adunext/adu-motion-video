@@ -31,7 +31,10 @@
 - 素材原声：被人声侧链强压（ratio 8，release 350ms）
 - 配乐：音量 0.50 左右（用户配乐）；被人声侧链温和压低（ratio 3，release 450ms）
 - 音效：0.5，highpass 60Hz
-- 最后 limiter 0.92，整片 ≈ -15.3 LUFS
+- 总线末段：`alimiter=limit=0.92:level=false`，关闭 limiter 的自动增益，避免把限制后的电平补回 0 dB。
+- 合成完成后再做交付级归一化：`loudnorm=I=-15.5:TP=-1.2:LRA=9`，随后 `aresample=48000` 输出 48 kHz PCM。前面的人声归一化只处理人声轨，不能替代完整混音的最终检查。
+- 以上是处理目标，不是任意素材的实测保证。每片检查混音和最终编码成片的 integrated loudness、true peak 与时长；交付目标 I 为 -15 到 -16 LUFS、TP 不超过 -0.5 dBTP。
+- 混音预留 -1.2 dBTP 的峰值目标，给 AAC 编码后的峰值变化留余量；编码后仍需复测。TP 用 `ebur128=peak=true` 或 loudnorm 的测量结果核对，不能以 sample peak 代替。
 
 ## 标准（用户认可的最终值，EP04 v5–v6）
 | 位置 | 配乐比人声低 |

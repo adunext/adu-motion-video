@@ -103,7 +103,7 @@ PY
 [1:a]volume=1.0[sh0];[sh0][vsc2]sidechaincompress=threshold=0.02:ratio=8:attack=15:release=350[sh];\
 [2:a]volume=$VOL[b];[b][vsc]sidechaincompress=threshold=0.05:ratio=3:attack=30:release=450[bd];\
 [3:a]volume=0.5,highpass=f=60[s];\
-[v][sh][bd][s]amix=inputs=4:normalize=0:duration=longest,atrim=0:$END_VALUE,alimiter=limit=0.92[out]" -map "[out]" -c:a pcm_s16le "$D/mix.wav"
+[v][sh][bd][s]amix=inputs=4:normalize=0:duration=longest,atrim=0:$END_VALUE,alimiter=limit=0.92:level=false,loudnorm=I=-15.5:TP=-1.2:LRA=9,aresample=48000[out]" -map "[out]" -c:a pcm_s16le "$D/mix.wav"
   ffmpeg -hide_banner -i "$D/mix.wav" -af ebur128 -f null - 2>&1 | grep -E '^\s+I:' | tail -1
   ;;
 render|vert)
