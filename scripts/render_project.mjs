@@ -140,10 +140,38 @@ async function main() {
           if (window.imgWait) await window.imgWait();
           await document.fonts.ready;
           if (document.querySelector('video,audio')) throw Error('Native video/audio elements require a separate deterministic adapter');
-          await Promise.all([...document.images].filter(im => im.getAttribute('src') || im.currentSrc).map(async im => {
-            await im.decode();
+          const visibleImages = [...document.images].filter(im => {
+            if (!(im.getAttribute('src') || im.currentSrc)) return false;
+            for (let el = im; el; el = el.parentElement) {
+              const style = getComputedStyle(el);
+              if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
+            }
+            return true;
+          });
+          // A hidden outgoing sequence can have its decode cancelled by Chromium.
+          // Only painted images are frame requirements; failed resource requests
+          // still fail the render, including requests made by hidden elements.
+          for (const im of visibleImages) {
+            const expected = im.src;
+            if (im._aduDecodedSource !== expected) {
+              try { await im.decode(); }
+              catch (error) {
+                // Chromium can cancel a decode during a same-frame visibility
+                // change. Retry the unchanged, successfully loaded image once;
+                // never advance time or substitute an earlier video frame.
+                if (error.name !== 'EncodingError' || im.src !== expected || !im.complete || !im.naturalWidth) {
+                  throw Error(`Image decode failed: ${expected} (${error.message})`);
+                }
+                await new Promise(resolve => requestAnimationFrame(resolve));
+                try { await im.decode(); }
+                catch (retryError) { throw Error(`Image decode retry failed: ${expected} (${retryError.message})`); }
+                window.ADU_DECODE_RETRIES = (window.ADU_DECODE_RETRIES || 0) + 1;
+              }
+              if (im.src !== expected) throw Error('Image source changed while decoding: ' + expected);
+              im._aduDecodedSource = expected;
+            }
             if (!im.naturalWidth) throw Error('Broken image resource');
-          }));
+          }
         })(), new Promise((_, reject) => setTimeout(() => reject(Error('Font/image/frame readiness timed out')), 30000))]);
       }, t);
       check();
@@ -201,7 +229,8 @@ async function main() {
     if (opt.audio && !metadata.streams.some(s => s.codec_type === 'audio')) throw Error('Expected audio track missing');
     check();
     fs.copyFileSync(output, opt.target, fs.constants.COPYFILE_EXCL);
-    console.log(JSON.stringify({ output: opt.target, frames: count, fps: opt.fps, duration, start: first / opt.fps, end: last / opt.fps, audio: !!opt.audio, browser: browserPath }));
+    const imageDecodeRetries = await page.evaluate(() => window.ADU_DECODE_RETRIES || 0);
+    console.log(JSON.stringify({ output: opt.target, frames: count, fps: opt.fps, duration, start: first / opt.fps, end: last / opt.fps, audio: !!opt.audio, imageDecodeRetries, browser: browserPath }));
   } finally {
     if (ff && ff.exitCode === null) { ff.kill('SIGKILL'); await ffDone; }
     try { await browser?.close(); }
