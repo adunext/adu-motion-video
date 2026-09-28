@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>Loading</title>
+<link rel="stylesheet" href="../template/style.css">
+</head><body>
+<div id="stage"><div id="world"></div><div id="fx"></div><div id="ov"></div></div>
+<script>window.CONFIG={brand:'AduNext',fps:60,end:6,talkFrames:0,subtitles:false,race:{labels:[],keys:[]}};</script>
+<script src="../template/lib.js"></script>
+<script>
+window.END=6;
+[['#F7F7F5','#0A0A0A','让文案成为画面','文字 · 构图 · 动效'],['#0A0A0A','#FFFFFF','让内容决定镜头','绝对时间驱动，逐帧导出'],['#2462EA','#FFFFFF','开始你的下一条','ADU MOTION VIDEO']].forEach(([bg,color,title,detail],i)=>{
+ const start=i*2,sc=new Scene(start,start+2,bg);
+ const head=mk(sc.el,`<div style="font:700 116px system-ui,sans-serif;color:${color}">${title}</div>`,160,340);
+ const sub=mk(sc.el,`<div style="font:400 36px system-ui,sans-serif;color:${color}">${detail}</div>`,165,540);
+ sc.update=t=>{show(head,t,start+.04,{k:'up',dist:45,d:.5});show(sub,t,start+.16,{k:'up',dist:25,d:.5});};
+});
+</script>
+<script src="../template/main.js"></script>
+</body></html>
