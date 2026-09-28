@@ -114,6 +114,7 @@ The manifest is a JSON array containing unique `slug` values for local `slug.mp4
 | `template/` | Talking-head runtime and editable project skeleton |
 | `scripts/` | Alignment, subtitles, face tracking, audio and strict export tools |
 | `references/` | Layout, scene API, audio, compatibility and verification guidance |
+| [Visual routes](references/visual-routes.md) | Five optional choreography approaches; methods, not media-complete one-click templates |
 | `examples/` | Historical code references plus a media-free silent demo |
 | [THIRD_PARTY.md](THIRD_PARTY.md) | Provenance, exclusions and dependency notices |
 
