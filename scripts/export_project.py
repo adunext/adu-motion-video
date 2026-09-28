@@ -7,6 +7,7 @@ success or failure. No project parts/, .last_out or old video is reused.
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
+from fractions import Fraction
 import hashlib
 import json
 import math
@@ -35,17 +36,63 @@ def probe(file):
 
 def verify(file, count, fps, width, height, audio=False):
     data = probe(file)
-    video = next((s for s in data['streams'] if s['codec_type'] == 'video'), None)
-    if not video:
-        raise RuntimeError(f'No video stream: {file}')
-    num, den = map(int, video['avg_frame_rate'].split('/'))
-    if (int(video.get('nb_read_frames', -1)) != count or video['width'] != width
-            or video['height'] != height or abs(num / den - fps) > 1e-6
-            or abs(float(video.get('duration', 0)) - count / fps) > 1 / fps + .001):
-        raise RuntimeError(f'Frame count/rate/dimension/duration mismatch: {file}')
-    if audio and not any(s['codec_type'] == 'audio' for s in data['streams']):
-        raise RuntimeError(f'Expected audio track missing: {file}')
+    video = next((s for s in data.get('streams', []) if s['codec_type'] == 'video'), {})
+    expected = {'frames': count, 'fps': fps, 'width': width, 'height': height,
+                'duration': count / fps, 'audio_required': audio}
+    actual = {key: video.get(key) for key in ('nb_read_frames', 'width', 'height',
+              'avg_frame_rate', 'r_frame_rate', 'time_base', 'start_pts', 'start_time',
+              'duration_ts', 'duration')}
+    actual['format'] = {key: data.get('format', {}).get(key) for key in ('start_time', 'duration')}
+    actual['audio_present'] = any(s['codec_type'] == 'audio' for s in data.get('streams', []))
+    errors = []
+    try:
+        if int(video.get('nb_read_frames', -1)) != count:
+            errors.append('frame_count')
+    except (TypeError, ValueError):
+        errors.append('frame_count')
+    if video.get('width') != width or video.get('height') != height:
+        errors.append('dimensions')
+    try:
+        if abs(float(Fraction(video.get('avg_frame_rate', '0/1'))) - fps) > 1e-6:
+            errors.append('frame_rate')
+    except (TypeError, ValueError, ZeroDivisionError):
+        errors.append('frame_rate')
+    try:
+        duration = float(video.get('duration', 0))
+        if not math.isfinite(duration) or abs(duration - count / fps) > 1 / fps + .001:
+            errors.append('duration')
+    except (TypeError, ValueError):
+        errors.append('duration')
+    if audio and not actual['audio_present']:
+        errors.append('audio_missing')
+    if errors:
+        raise RuntimeError(f'Media verification mismatch: {file}\n' + json.dumps(
+            {'mismatches': errors, 'expected': expected, 'actual': actual}, ensure_ascii=False))
     return data
+
+
+def concat_video(work, boundaries, fps):
+    """Stream-copy on the frame clock, retaining H.264 B-frame display order."""
+    # The concat demuxer uses microseconds, while MP4 container durations may be
+    # rounded differently. Round cumulative frame boundaries, not each segment,
+    # so rounding errors cannot accumulate across a long sequence of parts.
+    microseconds = lambda frame: (2 * frame * 1_000_000 + fps) // (2 * fps)
+    lines = ['ffconcat version 1.0\n']
+    for i, (first, last) in enumerate(zip(boundaries, boundaries[1:])):
+        duration_us = microseconds(last) - microseconds(first)
+        lines.append(f"file 'part_{i:03}.mp4'\n")
+        lines.append(f'duration {duration_us // 1_000_000}.{duration_us % 1_000_000:06d}\n')
+    listing = work / 'concat.txt'
+    listing.write_text(''.join(lines))
+    video = work / 'video.mp4'
+    # Quantize each existing PTS and DTS separately. Setting both to packet N
+    # would corrupt B-frame presentation order. No video is decoded/re-encoded.
+    clock = (f'setts=pts=round(PTS*TB*{fps})/(TB*{fps}):'
+             f'dts=round(DTS*TB*{fps})/(TB*{fps}):duration=1/(TB*{fps})')
+    run(['ffmpeg', '-n', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', listing,
+         '-map', '0:v:0', '-c:v', 'copy', '-bsf:v', clock,
+         '-video_track_timescale', fps, video])
+    return video
 
 
 def sources(project):
@@ -135,12 +182,17 @@ def main():
             first, last = boundaries[i:i + 2]
             part = work / f'part_{i:03}.mp4'
             try:
-                run([*common, '--start', first / args.fps, '--end', last / args.fps, '--output', part])
-                verify(part, last - first, args.fps, args.width, args.height)
+                renderer_output = run([*common, '--start', first / args.fps, '--end', last / args.fps, '--output', part])
+                metadata = verify(part, last - first, args.fps, args.width, args.height)
             except Exception as exc:
                 raise RuntimeError(f'Segment {i} (frames {first}..{last - 1}) failed: {exc}') from exc
             print(f'Segment {i + 1}/{k} verified ({last - first} frames)', file=sys.stderr)
-            return {'index': i, 'first_frame': first, 'end_frame_exclusive': last, 'frames': last - first}
+            video = next(s for s in metadata['streams'] if s['codec_type'] == 'video')
+            return {'index': i, 'first_frame': first, 'end_frame_exclusive': last, 'frames': last - first,
+                    'renderer_output': renderer_output.strip(),
+                    'format': {key: metadata.get('format', {}).get(key) for key in ('duration', 'start_time')},
+                    'video': {key: video.get(key) for key in ('duration', 'duration_ts', 'start_time',
+                              'start_pts', 'time_base', 'avg_frame_rate', 'r_frame_rate', 'nb_read_frames')}}
 
         segments = []
         with ThreadPoolExecutor(max_workers=k) as pool:
@@ -149,17 +201,20 @@ def main():
                 segments.append(future.result())
         if sources(project) != original_sources:
             raise RuntimeError('Project source changed during rendering; export rejected. Render again after edits finish.')
-        listing = work / 'concat.txt'
-        listing.write_text(''.join(f"file 'part_{i:03}.mp4'\n" for i in range(k)))
-        video = work / 'video.mp4'
-        run(['ffmpeg', '-n', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', listing,
-             '-map', '0:v:0', '-c', 'copy', video])
-        verify(video, count, args.fps, args.width, args.height)
+        try:
+            video = concat_video(work, boundaries, args.fps)
+            verify(video, count, args.fps, args.width, args.height)
+        except Exception as exc:
+            # The temporary parts are intentionally deleted on failure. Preserve
+            # their clock evidence in the error as well as successful manifests.
+            raise RuntimeError(f'{exc}\nSegment diagnostics: ' + json.dumps(
+                sorted(segments, key=lambda s: s['index']), ensure_ascii=False)) from exc
         completed = video
         if audio:
             completed = work / 'complete.mp4'
             run(['ffmpeg', '-n', '-v', 'error', '-i', video, '-i', audio, '-map', '0:v:0', '-map', '1:a:0',
-                 '-c:v', 'copy', '-af', 'apad', '-c:a', 'aac', '-b:a', '256k', '-t', duration,
+                 '-c:v', 'copy', '-video_track_timescale', args.fps,
+                 '-af', 'apad', '-c:a', 'aac', '-b:a', '256k', '-t', duration,
                  '-movflags', '+faststart', completed])
         metadata = verify(completed, count, args.fps, args.width, args.height, bool(audio))
         run(['ffmpeg', '-v', 'error', '-xerror', '-i', completed, '-map', '0:v:0', '-map', '0:a?', '-f', 'null', '-'])

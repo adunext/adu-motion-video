@@ -2,7 +2,7 @@
 name: adu-motion-video
 description: 沿用阿杜Next的anim3、anim4 HTML/JavaScript动效工程，制作真人口播包装、新文案视频、双语字幕、配乐音效和横竖屏成片。用户说“做下一集”“沿用上一集风格”“改第几秒”“出一版竖屏”或明确使用adu-motion-video时使用；保留指定的自建引擎。
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 ---
 
 # 阿杜口播动效工作室
