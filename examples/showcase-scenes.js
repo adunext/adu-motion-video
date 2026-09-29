@@ -1,11 +1,11 @@
 /* ============================================================
-   EP04 · AI 剪辑实测「终结比赛」 — 口播 102.95s，不暂停
+   Showcase motion recipes — illustrative copy; no benchmark claims
    时间全部是口播时间（= 输出时间）。
    ============================================================ */
 window.END = 108.40;
 
 /* ---------- shared builders ---------- */
-function camCard(parent, w, h, label = '// on air · 阿杜', round = false) {
+function camCard(parent, w, h, label = '// on air · 创作者', round = false) {
   const e = mk(parent, `<div class="cam${round ? ' round' : ''}" style="width:${w}px;height:${h}px"><img>${round ? '' : `<div class="lab"><span style="color:#6d9bff">●</span> ${label}</div>`}</div>`, 0, 0, { ax: .5, ay: .5 });
   e._img = e.querySelector('img'); return e;
 }
@@ -62,7 +62,7 @@ function wallTick(w, t, t0, rate = 8) {       // animate sprite frames + ripple-
 function race(parent, dark = true) {   // thin race progress line at the bottom
   const c = dark ? 'rgba(255,255,255,.14)' : 'rgba(10,10,10,.10)';
   const e = mk(parent, `<div style="width:1628px;height:2px;background:${c};position:relative">
-     ${['钩子', '实测', '终结', '全品类', '打击', '快车道', '一小时', '行动'].map((n, i) => `<div style="position:absolute;left:${i / 7 * 100}%;top:-5px;width:2px;height:12px;background:${c}"></div>`).join('')}
+     ${['钩子', '示意', '终结', '全品类', '打击', '快车道', '一小时', '行动'].map((n, i) => `<div style="position:absolute;left:${i / 7 * 100}%;top:-5px;width:2px;height:12px;background:${c}"></div>`).join('')}
      <div class="rp" style="position:absolute;left:0;top:-7px;width:16px;height:16px;border-radius:50%;background:var(--blue);box-shadow:0 0 18px rgba(36,98,234,.9);transform:translateX(-50%)"></div></div>`, 146, 1058);
   e._p = e.querySelector('.rp'); return e;
 }
@@ -74,7 +74,7 @@ function raceAt(e, t, o = 1) {
 }
 
 /* =========================================================
-   S1  0 – 8.80  钩子：进入下一个阶段 · 别再死磕手动剪辑 · 实测 · 离谱
+   S1  0 – 8.80  钩子：进入下一个阶段 · 别再死磕手动剪辑 · 示意 · 离谱
    ========================================================= */
 (() => {
   const sc = new Scene(0, 8.80, 'var(--paper)', { grid: 'grid' });
@@ -101,12 +101,12 @@ function raceAt(e, t, o = 1) {
   const ph = tl.querySelector('.ph'), fc = tl.querySelector('.fc');
   const strike = mk(sc.el, `<div style="width:1100px;height:10px;background:#E5484D;border-radius:5px;transform-origin:0 50%"></div>`, 120, 712);
   const stop = mk(sc.el, `<div style="border:7px solid #E5484D;color:#E5484D;border-radius:18px;padding:6px 26px;font:800 74px -apple-system,'PingFang SC';letter-spacing:6px;transform:rotate(-8deg)">别再死磕</div>`, 900, 700, { ax: .5, ay: .5 });
-  // black flash: 实测 REC + 离谱
+  // black flash: 示意 REC + 离谱
   const blk = mk(sc.el, `<div style="width:1920px;height:1080px;background:#0A0A0A"><div class="gridD" style="position:absolute;inset:0"></div></div>`, 0, 0);
   const wbg = buildWall(sc.el);
   const shade = mk(sc.el, `<div style="width:1920px;height:1080px;background:linear-gradient(90deg,rgba(10,10,10,.92) 0%,rgba(10,10,10,.78) 38%,rgba(10,10,10,.30) 72%,rgba(10,10,10,.15) 100%)"></div>`, 0, 0);
   const bot = mk(sc.el, `<div style="width:1920px;height:1080px;background:linear-gradient(0deg,rgba(10,10,10,.96) 0%,rgba(10,10,10,.88) 16%,rgba(10,10,10,0) 36%)"></div>`, 0, 0);
-  const rec = mk(sc.el, `<div style="display:flex;align-items:center;gap:18px"><div class="rd" style="width:30px;height:30px;border-radius:50%;background:#E5484D;box-shadow:0 0 26px #E5484D"></div><div class="mono" style="font-size:34px;color:#fff;letter-spacing:4px">REC · 实测</div></div>`, 146, 250);
+  const rec = mk(sc.el, `<div style="display:flex;align-items:center;gap:18px"><div class="rd" style="width:30px;height:30px;border-radius:50%;background:#E5484D;box-shadow:0 0 26px #E5484D"></div><div class="mono" style="font-size:34px;color:#fff;letter-spacing:4px">REC · 示意</div></div>`, 146, 250);
   const rd = rec.querySelector('.rd');
   const k1 = words(sc.el, [{ h: '看完你就知道', t: 5.45 }], 146, 360, 'h2', { style: 'color:#fff' });
   const k2 = words(sc.el, [{ h: '现在的 AI 剪辑', t: 6.1 }], 146, 470, 'h2', { style: 'color:#fff' });
@@ -154,14 +154,14 @@ function raceAt(e, t, o = 1) {
 })();
 
 /* =========================================================
-   S2  8.80 – 25.90  实测：九宫格 · GPT/Claude 高亮 · 型号 · 全部试了 · 推理拉满 · Token 成本
+   S2  8.80 – 25.90  示意：九宫格 · GPT/对比组 A 高亮 · 型号 · 全部试了 · 推理拉满 · Token 成本
    ========================================================= */
 (() => {
   const sc = new Scene(8.80, 25.90, '#0A0A0A', { grid: 'gridD', trans: 'flash', td: .3, fa: .3 });
-  const T = tags(sc, '// 02 — 实测 · 同一段口播 · 9 个模型剪辑', '', true);
-  const G = [['opus55p', 'Claude Opus 5.5', '详细提示词', 'c'], ['gpt6pro', 'GPT 6 Pro', '', 'g'], ['gpt6astra', 'GPT 6 Astra Ultra', '', 'g'],
-             ['grok47', 'Grok 4.7', '', 'x'], ['opus55', 'Claude Opus 5.5', '一句话提示词', 'c', 1], ['gpt6sol', 'GPT 6 Sol', '', 'g'],
-             ['gpt56sol', 'GPT 5.6 Sol', '', 'g'], ['gpt56', 'GPT 5.6', '', 'g'], ['claude50', 'Claude 5.0', '', 'c']];
+  const T = tags(sc, '// 02 — 示意 · 同一段口播 · 9 个展示卡片', '', true);
+  const G = [['opus55p', '示例方案 A', '详细提示词', 'c'], ['gpt6pro', '示例方案 B', '', 'g'], ['gpt6astra', '示例方案 C', '', 'g'],
+             ['grok47', '示例方案 D', '', 'x'], ['opus55', '示例方案 A', '一句话提示词', 'c', 1], ['gpt6sol', '示例方案 E', '', 'g'],
+             ['gpt56sol', '示例方案 F', '', 'g'], ['gpt56', '示例方案 G', '', 'g'], ['claude50', '示例方案 H', '', 'c']];
   const CW = 356, CH = 200, GAP = 14, LBL = 38;
   const X0 = 150, Y0 = 110;
   const pos = i => [X0 + (i % 3) * (CW + GAP) + CW / 2, Y0 + Math.floor(i / 3) * (CH + LBL + GAP) + CH / 2];
@@ -177,7 +177,7 @@ function raceAt(e, t, o = 1) {
   const PX = 1500;
   const cam = camCard(sc.el, 250, 250, '', true);
   const hdr = mk(sc.el, `<div class="mono" style="font-size:22px;color:#777">// 同一段口播 · 9 个模型</div>`, PX - 130, 176);
-  const vend = mk(sc.el, `<div style="display:flex;gap:12px"><div class="chip vg" style="background:#1d1d1d;color:#bbb;border:1.5px solid #333">ChatGPT</div><div class="chip vc" style="background:#1d1d1d;color:#bbb;border:1.5px solid #333">Claude</div></div>`, PX - 130, 218);
+  const vend = mk(sc.el, `<div style="display:flex;gap:12px"><div class="chip vg" style="background:#1d1d1d;color:#bbb;border:1.5px solid #333">对比组 B</div><div class="chip vc" style="background:#1d1d1d;color:#bbb;border:1.5px solid #333">对比组 A</div></div>`, PX - 130, 218);
   const VG = vend.querySelector('.vg'), VC = vend.querySelector('.vc');
   const MOD = [['5.6', 15.2], ['6', 16.6], ['Pro', 17.75], ['Ultra', 18.62]];
   const mods = MOD.map((m, i) => mk(sc.el, `<div class="chip" style="background:var(--blue);color:#fff;font-size:30px;padding:10px 26px">${m[0]}</div>`, PX - 130 + [0, 104, 176, 290][i], 296));
@@ -235,24 +235,24 @@ function raceAt(e, t, o = 1) {
 })();
 
 /* =========================================================
-   S3  25.90 – 40.40  终结比赛 · Opus 5.5 放大 · 审片报告 · 30 分钟 · 上一条作品
+   S3  25.90 – 40.40  演示总结 · 方案 A 放大 · 审片报告 · 30 分钟 · 上一条作品
    ========================================================= */
 (() => {
   const sc = new Scene(25.90, 40.40, '#0A0A0A', { grid: 'gridD' });
-  const T = tags(sc, '// 03 — Claude Opus 5.5', '', true);
+  const T = tags(sc, '// 03 — 示例方案 A', '', true);
   const hero = vtile(sc.el, 1440, 810, 20, 'box-shadow:0 0 0 2px rgba(109,155,255,.55),0 40px 120px rgba(36,98,234,.35)');
   hero.firstChild.insertAdjacentHTML('beforeend', `<div class="scan" style="position:absolute;left:0;top:0;bottom:0;width:4px;background:#6d9bff;box-shadow:0 0 30px 6px rgba(109,155,255,.8);opacity:0"></div>
-     <div class="tg mono" style="position:absolute;left:22px;top:18px;background:rgba(10,10,10,.7);color:#fff;font-size:20px;padding:6px 14px;border-radius:8px">Claude Opus 5.5 · 一句话提示词 · 成片</div>`);
+     <div class="tg mono" style="position:absolute;left:22px;top:18px;background:rgba(10,10,10,.7);color:#fff;font-size:20px;padding:6px 14px;border-radius:8px">示例方案 A · 一句话提示词 · 成片</div>`);
   const scan = hero.querySelector('.scan');
   const end = words(sc.el, [{ h: '终结', t: 29.0, k: 'slam', d: .45 }, { h: '比赛。', t: 30.3, k: 'slam', d: .45, st: 'color:#6d9bff' }], 960, 230, 'h1', { ax: .5, style: 'color:#fff;font-size:170px;text-align:center' });
   const board = mk(sc.el, `<div style="background:#0A0A0A;border:2px solid #333;border-radius:20px;padding:26px 40px;display:flex;align-items:center;gap:36px;box-shadow:0 30px 90px rgba(0,0,0,.6)">
-     <div><div class="mono" style="font-size:20px;color:#777;letter-spacing:3px">FINAL · 比赛结束</div><div style="font:700 70px -apple-system,'PingFang SC';color:#fff;margin-top:6px">Claude <span style="color:#6d9bff">Opus 5.5</span></div></div>
+     <div><div class="mono" style="font-size:20px;color:#777;letter-spacing:3px">DEMO · 示意比较</div><div style="font:700 70px -apple-system,'PingFang SC';color:#fff;margin-top:6px">对比组 A <span style="color:#6d9bff">方案 A</span></div></div>
      <div style="width:2px;height:110px;background:#333"></div>
      <div class="mono" style="font-size:96px;font-weight:700;color:#6d9bff">No.1</div></div>`, 960, 660, { ax: .5, ay: .5 });
   const vs = mk(sc.el, `<div style="display:flex;align-items:center;gap:26px">
      <div class="dcard" style="width:400px;height:140px"><div class="lb">// 多年专业剪辑师</div><div style="position:absolute;left:28px;top:64px;font:600 44px -apple-system,'PingFang SC';color:#fff">人类 · 专业</div></div>
      <div style="font:600 34px -apple-system,'PingFang SC';color:#6d9bff">完全不输</div>
-     <div class="dcard" style="width:400px;height:140px;border-color:#2462EA"><div class="lb" style="color:#6d9bff">// AI</div><div style="position:absolute;left:28px;top:64px;font:600 44px -apple-system,'PingFang SC';color:#fff">Opus 5.5</div></div></div>`, 650, 810, { ax: .5, ay: .5 });
+     <div class="dcard" style="width:400px;height:140px;border-color:#2462EA"><div class="lb" style="color:#6d9bff">// AI</div><div style="position:absolute;left:28px;top:64px;font:600 44px -apple-system,'PingFang SC';color:#fff">方案 A</div></div></div>`, 650, 810, { ax: .5, ay: .5 });
   const ring = mk(sc.el, `<div style="position:relative;width:250px;height:250px">
      <svg width="250" height="250" viewBox="0 0 250 250" style="position:absolute;inset:0;transform:rotate(-90deg)"><circle cx="125" cy="125" r="108" fill="none" stroke="#2a2a2a" stroke-width="12"/><circle class="rc" cx="125" cy="125" r="108" fill="none" stroke="#2462EA" stroke-width="12" stroke-linecap="round" stroke-dasharray="678.6" stroke-dashoffset="678.6"/></svg>
      <div class="mono rt" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:56px;font-weight:600;color:#fff">00:00</div>
@@ -300,7 +300,7 @@ function raceAt(e, t, o = 1) {
 })();
 
 /* =========================================================
-   S4  40.40 – 52.70  全品类：四品类 · 389 条 Opus 5.5 作品墙（GitHub） · 不是流水线 · 镜头语言 · 叙事节奏
+   S4  40.40 – 52.70  全品类：四品类 · 389 条 方案 A 作品墙（GitHub） · 不是流水线 · 镜头语言 · 叙事节奏
    ========================================================= */
 (() => {
   const sc = new Scene(40.40, 52.70, 'var(--paper)', { grid: 'grid', trans: 'circle', tc: '#F7F7F5', td: .55, cx: 1600, cy: 820 });
@@ -314,7 +314,7 @@ function raceAt(e, t, o = 1) {
        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:14px"><div style="font:600 38px -apple-system,'PingFang SC'">${c[0]}</div><div class="mono" style="font-size:18px;color:#8C8C8C">${c[3]}</div></div></div>`, 146 + CWD / 2 + i * (CWD + 16), 610, { ax: .5, ay: .5 });
     e._img = e.querySelector('img'); return e;
   });
-  // ---- the wall: all Opus 5.5 videos from github (389) ----
+  // ---- the wall: all 方案 A videos from github (389) ----
   const N = WALL.length, COLS = 27, TW = 128, TH = 72, GP = 6;
   const ROWS = Math.ceil(N / COLS);
   const wallW = COLS * (TW + GP) - GP, wallH = ROWS * (TH + GP) - GP;
@@ -328,7 +328,7 @@ function raceAt(e, t, o = 1) {
   const gh = mk(sc.el, `<div style="display:flex;align-items:center;gap:16px;background:#0A0A0A;color:#fff;border-radius:18px;padding:16px 28px;box-shadow:0 20px 60px rgba(0,0,0,.35)">
      <svg width="38" height="38" viewBox="0 0 16 16" fill="#fff"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
      <div><div class="mono" style="font-size:20px;color:#aaa">// 网络优秀作品收集 · 非个人原创</div>
-     <div style="font:600 34px -apple-system,'PingFang SC';margin-top:2px"><span class="wn" style="color:#6d9bff">0</span> 条 · 全部由 Claude Opus 5.5 生成</div></div></div>`, 960, 150, { ax: .5, ay: .5 });
+     <div style="font:600 34px -apple-system,'PingFang SC';margin-top:2px"><span class="wn" style="color:#6d9bff">0</span> 条 · 示例素材 · 请填写实际来源</div></div></div>`, 960, 150, { ax: .5, ay: .5 });
   const wn = gh.querySelector('.wn');
   const qa = words(sc.el, [{ h: '全能靠 AI', t: 45.9 }, { h: '共创出', t: 46.6 }, { h: '高质量成片。', t: 47.3, st: 'color:#6d9bff' }], 960, 470, 'h1', { ax: .5, style: 'color:#fff;text-align:center;font-size:100px;text-shadow:0 10px 60px rgba(0,0,0,.9)' });
   // template conveyor (not this)
@@ -400,7 +400,7 @@ function raceAt(e, t, o = 1) {
 })();
 
 /* =========================================================
-   S5  52.70 – 69.40  打击：震撼也是打击 · AI 产品开发者 · 阿杜导演 · 格局改写
+   S5  52.70 – 69.40  打击：震撼也是打击 · AI 产品开发者 · 示例软件 · 格局改写
    ========================================================= */
 (() => {
   const sc = new Scene(52.70, 69.40, '#0A0A0A', { grid: 'gridD', trans: 'blur', td: .5 });
@@ -412,19 +412,19 @@ function raceAt(e, t, o = 1) {
   const ckP = [...s2.querySelectorAll('path')];
   const id = mk(sc.el, `<div style="display:flex;align-items:center;gap:22px">
      <img src="assets/app-logo.png" style="width:120px;height:120px;border-radius:28px;box-shadow:0 12px 30px rgba(0,0,0,.5)">
-     <div><div class="mono" style="font-size:24px;color:#777">// 我自己就是在做</div><div style="font:600 96px -apple-system,'PingFang SC';color:#fff;letter-spacing:-1px">AI 产品的开发者</div></div></div>`, 146, 400);
+     <div><div class="mono" style="font-size:24px;color:#777">// 示例身份标签</div><div style="font:600 96px -apple-system,'PingFang SC';color:#fff;letter-spacing:-1px">示例创作者</div></div></div>`, 146, 400);
   // software window
-  const win = macWin(sc.el, 1040, 668, `<img src="assets/app-logo.png" style="width:24px;height:24px;border-radius:6px">阿杜导演 · ADu Director`);
+  const win = macWin(sc.el, 1040, 668, `<img src="assets/app-logo.png" style="width:24px;height:24px;border-radius:6px">示例软件 · Example App`);
   const FEAT = [['AI 匹配', '镜头 · 动画 · 音效 · 素材 · 一键自动匹配', 58.3], ['模板库', '预设 / 素材模板 / Lottie 动效 / 定制动画', 61.3]];
   const fts = FEAT.map((f, i) => { const e = mk(sc.el, `<div class="glassD" style="width:540px;padding:18px 26px;border-radius:18px"><div style="font:600 32px -apple-system,'PingFang SC';color:#fff">${f[0]}</div><div class="mono" style="font-size:19px;color:#8C8C8C;margin-top:4px">${f[1]}</div></div>`, 1262, 300 + i * 118); return e; });
   const ffb = mk(sc.el, `<div class="chip" style="background:rgba(36,98,234,.18);color:#6d9bff;border:1.5px solid rgba(109,155,255,.4);font:600 22px ui-monospace,monospace">▶▶ 2.4×</div>`, 1262, 566);
   const tl = mk(sc.el, `<div class="mono" style="font-size:22px;color:#777">// 今年年初 · 一直在死磕</div>`, 146, 140);
   const ttl = mk(sc.el, `<div style="font:600 64px -apple-system,'PingFang SC';color:#fff">AI 自动剪辑工具</div>`, 146, 175);
-  const why = mk(sc.el, `<div class="chip" style="background:#1d1d1d;color:#ddd;border:1.5px solid #333;font-size:28px">因为我自己是博主 · 剪辑<span style="color:#E5484D">太费时间</span></div>`, 1262, 640);
+  const why = mk(sc.el, `<div class="chip" style="background:#1d1d1d;color:#ddd;border:1.5px solid #333;font-size:28px">示例痛点 · 制作<span style="color:#E5484D">太费时间</span></div>`, 1262, 640);
   // takeover
   const opus = vtile(sc.el, 1180, 664, 16, 'box-shadow:0 0 0 3px #2462EA,0 40px 120px rgba(36,98,234,.45)');
-  const upd = mk(sc.el, `<div class="chip" style="background:var(--blue);color:#fff;font-size:30px;padding:12px 28px">Claude · 这波版本更新</div>`, 960, 150, { ax: .5, ay: .5 });
-  const lanes = mk(sc.el, `<div style="position:relative;width:1628px;height:300px">${['Claude Opus 5.5', '阿杜导演', '传统剪辑'].map((n, i) => `<div class="ln" style="position:absolute;left:0;top:${i * 100}px;width:100%;height:80px;border-radius:14px;background:#141414;border:1.5px solid #262626">
+  const upd = mk(sc.el, `<div class="chip" style="background:var(--blue);color:#fff;font-size:30px;padding:12px 28px">对比组 A · 这波版本更新</div>`, 960, 150, { ax: .5, ay: .5 });
+  const lanes = mk(sc.el, `<div style="position:relative;width:1628px;height:300px">${['示例方案 A', '示例软件', '传统剪辑'].map((n, i) => `<div class="ln" style="position:absolute;left:0;top:${i * 100}px;width:100%;height:80px;border-radius:14px;background:#141414;border:1.5px solid #262626">
       <div class="lf" style="position:absolute;left:0;top:0;bottom:0;border-radius:14px;background:${i === 0 ? 'var(--blue)' : i === 1 ? '#3a3a3a' : '#262626'};width:0"></div>
       <div style="position:absolute;left:24px;top:0;line-height:80px;font:600 32px -apple-system,'PingFang SC';color:#fff">${n}</div><div class="mono lp" style="position:absolute;right:24px;top:0;line-height:80px;font-size:26px;color:#fff">P${i + 1}</div></div>`).join('')}</div>`, 146, 500);
   const lf = [...lanes.querySelectorAll('.lf')];
@@ -452,7 +452,7 @@ function raceAt(e, t, o = 1) {
     fts.forEach((e, i) => { show(e, t, FEAT[i][2], { k: 'right', dist: 90, out: 66.2 }); if (t >= (FEAT[i + 1] || [0, 0, 999])[2]) e.style.opacity = (+e.style.opacity * .45).toFixed(3); });
     show(ffb, t, 61.45, { k: 'pop', out: 66.2 });
     show(why, t, 61.27, { k: 'up', out: 66.2 });
-    // takeover by Claude update
+    // takeover by 对比组 A update
     const oIn = EZ.inout(pr(t, 66.37, 67.0));
     setFrame(opus._img, seqAt('opus_hero', 960, 60, t, 66.37 - 4));
     place(opus, { x: 960, y: 560, o: clamp(oIn * 2) * (1 - pr(t, 67.3, 67.6)), s: lerp(1.25, .9, oIn) - .1 * pr(t, 67.3, 67.6), blur: (1 - oIn) * 12 });
@@ -470,7 +470,7 @@ function raceAt(e, t, o = 1) {
 })();
 
 /* =========================================================
-   S6  69.40 – 78.10  快车道：迭代速度 · ChatGPT 和国内大模型跟上 · 启动 AI 账号
+   S6  69.40 – 78.10  快车道：迭代速度 · 对比组 B 和对比组 C跟上 · 启动 AI 账号
    ========================================================= */
 (() => {
   const sc = new Scene(69.40, 78.10, 'var(--blue)', { grid: 'gridB', trans: 'wipe', tc: '#2462EA' });
@@ -484,7 +484,7 @@ function raceAt(e, t, o = 1) {
      <div class="mono" style="position:absolute;left:0;top:92px;font-size:18px;color:rgba(255,255,255,.7)">2023</div><div class="mono" style="position:absolute;right:0;top:92px;font-size:18px;color:#fff">NOW</div></div>`, 146, 270);
   const tks = [...tlx.querySelectorAll('.tk')];
   // highway lanes
-  const LN = [['Claude Opus 5.5', '#fff', '#2462EA', .82], ['ChatGPT', 'rgba(255,255,255,.2)', '#fff', .64], ['国内大模型', 'rgba(255,255,255,.2)', '#fff', .55]];
+  const LN = [['示例方案 A', '#fff', '#2462EA', .82], ['对比组 B', 'rgba(255,255,255,.2)', '#fff', .64], ['对比组 C', 'rgba(255,255,255,.2)', '#fff', .55]];
   const hw = mk(sc.el, `<div style="position:relative;width:1628px;height:330px;overflow:hidden;border-radius:22px;background:rgba(10,10,10,.22)">
      <div class="sl" style="position:absolute;inset:0"></div>
      ${LN.map((l, i) => `<div style="position:absolute;left:0;right:0;top:${20 + i * 104}px;height:84px;border-bottom:2px dashed rgba(255,255,255,.18)"></div>
@@ -498,7 +498,7 @@ function raceAt(e, t, o = 1) {
      <div style="display:flex;align-items:center;gap:34px">
        <img src="assets/presenter.png" style="width:170px;height:170px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 6px #fff,0 0 0 9px #2462EA">
        <div style="flex:1"><div class="mono" style="font-size:20px;color:#8C8C8C">// 第一时间 · 启动</div>
-         <div style="font:700 76px -apple-system,'PingFang SC';letter-spacing:-1.5px;line-height:1.1">阿杜<span style="color:var(--blue)">Next</span></div>
+         <div style="font:700 76px -apple-system,'PingFang SC';letter-spacing:-1.5px;line-height:1.1">示例<span style="color:var(--blue)">品牌</span></div>
          <div style="font:500 27px -apple-system,'PingFang SC';color:#3a3a3a;margin-top:6px">创作者简介 · 请按本期内容填写</div></div>
        <div class="sw" style="width:130px;height:74px;border-radius:37px;background:#E7E7E4;position:relative;flex:none"><div class="kn" style="position:absolute;top:7px;left:7px;width:60px;height:60px;border-radius:50%;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.25)"></div></div></div>
      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px">
@@ -554,7 +554,7 @@ function raceAt(e, t, o = 1) {
        <circle cx="260" cy="260" r="210" fill="none" stroke="#E7E7E4" stroke-width="54"/>
        <circle class="rw" cx="260" cy="260" r="210" fill="none" stroke="#0A0A0A" stroke-width="54" stroke-dasharray="1319.5" stroke-dashoffset="1319.5"/>
        <circle class="ra" cx="260" cy="260" r="210" fill="none" stroke="#2462EA" stroke-width="64" stroke-dasharray="0 1319.5"/></svg>
-     <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="mono" style="font-size:22px;color:#8C8C8C">// 每天 24h</div><div style="font:600 50px -apple-system,'PingFang SC'">AI 开发工作</div><div style="font:600 40px -apple-system,'PingFang SC';color:var(--blue)">+ 1h 阿杜Next</div></div></div>`, 1470, 560, { ax: .5, ay: .5 });
+     <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="mono" style="font-size:22px;color:#8C8C8C">// 每天 24h</div><div style="font:600 50px -apple-system,'PingFang SC'">AI 开发工作</div><div style="font:600 40px -apple-system,'PingFang SC';color:var(--blue)">+ 1h 示例创作者</div></div></div>`, 1470, 560, { ax: .5, ay: .5 });
   const rw = ring.querySelector('.rw'), ra = ring.querySelector('.ra');
   const work = mk(sc.el, `<div style="position:relative;width:420px;height:747px;border-radius:26px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.25)"><img style="width:100%;height:100%;object-fit:cover;display:block">
      <div class="mono" style="position:absolute;left:18px;top:16px;background:rgba(10,10,10,.6);color:#fff;font-size:19px;padding:6px 14px;border-radius:30px">// 日常 · AI 开发工作</div></div>`, 640, 520, { ax: .5, ay: .5 });
@@ -618,7 +618,7 @@ function raceAt(e, t, o = 1) {
   const endc = mk(sc.el, `<div style="width:1920px;height:1080px;background:var(--paper)"><div class="grid" style="position:absolute;inset:0"></div></div>`, 0, 0);
   const lg = mk(sc.el, `<div style="display:flex;align-items:center;gap:34px">
      <img src="assets/presenter.png" style="width:220px;height:220px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 7px #fff,0 0 0 10px #2462EA,0 20px 60px rgba(36,98,234,.3)">
-     <div><div style="font:700 110px -apple-system,'PingFang SC';letter-spacing:-3px;line-height:1">阿杜<span style="color:var(--blue)">Next</span></div>
+     <div><div style="font:700 110px -apple-system,'PingFang SC';letter-spacing:-3px;line-height:1">示例<span style="color:var(--blue)">品牌</span></div>
      <div style="font:500 34px -apple-system,'PingFang SC';color:#6B6B6B;margin-top:14px">创作与技术 · 示例品牌说明</div></div></div>`, 146, 330);
   const cm = mk(sc.el, `<div style="display:flex;align-items:center;gap:18px;background:#fff;border:1.5px solid #E7E7E4;border-radius:22px;padding:22px 30px;box-shadow:0 20px 50px rgba(0,0,0,.08)">
      <div style="width:56px;height:56px;border-radius:50%;background:#0A0A0A;color:#fff;display:flex;align-items:center;justify-content:center;font:600 28px -apple-system">💬</div>
@@ -718,11 +718,11 @@ function raceAt(e, t, o = 1) {
 (() => {
   const sc = new Scene(102.92, 108.40, '#0A0A0A', { grid: 'gridD', trans: 'flash', td: .3, fa: .4 });
   const T = tags(sc, '// 09 — 制作说明', '', true);
-  const head = words(sc.el, [{ h: '本视频由&nbsp;', t: 103.15 }, { h: 'Claude Opus 5.5', t: 103.45, st: 'color:#6d9bff' }, { h: '&nbsp;制作', t: 103.85 }], 146, 170, 'h2', { style: 'color:#fff' });
+  const head = words(sc.el, [{ h: '制作工具：&nbsp;', t: 103.15 }, { h: '示例方案 A', t: 103.45, st: 'color:#6d9bff' }, { h: '&nbsp;制作', t: 103.85 }], 146, 170, 'h2', { style: 'color:#fff' });
   const chips = mk(sc.el, `<div style="display:flex;gap:14px">
-     <div class="chip" style="background:var(--blue);color:#fff;font-size:28px">无 skill</div>
+     <div class="chip" style="background:var(--blue);color:#fff;font-size:28px">adu-motion-video</div>
      <div class="chip" style="background:#1d1d1d;color:#ddd;border:1.5px solid #333;font-size:28px">动画 · 配乐 · 音效 全部由代码生成</div></div>`, 150, 300);
-  const PROMPT = '你是一名顶级动效设计师。根据这段口播和字幕，按最高标准制作 16:9 配套动画视频：真人口播为主线，每句话配上画面、排版、动效和转场，加原创配乐与音效，口型严格对齐。';
+  const PROMPT = '使用 adu-motion-video，根据提供的文案、口播与素材制作横屏视频。选择现代图文动效，按语义编排动作，保留清楚的中英字幕，先检查短片再导出成片。';
   const term = mk(sc.el, `<div class="glassD" style="width:1628px;padding:30px 40px 36px">
      <div style="display:flex;align-items:center;gap:9px;margin-bottom:22px"><i style="width:13px;height:13px;border-radius:50%;background:#ff5f57;display:block"></i><i style="width:13px;height:13px;border-radius:50%;background:#febc2e;display:block"></i><i style="width:13px;height:13px;border-radius:50%;background:#28c840;display:block"></i>
        <span class="mono" style="margin-left:16px;font-size:20px;color:#777">// 核心提示词 · prompt</span></div>
@@ -731,7 +731,7 @@ function raceAt(e, t, o = 1) {
   const pt = term.querySelector('.pt');
   const sig = mk(sc.el, `<div style="display:flex;align-items:center;gap:16px">
      <img src="assets/presenter.png" style="width:64px;height:64px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 3px #2462EA">
-     <div style="font:600 32px -apple-system,'PingFang SC';color:#fff">阿杜<span style="color:#6d9bff">Next</span><span class="mono" style="font-size:20px;color:#777;margin-left:18px">// 提示词可以直接复制去试</span></div></div>`, 146, 850);
+     <div style="font:600 32px -apple-system,'PingFang SC';color:#fff">示例<span style="color:#6d9bff">品牌</span><span class="mono" style="font-size:20px;color:#777;margin-left:18px">// 提示词可以直接复制去试</span></div></div>`, 146, 850);
   const T0 = 104.35, T1 = 106.75;
   sc.update = t => {
     T(t); place(sc._tags[1], { o: pr(t, 102.95, 103.2) });
@@ -739,7 +739,7 @@ function raceAt(e, t, o = 1) {
     show(term, t, 104.1, { k: 'up', dist: 60 });
     const n = Math.floor(clamp((t - T0) / (T1 - T0)) * PROMPT.length);
     const cur = (t < T1 + .2 || Math.floor(t * 2.4) % 2) ? '<span style="display:inline-block;width:3px;height:40px;background:#6d9bff;vertical-align:-6px;margin-left:4px"></span>' : '';
-    pt.innerHTML = PROMPT.slice(0, n).replace(/(Claude|16:9)/g, '<span style="color:#6d9bff">$1</span>') + (t >= T0 - .2 ? cur : '');
+    pt.innerHTML = PROMPT.slice(0, n).replace(/(对比组 A|16:9)/g, '<span style="color:#6d9bff">$1</span>') + (t >= T0 - .2 ? cur : '');
     show(sig, t, 107.0, { k: 'up' });
   };
   sc.cam = t => ({ x: 960, y: 540, z: 1 + .015 * EZ.out(pr(t, 102.92, 108.4)) });

@@ -1,25 +1,25 @@
 /* ============================================================
-   AI 时代，为什么一定要换 Mac   —  82s  —  voice: 9月26日.mp3
+   Card-layout motion recipes — illustrative copy, replace with your own script
    Design: white / blue / black system; real talking-head "on air" card
-   travels between layouts; cartoon Adu & parrot appear only as accents.
+   travels between layouts; cartoon presenter & sidekick appear only as accents.
    ============================================================ */
 window.END = 81.9;
 
 /* shared: persistent on-air cam card lives in every scene (own instance) */
-function camCard(parent, w, h, label = '// on air · 阿杜') {
+function camCard(parent, w, h, label = '// on air · 创作者') {
   const e = mk(parent, `<div class="cam" style="width:${w}px;height:${h}px"><img><div class="lab"><span style="color:#6d9bff">●</span> ${label}</div></div>`, 0, 0, { ax: .5, ay: .5 });
   e._img = e.querySelector('img'); return e;
 }
 function camAt(e, t, o) { setFrame(e._img, talkSrc(t)); place(e, o); }
 
-/* ---------- S1  0 – 3.3  HOOK : 为什么一定要把电脑换成 Mac ---------- */
+/* ---------- S1  0 – 3.3  HOOK : 用变化前后的对比建立开场 ---------- */
 (() => {
   const sc = new Scene(0, 3.3, 'var(--paper)', { grid: 'grid' });
   const T = tags(sc, '// 01 — 开场');
   const cam = camCard(sc.el, 540, 960);
   const k = mk(sc.el, `<div class="tag" style="font-size:26px">// AI 时代</div>`, 146, 300);
   const l1 = words(sc.el, [{ h: '为什么', t: .6 }, { h: '一定要', t: .95 }], 146, 350, 'h1');
-  const l2 = words(sc.el, [{ h: '把电脑换成&nbsp;', t: 1.95 }, { h: '<span class="acc" style="font-size:190px;font-weight:700;letter-spacing:-6px">Mac</span>', t: 2.35, k: 'slam', d: .5 }], 146, 480, 'h1', { style: 'display:flex;align-items:baseline' });
+  const l2 = words(sc.el, [{ h: '让工作进入&nbsp;', t: 1.95 }, { h: '<span class="acc" style="font-size:190px;font-weight:700;letter-spacing:-6px">新阶段</span>', t: 2.35, k: 'slam', d: .5 }], 146, 480, 'h1', { style: 'display:flex;align-items:baseline' });
   const mac = img(sc.el, 'x_macbook.png', 1100, 930, 250);
   sc.update = t => {
     T(t);
@@ -36,16 +36,16 @@ function camAt(e, t, o) { setFrame(e._img, talkSrc(t)); place(e, o); }
 /* ---------- S2  3.3 – 11.9  老用户 · Win95 · 学习网站 · 杀毒重装 ---------- */
 (() => {
   const sc = new Scene(3.3, 11.9, '#0A0A0A', { grid: 'gridD', trans: 'wipe', td: .45, tc: '#0A0A0A' });
-  const T = tags(sc, '// 02 — 我的 Windows 年代', '', true);
+  const T = tags(sc, '// 02 — 旧环境演示', '', true);
   const cam = camCard(sc.el, 360, 640);
-  const y1 = mk(sc.el, `<div style="color:#fff"><div class="mono" style="font-size:26px;color:#777">// Windows 老用户 · 从</div><div style="font-size:250px;font-weight:600;letter-spacing:-10px;line-height:1">19<span class="yy">95</span></div></div>`, 146, 230);
+  const y1 = mk(sc.el, `<div style="color:#fff"><div class="mono" style="font-size:26px;color:#777">// 示意时间轴 · 从</div><div style="font-size:250px;font-weight:600;letter-spacing:-10px;line-height:1">19<span class="yy">95</span></div></div>`, 146, 230);
   const yy = y1.querySelector('.yy');
   // CRT with Win95 desktop, pop-ups swarm
   const crt = img(sc.el, 'x_crt.png', 1180, 1000, 640, { ic: 'chD' });
   const pops = [['恭喜中奖！', '点击领取 iPhone'], ['警告', '发现 23 个病毒'], ['系统提示', '电脑运行缓慢'], ['免费下载', '高速下载器'], ['错误', 'explorer.exe 已停止'], ['安全中心', '立即修复！'], ['屠龙宝刀', '点击就送']];
   const pe = pops.map((p, i) => mk(sc.el, `<div class="win95" style="width:330px"><div class="tb"><span>${p[0]}</span><span class="bt"><span>_</span><span>□</span><span>×</span></span></div><div style="padding:12px 14px;font-size:22px">⚠ ${p[1]}<div style="text-align:center;margin-top:8px"><span class="b95">确定</span></div></div></div>`, 0, 0, { ax: .5, ay: .5 }));
   const PP = [[980, 330], [1400, 290], [1040, 520], [1500, 520], [1200, 420], [960, 700], [1450, 740]];
-  const lb = mk(sc.el, `<div class="pill" style="background:#E5484D;color:#fff;font-size:30px">十几岁 · 不小心点开了「学习网站」</div>`, 146, 560);
+  const lb = mk(sc.el, `<div class="pill" style="background:#E5484D;color:#fff;font-size:30px">示意界面 · 通知与错误干扰</div>`, 146, 560);
   const skills = mk(sc.el, `<div style="color:#fff"><div class="mono" style="font-size:26px;color:#777">// 被迫学会的技能</div>
      <div style="display:flex;gap:18px;margin-top:16px"><div class="dcard" style="width:300px;height:170px"><div class="lb">// skill 01</div><div style="position:absolute;left:24px;bottom:22px;font-size:52px;font-weight:600">杀毒</div></div>
      <div class="dcard" style="width:300px;height:170px"><div class="lb">// skill 02</div><div style="position:absolute;left:24px;bottom:22px;font-size:52px;font-weight:600">重装系统</div></div></div>
@@ -106,22 +106,22 @@ function camAt(e, t, o) { setFrame(e._img, talkSrc(t)); place(e, o); }
   S(16.97, 'crash', 1); S(17.87, 'card', .6, .6); S(18.0, 'counter', .5, .6, { d: 1.4 }); S(18.77, 'thud', .7); S(18.9, 'counter', .45, -.4, { d: 1.4 });
 })();
 
-/* ---------- S4  20.67 – 28.37  换成 Mac · 用户系统完整保存 ---------- */
+/* ---------- S4  20.67 – 28.37  迁移到新环境 · 用户系统完整保存 ---------- */
 (() => {
   const sc = new Scene(20.67, 28.37, 'var(--paper)', { grid: 'grid', trans: 'flash', td: .35, fa: 1 });
-  const T = tags(sc, '// 04 — 换成 Mac');
+  const T = tags(sc, '// 04 — 迁移到新环境');
   const hello = mk(sc.el, `<div style="font-family:'Snell Roundhand','Apple Chancery',cursive;font-size:280px;color:var(--ink);line-height:1">hello</div>`, 960, 460, { ax: .5, ay: .5 });
-  const ten = mk(sc.el, `<div style="text-align:center"><div class="mono" style="font-size:26px;color:var(--g1)">// 十几年前 · 我换成了 Mac</div></div>`, 960, 700, { ax: .5, ay: .5 });
+  const ten = mk(sc.el, `<div style="text-align:center"><div class="mono" style="font-size:26px;color:var(--g1)">// 示意流程 · 账号资料迁移</div></div>`, 960, 700, { ax: .5, ay: .5 });
   const cam = camCard(sc.el, 400, 711);
-  // migration timeline: 4 Macs, one account card travels through
-  const yrs = [['2013', 'MacBook Air'], ['2017', 'MacBook Pro'], ['2021', 'M1 Pro'], ['2025', 'M4 Max']];
+  // migration timeline: 4 devices, one account card travels through
+  const yrs = [['阶段 1', '设备 A'], ['阶段 2', '设备 B'], ['阶段 3', '设备 C'], ['阶段 4', '设备 D']];
   const ms = yrs.map((y, i) => mk(sc.el, `<div style="text-align:center;width:280px"><img src="assets/x_macbook.png" style="width:240px;filter:drop-shadow(0 16px 20px rgba(0,0,0,.14))"><div style="font-size:44px;font-weight:600;letter-spacing:-1px;margin-top:6px">${y[0]}</div><div class="mono" style="font-size:20px;color:var(--g1)">${y[1]}</div></div>`, 190 + i * 310, 610, { ax: .5, ay: .5 }));
   const line = mk(sc.el, `<div style="width:930px;height:4px;background:var(--line);border-radius:2px"><div class="f" style="height:100%;width:0;background:var(--blue);border-radius:2px"></div></div>`, 190, 640, { ay: .5 });
   const lf = line.querySelector('.f');
-  const acct = mk(sc.el, `<div class="card" style="width:240px;padding:18px 20px;border:2px solid var(--blue);box-shadow:0 16px 36px rgba(36,98,234,.25)"><div class="mono" style="font-size:17px;color:var(--g1)">// 我的用户系统</div><div style="font-size:30px;font-weight:600;margin-top:4px">阿杜 · 2013 →</div><div class="mono" style="font-size:17px;color:var(--blue);margin-top:4px">照片 · 设置 · 软件</div></div>`, 0, 0, { ax: .5, ay: .5 });
-  const t1 = words(sc.el, [{ h: '十几年前的用户系统，', t: 23.8 }], 146, 150, 'h2');
+  const acct = mk(sc.el, `<div class="card" style="width:240px;padding:18px 20px;border:2px solid var(--blue);box-shadow:0 16px 36px rgba(36,98,234,.25)"><div class="mono" style="font-size:17px;color:var(--g1)">// 示例账户资料</div><div style="font-size:30px;font-weight:600;margin-top:4px">示例账户 · 起点 →</div><div class="mono" style="font-size:17px;color:var(--blue);margin-top:4px">照片 · 设置 · 软件</div></div>`, 0, 0, { ax: .5, ay: .5 });
+  const t1 = words(sc.el, [{ h: '已有的用户资料，', t: 23.8 }], 146, 150, 'h2');
   const t2 = words(sc.el, [{ h: '至今', t: 25.5 }, { h: '<span class="acc">完整保存。</span>', t: 25.8 }], 146, 260, 'h1');
-  const mig = mk(sc.el, `<div class="pill" style="background:#0A0A0A;color:#fff;font-size:26px">迁移助理 · 一键搬到新 Mac</div>`, 146, 930);
+  const mig = mk(sc.el, `<div class="pill" style="background:#0A0A0A;color:#fff;font-size:26px">示意动作 · 资料迁移到新设备</div>`, 146, 930);
   const bird = img(sc.el, 'b_fly.png', 0, 0, 150);
   sc.update = t => {
     T(t);
@@ -132,7 +132,7 @@ function camAt(e, t, o) { setFrame(e._img, talkSrc(t)); place(e, o); }
     wordsAt(t1, t); wordsAt(t2, t);
     const L = EZ.inout(pr(t, 24.3, 27.3)); lf.style.width = (L * 100) + '%'; place(line, { o: pr(t, 24.0, 24.3) });
     ms.forEach((m, i) => show(m, t, 24.0 + i * .18, { k: 'up' }));
-    // account card hops above each Mac as the line reaches it
+    // account card hops above each device as the line reaches it
     const seg = L * 3, i0 = Math.min(2, Math.floor(seg)), f = seg - i0;
     const ax = 190 + (i0 + EZ.inout(clamp(f))) * 310, ay = 540 - Math.sin(clamp(f) * Math.PI) * 60;
     place(acct, { o: pr(t, 24.3, 24.6), x: t < 24.3 ? 190 : ax, y: t < 24.3 ? 540 : ay });
@@ -146,26 +146,26 @@ function camAt(e, t, o) { setFrame(e._img, talkSrc(t)); place(e, o); }
   [24.0, 24.18, 24.36, 24.54].forEach((tt, i) => S(tt, 'pop', .5, -.6 + i * .3)); S(24.3, 'slide', .5, 0, { d: 3 }); S(24.5, 'flap', .7, -.6); S(26.6, 'pop', .5);
 })();
 
-/* ---------- S5  28.37 – 36.8  专注 · 大佬清一色 Mac · 专业软件 · 注意力 ---------- */
+/* ---------- S5  28.37 – 36.8  专注 · 任务与专注 · 专业软件 · 注意力 ---------- */
 (() => {
   const sc = new Scene(28.37, 36.8, 'var(--paper)', { grid: 'grid', trans: 'wipe', td: .45, tc: '#2462EA' });
   const T = tags(sc, '// 05 — 专注');
   const cam = camCard(sc.el, 440, 782);
   const nts = [['🔔', '#FF9F0A', '有 12 条新通知'], ['🔄', '#0A84FF', '需要重启以安装更新'], ['🧹', '#30D158', '磁盘空间不足'], ['📢', '#FF375F', '弹窗广告'], ['⚙️', '#8E8E93', '驱动程序已过期'], ['🛡️', '#5E5CE6', '安全软件拦截']];
   const ne = nts.map(n => mk(sc.el, `<div class="notif glass"><div class="ic" style="background:${n[1]}">${n[0]}</div>${n[2]}</div>`, 0, 0, { ax: .5, ay: .5 }));
-  const f1 = words(sc.el, [{ h: 'Mac 最大的优点：', t: 28.45 }], 146, 200, 'h2', { style: 'color:var(--g1)' });
+  const f1 = words(sc.el, [{ h: '理想工作环境：', t: 28.45 }], 146, 200, 'h2', { style: 'color:var(--g1)' });
   const f2 = words(sc.el, [{ h: '让你', t: 29.5 }, { h: '<span class="acc">专注</span>', t: 29.8, k: 'pop' }, { h: '工作。', t: 30.2 }], 146, 310, 'h1');
   const focus = mk(sc.el, `<div class="pill" style="background:#0A0A0A;color:#fff;font-size:28px">🌙 专注模式 · 已开启</div>`, 150, 500);
   // big shots
   const who = ['科技博主', '程序员', '设计师', '创业者', '投资人', '剪辑师'];
   const we = who.map((w, i) => mk(sc.el, `<div class="card" style="width:250px;height:140px"><div class="lb">// ${String(i + 1).padStart(2, '0')}</div><div style="position:absolute;left:22px;bottom:18px;font-size:38px;font-weight:600">${w}</div><div style="position:absolute;right:20px;bottom:22px;width:56px;height:36px;border-radius:6px 6px 2px 2px;background:#d8dade;border:3px solid #c7c9ce"></div></div>`, 146 + (i % 3) * 270, 470 + Math.floor(i / 3) * 160));
   const bs = words(sc.el, [{ h: '博主大牛、商业大佬，', t: 31.27 }], 146, 200, 'h2');
-  const bs2 = words(sc.el, [{ h: '清一色&nbsp;', t: 34.2 * 0 + 32.55 }, { h: '<span class="acc">Mac。</span>', t: 32.9, k: 'pop' }], 146, 310, 'h1');
+  const bs2 = words(sc.el, [{ h: '让注意力&nbsp;', t: 34.2 * 0 + 32.55 }, { h: '<span class="acc">专注。</span>', t: 32.9, k: 'pop' }], 146, 310, 'h1');
   // pro apps dock
   const apps = [['Final Cut Pro', '#1c1c1e,#3a3a3c', '🎬'], ['Logic Pro', '#2b2b2b,#4a4a4a', '🎹'], ['Xcode', '#0a84ff,#5ac8fa', '🛠️'], ['Motion', '#6e3cff,#b388ff', '✨'], ['Keynote', '#0a6cff,#2ac3ff', '📊']];
   const dock = mk(sc.el, `<div class="glass" style="display:flex;gap:22px;padding:22px 26px;border-radius:44px">${apps.map(a => `<div class="ap" style="text-align:center;width:150px"><div class="appic" style="margin:0 auto;background:linear-gradient(135deg,${a[1]})"><span style="font-size:70px">${a[2]}</span></div><div style="font-size:20px;font-weight:600;margin-top:10px">${a[0]}</div></div>`).join('')}</div>`, 146, 850, { ay: .5 });
   const apE = [...dock.querySelectorAll('.ap')];
-  const dockT = mk(sc.el, `<div class="mono" style="font-size:24px;color:var(--g1)">// 专业软件生态 · 很多只在 Mac 上</div>`, 150, 720);
+  const dockT = mk(sc.el, `<div class="mono" style="font-size:24px;color:var(--g1)">// 示例软件生态 · 按实际项目替换</div>`, 150, 720);
   const blue = mk(sc.el, `<div style="width:1920px;height:1080px;background:var(--blue)"></div>`, 0, 0);
   // attention
   const at1 = words(sc.el, [{ h: '他们最清楚：', t: 34.97 }], 960, 330, 'h2', { ax: .5, style: 'color:#fff' });
@@ -246,18 +246,18 @@ function camAt(e, t, o) { setFrame(e._img, talkSrc(t)); place(e, o); }
   S(FZ, 'powerdown', 1); S(42.35, 'hit', .9);
 })();
 
-/* ---------- S7  44.53 – 55.67  ChatGPT 先上 Mac · 晚 5 个月 · 微软 · 一整轮机会 ---------- */
+/* ---------- S7  44.53 – 55.67  版本时间线 · 间距与双赛道比较 ---------- */
 (() => {
   const sc = new Scene(44.53, 55.67, 'var(--paper)', { grid: 'grid', trans: 'wipe', td: .45, tc: '#F7F7F5' });
-  const T = tags(sc, '// 07 — 先上 Mac');
-  const t1 = words(sc.el, [{ h: '连 ChatGPT 电脑版，', t: 44.6 }], 146, 150, 'h2');
-  const t2 = words(sc.el, [{ h: '都是', t: 45.4 }, { h: '<span class="acc">先上 Mac。</span>', t: 45.75, k: 'pop' }], 146, 260, 'h1');
+  const T = tags(sc, '// 07 — 版本发布时间对比');
+  const t1 = words(sc.el, [{ h: '两个版本的发布，', t: 44.6 }], 146, 150, 'h2');
+  const t2 = words(sc.el, [{ h: '可以看出', t: 45.4 }, { h: '<span class="acc">版本发布时间对比。</span>', t: 45.75, k: 'pop' }], 146, 260, 'h1');
   // release timeline
   const tl = mk(sc.el, `<div style="position:relative;width:1628px;height:300px">
      <div style="position:absolute;left:0;right:0;top:150px;height:4px;background:var(--line)"></div>
      ${['2024.05', '06', '07', '08', '09', '2024.10'].map((m, i) => `<div style="position:absolute;left:${i * 325.6}px;top:142px;width:2px;height:20px;background:#ccc"></div><div class="mono" style="position:absolute;left:${i * 325.6 - 40}px;top:176px;width:80px;text-align:center;font-size:20px;color:var(--g1)">${m}</div>`).join('')}
      <div class="gap" style="position:absolute;left:0;top:140px;height:24px;width:0;border-radius:12px;background:repeating-linear-gradient(45deg,#E5484D 0 12px,#ff8a8f 12px 24px)"></div>
-     <div class="m1" style="position:absolute;left:-10px;top:40px"><div class="pill" style="background:#0A0A0A;color:#fff">Mac 版 · 首发</div></div>
+     <div class="m1" style="position:absolute;left:-10px;top:40px"><div class="pill" style="background:#0A0A0A;color:#fff">版本 A · 示意</div></div>
      <div class="m2" style="position:absolute;right:-10px;top:40px"><div class="pill" style="background:#fff;border:1.5px solid var(--line)">Windows 版</div></div>
      <div class="lt" style="position:absolute;left:640px;top:220px;font-size:64px;font-weight:600;color:#E5484D;letter-spacing:-1px">晚了 5 个月</div></div>`, 146, 420);
   const gap = tl.querySelector('.gap'), m1 = tl.querySelector('.m1'), m2 = tl.querySelector('.m2'), lt = tl.querySelector('.lt');
@@ -270,7 +270,7 @@ function camAt(e, t, o) { setFrame(e._img, talkSrc(t)); place(e, o); }
   const r0 = words(sc.el, [{ h: '别人第一天就用上新工具，', t: 52.03 }], 146, 150, 'h2');
   const r1 = words(sc.el, [{ h: '你还在', t: 53.3 }, { h: '<span style="color:#E5484D">等适配。</span>', t: 53.6 }], 146, 260, 'h1');
   const lane = (who, col) => `<div class="card" style="width:1628px;height:150px"><div class="lb">// ${who}</div><div style="position:absolute;left:180px;right:60px;top:74px;height:4px;background:var(--line)"></div><div class="dot" style="position:absolute;left:170px;top:58px;width:36px;height:36px;border-radius:50%;background:${col}"></div><div class="tx" style="position:absolute;right:30px;top:20px;font-size:26px;font-weight:600;color:${col}"></div></div>`;
-  const la = mk(sc.el, lane('别人 · Mac', '#2462EA'), 146, 470), lb = mk(sc.el, lane('你 · Windows', '#E5484D'), 146, 650);
+  const la = mk(sc.el, lane('方案 A · 示意', '#2462EA'), 146, 470), lb = mk(sc.el, lane('方案 B · 示意', '#E5484D'), 146, 650);
   const r3 = words(sc.el, [{ h: '差的是', t: 54.27 }, { h: '<span class="hl">一整轮机会。</span>', t: 54.6, k: 'pop' }], 146, 860, 'h2');
   const cam = camCard(sc.el, 330, 587);
   sc.update = t => {
@@ -305,7 +305,7 @@ function camAt(e, t, o) { setFrame(e._img, talkSrc(t)); place(e, o); }
      <div style="position:absolute;left:30px;top:70px;font-size:28px;color:#999">本地跑大模型，先看能装进多少内存</div>
      <div style="position:absolute;left:30px;top:150px;right:30px">
        <div style="display:flex;align-items:center;gap:20px"><div style="width:320px;font-size:28px">旗舰游戏显卡 · 显存</div><div style="flex:1;height:44px;border-radius:10px;background:#1f1f1f;overflow:hidden"><div class="b1" style="height:100%;width:0;background:#666;border-radius:10px"></div></div><div style="width:140px;font-size:40px;font-weight:600">32GB</div></div>
-       <div style="display:flex;align-items:center;gap:20px;margin-top:22px"><div style="width:320px;font-size:28px">Mac Studio · 统一内存</div><div style="flex:1;height:44px;border-radius:10px;background:#1f1f1f;overflow:hidden"><div class="b2" style="height:100%;width:0;background:linear-gradient(90deg,#2462EA,#6d9bff);border-radius:10px"></div></div><div style="width:140px;font-size:40px;font-weight:600;color:#6d9bff">512GB</div></div>
+       <div style="display:flex;align-items:center;gap:20px;margin-top:22px"><div style="width:320px;font-size:28px">设备 B · 示意容量</div><div style="flex:1;height:44px;border-radius:10px;background:#1f1f1f;overflow:hidden"><div class="b2" style="height:100%;width:0;background:linear-gradient(90deg,#2462EA,#6d9bff);border-radius:10px"></div></div><div style="width:140px;font-size:40px;font-weight:600;color:#6d9bff">512GB</div></div>
        <div class="mono nn" style="margin-top:26px;font-size:22px;color:#777">CPU · GPU · 神经网络引擎 共用同一池内存 · 超大模型可以整个放进本机</div></div></div>`, 146, 400);
   const b1 = mem.querySelector('.b1'), b2 = mem.querySelector('.b2'), nn = mem.querySelector('.nn');
   sc.update = t => {
@@ -382,15 +382,15 @@ function camAt(e, t, o) { setFrame(e._img, talkSrc(t)); place(e, o); }
   S(67.5, 'card', .5); S(67.7, 'counter', .45, 0, { d: 1.5 }); S(68.4, 'pop', .8); S(69.2, 'coin', .7, .4);
 })();
 
-/* ---------- S11  69.6 – 73.25  所以：第一件事，把电脑换成 Mac ---------- */
+/* ---------- S11  69.6 – 73.25  所以：第一件事，把电脑迁移到新环境 ---------- */
 (() => {
   const sc = new Scene(69.6, 73.25, 'var(--paper)', { grid: 'grid', trans: 'wipe', td: .45, tc: '#F7F7F5' });
   const T = tags(sc, '// 11 — 结论');
-  const rc = [['专注', '系统稳 · 数据十几年不丢'], ['首发', 'AI 新工具往往先上 Mac'], ['内存', '统一内存 · 本地跑大模型'], ['生态', '专业软件 · 体验更好']];
+  const rc = [['专注', '资料与任务清楚归档'], ['首发', '按实际版本记录比较'], ['内存', '按实际设备容量选择'], ['生态', '按实际需求组织工具']];
   const re = rc.map((r, i) => mk(sc.el, `<div class="card" style="width:390px;height:210px"><div class="lb">// ${String(i + 1).padStart(2, '0')}</div><div class="ck" style="position:absolute;right:22px;top:18px;width:36px;height:36px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px"></div><div style="position:absolute;left:24px;top:70px;font-size:56px;font-weight:600">${r[0]}</div><div style="position:absolute;left:24px;bottom:22px;font-size:22px;color:var(--g1)">${r[1]}</div></div>`, 146 + i * 412, 250));
   const TT = [69.9, 70.3, 70.7, 71.1];
   const k = mk(sc.el, `<div class="tag" style="font-size:26px">// 所以 AI 时代，想跟上进程——第一件事</div>`, 146, 600);
-  const big = words(sc.el, [{ h: '把电脑换成&nbsp;', t: 72.0 }, { h: '<span class="acc" style="font-size:220px;font-weight:700;letter-spacing:-8px">Mac。</span>', t: 72.3, k: 'slam', d: .45 }], 146, 650, 'h1', { style: 'display:flex;align-items:baseline;font-size:120px' });
+  const big = words(sc.el, [{ h: '让工作进入&nbsp;', t: 72.0 }, { h: '<span class="acc" style="font-size:220px;font-weight:700;letter-spacing:-8px">专注。</span>', t: 72.3, k: 'slam', d: .45 }], 146, 650, 'h1', { style: 'display:flex;align-items:baseline;font-size:120px' });
   sc.update = t => {
     T(t);
     re.forEach((e, i) => { show(e, t, TT[i], { k: 'up' }); const c = pr(t, TT[i] + .25, TT[i] + .4), ck = e.querySelector('.ck'); ck.style.background = c > 0 ? 'var(--blue)' : ''; ck.style.borderColor = c > 0 ? 'var(--blue)' : 'var(--line)'; ck.textContent = c > 0 ? '✓' : ''; ck.style.transform = `scale(${c > 0 ? EZ.spring(c) : 1})`; });
@@ -400,21 +400,21 @@ function camAt(e, t, o) { setFrame(e._img, talkSrc(t)); place(e, o); }
   S(69.6, 'swoosh', .6); TT.forEach((tt, i) => { S(tt, 'card', .45, -.6 + i * .4); S(tt + .25, 'check', .7, -.6 + i * .4, { n: i }); }); S(72.0, 'tick', .4); S(72.3, 'hit', 1.1); S(72.35, 'shine', .6);
 })();
 
-/* ---------- S12  73.25 – 81.9  评论区 · 打破误区 · 我是阿杜 ---------- */
+/* ---------- S12  73.25 – 81.9  评论区 · 打破误区 · 创作者名片 ---------- */
 (() => {
   const sc = new Scene(73.25, 82.0, '#0A0A0A', { grid: 'gridD', trans: 'circle', td: .5, tc: '#0A0A0A', cx: 960, cy: 540 });
   const T = tags(sc, '// 12 — 你呢？', '', true);
-  const t1 = words(sc.el, [{ h: '如果你已经换了，', t: 73.3 }], 146, 150, 'h2', { style: 'color:#fff' });
+  const t1 = words(sc.el, [{ h: '如果你也有经验，', t: 73.3 }], 146, 150, 'h2', { style: 'color:#fff' });
   const t2 = words(sc.el, [{ h: '评论区', t: 74.2 }, { h: '<span style="color:#6d9bff">聊一聊。</span>', t: 74.9 }], 146, 260, 'h1', { style: 'color:#fff' });
-  const cm = [['已经换了三年，再也没重装过系统', 328], ['M 芯片续航太顶了，一天不插电', 215], ['用 Claude 写代码，Mac 上真顺', 196]];
+  const cm = [['示例评论：整理后更容易找到资料', 328], ['示例评论：新的工作区更清晰', 215], ['示例评论：希望增加更多比较', 196]];
   const ce = cm.map((c, i) => mk(sc.el, `<div class="dcard" style="width:760px;height:120px"><div style="position:absolute;left:22px;top:30px;width:60px;height:60px;border-radius:50%;background:${['#ff7eb3', '#6d9bff', '#ffb347'][i]}"></div><div style="position:absolute;left:104px;top:26px;font-size:30px">${c[0]}</div><div class="mono" style="position:absolute;left:104px;bottom:20px;font-size:19px;color:#777">♥ <span class="lk">${c[1]}</span></div></div>`, 146, 440 + i * 140));
   const myth = words(sc.el, [{ h: '2026 年了，', t: 75.8 }, { h: '还有人觉得', t: 77.3 }], 146, 170, 'h2', { style: 'color:#fff' });
-  const m2 = mk(sc.el, `<div style="position:relative;font-size:150px;font-weight:700;letter-spacing:-5px;color:#fff">Mac 办公不行？<div class="st" style="position:absolute;left:-10px;top:52%;height:14px;width:0;background:#E5484D;border-radius:7px"></div></div>`, 146, 300);
+  const m2 = mk(sc.el, `<div style="position:relative;font-size:150px;font-weight:700;letter-spacing:-5px;color:#fff">只有一种选择？<div class="st" style="position:absolute;left:-10px;top:52%;height:14px;width:0;background:#E5484D;border-radius:7px"></div></div>`, 146, 300);
   const stl = m2.querySelector('.st');
   const stamp = mk(sc.el, `<div class="pill" style="background:#E5484D;color:#fff;font-size:44px;font-weight:700;padding:10px 34px">误区 ✕</div>`, 1180, 540, { ax: .5, ay: .5 });
   // outro
   const end = mk(sc.el, `<div style="width:1920px;height:1080px;background:var(--paper);position:relative;overflow:hidden"><div class="grid"></div></div>`, 0, 0);
-  const ew = words(end.firstChild, [{ h: '我是&nbsp;', t: 79.55 }, { h: 'Vibe coder&nbsp;', t: 79.8 }, { h: '<span class="acc">阿杜</span>', t: 80.1 }], 146, 380, 'h1');
+  const ew = words(end.firstChild, [{ h: '来自&nbsp;', t: 79.55 }, { h: '示例&nbsp;', t: 79.8 }, { h: '<span class="acc">创作者</span>', t: 80.1 }], 146, 380, 'h1');
   const eb = words(end.firstChild, [{ h: '下期见。', t: 80.95 }], 146, 520, 'h2', { style: 'color:var(--g1)' });
   const cam = camCard(end.firstChild, 420, 746);
   const wave = img(end.firstChild, 'c_a.png', 1180, 1130, 560);

@@ -1,15 +1,35 @@
 # 本地导出与检查工具
 
-下列路径相对本 skill 根目录。所有带空格的路径加引号；先查看各脚本 `--help`。常规导出不会联网安装工具。
+下列路径相对本 skill 根目录；在其他目录执行时加上安装目录前缀，或沿用 README 的 `SKILL_DIR` / `PL` 变量。所有带空格的路径加引号，Shell 入口使用 Bash。常规导出不会联网安装工具。
+
+## 第一次使用
+
+```bash
+bash scripts/pipeline.sh doctor
+# 缺少 Skill 依赖时安装；Node、Python、FFmpeg 和浏览器需预先可用：
+bash scripts/pipeline.sh setup
+bash scripts/pipeline.sh doctor
+bash scripts/pipeline.sh demo '/用户指定目录/首次演示'
+```
+
+`doctor` 只读取环境并报告缺项。`demo` 使用随包插画、合成配乐与音效，在新目录生成 18 秒演示；不需要私人媒体。验证成功后，正式项目需接入本次口播、文案和素材并关闭 `CONFIG.demo`。静音独立示例另见 [examples/README.md](../examples/README.md)。
 
 ## 工程检查和建新片
 
 ```sh
 python3 scripts/inspect_project.py '/用户/工程目录'
-scripts/pipeline.sh new '/本集/新工程目录'
+bash scripts/pipeline.sh new '/本集/新工程目录'
 ```
 
-盘点是静态线索，不证明素材齐全或实际渲染成功。动态场景需要在浏览器核对。新建目标必须不存在；模板中的三个场景是起点，需要填入本条口播与分镜。
+盘点是静态线索，不证明素材齐全或实际渲染成功。动态场景需要在浏览器核对。新建目标必须不存在；模板的演示场景是起点，需要填入本条口播与分镜，正式导出前将 `CONFIG.demo` 设为 `false`。
+
+已有剪好的单条口播可以直接导入：
+
+```bash
+bash scripts/pipeline.sh import '/本集/新工程目录' '/素材/剪好的口播.mp4'
+```
+
+生成 `talk/clip_000/`、`talkmap.js`、48kHz `voice.wav` 和 `import.json`。按报告中的帧率/时长设置配置并关闭演示，再重排场景、进度、字幕和配乐；导入不会改写创意内容。要匹配多条原始拍摄素材时才使用 `align_talk.py`。
 
 首次缺少依赖时显式执行 `scripts/pipeline.sh setup`，不要在常规制作中重新安装。Python 音频/对齐工具使用 skill 自带 `.venv/bin/python`；基础检查和导出编排只用标准库。Playwright 优先查找 skill 自带 `node_modules`，其次已有本机安装；浏览器可显式指定。
 
@@ -26,7 +46,7 @@ node scripts/render_project.mjs '/本集/工程/index.html' \
 
 截图目录和成片必须是新路径。短片工具只有传 `--audio` 才含声音；完整流程要求提供声音或显式 `--no-audio`。音轨参数表示完整时间轴音轨，短片自动按 start 取对应声音。
 
-当前需要 `window.renderAt(t)` 和 `READY` Promise 或 title=done。可等待 `imgWait()` 与字体/图片解码。资源加载失败、脚本异常与编码失败会中止。远程资源和原生 video/audio 元素默认不支持，需先实现确定性适配。
+当前需要 `window.renderAt(t)` 和 `READY` Promise 或 title=done。Canvas2D 示例实现这个合约即可使用；已有 p5.brush 工程先按 [手绘适配说明](handdrawn-animation.md)核对初始化与真实画布输出，不直接假设它具有相同接口。可等待 `imgWait()` 与字体/图片解码。资源加载失败、脚本异常与编码失败会中止。远程资源和原生 video/audio 元素默认不支持，需先实现确定性适配。
 
 ## 完整导出
 
@@ -52,7 +72,7 @@ python3 scripts/export_project.py '/本集/工程' '/本集/竖屏_v1.mp4' \
 
 ## 参数与局限
 
-可通过 `--playwright-module '/已有/node_modules/playwright-core/index.mjs'` 和 `--browser '/浏览器可执行文件'` 指定本地工具。查询参数仅在明确了解页面含义时使用；原 anim4 的 `?vert` 会禁用字幕。
+可通过 `--playwright-module '/已有/node_modules/playwright-core/index.mjs'` 和 `--browser '/浏览器可执行文件'` 指定本地工具。也可通过 `CHROME` 环境变量指定浏览器。查询参数仅在明确了解页面含义时使用；部分旧源码的 `?vert` 会禁用字幕。
 
 改变 width/height 只设置视口，不能自动重排画面。先完成竖屏设计再导出。
 

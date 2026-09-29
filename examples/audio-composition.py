@@ -113,7 +113,7 @@ def mbar(tb, bar, lvl, t_end, kick_on=True, hats=True, arp=True, bass=True, clap
         if arp and s % 2 == 0:
             m = ch[[0, 2, 1, 3, 2, 1, 3, 2][(s // 2) % 8]] + 12
             add(music, pan(pluck(m, .3, .7, 1800 + 3000 * lvl), -.35 if (s // 2) % 2 else .35) * .26 * lvl, tt)
-# sections (voice time) — EP04 终结比赛
+# sections (voice time) — illustrative timeline; retime for each project
 def piano_bar(tb, bar, t_end, g=1.):
     root, ch = PROG[bar % 4]
     add(music, pan(pad([c - 12 for c in ch], 4 * B + .3, 700, .06), 0) * .24 * g, tb)

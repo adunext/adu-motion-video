@@ -1,4 +1,4 @@
 interface:
-  display_name: "阿杜口播动效工作室"
-  short_description: "沿用两套阿杜口播工程，编排新文案、真人动效、配乐字幕并导出横竖屏视频"
-  default_prompt: "使用 $adu-motion-video，基于本集口播素材和文案制作下一个视频，沿用阿杜Next的风格并导出独立版本。"
+  display_name: "阿杜动效视频工作室"
+  short_description: "将你的口播和文案制作成图文动效或手绘卡通视频，保留可编辑工程并验证导出"
+  default_prompt: "使用 $adu-motion-video，先检查我的素材与环境，按文案制作动效视频，保留可编辑工程并导出独立版本。"

@@ -6,6 +6,7 @@ import os from 'node:os';
 import { pathToFileURL } from 'node:url';
 import { createRequire } from 'node:module';
 import { spawn, spawnSync } from 'node:child_process';
+import { chrome } from './chrome.mjs';
 const help = `Usage: node render_project.mjs ENTRY.html [options]
   --output FILE.mp4                 Export a new MP4 (never overwrite)
   --probe                          Read runtime END without exporting
@@ -82,24 +83,13 @@ async function playwright(opt) {
   throw Error('Existing Playwright module not found. Supply --playwright-module PATH; nothing was installed.');
 }
 function executable(chromium, explicit) {
-  if (explicit) { const p = path.resolve(explicit); fs.accessSync(p, fs.constants.X_OK); return p; }
-  const direct = chromium.executablePath();
-  if (fs.existsSync(direct)) return direct;
-  const caches = [process.env.PLAYWRIGHT_BROWSERS_PATH, path.join(os.homedir(), 'Library/Caches/ms-playwright'), path.join(os.homedir(), '.cache/ms-playwright')].filter(Boolean);
-  function search(dir, depth = 0) {
-    if (!fs.existsSync(dir) || depth > 7) return [];
-    const found = [];
-    for (const item of fs.readdirSync(dir, { withFileTypes: true })) {
-      const p = path.join(dir, item.name);
-      if (item.isDirectory()) found.push(...search(p, depth + 1));
-      else if (['Google Chrome for Testing', 'Chromium', 'chrome', 'headless_shell', 'chrome-headless-shell'].includes(item.name)) found.push(p);
-    }
-    return found;
+  if (explicit) return chrome(explicit);
+  try { return chrome(); }
+  catch (error) {
+    const bundled = chromium.executablePath();
+    if (fs.existsSync(bundled)) return chrome(bundled);
+    throw error;
   }
-  const installed = caches.flatMap(p => search(p)).sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
-  installed.push('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome', '/usr/bin/chromium');
-  for (const p of installed) { try { fs.accessSync(p, fs.constants.X_OK); return p; } catch {} }
-  throw Error('Existing Chromium/Chrome not found. Supply --browser PATH; nothing was installed.');
 }
 
 async function main() {

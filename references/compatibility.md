@@ -8,12 +8,14 @@
 
 ## 运行时不可混装
 
-| 项目 | 口播模板 / anim3 / anim4 | 旧 studio 最小 starter |
+| 项目 | DOM/SVG 口播模板 | 旧 studio 最小 starter |
 |---|---|---|
 | mk | mk(parent, html, x, y, opt) | mk(parent, className, x, y, width, height) |
 | show | show(element, t, t0, opt) | show(element, t, at, duration, distance) |
 | Scene | Scene(start, end, bg, opt) | Scene(start, end, theme) |
 | update 的 t | 全片绝对时间 | 场景局部时间 |
+
+Canvas/p5 还需要等待画笔、字体与纹理初始化，并按实际输出画布取帧；不能把 DOM 的 `mk/Scene` 函数直接搬进画布绘制。见 [handdrawn-animation.md](handdrawn-animation.md)。
 
 同一个场景要匹配整套运行时。复用视觉配方时改写签名和时间，不把函数文件机械拼接。
 
@@ -21,7 +23,7 @@
 
 `align_talk.py` 从 1.0 / 1.05 / 1.1 / 1.15 / 1.2 选择全片共同速度，不能宣称任意逐段变速识别。验证比例来自有运动辨识度的采样点：预测帧与局部最佳匹配帧误差不超过一帧。它不包含每一帧，也不验证所有字幕、声音或切点。
 
-用户提供的 Claude 测试报告记录：EP04 为 1501/1526（98.4%）采样点在一帧内、1.1倍速6段；18秒流程样片60fps、-15.0 LUFS。这是历史报告，不能当作每次新片的实测，也不能称为 Codex 已重复了该对齐测试。后续以该次运行日志与实际抽查为准。
+每个新项目都要保存实际对齐日志与抽查结果。过去某条视频的匹配率或倍速不能作为新素材的保证，也不能把少量采样通过说成整片逐帧验证。
 
 ## 可选数据与媒体
 
@@ -36,4 +38,4 @@
 
 `config.js` 的宽高不会自动重排绝对坐标。横竖屏各自检查正文、人物、字幕、安全区和片尾。
 
-`examples/` 是提炼的场景/声音/字幕/竖屏源码，不包含完整原始媒体。两套完整参考项目未随本公开包提供，历史结构见 `projects.md`。不要把本地字体、照片和网络作品自动当作可分发资产。
+`examples/` 是提炼的场景/声音/字幕/竖屏源码，不包含完整原始媒体。结构与可运行范围见 [projects.md](projects.md)。不要把本地字体、照片和网络作品自动当作可分发资产。

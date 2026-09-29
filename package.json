@@ -1,6 +1,6 @@
 {
   "name": "adu-motion-video",
-  "version": "1.1.0",
+  "version": "1.4.0",
   "directories": {
     "example": "examples"
   },
@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "description": "AduNext HTML/JavaScript motion-video skill and local rendering toolkit",
+  "description": "Local video authoring, motion graphics and hand-drawn animation skill with runnable examples",
   "dependencies": {
     "playwright-core": "1.58"
   },

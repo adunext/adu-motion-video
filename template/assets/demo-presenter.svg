@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1280" viewBox="0 0 720 1280">
+<rect width="720" height="1280" fill="#dae5fd"/><circle cx="600" cy="210" r="280" fill="#bed1fc"/>
+<circle cx="360" cy="490" r="126" fill="#f5c5a7"/><path d="M228 468 Q215 328 355 322 Q500 326 490 467 L455 426 Q355 408 243 448" fill="#253450"/>
+<path d="M138 1110 L180 789 Q209 681 360 681 Q511 681 540 789 L582 1110" fill="#2462ea"/>
+<path d="M268 677 Q360 775 451 677 L444 773 Q360 830 274 773" fill="#f5c5a7"/>
+<circle cx="314" cy="494" r="8" fill="#253450"/><circle cx="405" cy="494" r="8" fill="#253450"/>
+<path d="M323 553 Q359 581 398 552" fill="none" stroke="#9b5946" stroke-width="9" stroke-linecap="round"/>
+<rect x="100" y="960" width="520" height="185" rx="24" fill="#fff"/>
+<text x="360" y="1030" text-anchor="middle" font-family="sans-serif" font-size="36" font-weight="700" fill="#173a82">DEMO · 演示插画</text>
+<text x="360" y="1090" text-anchor="middle" font-family="sans-serif" font-size="27" fill="#53617c">正式制作请替换为你的口播素材</text>
+</svg>

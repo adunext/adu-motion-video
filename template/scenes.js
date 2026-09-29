@@ -1,10 +1,10 @@
 /* ============================================================
    scenes.js — 每集的画面。一个 IIFE = 一个场景。
-   这是起始模板，只有 3 个示例场景，演示最常用的写法。完整参考见 examples/：
-     ep04_claude_opus55_scenes.js  (白/蓝/黑三底色 + 九宫格 + 作品墙 + 软件窗口 + 片尾提示词卡)
-     ep02_huan_mac_scenes.js       (实拍口播卡片 + 知识点动效)
+   这是可运行的 18 秒起始模板，三个场景演示口播卡片、逐词文字和数字。
+   没有真人素材时 CONFIG.demo=true 使用本地演示插画；它不是正式口播成片。
+   修改 CONFIG.end 时同步修改场景时间、进度段落、字幕和音频。更多积木见 references/scene-patterns.md。
    规则：
-   - 时间一律用“口播秒数”。口播中间插入展示段时，用 EP03 的 O()/vT() 做时间映射
+   - 时间一律用“口播秒数”。口播中间插入展示段时，显式维护原口播时间与输出时间的映射
    - 每个场景：new Scene(开始, 结束, 底色, {grid, trans}) → 在 sc.el 里 mk()/words() 建元素 → sc.update=t=>{...} 按时间摆放
    - 音效：在元素出现的那一刻写 S(时间, '类型', 音量, 声像)，由 audio.py 合成（类型见 references/api.md）
    ============================================================ */
@@ -16,8 +16,8 @@ window.END = CONFIG.end;
   const sc = new Scene(T0, T1, 'var(--paper)', { grid: 'grid' });
   const tag = tags(sc, '// 01 — 开场');
   const cam = camCard(sc.el, 470, 836);
-  const t1 = mk(sc.el, `<div style="font:700 150px -apple-system,'PingFang SC';letter-spacing:-4px;line-height:1">第一行标题</div>`, 690, 330, { ax: .5, ay: .5 });
-  const t2 = mk(sc.el, `<div style="font:800 190px -apple-system,'PingFang SC';letter-spacing:-6px;line-height:1">第二行<span style="color:var(--blue)">重点</span></div>`, 690, 560, { ax: .5, ay: .5 });
+  const t1 = mk(sc.el, `<div style="font:700 150px -apple-system,'PingFang SC';letter-spacing:-4px;line-height:1">把想法</div>`, 690, 330, { ax: .5, ay: .5 });
+  const t2 = mk(sc.el, `<div style="font:800 190px -apple-system,'PingFang SC';letter-spacing:-6px;line-height:1">做成<span style="color:var(--blue)">画面</span></div>`, 690, 560, { ax: .5, ay: .5 });
   const R = race(sc.el, false);
   sc.update = t => {
     tag(t);
@@ -37,8 +37,8 @@ window.END = CONFIG.end;
   const sc = new Scene(T0, T1, '#0A0A0A', { grid: 'gridD', trans: 'flash', td: .3, fa: .35 });
   const tag = tags(sc, '// 02 — 论点', '', true);
   const cam = camCard(sc.el, 250, 250, '', true);
-  const h = words(sc.el, [{ h: '关键的', t: 6.3 }, { h: '一句话。', t: 6.8, k: 'slam', st: 'color:#6d9bff' }], 146, 260, 'h1', { style: 'color:#fff' });
-  const cards = ['要点一', '要点二', '要点三'].map((s, i) => mk(sc.el, `<div class="dcard" style="width:480px;height:150px"><div class="lb">// 0${i + 1}</div><div style="position:absolute;left:28px;top:66px;font:600 44px -apple-system,'PingFang SC'">${s}</div></div>`, 146 + i * 510, 560));
+  const h = words(sc.el, [{ h: '清楚表达', t: 6.3 }, { h: '每个重点。', t: 6.8, k: 'slam', st: 'color:#6d9bff' }], 146, 260, 'h1', { style: 'color:#fff' });
+  const cards = ['先讲清楚', '再看证据', '给出结论'].map((s, i) => mk(sc.el, `<div class="dcard" style="width:480px;height:150px"><div class="lb">// 0${i + 1}</div><div style="position:absolute;left:28px;top:66px;font:600 44px -apple-system,'PingFang SC'">${s}</div></div>`, 146 + i * 510, 560));
   const R = race(sc.el);
   sc.update = t => {
     tag(t);

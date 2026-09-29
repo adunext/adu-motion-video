@@ -92,11 +92,12 @@ class Scene {
 function tags(sc, left, time, dark = false) {
   const c = dark ? 'color:#5c5c5c' : sc.el.style.background.includes('36, 98, 234') ? 'color:rgba(255,255,255,.65)' : '';
   const a = mk(sc.el, `<div class="tag" style="${c}">${left}</div>`, 64, 52);
-  const b = mk(sc.el, `<div class="tag tc" style="${c}">AduNext&nbsp;&nbsp;<span></span></div>`, 1856, 52, { ax: 1 });
+  const b = mk(sc.el, `<div class="tag tc" style="${c}"><b class="brand" style="font-weight:inherit"></b>&nbsp;&nbsp;<span></span></div>`, 1856, 52, { ax: 1 });
+  b.querySelector('.brand').textContent = CONFIG.brand || '';
   sc._tags = [a, b];
   return (t) => { place(a, { o: pr(t, sc.s + .05, sc.s + .3) }); place(b, { o: pr(t, sc.s + .05, sc.s + .3) }); b.querySelector('span').textContent = tc(t); };
 }
-const tc = t => { const f = Math.floor((t % 1) * 24), s = Math.floor(t); return `00:00:${String(s).padStart(2, '0')}:${String(f).padStart(2, '0')}`; };
+const tc = t => { const fps = CONFIG.fps || 60, frame = Math.floor(t * fps + 1e-6), sec = Math.floor(frame / fps); return [Math.floor(sec / 3600), Math.floor(sec / 60) % 60, sec % 60, frame % fps].map(n => String(n).padStart(2, '0')).join(':'); };
 // idle bob for characters
 const bob = (t, k = 0, a = 5) => Math.sin(t * 2.2 + k) * a;
 const breathe = (t, k = 0) => 1 + Math.sin(t * 2.0 + k) * 0.006;
@@ -115,10 +116,14 @@ window.imgWait = () => Promise.all([..._pending].map(im => im.complete ? 0 : new
 function setFrame(imgEl, src) { if (imgEl._src !== src) { imgEl._src = src; imgEl.src = src; _pending.add(imgEl); } }
 /* ---- talk (口播) frame mapping ----
    Preferred: talkmap.js defines TALKF (folder names) + TALKMAP[frame60] = [folderIdx, srcFrame1based]  (scripts/align_talk.py)
-   Fallback:  a single pre-built sequence talk/t_00001.jpg … at CONFIG.fps (legacy EP02 style) */
-const HAS_MAP = typeof TALKMAP !== 'undefined';
-const TALK_N = HAS_MAP ? TALKMAP.length : (CONFIG.talkFrames || 1);
+   Fallback:  a single pre-built sequence talk/t_00001.jpg … at CONFIG.fps (legacy single-sequence layout) */
+const HAS_MAP = typeof TALKMAP !== 'undefined' && Array.isArray(TALKMAP) && TALKMAP.length > 0;
+const TALK_N = HAS_MAP ? TALKMAP.length : (CONFIG.talkFrames || 0);
 const talkSrc = t => {
+  if (!TALK_N) {
+    if (CONFIG.demo === true) return 'assets/demo-presenter.svg';
+    throw Error('No talk frames: prepare talkmap.js + talk/ or set talkFrames for a legacy sequence. Use demo:true only for an explicitly labeled preview.');
+  }
   const i = clamp(Math.floor(t * CONFIG.fps + 1e-6), 0, TALK_N - 1);
   if (!HAS_MAP) return `talk/t_${String(i + 1).padStart(5, '0')}.jpg`;
   const m = TALKMAP[i]; return `talk/${TALKF[m[0]]}/f_${String(m[1]).padStart(5, '0')}.jpg`;
@@ -127,8 +132,8 @@ const talkSrc = t => {
 const seqSrc = (dir, i, n) => `sc/${dir}/f_${String(clamp(i, 1, n)).padStart(4, '0')}.jpg`;
 function seqAt(dir, n, fps, t, t0, loop = true) { let i = Math.floor((t - t0) * fps + 1e-6); i = loop ? ((i % n) + n) % n : clamp(i, 0, n - 1); return seqSrc(dir, i + 1, n); }
 
-/* ================= shared building blocks (from EP02/EP04) ================= */
-function camCard(parent, w, h, label = '// on air · 阿杜', round = false) {
+/* ================= shared layout and motion building blocks ================= */
+function camCard(parent, w, h, label = '// on air · ' + (CONFIG.account || 'Presenter'), round = false) {
   const e = mk(parent, `<div class="cam${round ? ' round' : ''}" style="width:${w}px;height:${h}px"><img>${round ? '' : `<div class="lab"><span style="color:#6d9bff">●</span> ${label}</div>`}</div>`, 0, 0, { ax: .5, ay: .5 });
   e._img = e.querySelector('img'); return e;
 }

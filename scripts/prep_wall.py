@@ -4,7 +4,7 @@
 The manifest is a JSON array of objects with a unique `slug`; each input video
 is VIDEO_DIR/slug.mp4. Optional author/category values remain in index.json.
 No media is downloaded. The output directory must not already exist.
-Adapted from the AduNext EP04 sprite workflow.
+The sprites remain local assets for deterministic rendering.
 """
 import argparse
 import concurrent.futures as cf

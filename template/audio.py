@@ -16,7 +16,7 @@ D = json.load(open(os.path.join(HERE, 'sfx.json'))); END = D['end']; N = A.init(
 
 # ---------------- 1) 配乐来源 ----------------
 # 'track'：用户提供的配乐（优先用这个）；'synth'：代码合成的原创配乐（没有提供配乐时用）
-MUSIC = dict(mode='synth', path=os.path.join(HERE, '..', '背景音乐.mp3'), offset=0.0)
+MUSIC = dict(mode='synth', path=os.path.join(HERE, 'assets', 'music.mp3'), offset=0.0)
 #   offset：从歌曲第几秒开始。把歌曲的起鼓点对齐到画面第一个大切点：offset = 起鼓秒数 - 画面切点秒数
 
 # ---------------- 2) synth 模式的段落：(开始, 结束, 能量 0–1, 选项) 或 ('piano', 开始, 结束) ----------------
@@ -31,7 +31,11 @@ HITS = dict(crash=[], drop=[], riser=[])     # riser 写成 (开始, 结束)
 DARK = []                                    # [(开始, 结束)]：这段低通处理，声音变暗（比如"打击"类情绪段）
 
 music = np.zeros((N, 2))
-if MUSIC['mode'] == 'track' and os.path.exists(MUSIC['path']):
+if MUSIC['mode'] not in ('track', 'synth'):
+    raise SystemExit('MUSIC.mode must be track or synth')
+if MUSIC['mode'] == 'track':
+    if not os.path.isfile(MUSIC['path']):
+        raise SystemExit('Requested music track is missing: ' + MUSIC['path'])
     ext = A.load_track(MUSIC['path'], MUSIC['offset'])
     tt = np.arange(N) / SR
     for a0, b0 in DARK:
@@ -52,7 +56,7 @@ for t in HITS['drop']: A.add(fx, A.pan(A.sub_drop(1.1, .5), 0), t)
 for a0, b0 in HITS['riser']: A.add(fx, A.pan(A.riser(b0 - a0, .14), 0), a0)
 for t in HITS['crash']: A.add(fx, A.pan(A.crash_cym(), (t % 2) - .5), t)
 music = (music + fx * .6) * A.env_curve(ENV)[:, None]
-fade = np.ones(N); i0 = int((END - .8) * SR); fade[i0:] = np.clip(1 - (np.arange(N - i0) / SR) / .8, 0, 1) ** 1.3
+fade = np.ones(N); i0 = max(0, int((END - .8) * SR)); fade[i0:] = np.clip(1 - (np.arange(N - i0) / SR) / .8, 0, 1) ** 1.3
 music *= fade[:, None]
 
 sfx = A.render_sfx(D['sfx'])

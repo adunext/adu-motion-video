@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""口播对齐：把"口播成片"（通常是原片 1.1 倍速剪辑，可能已烧字幕）映射回"原片"逐帧。
-产出：talk/<clip4>/f_00001.jpg …（原片逐帧图）、talkmap.js（每个输出帧 → 原片帧）、sync_segs.json、voice.wav
+"""口播对齐：把"口播成片"（可包含倍速和剪辑，可能已烧字幕）映射回"原片"逐帧。
+产出：talk/<clip_id>/f_00001.jpg …（原片逐帧图）、talkmap.js（每个输出帧 → 原片帧）、sync_segs.json、voice.wav
 
 用法：
   python3 align_talk.py --master 成片.mov --raw 原片1.MOV 原片2.MOV … --out <anim目录> [--speed auto|1.1] [--fps 60] [--size 720x1280]
 
-原理（来自 EP02/EP03/EP04 历史工作流；新素材需重新验证）：
+原理（每套新素材都需重新验证对齐结果）：
   1) 音频：40 段对数频带特征，每 0.25s 取一个 1.5s 窗口，在全部原片里滑窗互相关 → 得到 (clip, offset) 的片段
   2) 切点：放在相邻片段交界附近最安静的 10ms
-  3) 视频偏移：原片音轨比视频晚 0.16–0.20s，每段用画面逐帧比对求出（不能用 stream start_time 直接替代）
+  3) 视频偏移：素材可能有音视频时间差，每段用画面逐帧比对估计（不能用 stream start_time 直接替代）
   4) 验证：报告可辨识运动采样点中，预测帧与局部最佳匹配误差 ≤1 帧的比例；不是逐帧完全一致验证
 """
 import argparse, json, os, subprocess, sys
@@ -22,8 +22,11 @@ def gray(path, crop_h_ratio=.68, w=72, h=88):
     b = sh('ffmpeg', '-v', 'error', '-i', path, '-vf', vf, '-f', 'rawvideo', '-').stdout
     return np.frombuffer(b, np.uint8).reshape(-1, h, w).astype(np.float32)
 def fps_of(path):
-    r = sh('ffprobe', '-v', 'error', '-select_streams', 'v', '-show_entries', 'stream=r_frame_rate', '-of', 'csv=p=0', path).stdout.decode().strip()
-    a, b = r.split('/'); return float(a) / float(b)
+    data = json.loads(sh('ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=r_frame_rate', '-of', 'json', path).stdout)
+    rate = data['streams'][0]['r_frame_rate']
+    a, b = rate.split('/'); fps = float(a) / float(b)
+    if not np.isfinite(fps) or fps <= 0: raise ValueError('Input has no valid video frame rate: ' + path)
+    return fps
 
 SR = 16000
 def feat(x, hop):
@@ -69,16 +72,39 @@ def main():
     ap.add_argument('--master', required=True); ap.add_argument('--raw', nargs='+', required=True); ap.add_argument('--out', required=True)
     ap.add_argument('--speed', default='auto'); ap.add_argument('--fps', type=int, default=60); ap.add_argument('--size', default='720x1280')
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
-    names = {os.path.basename(p)[:4]: p for p in a.raw}
+    if a.fps <= 0: ap.error('--fps must be positive')
+    if len(set(map(os.path.abspath, a.raw))) != len(a.raw): ap.error('--raw contains a duplicate file')
+    if any(not os.path.isfile(p) for p in [a.master, *a.raw]): ap.error('all input media paths must be existing files')
+    names = {f'clip_{i:03d}': p for i, p in enumerate(a.raw)}
+    for name in ('voice.wav', 'sync_segs.json'):
+        target = os.path.join(a.out, name)
+        if os.path.lexists(target): ap.error(name + ' already exists; use a fresh project')
+    mapping = os.path.join(a.out, 'talkmap.js')
+    if os.path.islink(mapping): ap.error('refusing a linked talkmap.js')
+    if os.path.exists(mapping):
+        with open(mapping) as f: current = f.read().strip()
+        if current != '// Optional data absent. Generated data may replace this stub.':
+            ap.error('talkmap.js already contains project data; use a fresh project')
+    talk_dir = os.path.join(a.out, 'talk')
+    if os.path.islink(talk_dir) or (os.path.exists(talk_dir) and not os.path.isdir(talk_dir)):
+        ap.error('talk must be a local directory')
+    if os.path.isdir(os.path.join(a.out, 'talk')) and any(os.scandir(os.path.join(a.out, 'talk'))):
+        ap.error('talk/ already contains frames; use a fresh project to avoid mixing old media')
     print('· 读取音频'); master = audio(a.master); raws = {k: audio(p) for k, p in names.items()}
     speeds = [1.0, 1.05, 1.1, 1.15, 1.2] if a.speed == 'auto' else [float(a.speed)]
+    if any(not np.isfinite(sp) or sp <= 0 for sp in speeds): ap.error('--speed must be auto or a positive finite number')
     best = None
     for sp in speeds:
-        pts = match_points(master, raws, sp); med = float(np.median([p['r'] for p in pts]))
+        pts = match_points(master, raws, sp)
+        if not pts: continue
+        med = float(np.median([p['r'] for p in pts]))
+        if not np.isfinite(med): continue
         print(f'  speed {sp}: median r={med:.3f}')
         if not best or med > best[0]: best = (med, sp, pts)
+    if best is None: ap.error('No usable speech matches. Use longer matching raw clips, or import the already edited video directly.')
     _, speed, pts = best; print(f'· 倍速 = {speed}')
     runs = runs_from(pts)
+    if not runs: ap.error('No stable alignment segments; check that master audio comes from these raw clips.')
     # cut points at quietest 10 ms near boundaries
     h = 160; n = len(master) // h; e = np.sqrt((master[:n * h].reshape(n, h) ** 2).mean(1)); e = np.convolve(e, np.ones(5) / 5, 'same')
     cuts = [0.0]
@@ -101,18 +127,22 @@ def main():
                 sf = (speed * t + s['c'] + d) * rf[s['k']]; i = int(np.floor(sf)); w = sf - i
                 if 0 <= i < len(S) - 1: err.append(np.abs(M[int(round(t * mfps))] - (S[i] * (1 - w) + S[i + 1] * w)).mean())
             if err and (not best or np.mean(err) < best[0]): best = (np.mean(err), d)
+        if best is None: ap.error('No overlapping video frames for segment ' + s['k'])
         s['c'] = round(s['c'] + best[1], 4); print(f"  {s['t0']:7.2f}-{s['t1']:7.2f} {s['k']} offset {best[1] * 1000:+.0f}ms")
-    json.dump(dict(speed=speed, segs=segs), open(os.path.join(a.out, 'sync_segs.json'), 'w'), indent=1)
+    json.dump(dict(speed=speed, sources=names, segs=segs), open(os.path.join(a.out, 'sync_segs.json'), 'w'), indent=1)
     # extract raw frames
     W, Hh = a.size.split('x'); F = sorted(set(s['k'] for s in segs))
+    frame_counts = {}
     for k in F:
         d = os.path.join(a.out, 'talk', k); os.makedirs(d, exist_ok=True)
         if not os.listdir(d): sh('ffmpeg', '-v', 'error', '-y', '-i', names[k], '-vf', f'scale={W}:{Hh}:flags=lanczos', '-q:v', '3', os.path.join(d, 'f_%05d.jpg'))
+        frame_counts[k] = len([name for name in os.listdir(d) if name.startswith('f_') and name.endswith('.jpg')])
+        if not frame_counts[k]: ap.error('No extracted video frames for ' + k)
     # talkmap
     N = int(len(master) / SR * a.fps) + 1; arr = []
     for i in range(N):
         v = i / a.fps; s = next((x for x in segs if x['t0'] <= v < x['t1']), segs[-1])
-        arr.append([F.index(s['k']), max(1, int(round((speed * v + s['c']) * rf[s['k']])) + 1)])
+        arr.append([F.index(s['k']), min(frame_counts[s['k']], max(1, int(round((speed * v + s['c']) * rf[s['k']])) + 1))])
     open(os.path.join(a.out, 'talkmap.js'), 'w').write('const TALKF=' + json.dumps(F) + ';const TALKMAP=' + json.dumps(arr, separators=(',', ':')) + ';')
     sh('ffmpeg', '-v', 'error', '-y', '-i', a.master, '-map', '0:a:0', '-ar', '44100', '-ac', '2', os.path.join(a.out, 'voice.wav'))
     # verify

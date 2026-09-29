@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hand-drawn continuity</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f5eddf}
+canvas{display:block;width:100vw;height:100vh;object-fit:contain;cursor:pointer}
+</style>
+</head>
+<body>
+<canvas id="stage" width="1920" height="1080" aria-label="8 秒手绘连续动作示例：角色收拢纸张，攥紧，再捧出成果卡。点击播放，空格重播。"></canvas>
+<script>
+/* Original, dependency-free Canvas2D teaching example. It is NOT p5.brush.
+ * Geometry is 1920 × 1080. All motion comes from absolute time.
+ * Strokes redraw at 12 Hz; positions and easing remain continuous at 60 fps.
+ * Change only the text/palette/anchors below when trying your own version.
+ */
+(() => {
+  const canvas = document.getElementById('stage'), c = canvas.getContext('2d');
+  const W = 1920, H = 1080, DURATION = 8;
+  const C = { paper:'#F5EDDF', ink:'#322C47', muted:'#827780', plum:'#776184',
+    lavender:'#D8C9E7', light:'#EAE0EE', gold:'#F4C85D', paleGold:'#FFE4A0',
+    green:'#719586', white:'#FFFCF3', blue:'#879CC4', clay:'#CE8F76' };
+  const FONT = '"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif';
+  const phase = [
+    {at:0, end:1.8, name:'接住姿态', verb:'起势', detail:'人物、纸张与镜头，沿用上一刻的位置。'},
+    {at:1.8, end:4.6, name:'收拢 · 攥紧', verb:'用力', detail:'让已有纸张汇到双手，动作才有因果。'},
+    {at:4.6, end:6, name:'成果出现', verb:'释放', detail:'先压缩，再弹出；主动作只强调一次。'},
+    {at:6, end:8, name:'慢慢停稳', verb:'收势', detail:'手、表情和卡片依次停稳，留出阅读时间。'}
+  ];
+  const clamp = (x,a=0,b=1) => Math.max(a,Math.min(b,x));
+  const lerp = (a,b,k) => a+(b-a)*k;
+  const seg = (t,a,b) => clamp((t-a)/(b-a));
+  const ease = x => {x=clamp(x);return x*x*(3-2*x);};
+  const out = x => 1-Math.pow(1-clamp(x),3);
+  const back = x => {x=clamp(x);return 1+2.45*Math.pow(x-1,3)+1.45*Math.pow(x-1,2);};
+  function hash(n){const q=Math.sin(n*127.1+311.7)*43758.5453123;return q-Math.floor(q);}
+  let pencilTick=0, previewId=0;
+  // A fixed paper texture: its random sequence is never advanced by a frame.
+  const paper=document.createElement('canvas');paper.width=W;paper.height=H;
+  const pc=paper.getContext('2d');pc.fillStyle=C.paper;pc.fillRect(0,0,W,H);
+  for(let i=0;i<11000;i++){
+    pc.fillStyle=i%3?'rgba(102,72,69,.032)':'rgba(255,255,250,.20)';
+    const r=.35+hash(i+881)*1.1;
+    pc.fillRect(hash(i+29)*W,hash(i+713)*H,r,r*1.8);
+  }
+  function text(s,x,y,size=30,color=C.ink,weight=500,align='left'){
+    c.font=`${weight} ${size}px ${FONT}`;c.fillStyle=color;c.textAlign=align;c.textBaseline='middle';c.fillText(s,x,y);
+  }
+  function path(points,fill,stroke=C.ink,width=3,seed=1,close=true){
+    c.lineCap='round';c.lineJoin='round';
+    const trace=(pass)=>{
+      c.beginPath();
+      points.forEach(([x,y],i)=>{
+        const jitter=pass?1.2:.45;
+        const dx=(hash(seed*17+i*31+pencilTick*3+pass)-.5)*jitter;
+        const dy=(hash(seed*23+i*41+pencilTick*5+pass)-.5)*jitter;
+        if(i)c.lineTo(x+dx,y+dy);else c.moveTo(x+dx,y+dy);
+      });if(close)c.closePath();
+    };
+    trace(0);if(fill){c.fillStyle=fill;c.fill();}
+    if(stroke){c.strokeStyle=stroke;c.lineWidth=width;c.stroke();
+      c.save();c.globalAlpha*=.32;trace(1);c.lineWidth=width*.48;c.stroke();c.restore();}
+  }
+  function oval(x,y,rx,ry,fill,stroke=C.ink,width=3,seed=1){
+    const pts=Array.from({length:40},(_,i)=>{const a=i/40*Math.PI*2;const v=(hash(i+seed)-.5)*1.5;return[x+Math.cos(a)*(rx+v),y+Math.sin(a)*(ry+v)];});
+    path(pts,fill,stroke,width,seed);
+  }
+  function line(points,color=C.ink,width=3,seed=1){path(points,null,color,width,seed,false);}
+  function star(x,y,r,color=C.gold,rot=0){
+    const pts=Array.from({length:8},(_,i)=>{const a=i*Math.PI/4+rot;return[x+Math.cos(a)*r*(i%2?.25:1),y+Math.sin(a)*r*(i%2?.25:1)];});
+    path(pts,color,null);
+  }
+  function rounded(x,y,w,h,r,fill,stroke=null,lw=2){
+    c.beginPath();c.roundRect(x,y,w,h,r);c.fillStyle=fill;c.fill();
+    if(stroke){c.strokeStyle=stroke;c.lineWidth=lw;c.stroke();}
+  }
+  function draft(x,y,k,rot,id,opacity=1){
+    c.save();c.globalAlpha*=opacity;c.translate(x,y);c.rotate(rot);c.scale(k,k);
+    path([[-76,-52],[56,-54],[78,-33],[76,52],[-74,54]],C.white,C.ink,2.7,id+40);
+    path([[56,-54],[54,-31],[78,-33]],'#E3D8D2',C.ink,1.7,id+45);
+    rounded(-54,-30,54,8,3,[C.lavender,C.blue,C.clay][id%3]);
+    line([[-54,-8],[45,-8]],C.muted,2.4,id+51);
+    line([[-54,6],[23,6]],C.muted,2.4,id+55);
+    line([[-54,21],[id%2?44:8,21]],C.muted,2.4,id+58);
+    line([[-54,36],[-23,36]],C.muted,2.4,id+61);c.restore();
+  }
+  function hero(t,grip,release,settle){
+    const breath=Math.sin(t*2.5)*1.8*(1-settle*.6), press=grip*(1-release);
+    const center=970, headY=456+press*12+breath-settle*3;
+    // Grounded feet and torso keep the character's anchor from drifting.
+    oval(970,790,146,16,'rgba(74,49,73,.10)',null);
+    line([[933,726],[927,779],[902,785]],C.ink,19,210);
+    line([[1008,726],[1016,779],[1046,783]],C.ink,19,220);
+    path([[908,558],[1031,558],[1045,730],[895,731]],C.lavender,C.ink,4.2,230);
+    line([[916,690],[1026,690]],'#B09BBF',2.8,234);
+    text('·',970,615,46,C.plum,700,'center');
+    // Neck and head move a little later than the shoulders.
+    path([[950,533],[951,566],[986,568],[989,534]],'#E4B794',C.ink,3,240);
+    oval(center,headY,83,91,'#EECBB0',C.ink,4,250);
+    path([[889,447],[887,405],[908,374],[936,381],[953,365],[988,376],[1010,371],[1049,407],[1050,449],[1027,423],[1011,412],[989,426],[959,407],[934,424],[915,421],[908,451]],C.ink,C.ink,3,260);
+    // Eyebrows, eyes and mouth release together after the squeeze.
+    const eyesY=headY+1,closed=press>.58;
+    line([[930,eyesY-20],[946,eyesY-22+press*7]],C.ink,3.2,266);
+    line([[991,eyesY-22+press*7],[1007,eyesY-20]],C.ink,3.2,267);
+    if(closed){line([[931,eyesY],[939,eyesY+3],[947,eyesY]],C.ink,3,268);line([[989,eyesY],[997,eyesY+3],[1005,eyesY]],C.ink,3,269);}
+    else{oval(941,eyesY,4.1,6,C.ink,null);oval(999,eyesY,4.1,6,C.ink,null);}
+    line([[966,eyesY+10],[962,eyesY+21],[971,eyesY+23]],'#B68775',2.4,270);
+    if(release>.2)line([[953,headY+40],[965,headY+46],[981,headY+45],[991,headY+37]],C.ink,3,272);
+    else line([[955,headY+43],[967,headY+39+press*8],[979,headY+43]],C.ink,3,272);
+    oval(917,headY+23,13,6,'rgba(205,119,111,.25)',null);
+    oval(1021,headY+23,13,6,'rgba(205,119,111,.25)',null);
+    const reach=ease(seg(t,1.65,3.70));
+    const handY=lerp(660,646,reach)-release*63;
+    const half=lerp(147,52,reach)-press*23+release*29;
+    const left=[center-half,handY],right=[center+half,handY];
+    // Use the same shoulder and hand anchors throughout, with curved elbows.
+    for(const side of [-1,1]){
+      const hand=side<0?left:right;
+      const shoulder=[center+side*59,579],elbow=[center+side*lerp(110,94,reach),636+press*9];
+      line([shoulder,elbow,hand],C.ink,24,280+side);
+      line([shoulder,elbow,hand],C.lavender,16,285+side);
+      oval(hand[0],hand[1],17,15,'#EECBB0',C.ink,3,290+side);
+      line([[hand[0]-8,hand[1]-2],[hand[0]+4,hand[1]+2]],'#B68775',1.8,295+side);
+    }
+    if(press>.2){
+      for(const side of [-1,1]){
+        const amount=press*14;line([[center+side*110,523],[center+side*(116+amount),512]],C.plum,3.5,300+side);
+      }
+    }
+  }
+  function draw(time){
+    const t=clamp(Number(time)||0,0,DURATION),active=Math.min(3,phase.findIndex(p=>t<p.end)<0?3:phase.findIndex(p=>t<p.end));
+    pencilTick=Math.floor(t*12);
+    const gather=ease(seg(t,1.8,3.65)),grip=ease(seg(t,3.55,4.6));
+    const release=out(seg(t,4.65,5.48)),settle=ease(seg(t,6.0,7.5));
+    c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;c.globalCompositeOperation='source-over';c.drawImage(paper,0,0);
+    rounded(88,66,157,38,19,C.plum);text('动作连续性',166,85,22,C.white,600,'center');
+    text('让动作接得上',88,163,68,C.ink,750);
+    text('同一个角色 · 同一组道具 · 一个完整的动作',93,226,27,C.muted,450);
+    text('HAND-DRAWN / CONTINUITY',1825,92,21,C.plum,650,'right');
+    text('Canvas2D 教学示例 · 08 秒 · 点击播放',1825,129,21,C.muted,400,'right');
+    // Hand-painted backdrop and persistent location marks.
+    path([[605,362],[717,278],[1035,271],[1288,356],[1337,623],[1219,777],[812,797],[591,683],[554,484]],C.light,null,0,310);
+    c.save();c.globalAlpha=.55;
+    oval(1146,345,71,47,'#D8C6DC',null);oval(650,690,80,40,'#D9CBDE',null);c.restore();
+    line([[531,799],[777,802],[973,799],[1210,802],[1390,797]],'#B4A5B7',3,320);
+    // A quiet side note gives the viewer the purpose, not implementation details.
+    const p=phase[active];text(`0${active+1} / ${p.verb}`,100,360,28,C.plum,650);
+    text(p.name,98,415,42,C.ink,650);
+    const notes=[['延续原位','再展开新动作'],['纸张先聚拢','双手再用力'],['让成果变小','让情绪变清楚'],['一点余晃','然后留白']][active];
+    text(notes[0],100,478,26,C.muted,450);text(notes[1],100,520,26,C.muted,450);
+    line([[102,555],[278,555]],'#C2AFCA',3,330);
+    const papers=[[582,580,-.21],[723,455,.15],[754,706,-.13],[1167,692,.20],[1289,574,-.17],[1392,430,.16],[1132,337,-.12]];
+    papers.forEach(([x,y,r],i)=>{
+      const g=ease(seg(t,1.82+i*.065,3.48+i*.065));
+      const k=lerp(1,.26,g)*(1-ease(seg(t,4.05,4.53)));
+      if(k<.008)return;
+      const xx=lerp(x,970+(i%3-1)*4,g);
+      const yy=lerp(y,646+(i%2)*3,g)-Math.sin(g*Math.PI)*(55+i*7);
+      draft(xx,yy,k,lerp(r,r*.08,g),i);
+    });
+    hero(t,grip,release,settle);
+    // A compressed bundle becomes one small gold card in the same hands.
+    if(t>3.45&&t<4.85){
+      const alpha=ease(seg(t,3.45,3.85))*(1-ease(seg(t,4.6,4.85)));
+      c.save();c.globalAlpha=alpha;
+      const ww=lerp(114,51,grip),hh=lerp(61,44,grip);
+      path([[970-ww/2,646-hh/2],[970+ww/2,643-hh/2],[973+ww/2,646+hh/2],[968-ww/2,650+hh/2]],C.white,C.ink,3,340);
+      line([[945,641],[963,631],[971,650],[990,639]],C.muted,2.3,342);c.restore();
+    }
+    if(t>=4.6){
+      const k=back(seg(t,4.6,5.28)),age=Math.max(0,t-4.95);
+      const y=646-release*63-Math.sin(seg(t,4.6,5.7)*Math.PI)*15;
+      const rot=Math.sin(age*10)*Math.exp(-age*3)*.075;
+      c.save();c.translate(970,y);c.rotate(rot);c.scale(k,k);
+      path([[-122,-62],[119,-65],[124,61],[-119,64]],C.gold,C.ink,3.8,350);
+      path([[-111,-49],[106,-51],[112,48],[-108,51]],C.paleGold,'#D4A446',1.8,351);
+      text('成果',0,-2,47,'#654623',700,'center');c.restore();
+      const glint=Math.sin(seg(t,4.75,6.05)*Math.PI);
+      if(glint>0){star(796,y-67,24*glint,C.gold,.12);star(1123,y-100,30*glint,C.gold,-.12);star(1148,y+45,17*glint,C.gold,.12);}
+    }
+    // A small check-mark companion reacts after the main action; it never steals the lead.
+    const answer=out(seg(t,5.6,6.6));
+    c.save();c.translate(1454,727-Math.sin(answer*Math.PI)*18);c.rotate(-.08+answer*.10);
+    oval(0,0,65,53,'#C6D7C7',C.ink,3,360);
+    line([[-25,8],[-8,22],[28,-16]],C.green,8,365);
+    line([[-36,47],[-42,66],[-29,68]],C.ink,4,366);
+    line([[25,49],[34,66],[47,67]],C.ink,4,367);c.restore();
+    text('一个动作，让结果有来处。',970,841,29,C.ink,600,'center');
+    phase.forEach((ph,i)=>{
+      const x=88+i*441,w=420,isActive=i===active,done=t>=ph.end;
+      rounded(x,899,w,110,15,isActive?C.plum:'#EEE4DD');
+      text(`0${i+1}`,x+27,931,23,isActive?'#D9CDE0':C.muted,650);
+      text(ph.name,x+76,934,29,isActive?C.white:C.ink,600);
+      text(`${ph.at.toFixed(1)}–${ph.end.toFixed(1)} s`,x+28,977,20,isActive?'#E4D9E8':C.muted,450);
+      const progress=seg(t,ph.at,ph.end);
+      rounded(x+205,973,187,5,2.5,isActive?'#8F7B99':'#D6C8D4');
+      if(progress>0)rounded(x+205,973,187*progress,5,2.5,isActive?C.paleGold:done?C.plum:C.gold);
+    });
+    text('插画示意 · 无配音 · 无外部素材',88,1041,18,C.muted,400);
+    text(`${t.toFixed(2)} / ${DURATION.toFixed(2)} s`,1825,1041,18,C.muted,450,'right');
+  }
+  window.END=DURATION;
+  window.CONFIG={end:DURATION,fps:60,width:W,height:H};
+  window.renderAt=async(t)=>{cancelAnimationFrame(previewId);previewId=0;draw(t);};
+  window.READY=document.fonts.ready.then(()=>{const initial=Number(new URLSearchParams(location.search).get('t')||0);draw(Number.isFinite(initial)?initial:0);window.ready=true;document.title='done';});
+  function play(){cancelAnimationFrame(previewId);const started=performance.now();
+    const frame=now=>{const t=Math.min(DURATION,(now-started)/1000);draw(t);if(t<DURATION)previewId=requestAnimationFrame(frame);};
+    previewId=requestAnimationFrame(frame);
+  }
+  canvas.addEventListener('click',play);
+  window.addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();play();}});
+})();
+</script>
+</body>
+</html>

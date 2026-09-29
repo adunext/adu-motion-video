@@ -17,3 +17,6 @@ work/
 *.woff2
 *.ttf
 *.otf
+
+# Optional owner-local preferences, never part of the public skill
+references/local-profile.md
