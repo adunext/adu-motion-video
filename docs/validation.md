@@ -1,4 +1,4 @@
-# 1.4.0 发布检查
+# 发布检查（1.4.0 记录；2.0.0 新增模板库见文末）
 
 2026-09-29，macOS / Apple Silicon 本地实测。检查对象为公开包，安装测试在新临时副本中进行，没有使用作者的口播、头像、音乐或私人工程。系统 Node、Python、FFmpeg 和浏览器已安装；这不是一台完全没有系统工具的新电脑。
 
@@ -40,3 +40,8 @@ bash "$SKILL_DIR/scripts/pipeline.sh" check "/你的输出目录/handdrawn-demo.
 ```
 
 前者应为1080帧/18秒/60fps且有音频，后者应为480帧/8秒/60fps且无音频。实际工程的验收始终以自己的素材和最终文件为准。
+
+## 2.0.0 模板库
+
+2026-09-29，macOS 本地实测：`pipeline.sh new` 生成的 36 秒演示工程中 9 个模板（hero / point / number / compare / steps / quote / demo / checklist / outro）逐一抽帧检查可读、无遮挡；`pipeline.sh demo` 完整导出结果见下行。尚未在 Kimi、豆包等模型上做端到端出片测试。
+- 完整导出：1920×1080、60fps、36.0 秒、2160 帧，完整解码通过，-15.0 LUFS，峰值 -1.1 dB。

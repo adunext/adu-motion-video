@@ -2,7 +2,7 @@
 # adu-motion-video: explicit local workflow; setup is the only install command.
 # doctor                      check tools without installing anything
 # setup                       install the skill's Node/Python packages (Chrome/FFmpeg separate)
-# new <dir>                   new 18s demo-ready project; no creator footage needed
+# new <dir>                   new 36s template demo project; no creator footage needed
 # import <dir> <talk.mp4>     extract edited narration + frames; no raw footage / ASR needed
 # demo <NEW dir>              new + generated music/sfx + verified demo.mp4 (no narration)
 # stills <dir> t1,t2,...       save PNGs in a NEW stills/run-* directory
@@ -75,7 +75,7 @@ for name in ('talkmap.js', 'face.js', 'subs.js'):
 p = target / 'wall.js'
 if not p.exists():
     p.write_text('// Optional video wall data.\nwindow.WALL = [];\n')
-print(f'New project: {target}\n18s demo mode is ready: local illustration + no narration. For real footage, prepare talkmap.js/talk and set CONFIG.demo=false.')
+print(f'New project: {target}\n36s template demo is ready: local illustration + no narration. For real footage, prepare talkmap.js/talk and set CONFIG.demo=false.')
 PY
   ;;
 import)

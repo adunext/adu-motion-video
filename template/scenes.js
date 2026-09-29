@@ -1,68 +1,17 @@
 /* ============================================================
-   scenes.js — 每集的画面。一个 IIFE = 一个场景。
-   这是可运行的 18 秒起始模板，三个场景演示口播卡片、逐词文字和数字。
-   没有真人素材时 CONFIG.demo=true 使用本地演示插画；它不是正式口播成片。
-   修改 CONFIG.end 时同步修改场景时间、进度段落、字幕和音频。更多积木见 references/scene-patterns.md。
-   规则：
-   - 时间一律用“口播秒数”。口播中间插入展示段时，显式维护原口播时间与输出时间的映射
-   - 每个场景：new Scene(开始, 结束, 底色, {grid, trans}) → 在 sc.el 里 mk()/words() 建元素 → sc.update=t=>{...} 按时间摆放
-   - 音效：在元素出现的那一刻写 S(时间, '类型', 音量, 声像)，由 audio.py 合成（类型见 references/api.md）
+   scenes.js — 每集只改这个文件（和 config.js）。
+   1 个模板调用 = 1 个场景。时间 = 口播绝对秒数，取自字幕/SRT。
+   模板目录和参数：references/templates.md。需要模板以外的画面，按 references/api.md 手写 Scene。
+   下面是 36 秒演示：9 个模板各出现一次。正式成片请按你的口播重写。
    ============================================================ */
 window.END = CONFIG.end;
 
-/* ---------- S1 开场：大标题左 + 口播卡片右（第一帧就有口播） ---------- */
-(() => {
-  const T0 = 0, T1 = 6;
-  const sc = new Scene(T0, T1, 'var(--paper)', { grid: 'grid' });
-  const tag = tags(sc, '// 01 — 开场');
-  const cam = camCard(sc.el, 470, 836);
-  const t1 = mk(sc.el, `<div style="font:700 150px -apple-system,'PingFang SC';letter-spacing:-4px;line-height:1">把想法</div>`, 690, 330, { ax: .5, ay: .5 });
-  const t2 = mk(sc.el, `<div style="font:800 190px -apple-system,'PingFang SC';letter-spacing:-6px;line-height:1">做成<span style="color:var(--blue)">画面</span></div>`, 690, 560, { ax: .5, ay: .5 });
-  const R = race(sc.el, false);
-  sc.update = t => {
-    tag(t);
-    camAt(cam, t, { x: 1570, y: 510, s: .9 * (.94 + .06 * EZ.spring(pr(t, 0, .45))) });
-    const p1 = pr(t, 0, .28), p2 = pr(t, 1.2, 1.46);
-    place(t1, { s: 1 + 1.0 * (1 - EZ.out5(p1)), o: clamp(p1 * 4), blur: (1 - EZ.out5(p1)) * 14 });
-    place(t2, { s: 1 + 1.3 * (1 - EZ.out5(p2)), o: clamp(p2 * 4), blur: (1 - EZ.out5(p2)) * 16 });
-    raceAt(R, t);
-  };
-  sc.cam = t => { const [sx, sy] = shake(t, 1.2, .3, 16); return { x: 960, y: 540, sx, sy }; };
-  S(0, 'hit', .9); S(1.2, 'hit', 1);
-})();
-
-/* ---------- S2 黑底：左侧逐词大字 + 右上角小圆口播 + 卡片依次滑入 ---------- */
-(() => {
-  const T0 = 6, T1 = 14;
-  const sc = new Scene(T0, T1, '#0A0A0A', { grid: 'gridD', trans: 'flash', td: .3, fa: .35 });
-  const tag = tags(sc, '// 02 — 论点', '', true);
-  const cam = camCard(sc.el, 250, 250, '', true);
-  const h = words(sc.el, [{ h: '清楚表达', t: 6.3 }, { h: '每个重点。', t: 6.8, k: 'slam', st: 'color:#6d9bff' }], 146, 260, 'h1', { style: 'color:#fff' });
-  const cards = ['先讲清楚', '再看证据', '给出结论'].map((s, i) => mk(sc.el, `<div class="dcard" style="width:480px;height:150px"><div class="lb">// 0${i + 1}</div><div style="position:absolute;left:28px;top:66px;font:600 44px -apple-system,'PingFang SC'">${s}</div></div>`, 146 + i * 510, 560));
-  const R = race(sc.el);
-  sc.update = t => {
-    tag(t);
-    camAt(cam, t, { x: 1745, y: 180, o: EZ.out(pr(t, T0, T0 + .4)), s: .75 });
-    wordsAt(h, t, { out: T1 - .35 });
-    cards.forEach((c, i) => show(c, t, 8 + i * .5, { k: 'right', out: T1 - .35 }));
-    raceAt(R, t);
-  };
-  S(T0, 'whoosh', .6); S(6.8, 'hit', .8); [0, 1, 2].forEach(i => S(8 + i * .5, 'card', .5, -.4 + i * .4));
-})();
-
-/* ---------- S3 蓝底：数字滚动 + 进度条 ---------- */
-(() => {
-  const T0 = 14, T1 = CONFIG.end;
-  const sc = new Scene(T0, T1, 'var(--blue)', { grid: 'gridB', trans: 'wipe', tc: '#2462EA' });
-  const tag = tags(sc, '// 03 — 数据');
-  const cam = camCard(sc.el, 250, 250, '', true);
-  const num = mk(sc.el, `<div class="mono" style="font-size:180px;font-weight:700;color:#fff">0</div>`, 146, 300);
-  const R = race(sc.el);
-  sc.update = t => {
-    tag(t);
-    camAt(cam, t, { x: 1745, y: 180, s: .75 });
-    show(num, t, 14.3, { k: 'up' }); num.firstChild.textContent = fmt(counter(t, 14.4, 16, 0, 12345));
-    raceAt(R, t);
-  };
-  S(14.3, 'counter', .4, 0, { d: 1.6 }); S(16, 'ding', .6);
-})();
+TPL.hero({ t0: 0, t1: 4, lines: [['把想法', 0], ['做成*画面*', 1.2]], sub: '// 一小时出一条能发的视频' });
+TPL.point({ t0: 4, t1: 8, words: [['清楚表达', 4.3], ['*每个重点。*', 4.8, 'slam']], cards: [['先讲清楚', 5.8], ['再给证据', 6.3], ['最后结论', 6.8]] });
+TPL.number({ t0: 8, t1: 12, label: '平均每条耗时', at: 8.4, from: 480, value: 60, unit: '分钟', sub: '示意数据，不是真实统计' });
+TPL.compare({ t0: 12, t1: 16, left: { title: '以前', items: ['逐帧手调', '改一处重来'] }, right: { title: '现在', items: ['套模板', '按时间改参数'] }, leftAt: 12.2, rightAt: 13.0, strikeAt: 14.0, stamp: '淘汰' });
+TPL.steps({ t0: 16, t1: 20, title: '三步出片', steps: [['导入口播', 16.4], ['选模板', 17.2], ['导出 MP4', 18.0]] });
+TPL.quote({ t0: 20, t1: 23, at: 20.2, lines: ['好内容', '值得*好动效*'] });
+TPL.demo({ t0: 23, t1: 27, title: 'Demo.app', features: [['一键导入', 23.6], ['自动对齐', 24.3], ['逐帧导出', 25.0]] });
+TPL.checklist({ t0: 27, t1: 31, title: '发布前检查', items: [['16:9 · 60fps', 27.4], ['字幕逐字跟随', 28.0], ['响度 -15 LUFS', 28.6]] });
+TPL.outro({ t0: 31, t1: CONFIG.end, lines: ['本视频由 AI 编程助手制作', '使用 adu-motion-video 模板'], prompt: '用 adu-motion-video 把我的口播做成 16:9 动效视频' });
