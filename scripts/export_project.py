@@ -71,6 +71,30 @@ def verify(file, count, fps, width, height, audio=False):
     return data
 
 
+def verify_frame_clock(file, count, fps):
+    """Check every decoded display timestamp, not only average FPS/endpoints."""
+    data = json.loads(run(['ffprobe', '-v', 'error', '-select_streams', 'v:0',
+                          '-show_frames', '-show_entries', 'frame=best_effort_timestamp_time',
+                          '-of', 'json', file]))
+    frames = data.get('frames', [])
+    if len(frames) != count:
+        raise RuntimeError(f'Frame clock count mismatch: expected {count}, got {len(frames)}')
+    maximum = 0.0
+    for i, frame in enumerate(frames):
+        try:
+            actual = float(frame['best_effort_timestamp_time'])
+        except (KeyError, TypeError, ValueError) as exc:
+            raise RuntimeError(f'Missing/invalid display timestamp at frame {i}') from exc
+        error = abs(actual - i / fps)
+        # ffprobe prints microseconds; 2us tolerates decimal formatting without
+        # accepting a missing/repeated frame or a half-frame timing jump.
+        if not math.isfinite(actual) or error > 2e-6:
+            raise RuntimeError(f'Frame clock discontinuity at frame {i}: got {actual}, expected {i / fps}')
+        maximum = max(maximum, error)
+    return {'frames': count, 'fps': fps, 'max_error_seconds': maximum,
+            'verification': 'every decoded display timestamp matches frame / fps'}
+
+
 def concat_video(work, boundaries, fps):
     """Stream-copy on the frame clock, retaining H.264 B-frame display order."""
     # The concat demuxer uses microseconds, while MP4 container durations may be
@@ -217,13 +241,15 @@ def main():
                  '-af', 'apad', '-c:a', 'aac', '-b:a', '256k', '-t', duration,
                  '-movflags', '+faststart', completed])
         metadata = verify(completed, count, args.fps, args.width, args.height, bool(audio))
+        frame_clock = verify_frame_clock(completed, count, args.fps)
         run(['ffmpeg', '-v', 'error', '-xerror', '-i', completed, '-map', '0:v:0', '-map', '0:a?', '-f', 'null', '-'])
         report = {'schema': 'adu-motion-video-export/v1', 'created_utc': datetime.now(timezone.utc).isoformat(),
                   'project': str(project), 'entry': str(entry), 'output': str(output), 'fps': args.fps,
                   'width': args.width, 'height': args.height, 'frames': count, 'duration': duration,
                   'audio': str(audio) if audio else None, 'segments': sorted(segments, key=lambda s: s['index']),
                   'source_sha256': original_sources, 'reused_segments': False,
-                  'verification': 'all segment exits + frame counts; concat/mux metadata; complete media decode',
+                  'verification': 'all segment exits + frame counts; concat/mux metadata; every display timestamp; complete media decode',
+                  'frame_clock': frame_clock,
                   'visual_review': 'not performed by this command',
                   'media_fingerprints': 'not included; source hashes are not a media dependency manifest',
                   'streams': metadata['streams']}

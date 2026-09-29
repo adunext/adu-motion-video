@@ -27,7 +27,7 @@
       "title": "提问开场",
       "role": "双行问题入场，人物卡弹入，关键词重击与物件弹起",
       "source_scene_index": 0,
-      "sourceBlockSha256": "344fc16f307679db33f53348da7db10f96209c15f41891a7480093ffdb349a87",
+      "sourceBlockSha256": "d2ea48326061defb2ca4f0af18845c793a06c29fed48a74c371b468c3c440e68",
       "requireMotionWindows": true,
       "motionWindows": [
         {
@@ -1820,7 +1820,7 @@
       "title": "指挥网络",
       "role": "中心人物联通六个任务节点，数据包沿曲线流动，停机时整网灰化",
       "source_scene_index": 5,
-      "sourceBlockSha256": "e61c14118fb7f63dc810a5464708b72cfc0ec115c161017a3a83a23d94619a9f",
+      "sourceBlockSha256": "e6630e5da3ed7b90be285e2c9d5a528a0eb191311b00ec33eef7177061238b6c",
       "requireMotionWindows": true,
       "motionWindows": [
         {
@@ -2112,7 +2112,8 @@
       ],
       "assets": [],
       "minFrames": 255,
-      "maxHoldFrames": 90
+      "maxHoldFrames": 90,
+      "requiresFaceTracking": true
     },
     {
       "id": "s07",

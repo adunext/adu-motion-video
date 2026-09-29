@@ -23,6 +23,20 @@ class MacroBindingTests(unittest.TestCase):
             self.assertEqual(item['bindings'][0]['value'],value)
             self.assertNotIn(str(root),block)
 
+    def test_selected_square_scene_requires_explicit_or_automatic_tracking(self):
+        import json
+        from build_macro_project import needs_face_tracking, prepare_face
+        root=Path(__file__).resolve().parents[1]
+        pack=json.loads((root/'packs/anim3/manifest.json').read_text())
+        prelude=(root/'packs/anim3/scenes.js').read_text().split('/* ---------- S1')[0]
+        self.assertFalse(needs_face_tracking(pack,{'scenes':[{'source_scene_index':0}]},prelude))
+        self.assertTrue(needs_face_tracking(pack,{'scenes':[{'source_scene_index':5}]},prelude))
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaises(AdaptError):
+                prepare_face(Path(tmp),{'faceTracking':{'mode':'none'}},True,60,120)
+            result=prepare_face(Path(tmp),{'faceTracking':{'mode':'fixed','cx':.5,'cy':.7,'h':.2}},True,60,120)
+            self.assertEqual(result['mode'],'explicit-fixed')
+
     def test_audio_recipe_is_saved_with_project(self):
         from build_macro_project import write_project_audio
         with tempfile.TemporaryDirectory() as tmp:

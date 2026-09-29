@@ -18,12 +18,22 @@ function packNumber(id, fallback) {
 /* shared: persistent on-air cam card lives in every scene (own instance) */
 function camCard(parent, w, h, label = window.PACK_PRESENTER_LABEL || '// on air · 主讲人') {
   const e = mk(parent, `<div class="cam" style="width:${w}px;height:${h}px"><img><div class="lab"><span style="color:#6d9bff">●</span> ${label}</div></div>`, 0, 0, { ax: .5, ay: .5 });
-  e._img = e.querySelector('img'); return e;
+  e._img = e.querySelector('img'); e._faceCrop = w === h; return e;
 }
 function camAt(e, t, o) {
   // Animation uses the source scene clock; the mouth must use the new output clock.
   setFrame(e._img, talkSrc(window.PACK_OUTPUT_TIME == null ? t : window.PACK_OUTPUT_TIME));
   place(e, o);
+  if (e._faceCrop) {
+    const f = faceAt(window.PACK_OUTPUT_TIME == null ? t : window.PACK_OUTPUT_TIME);
+    const W = e.firstChild.offsetWidth, H = e.firstChild.offsetHeight;
+    const cover = Math.max(W / 720, H / 1280);
+    const zoom = clamp(H * .44 / (f.h * 1280 * cover), 1, 2.6);
+    const iw = 720 * cover * zoom, ih = 1280 * cover * zoom;
+    const x = clamp(W / 2 - f.cx * iw, W - iw, 0);
+    const y = clamp(H * .56 - f.cy * ih, H - ih, 0);
+    e._img.style.cssText = `position:absolute;left:${x.toFixed(1)}px;top:${y.toFixed(1)}px;width:${iw.toFixed(1)}px;height:${ih.toFixed(1)}px;max-width:none;object-fit:fill`;
+  }
 }
 
 /* ---------- S1  0 – 3.3  HOOK : 用变化前后的对比建立开场 ---------- */
@@ -47,8 +57,8 @@ function camAt(e, t, o) {
     T(t);
     // cam slides in from right with spring, sits right
     const c = EZ.spring(pr(t, 0, .8));
-    camAt(cam, t, { x: 1490 + (1 - c) * 300, y: 540, r: (1 - c) * 6, o: 1 });
-    show(k, t, .45); wordsAt(l1, t); wordsAt(l2, t);
+    camAt(cam, t, { x: 1490 + (1 - c) * 160, y: 540, r: (1 - c) * 6, o: 1 });
+    show(k, t, -.45); wordsAt(l1, t); wordsAt(l2, t);
     const m = pr(t, 2.35, 2.9); place(mac, { o: clamp(m * 3), s: .6 + .4 * EZ.spring(m), y: 1000 + bob(t, 0, 5), x: 900, r: -6 + 6 * EZ.spring(m) });
   };
   sc.cam = t => ({ x: 960, y: 540, z: 1.02 - .02 * EZ.out(pr(t, 0, 3.3)) });
@@ -236,9 +246,9 @@ function camAt(e, t, o) {
      <div style="position:absolute;left:22px;top:56px;font-size:36px;font-weight:600">${a[0]}</div>
      <div style="position:absolute;left:22px;right:22px;bottom:26px;height:6px;border-radius:3px;background:#262626"><div class="pb" style="height:100%;width:0;border-radius:3px;background:${a[1]}"></div></div>
      <div class="st mono" style="position:absolute;right:22px;top:20px;font-size:17px;color:#777"></div></div>`, AP[i][0], AP[i][1], { ax: .5, ay: .5 }));
-  const t1 = words(sc.el, [{ h: 'AI 时代，更是这样。', t: 36.85 }], 146, 150, 'h2', { style: 'color:#fff' });
-  const t2 = words(sc.el, [{ h: '你，指挥一群 AI 干活。', t: 37.85 }], 146, 150, 'h2', { style: 'color:#fff' });
-  const t3 = words(sc.el, [{ h: '电脑，就是你的', t: 40.45 }, { h: '<span style="color:#6d9bff">指挥部。</span>', t: 41.1 }], 146, 150, 'h2', { style: 'color:#fff' });
+  const t1 = words(sc.el, [{ h: 'AI 时代，更是这样。', t: 36.85 }], 146, 110, 'h2', { style: 'color:#fff' });
+  const t2 = words(sc.el, [{ h: '你，指挥一群 AI 干活。', t: 37.85 }], 146, 110, 'h2', { style: 'color:#fff' });
+  const t3 = words(sc.el, [{ h: '电脑，就是你的', t: 40.45 }, { h: '<span style="color:#6d9bff">指挥部。</span>', t: 41.1 }], 146, 110, 'h2', { style: 'color:#fff' });
   const stop = mk(sc.el, `<div style="text-align:center"><div style="font-size:150px;font-weight:700;letter-spacing:-5px;color:#fff">你一停，</div><div style="font-size:64px;font-weight:600;color:#E5484D">整支 AI 队伍都得停下来等你</div></div>`, 960, 560, { ax: .5, ay: .5 });
   const pause = mk(sc.el, `<div style="width:110px;height:110px;border-radius:50%;background:#E5484D;display:flex;align-items:center;justify-content:center;gap:14px"><div style="width:14px;height:44px;background:#fff;border-radius:3px"></div><div style="width:14px;height:44px;background:#fff;border-radius:3px"></div></div>`, CX, CY, { ax: .5, ay: .5 });
   const FZ = 42.2;

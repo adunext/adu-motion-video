@@ -23,3 +23,22 @@ test('reused opening retains early SFX and later scenes retain pre-roll', async 
   assert.equal(ctx.SFX[1].t,4.95);
   assert.equal(ctx.SFX[1].d,.5);
 });
+
+test('square presenter crop follows the new narration clock and contains the face', () => {
+  const source=fs.readFileSync(new URL('../packs/anim3/scenes.js',import.meta.url),'utf8').split('/* ---------- S1')[0];
+  const face={cx:.42,cy:.70,h:.22};
+  const ctx={CONFIG:{end:8},PACK_OUTPUT_TIME:2.5,Math};ctx.window=ctx;
+  ctx.clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));ctx.place=()=>{};
+  ctx.talkSrc=t=>{assert.equal(t,2.5);return 'new-frame.jpg'};
+  ctx.setFrame=(im,src)=>{im.src=src};ctx.faceAt=t=>{assert.equal(t,2.5);return face};
+  vm.runInNewContext(source,ctx);
+  const e={_faceCrop:true,_img:{style:{}},firstChild:{offsetWidth:300,offsetHeight:300}};
+  ctx.camAt(e,39,{x:960,y:600});
+  const css=e._img.style.cssText;
+  const value=key=>Number(css.match(new RegExp(`(?:^|;)${key}:(-?[0-9.]+)px`))[1]);
+  const top=value('top')+(face.cy-face.h/2)*value('height');
+  const bottom=value('top')+(face.cy+face.h/2)*value('height');
+  assert.ok(top>50 && bottom<300,`face ${top}..${bottom} must fit below the label`);
+  assert.ok(Math.abs(value('width')/value('height')-720/1280)<.001);
+  assert.equal(e._img.src,'new-frame.jpg');
+});

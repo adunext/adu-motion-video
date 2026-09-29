@@ -135,6 +135,12 @@ def prepare_face(stage: Path, spec: dict, needed: bool, fps: int, frames: int) -
     fail('faceTracking.mode must be auto, fixed or none')
 
 
+def needs_face_tracking(pack: dict, plan: dict, prelude: str) -> bool:
+    return ('function faceAt(' in prelude or
+            any(pack['scenes'][item['source_scene_index']].get('requiresFaceTracking', False)
+                for item in plan['scenes']))
+
+
 def copy_media(stage: Path, pack: dict, item: dict, source_scene: dict, block: str,
                wall_sources: set[str]) -> tuple[str, dict]:
     alias: dict[str, str] = {}
@@ -256,7 +262,7 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
         imported.update(narrationAssets={'frames': 'talk/clip_000', 'audio': 'voice.wav'},
                         sourceEmbedded=False)
         (stage / 'import.json').write_text(json.dumps(imported, ensure_ascii=False, indent=2) + '\n')
-        face_report = prepare_face(stage, spec, 'function faceAt(' in prelude, plan['fps'], imported['frames'])
+        face_report = prepare_face(stage, spec, needs_face_tracking(pack, plan, prelude), plan['fps'], imported['frames'])
         if subs_js:
             if not subs_js.is_file(): fail(f'Missing generated subtitle data: {subs_js}')
             shutil.copy2(subs_js, stage / 'subs.js')
