@@ -1,12 +1,36 @@
+![adu-motion-video 封面](assets/cover.png)
+
 # adu-motion-video
+
+> **大量模板整理上传中，敬请期待。**
+> More templates are being organized and uploaded. Stay tuned.
 
 阿杜Next 的 HTML / JavaScript 动效视频 Skill。把真人口播或新文案编排为标题、卡片、软件窗口、作品墙、双语字幕与声音，并通过本地浏览器逐帧导出 MP4。
 
 A local HTML / JavaScript motion-video skill from AduNext. Author talking-head layouts, kinetic titles, cards, software demos, video walls, bilingual captions and sound, then render frames through Chromium and encode MP4 with FFmpeg.
 
-**MIT 开源、可安装。** 自有工具代码和方法采用 [MIT 许可证](LICENSE)，第三方依赖保留各自许可，详见 [来源与依赖声明](THIRD_PARTY.md)。本包不包含真人素材、头像、音乐、历史成片或字体二进制；不会自动生成新口型、配音或三维素材。
+**MIT 开源、可安装。** 自有工具代码和方法采用 [MIT 许可证](LICENSE)，第三方依赖保留各自许可，详见 [来源与依赖声明](THIRD_PARTY.md)。除仓库封面外，本包不包含真人素材、头像、音乐、历史成片或字体二进制；不会自动生成新口型、配音或三维素材。
 
-**Open source under MIT and installable.** The toolkit code and documentation use the [MIT License](LICENSE); third-party dependencies retain their own licenses. See [provenance and dependency notices](THIRD_PARTY.md). Personal media, music, historical renders and font binaries are excluded. New voice, lip-sync and 3D generation require separate tools and authorization.
+**Open source under MIT and installable.** The toolkit code and documentation use the [MIT License](LICENSE); third-party dependencies retain their own licenses. See [provenance and dependency notices](THIRD_PARTY.md). Apart from the owner-supplied README cover, personal media, music, historical renders and font binaries are excluded. New voice, lip-sync and 3D generation require separate tools and authorization.
+
+## 效果选择 / Effect options
+
+目前保留以下六种视觉方案，后续制作可以直接点名选择，也可以在一条主路线中借用其它手法。
+
+| 选项 | 适合的效果 |
+| --- | --- |
+| A · 原片节奏 | 卡片抬升、错峰入场、真人接镜，保留原片动作细节 |
+| B · 连续形变 | 同一窗口、文件或卡片连续拆分、归拢、转化 |
+| C · 舞台镜头 | 前中后景、浅透视、遮挡和推近，让主体突出 |
+| D · 杂志分屏 | 版心、整栏真人、旁注与跨栏交接 |
+| E · 节拍字效 | 关键词推动物件，动作与语义重音配合 |
+| F · 实拍卡片（换 Mac） | 竖幅真人卡片、大标题、软件图标与数字证据，适合经验分享 |
+
+详见[视觉路线](references/visual-routes.md)。这些是可选编排方法，需要按新口播安排场景；媒体齐全的完整模板正在继续整理上传。
+
+字幕可独立选择：**标准版（中文44 / 英文26px）**，或这次《换 Mac》采用的**英文加大版（中文44 / 英文30px）**。均为描边白字、无底板，并支持按整组字幕调整位置避让旧画面。详见[字幕方案与配置](references/subtitle-options.md)，无素材演示见 [subtitle-options.html](examples/subtitle-options.html)。
+
+例如：“用C舞台镜头做下一集，字幕选英文加大版。”
 
 ## 安装 / Install
 
@@ -114,7 +138,7 @@ The manifest is a JSON array containing unique `slug` values for local `slug.mp4
 | `template/` | Talking-head runtime and editable project skeleton |
 | `scripts/` | Alignment, subtitles, face tracking, audio and strict export tools |
 | `references/` | Layout, scene API, audio, compatibility and verification guidance |
-| [Visual routes](references/visual-routes.md) | Five optional choreography approaches; methods, not media-complete one-click templates |
+| [Visual routes](references/visual-routes.md) | Five choreography approaches plus the Mac talking-head card layout; methods, not media-complete one-click templates |
 | `examples/` | Historical code references plus a media-free silent demo |
 | [THIRD_PARTY.md](THIRD_PARTY.md) | Provenance, exclusions and dependency notices |
 
@@ -123,3 +147,5 @@ The manifest is a JSON array containing unique `slug` values for local `slug.mp4
 The public copy passed skill-frontmatter validation, Python/JavaScript/Shell syntax checks, local Markdown-link checks and a pattern-based credential/private-path scan. The included silent demo was rendered locally as 1920×1080, 60 fps, 360 decoded frames, 6 seconds, with no audio. The parameterized wall utility produced a 768×432 sprite from a synthetic clip and refused an existing output directory.
 
 These checks do not establish full talking-head alignment, face-tracking accuracy, subjective creative quality or cross-platform equivalence. Real voice/media alignment and macOS face tracking were not rerun for this public packaging.
+
+Version 1.3.0 additionally checked both subtitle presets in Chromium: font sizes, transparent backgrounds, safe bounds, whole-group positioning and reverse seeks. The media-free subtitle example rendered as 1920×1080, 60 fps, 360 frames / 6 seconds, without audio. These checks cover the new caption options, not a rerun of every historical full-length video.

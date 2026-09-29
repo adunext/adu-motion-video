@@ -1,15 +1,19 @@
 /* 双语字幕层：需要 subs.js（scripts/build_subs.py 生成）。CONFIG.subtitles=false 时关闭 */
 if (typeof SUBS !== 'undefined' && CONFIG.subtitles !== false)
-/* =========================================================
-   双语字幕（中 / 英）— 卡拉 OK 逐字变色，跟随口播进度
-   位于底部，赛道进度条上方；背景自适应（白底用深字，黑/蓝底用浅字）
-   ========================================================= */
+// White outlined bilingual captions. Presets use a 1920×1080 authoring canvas.
 (() => {
+  const presets = {
+    standard: {top:872, gap:8, zhSize:44, enSize:26, compact:false},
+    'large-en': {top:940, gap:6, zhSize:44, enSize:30, compact:true},
+  };
+  const name = CONFIG.subtitlePreset || 'standard';
+  if (!presets[name]) throw new Error(`Unknown subtitlePreset: ${name}`);
+  const style = {...presets[name], ...CONFIG.subtitleStyle};
   const ov = $('ov');
   const box = document.createElement('div');
-  box.style.cssText = 'position:absolute;left:0;right:0;top:872px;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none';
-  box.innerHTML = `<div class="sz" style="display:inline-block;padding:8px 26px 6px;border-radius:14px;font:600 44px -apple-system,'PingFang SC',sans-serif;letter-spacing:1px;white-space:nowrap"></div>
-                   <div class="se" style="display:inline-block;padding:4px 20px;border-radius:10px;font:500 26px -apple-system,'SF Pro Text',sans-serif;letter-spacing:.2px;white-space:nowrap"></div>`;
+  box.style.cssText = `position:absolute;left:0;right:0;top:${style.top}px;display:flex;flex-direction:column;align-items:center;gap:${style.gap}px;pointer-events:none`;
+  box.innerHTML = `<div class="sz" style="display:inline-block;padding:${style.compact ? '0 26px' : '8px 26px 6px'};border-radius:14px;font:600 ${style.zhSize}px${style.compact ? '/1.1' : ''} -apple-system,'PingFang SC',sans-serif;letter-spacing:1px;white-space:nowrap"></div>
+                   <div class="se" style="display:inline-block;padding:${style.compact ? '0 20px' : '4px 20px'};border-radius:10px;font:500 ${style.enSize}px${style.compact ? '/1.15' : ''} -apple-system,'SF Pro Text',sans-serif;letter-spacing:.2px;white-space:nowrap"></div>`;
   ov.appendChild(box);
   const zE = box.querySelector('.sz'), eE = box.querySelector('.se');
   zE.style.cssText += ";-webkit-text-stroke:4px rgba(10,10,10,.9);paint-order:stroke fill;text-shadow:none;background:transparent";
@@ -26,13 +30,6 @@ if (typeof SUBS !== 'undefined' && CONFIG.subtitles !== false)
       acc += w;
     }
     return 1;
-  }
-  function bgAt(t) {                       // which background is under the subtitle band
-    const sc = SCENES.filter(s => t >= s.s && t < s.e).pop(); if (!sc) return 'dark';
-    const bg = sc.el.style.background;
-    if (bg.includes('36, 98, 234') || bg.includes('--blue')) return 'blue';
-    if (bg.includes('paper') || bg.includes('247')) return 'light';
-    return 'dark';
   }
   window.OVERLAY = t => {
     const i = SUBS.findIndex(g => t >= g.t0 - .05 && t < g.t1 + .05);
@@ -59,7 +56,9 @@ if (typeof SUBS !== 'undefined' && CONFIG.subtitles !== false)
     // group in/out
     const a = pr(t, g.t0 - .05, g.t0 + .12), b = 1 - pr(t, g.t1 - .08, g.t1 + .05);
     box.style.opacity = Math.min(a, b).toFixed(3);
-    box.style.transform = `translateY(${((1 - EZ.out(a)) * 10).toFixed(1)}px)`;
+    const canvasCenter = (CONFIG.width || 1920) / 2;
+    const centerX = CONFIG.subtitleXByStart?.[String(g.t0)] ?? canvasCenter;
+    box.style.transform = `translate(${centerX - canvasCenter}px,${((1 - EZ.out(a)) * 10).toFixed(1)}px)`;
     // hide during the full-screen end card last beat? keep; hide only when opacity of fade overlay is high
   };
 })();

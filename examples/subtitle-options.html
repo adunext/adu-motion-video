@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>字幕方案演示</title>
+<style>html,body{margin:0;width:1920px;height:1080px;overflow:hidden}#stage,#ov{position:absolute;inset:0}#title{position:absolute;left:146px;top:240px;font:700 76px system-ui,sans-serif}#ov{pointer-events:none}</style></head><body>
+<div id="stage"><div id="title">中英字幕 · 标准 / 英文加大</div><div id="ov"></div></div>
+<script>
+window.CONFIG={width:1920,race:{labels:[],keys:[]},subtitles:true,subtitlePreset:new URLSearchParams(location.search).get('preset')||'large-en',subtitleXByStart:{'4':1480}};
+window.SUBS=[{t0:1,t1:2.7,zh:'让每一个想法，成为清晰流畅的画面。',en:'Turn every idea into clear, fluid motion with readable bilingual captions.',sp:[[1,2.7,18]]},{t0:4,t1:5.8,zh:'为原画面的大字留出空间。',en:'Leave space for the original titles.',sp:[[4,5.8,13]]}];
+</script>
+<script src="../template/lib.js"></script><script src="../template/subtitles.js"></script>
+<script>window.END=6;window.renderAt=t=>{document.getElementById('stage').style.background=t<3?'#F7F7F5':'#0A0A0A';document.getElementById('title').style.color=t<3?'#0A0A0A':'#FFFFFF';OVERLAY(t)};window.READY=document.fonts.ready;renderAt(Number(new URLSearchParams(location.search).get('t')||1.8));</script>
+</body></html>
