@@ -1,0 +1,4157 @@
+{
+  "id": "anim4-showcase-macro",
+  "version": "1.0.0",
+  "source": "sanitized full 9-scene 754-line DOM/CSS/JavaScript composition from examples/showcase-scenes.js",
+  "fps": 60,
+  "width": 1920,
+  "height": 1080,
+  "sourceEnd": 108.4,
+  "originalSceneCount": 9,
+  "originalSfxCount": 175,
+  "media": {
+    "talk": {
+      "type": "talking-head",
+      "required": true,
+      "fps": 60,
+      "mapping": "talkmap.js + talk/ frames"
+    },
+    "face": {
+      "type": "face-track",
+      "required": false,
+      "fallback": "center portrait when tracking unavailable"
+    },
+    "subtitles": {
+      "type": "timed-bilingual-subtitles",
+      "required": false,
+      "mapping": "subs.js"
+    },
+    "wallData": {
+      "type": "wall-metadata",
+      "required": true,
+      "mapping": "wall.js lists user-supplied works"
+    }
+  },
+  "assetDefinitions": {
+    "wall": {
+      "type": "wall-sprites",
+      "sourceAsset": "sc/wall/{000..388}.jpg",
+      "originalItems": 389,
+      "spriteGrid": [
+        4,
+        4
+      ],
+      "tileSize": [
+        128,
+        72
+      ],
+      "required": true
+    },
+    "presenter": {
+      "type": "image",
+      "sourceAsset": "assets/presenter.png",
+      "required": true,
+      "aspect": "1:1"
+    },
+    "app_logo": {
+      "type": "image",
+      "sourceAsset": "assets/app-logo.png",
+      "required": true,
+      "aspect": "1:1"
+    },
+    "grid_opus55p": {
+      "type": "sequence",
+      "sourceAsset": "sc/g_opus55p/f_%04d.jpg",
+      "originalFrames": 780,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        480,
+        270
+      ]
+    },
+    "grid_gpt6pro": {
+      "type": "sequence",
+      "sourceAsset": "sc/g_gpt6pro/f_%04d.jpg",
+      "originalFrames": 780,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        480,
+        270
+      ]
+    },
+    "grid_gpt6astra": {
+      "type": "sequence",
+      "sourceAsset": "sc/g_gpt6astra/f_%04d.jpg",
+      "originalFrames": 780,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        480,
+        270
+      ]
+    },
+    "grid_grok47": {
+      "type": "sequence",
+      "sourceAsset": "sc/g_grok47/f_%04d.jpg",
+      "originalFrames": 780,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        480,
+        270
+      ]
+    },
+    "grid_opus55": {
+      "type": "sequence",
+      "sourceAsset": "sc/g_opus55/f_%04d.jpg",
+      "originalFrames": 780,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        480,
+        270
+      ]
+    },
+    "grid_gpt6sol": {
+      "type": "sequence",
+      "sourceAsset": "sc/g_gpt6sol/f_%04d.jpg",
+      "originalFrames": 780,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        480,
+        270
+      ]
+    },
+    "grid_gpt56sol": {
+      "type": "sequence",
+      "sourceAsset": "sc/g_gpt56sol/f_%04d.jpg",
+      "originalFrames": 780,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        480,
+        270
+      ]
+    },
+    "grid_gpt56": {
+      "type": "sequence",
+      "sourceAsset": "sc/g_gpt56/f_%04d.jpg",
+      "originalFrames": 780,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        480,
+        270
+      ]
+    },
+    "grid_claude50": {
+      "type": "sequence",
+      "sourceAsset": "sc/g_claude50/f_%04d.jpg",
+      "originalFrames": 780,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        480,
+        270
+      ]
+    },
+    "opus_hero": {
+      "type": "sequence",
+      "sourceAsset": "sc/opus_hero/f_%04d.jpg",
+      "originalFrames": 960,
+      "originalFps": 60,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        1600,
+        900
+      ]
+    },
+    "prev": {
+      "type": "sequence",
+      "sourceAsset": "sc/prev/f_%04d.jpg",
+      "originalFrames": 210,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        800,
+        450
+      ]
+    },
+    "cat_explain": {
+      "type": "sequence",
+      "sourceAsset": "sc/cat_explain/f_%04d.jpg",
+      "originalFrames": 360,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        800,
+        450
+      ]
+    },
+    "cat_fun": {
+      "type": "sequence",
+      "sourceAsset": "sc/cat_fun/f_%04d.jpg",
+      "originalFrames": 360,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        800,
+        450
+      ]
+    },
+    "cat_story": {
+      "type": "sequence",
+      "sourceAsset": "sc/cat_story/f_%04d.jpg",
+      "originalFrames": 360,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        800,
+        450
+      ]
+    },
+    "cat_mv": {
+      "type": "sequence",
+      "sourceAsset": "sc/cat_mv/f_%04d.jpg",
+      "originalFrames": 360,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        800,
+        450
+      ]
+    },
+    "mv_lens": {
+      "type": "sequence",
+      "sourceAsset": "sc/mv_lens/f_%04d.jpg",
+      "originalFrames": 345,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        960,
+        540
+      ]
+    },
+    "soft_match": {
+      "type": "sequence",
+      "sourceAsset": "sc/soft_match/f_%04d.jpg",
+      "originalFrames": 90,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "preserve",
+      "referenceSize": [
+        1600,
+        1028
+      ]
+    },
+    "soft_tpl": {
+      "type": "sequence",
+      "sourceAsset": "sc/soft_tpl/f_%04d.jpg",
+      "originalFrames": 360,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "preserve",
+      "referenceSize": [
+        1600,
+        1028
+      ]
+    },
+    "work": {
+      "type": "sequence",
+      "sourceAsset": "sc/work/f_%04d.jpg",
+      "originalFrames": 122,
+      "originalFps": 60,
+      "required": true,
+      "aspect": "9:16",
+      "referenceSize": [
+        608,
+        1080
+      ]
+    },
+    "coding": {
+      "type": "sequence",
+      "sourceAsset": "sc/coding/f_%04d.jpg",
+      "originalFrames": 59,
+      "originalFps": 30,
+      "required": true,
+      "aspect": "16:9",
+      "referenceSize": [
+        1280,
+        720
+      ]
+    },
+    "wall_badge_icon": {
+      "type": "image",
+      "sourceAsset": "assets/wall-badge.png",
+      "required": true,
+      "aspect": "1:1",
+      "note": "Supply a rights-cleared source/logo icon for the works wall; do not imply GitHub origin unless true."
+    }
+  },
+  "scenes": [
+    {
+      "id": "s01",
+      "source_scene_index": 0,
+      "role": "开场钩子→剪辑负担→作品墙与人像缩窗",
+      "source": {
+        "start": 0,
+        "end": 8.8
+      },
+      "cues": [
+        {
+          "id": "opening",
+          "at": 0,
+          "kind": "第一帧出现人物与标题",
+          "required": false
+        },
+        {
+          "id": "title_slam",
+          "at": 1.3,
+          "kind": "关键词标题砸入",
+          "required": true
+        },
+        {
+          "id": "timeline",
+          "at": 2.5,
+          "kind": "手动工作时间线",
+          "required": false
+        },
+        {
+          "id": "strike",
+          "at": 3.28,
+          "kind": "划掉与红色章",
+          "required": false
+        },
+        {
+          "id": "wall_handoff",
+          "at": 3.9,
+          "kind": "人物缩窗且作品墙入场",
+          "required": true
+        },
+        {
+          "id": "statement_1",
+          "at": 5.45,
+          "kind": "第一句逐字",
+          "required": false
+        },
+        {
+          "id": "statement_2",
+          "at": 6.1,
+          "kind": "第二句逐字",
+          "required": false
+        },
+        {
+          "id": "payoff",
+          "at": 7.75,
+          "kind": "结论砸字",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "text_00",
+          "type": "text",
+          "sourceText": "// 01 — 下一个阶段",
+          "required": true,
+          "maxChars": 20,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 98,
+              "end": 111
+            }
+          ]
+        },
+        {
+          "id": "text_05",
+          "type": "text",
+          "sourceText": "视频内容创作",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 370,
+              "end": 376
+            }
+          ]
+        },
+        {
+          "id": "text_06",
+          "type": "text",
+          "sourceText": "进入",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 574,
+              "end": 576
+            }
+          ]
+        },
+        {
+          "id": "text_07",
+          "type": "text",
+          "sourceText": "下一阶段",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 608,
+              "end": 612
+            }
+          ]
+        },
+        {
+          "id": "text_08",
+          "type": "text",
+          "sourceText": "AI · VIDEO · 2026",
+          "required": true,
+          "maxChars": 25,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 758,
+              "end": 775
+            }
+          ]
+        },
+        {
+          "id": "text_12",
+          "type": "text",
+          "sourceText": "// 手动剪辑 · timeline",
+          "required": true,
+          "maxChars": 27,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1974,
+              "end": 1992
+            }
+          ]
+        },
+        {
+          "id": "text_14",
+          "type": "text",
+          "sourceText": "别再死磕",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3168,
+              "end": 3172
+            }
+          ]
+        },
+        {
+          "id": "text_15",
+          "type": "text",
+          "sourceText": "REC · 示意",
+          "required": true,
+          "maxChars": 13,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 4090,
+              "end": 4098
+            }
+          ]
+        },
+        {
+          "id": "text_16",
+          "type": "text",
+          "sourceText": "看完你就知道",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 4196,
+              "end": 4202
+            }
+          ]
+        },
+        {
+          "id": "text_17",
+          "type": "text",
+          "sourceText": "现在的 AI 剪辑",
+          "required": true,
+          "maxChars": 14,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 4292,
+              "end": 4301
+            }
+          ]
+        },
+        {
+          "id": "text_18",
+          "type": "text",
+          "sourceText": "有多",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 4390,
+              "end": 4392
+            }
+          ]
+        },
+        {
+          "id": "text_19",
+          "type": "text",
+          "sourceText": "离谱。",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 4411,
+              "end": 4414
+            }
+          ]
+        },
+        {
+          "id": "wall",
+          "type": "wall-sprites",
+          "sourceAsset": "sc/wall/{000..388}.jpg",
+          "required": true
+        }
+      ],
+      "assets": [
+        "wall"
+      ],
+      "minFrames": 327,
+      "maxHoldFrames": 180,
+      "motionWindows": [
+        {
+          "id": "opening_titles",
+          "start": 0,
+          "end": 2.4,
+          "anchorCue": "title_slam"
+        },
+        {
+          "id": "timeline_strike",
+          "start": 2.5,
+          "end": 3.72,
+          "anchorCue": "timeline"
+        },
+        {
+          "id": "portrait_wall_handoff",
+          "start": 3.7,
+          "end": 4.8,
+          "anchorCue": "wall_handoff"
+        },
+        {
+          "id": "payoff_impact",
+          "start": 7.7,
+          "end": 8.25,
+          "anchorCue": "payoff"
+        }
+      ],
+      "sourceBlockSha256": "1142e829a0e5d5e9b83571b4097f55426ae47982b3786a70f461039c034a019c"
+    },
+    {
+      "id": "s02",
+      "source_scene_index": 1,
+      "role": "九宫格对比→分组高亮→全选→指标滚动",
+      "source": {
+        "start": 8.8,
+        "end": 25.9
+      },
+      "cues": [
+        {
+          "id": "grid",
+          "at": 8.8,
+          "kind": "九格依次弹入",
+          "required": false
+        },
+        {
+          "id": "group_b",
+          "at": 12.13,
+          "kind": "第一组高亮",
+          "required": false
+        },
+        {
+          "id": "group_a",
+          "at": 13.37,
+          "kind": "第二组高亮",
+          "required": true
+        },
+        {
+          "id": "version_chips",
+          "at": 15.2,
+          "kind": "版本标签依次出现",
+          "required": false
+        },
+        {
+          "id": "all_checked",
+          "at": 19.35,
+          "kind": "九格逐个打钩",
+          "required": true
+        },
+        {
+          "id": "quality",
+          "at": 20.25,
+          "kind": "评价字卡",
+          "required": false
+        },
+        {
+          "id": "reasoning",
+          "at": 22,
+          "kind": "指标卡入场",
+          "required": false
+        },
+        {
+          "id": "cost",
+          "at": 23.8,
+          "kind": "计数与成本滚动",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "text_00",
+          "type": "text",
+          "sourceText": "// 02 — 示意 · 同一段口播 · 9 个展示卡片",
+          "required": true,
+          "maxChars": 41,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 130,
+              "end": 158
+            }
+          ]
+        },
+        {
+          "id": "text_03",
+          "type": "text",
+          "sourceText": "示例方案 A",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 198,
+              "end": 204
+            }
+          ]
+        },
+        {
+          "id": "text_04",
+          "type": "text",
+          "sourceText": "详细提示词",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 208,
+              "end": 213
+            }
+          ]
+        },
+        {
+          "id": "text_06",
+          "type": "text",
+          "sourceText": "示例方案 B",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 235,
+              "end": 241
+            }
+          ]
+        },
+        {
+          "id": "text_08",
+          "type": "text",
+          "sourceText": "示例方案 C",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 269,
+              "end": 275
+            }
+          ]
+        },
+        {
+          "id": "text_10",
+          "type": "text",
+          "sourceText": "示例方案 D",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 313,
+              "end": 319
+            }
+          ]
+        },
+        {
+          "id": "text_13",
+          "type": "text",
+          "sourceText": "一句话提示词",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 354,
+              "end": 360
+            }
+          ]
+        },
+        {
+          "id": "text_15",
+          "type": "text",
+          "sourceText": "示例方案 E",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 385,
+              "end": 391
+            }
+          ]
+        },
+        {
+          "id": "text_17",
+          "type": "text",
+          "sourceText": "示例方案 F",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 431,
+              "end": 437
+            }
+          ]
+        },
+        {
+          "id": "text_19",
+          "type": "text",
+          "sourceText": "示例方案 G",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 461,
+              "end": 467
+            }
+          ]
+        },
+        {
+          "id": "text_21",
+          "type": "text",
+          "sourceText": "示例方案 H",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 494,
+              "end": 500
+            }
+          ]
+        },
+        {
+          "id": "text_22",
+          "type": "text",
+          "sourceText": "// 同一段口播 · 9 个模型",
+          "required": true,
+          "maxChars": 24,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2120,
+              "end": 2136
+            }
+          ]
+        },
+        {
+          "id": "text_23",
+          "type": "text",
+          "sourceText": "对比组 B",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2305,
+              "end": 2310
+            }
+          ]
+        },
+        {
+          "id": "text_24",
+          "type": "text",
+          "sourceText": "对比组 A",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2399,
+              "end": 2404
+            }
+          ]
+        },
+        {
+          "id": "text_25",
+          "type": "text",
+          "sourceText": "5.6",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2524,
+              "end": 2527
+            }
+          ]
+        },
+        {
+          "id": "text_26",
+          "type": "text",
+          "sourceText": "6",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2539,
+              "end": 2540
+            }
+          ]
+        },
+        {
+          "id": "text_27",
+          "type": "text",
+          "sourceText": "Pro",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2552,
+              "end": 2555
+            }
+          ]
+        },
+        {
+          "id": "text_28",
+          "type": "text",
+          "sourceText": "Ultra",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2568,
+              "end": 2573
+            }
+          ]
+        },
+        {
+          "id": "text_30",
+          "type": "text",
+          "sourceText": "所有的，全部试了",
+          "required": true,
+          "maxChars": 13,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2950,
+              "end": 2958
+            }
+          ]
+        },
+        {
+          "id": "text_31",
+          "type": "text",
+          "sourceText": "总的来说 ·",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3082,
+              "end": 3088
+            }
+          ]
+        },
+        {
+          "id": "text_32",
+          "type": "text",
+          "sourceText": "还可以",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3114,
+              "end": 3117
+            }
+          ]
+        },
+        {
+          "id": "text_33",
+          "type": "text",
+          "sourceText": "// 推理程度",
+          "required": true,
+          "maxChars": 11,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3263,
+              "end": 3270
+            }
+          ]
+        },
+        {
+          "id": "text_35",
+          "type": "text",
+          "sourceText": "low",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3913,
+              "end": 3916
+            }
+          ]
+        },
+        {
+          "id": "text_36",
+          "type": "text",
+          "sourceText": "// token 消耗",
+          "required": true,
+          "maxChars": 17,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 4138,
+              "end": 4149
+            }
+          ]
+        },
+        {
+          "id": "text_38",
+          "type": "text",
+          "sourceText": "成本",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 4372,
+              "end": 4374
+            }
+          ]
+        },
+        {
+          "id": "reasoning_level",
+          "type": "dynamicText",
+          "sourceText": "medium",
+          "required": true,
+          "maxChars": 12,
+          "renderContext": "text",
+          "note": "Also replace high/Ultra in state ladder with chosen labels or keep generic level UI",
+          "sourceSpans": [
+            {
+              "start": 3805,
+              "end": 3811
+            },
+            {
+              "start": 7008,
+              "end": 7014
+            }
+          ]
+        },
+        {
+          "id": "token_ceiling",
+          "type": "number",
+          "required": true,
+          "note": "Only use a verified number for this episode; if illustrative, label the scene 示意.",
+          "sourceCode": "Math.pow(pr(t, 23.8, 25.5), 1.6) * 4.8e6",
+          "valueTemplate": "Math.pow(pr(t, 23.8, 25.5), 1.6) * {value}",
+          "sourceSpans": [
+            {
+              "start": 7160,
+              "end": 7200
+            }
+          ]
+        },
+        {
+          "id": "grid_opus55p",
+          "type": "sequence",
+          "sourceAsset": "sc/g_opus55p/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "grid_gpt6pro",
+          "type": "sequence",
+          "sourceAsset": "sc/g_gpt6pro/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "grid_gpt6astra",
+          "type": "sequence",
+          "sourceAsset": "sc/g_gpt6astra/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "grid_grok47",
+          "type": "sequence",
+          "sourceAsset": "sc/g_grok47/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "grid_opus55",
+          "type": "sequence",
+          "sourceAsset": "sc/g_opus55/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "grid_gpt6sol",
+          "type": "sequence",
+          "sourceAsset": "sc/g_gpt6sol/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "grid_gpt56sol",
+          "type": "sequence",
+          "sourceAsset": "sc/g_gpt56sol/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "grid_gpt56",
+          "type": "sequence",
+          "sourceAsset": "sc/g_gpt56/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "grid_claude50",
+          "type": "sequence",
+          "sourceAsset": "sc/g_claude50/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "unit_cost_rate",
+          "type": "number",
+          "sourceCode": "tk * 1.5e-5",
+          "valueTemplate": "tk * {value}",
+          "required": true,
+          "note": "Only use a verified number for this episode; if illustrative, label the scene 示意.",
+          "sourceSpans": [
+            {
+              "start": 7300,
+              "end": 7311
+            }
+          ]
+        },
+        {
+          "id": "counter_alert_threshold",
+          "type": "number",
+          "sourceCode": "tk > 3e6",
+          "valueTemplate": "tk > {value}",
+          "required": true,
+          "note": "Only use a verified number for this episode; if illustrative, label the scene 示意.",
+          "sourceSpans": [
+            {
+              "start": 7245,
+              "end": 7253
+            }
+          ]
+        },
+        {
+          "id": "grid_05_name",
+          "type": "text",
+          "sourceText": "示例方案 A",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 344,
+              "end": 350
+            }
+          ]
+        },
+        {
+          "id": "reasoning_high",
+          "type": "dynamicText",
+          "sourceText": "high",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 7030,
+              "end": 7034
+            }
+          ]
+        },
+        {
+          "id": "reasoning_ultra",
+          "type": "dynamicText",
+          "sourceText": "Ultra",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 7039,
+              "end": 7044
+            }
+          ]
+        }
+      ],
+      "assets": [
+        "grid_opus55p",
+        "grid_gpt6pro",
+        "grid_gpt6astra",
+        "grid_grok47",
+        "grid_opus55",
+        "grid_gpt6sol",
+        "grid_gpt56sol",
+        "grid_gpt56",
+        "grid_claude50"
+      ],
+      "minFrames": 636,
+      "maxHoldFrames": 180,
+      "motionWindows": [
+        {
+          "id": "continuous_media_full_scene",
+          "start": 8.8,
+          "end": 25.9,
+          "note": "Nine live sequence tiles / enlarged hero video use source-time playback and must remain at 1x."
+        },
+        {
+          "id": "grid_cascade",
+          "start": 8.8,
+          "end": 10.1,
+          "anchorCue": "grid"
+        },
+        {
+          "id": "group_highlight",
+          "start": 12.13,
+          "end": 15.0,
+          "anchorCue": "group_a"
+        },
+        {
+          "id": "model_chips",
+          "start": 15.2,
+          "end": 19.3,
+          "anchorCue": "version_chips"
+        },
+        {
+          "id": "all_checked",
+          "start": 19.35,
+          "end": 20.25,
+          "anchorCue": "all_checked"
+        },
+        {
+          "id": "reasoning_slider",
+          "start": 22.0,
+          "end": 23.6,
+          "anchorCue": "reasoning"
+        },
+        {
+          "id": "cost_counter",
+          "start": 23.75,
+          "end": 25.5,
+          "anchorCue": "cost"
+        }
+      ],
+      "sourceBlockSha256": "ede8ed118d0a3d5af212ae73f3331a4d1d411d0a1d8a493cc09fd427ad3ccaa5"
+    },
+    {
+      "id": "s03",
+      "source_scene_index": 2,
+      "role": "重点成果由九宫格放大→结论砸字→审片报告",
+      "source": {
+        "start": 25.9,
+        "end": 40.4
+      },
+      "cues": [
+        {
+          "id": "hero_from_grid",
+          "at": 25.9,
+          "kind": "中间格放大接上场",
+          "required": false
+        },
+        {
+          "id": "slam_word_a",
+          "at": 29,
+          "kind": "结论第一词",
+          "required": true
+        },
+        {
+          "id": "slam_word_b",
+          "at": 30.3,
+          "kind": "结论第二词",
+          "required": false
+        },
+        {
+          "id": "comparison_board",
+          "at": 31.4,
+          "kind": "比较卡",
+          "required": false
+        },
+        {
+          "id": "review_start",
+          "at": 33.15,
+          "kind": "计时圈与报告",
+          "required": true
+        },
+        {
+          "id": "review_note_1",
+          "at": 33.9,
+          "kind": "审片细节一",
+          "required": false
+        },
+        {
+          "id": "review_note_2",
+          "at": 34.6,
+          "kind": "审片细节二",
+          "required": false
+        },
+        {
+          "id": "review_note_3",
+          "at": 35.7,
+          "kind": "审片细节三",
+          "required": false
+        },
+        {
+          "id": "precision",
+          "at": 37.7,
+          "kind": "评价砸字",
+          "required": true
+        },
+        {
+          "id": "previous_work",
+          "at": 38.5,
+          "kind": "作品卡入场",
+          "required": false
+        }
+      ],
+      "slots": [
+        {
+          "id": "text_00",
+          "type": "text",
+          "sourceText": "// 03 — 示例方案 A",
+          "required": true,
+          "maxChars": 21,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 99,
+              "end": 113
+            }
+          ]
+        },
+        {
+          "id": "text_02",
+          "type": "text",
+          "sourceText": "示例方案 A · 一句话提示词 · 成片",
+          "required": true,
+          "maxChars": 30,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 619,
+              "end": 639
+            }
+          ]
+        },
+        {
+          "id": "text_03",
+          "type": "text",
+          "sourceText": "终结",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 727,
+              "end": 729
+            }
+          ]
+        },
+        {
+          "id": "text_04",
+          "type": "text",
+          "sourceText": "比赛。",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 768,
+              "end": 771
+            }
+          ]
+        },
+        {
+          "id": "text_06",
+          "type": "text",
+          "sourceText": "对比组 A",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1287,
+              "end": 1292
+            }
+          ]
+        },
+        {
+          "id": "text_07",
+          "type": "text",
+          "sourceText": "方案 A",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1321,
+              "end": 1325
+            },
+            {
+              "start": 2141,
+              "end": 2145
+            }
+          ]
+        },
+        {
+          "id": "text_09",
+          "type": "text",
+          "sourceText": "// 多年专业剪辑师",
+          "required": true,
+          "maxChars": 16,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1687,
+              "end": 1697
+            }
+          ]
+        },
+        {
+          "id": "text_10",
+          "type": "text",
+          "sourceText": "人类 · 专业",
+          "required": true,
+          "maxChars": 11,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1806,
+              "end": 1813
+            }
+          ]
+        },
+        {
+          "id": "text_11",
+          "type": "text",
+          "sourceText": "完全不输",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1900,
+              "end": 1904
+            }
+          ]
+        },
+        {
+          "id": "text_12",
+          "type": "text",
+          "sourceText": "// AI",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2027,
+              "end": 2032
+            }
+          ]
+        },
+        {
+          "id": "text_15",
+          "type": "text",
+          "sourceText": "分钟 · 出片",
+          "required": true,
+          "maxChars": 11,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2939,
+              "end": 2946
+            }
+          ]
+        },
+        {
+          "id": "text_16",
+          "type": "text",
+          "sourceText": "// 审片报告",
+          "required": true,
+          "maxChars": 11,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3142,
+              "end": 3149
+            }
+          ]
+        },
+        {
+          "id": "text_18",
+          "type": "text",
+          "sourceText": "转场细节",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3188,
+              "end": 3192
+            }
+          ]
+        },
+        {
+          "id": "text_21",
+          "type": "text",
+          "sourceText": "画面流畅度",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3204,
+              "end": 3209
+            }
+          ]
+        },
+        {
+          "id": "text_24",
+          "type": "text",
+          "sourceText": "文案 · 情绪逻辑",
+          "required": true,
+          "maxChars": 14,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3221,
+              "end": 3230
+            }
+          ]
+        },
+        {
+          "id": "text_26",
+          "type": "text",
+          "sourceText": "精准得",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3740,
+              "end": 3743
+            }
+          ]
+        },
+        {
+          "id": "text_27",
+          "type": "text",
+          "sourceText": "离谱。",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3763,
+              "end": 3766
+            }
+          ]
+        },
+        {
+          "id": "text_28",
+          "type": "text",
+          "sourceText": "// 上一条作品 · 感兴趣可以翻",
+          "required": true,
+          "maxChars": 25,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 4014,
+              "end": 4031
+            }
+          ]
+        },
+        {
+          "id": "review_minutes",
+          "type": "number",
+          "required": true,
+          "note": "Only use a verified number for this episode; if illustrative, label the scene 示意.",
+          "sourceCode": "Math.round(rp * 30)",
+          "valueTemplate": "Math.round(rp * {value})",
+          "sourceSpans": [
+            {
+              "start": 5613,
+              "end": 5632
+            }
+          ]
+        },
+        {
+          "id": "opus_hero",
+          "type": "sequence",
+          "sourceAsset": "sc/opus_hero/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "prev",
+          "type": "sequence",
+          "sourceAsset": "sc/prev/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "demo_disclaimer",
+          "type": "text",
+          "sourceText": "DEMO · 示意比较",
+          "required": true,
+          "maxChars": 15,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1189,
+              "end": 1200
+            }
+          ]
+        },
+        {
+          "id": "rank_label",
+          "type": "text",
+          "sourceText": "No.1",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1485,
+              "end": 1489
+            }
+          ]
+        },
+        {
+          "id": "review_status",
+          "type": "text",
+          "sourceText": "PASS",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 3665,
+              "end": 3669
+            }
+          ]
+        }
+      ],
+      "assets": [
+        "opus_hero",
+        "prev"
+      ],
+      "minFrames": 539,
+      "maxHoldFrames": 180,
+      "motionWindows": [
+        {
+          "id": "continuous_media_full_scene",
+          "start": 25.9,
+          "end": 40.4,
+          "note": "Nine live sequence tiles / enlarged hero video use source-time playback and must remain at 1x."
+        },
+        {
+          "id": "grid_to_hero",
+          "start": 25.9,
+          "end": 27.0,
+          "anchorCue": "hero_from_grid"
+        },
+        {
+          "id": "conclusion_slam",
+          "start": 28.8,
+          "end": 30.8,
+          "anchorCue": "slam_word_a"
+        },
+        {
+          "id": "compare_layout",
+          "start": 31.0,
+          "end": 31.9,
+          "anchorCue": "comparison_board"
+        },
+        {
+          "id": "review_scan",
+          "start": 33.1,
+          "end": 36.3,
+          "anchorCue": "review_start"
+        },
+        {
+          "id": "precision_slam",
+          "start": 37.1,
+          "end": 38.15,
+          "anchorCue": "precision"
+        },
+        {
+          "id": "previous_work_card",
+          "start": 38.5,
+          "end": 40.35,
+          "anchorCue": "previous_work"
+        }
+      ],
+      "sourceBlockSha256": "8878f3de6e3fc995ca0a88eaaf89a6ea51a63e7ba863bd56a252951e76aa26fb"
+    },
+    {
+      "id": "s04",
+      "source_scene_index": 3,
+      "role": "跨品类四卡→大作品墙→反模板→镜头语言",
+      "source": {
+        "start": 40.4,
+        "end": 52.7
+      },
+      "cues": [
+        {
+          "id": "category_title",
+          "at": 40.4,
+          "kind": "跨品类标题",
+          "required": true
+        },
+        {
+          "id": "category_1",
+          "at": 43.17,
+          "kind": "第一张作品卡",
+          "required": false
+        },
+        {
+          "id": "category_2",
+          "at": 43.75,
+          "kind": "第二张作品卡",
+          "required": false
+        },
+        {
+          "id": "category_3",
+          "at": 44.33,
+          "kind": "第三张作品卡",
+          "required": false
+        },
+        {
+          "id": "category_4",
+          "at": 45.1,
+          "kind": "第四张作品卡",
+          "required": false
+        },
+        {
+          "id": "wall_expand",
+          "at": 45.55,
+          "kind": "满屏作品墙",
+          "required": true
+        },
+        {
+          "id": "quality",
+          "at": 47.3,
+          "kind": "质量结论",
+          "required": false
+        },
+        {
+          "id": "cross_out",
+          "at": 49,
+          "kind": "划掉流水线",
+          "required": false
+        },
+        {
+          "id": "camera_demo",
+          "at": 49.75,
+          "kind": "镜头语言演示",
+          "required": true
+        },
+        {
+          "id": "narrative_arc",
+          "at": 51.05,
+          "kind": "起承转合弧线",
+          "required": false
+        }
+      ],
+      "slots": [
+        {
+          "id": "text_00",
+          "type": "text",
+          "sourceText": "// 04 — 全品类",
+          "required": true,
+          "maxChars": 17,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 163,
+              "end": 174
+            }
+          ]
+        },
+        {
+          "id": "text_02",
+          "type": "text",
+          "sourceText": "不止",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 260,
+              "end": 262
+            }
+          ]
+        },
+        {
+          "id": "text_03",
+          "type": "text",
+          "sourceText": "口播。",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 282,
+              "end": 285
+            }
+          ]
+        },
+        {
+          "id": "text_04",
+          "type": "text",
+          "sourceText": "全品类",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 305,
+              "end": 308
+            }
+          ]
+        },
+        {
+          "id": "text_05",
+          "type": "text",
+          "sourceText": "测了个遍。",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 354,
+              "end": 359
+            }
+          ]
+        },
+        {
+          "id": "text_06",
+          "type": "text",
+          "sourceText": "知识讲解",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 408,
+              "end": 412
+            }
+          ]
+        },
+        {
+          "id": "text_07",
+          "type": "text",
+          "sourceText": "// explainer",
+          "required": true,
+          "maxChars": 18,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 438,
+              "end": 450
+            }
+          ]
+        },
+        {
+          "id": "text_08",
+          "type": "text",
+          "sourceText": "趣味解说",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 456,
+              "end": 460
+            }
+          ]
+        },
+        {
+          "id": "text_09",
+          "type": "text",
+          "sourceText": "// commentary",
+          "required": true,
+          "maxChars": 20,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 482,
+              "end": 495
+            }
+          ]
+        },
+        {
+          "id": "text_10",
+          "type": "text",
+          "sourceText": "剧情短片",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 501,
+              "end": 505
+            }
+          ]
+        },
+        {
+          "id": "text_11",
+          "type": "text",
+          "sourceText": "// short film",
+          "required": true,
+          "maxChars": 20,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 529,
+              "end": 542
+            }
+          ]
+        },
+        {
+          "id": "text_12",
+          "type": "text",
+          "sourceText": "音乐 MV",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 548,
+              "end": 553
+            }
+          ]
+        },
+        {
+          "id": "text_13",
+          "type": "text",
+          "sourceText": "// music video",
+          "required": true,
+          "maxChars": 21,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 573,
+              "end": 587
+            }
+          ]
+        },
+        {
+          "id": "text_14",
+          "type": "text",
+          "sourceText": "// 网络优秀作品收集 · 非个人原创",
+          "required": true,
+          "maxChars": 28,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2336,
+              "end": 2355
+            }
+          ],
+          "mustChange": true
+        },
+        {
+          "id": "text_16",
+          "type": "text",
+          "sourceText": "条 · 示例素材 · 请填写实际来源",
+          "required": true,
+          "maxChars": 27,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2485,
+              "end": 2503
+            }
+          ]
+        },
+        {
+          "id": "text_17",
+          "type": "text",
+          "sourceText": "全能靠 AI",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2626,
+              "end": 2632
+            }
+          ]
+        },
+        {
+          "id": "text_18",
+          "type": "text",
+          "sourceText": "共创出",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2652,
+              "end": 2655
+            }
+          ]
+        },
+        {
+          "id": "text_19",
+          "type": "text",
+          "sourceText": "高质量成片。",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2675,
+              "end": 2681
+            }
+          ]
+        },
+        {
+          "id": "text_20",
+          "type": "text",
+          "sourceText": "template_01",
+          "required": true,
+          "maxChars": 17,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 3304,
+              "end": 3315
+            }
+          ]
+        },
+        {
+          "id": "text_38",
+          "type": "text",
+          "sourceText": "不是套模板的",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3813,
+              "end": 3819
+            }
+          ]
+        },
+        {
+          "id": "text_39",
+          "type": "text",
+          "sourceText": "流水线",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3847,
+              "end": 3850
+            }
+          ]
+        },
+        {
+          "id": "text_40",
+          "type": "text",
+          "sourceText": "远景 · WS",
+          "required": true,
+          "maxChars": 11,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 4883,
+              "end": 4890
+            }
+          ]
+        },
+        {
+          "id": "text_41",
+          "type": "text",
+          "sourceText": "有",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 5105,
+              "end": 5106
+            },
+            {
+              "start": 5347,
+              "end": 5348
+            }
+          ]
+        },
+        {
+          "id": "text_42",
+          "type": "text",
+          "sourceText": "镜头语言",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 5138,
+              "end": 5142
+            }
+          ]
+        },
+        {
+          "id": "text_44",
+          "type": "text",
+          "sourceText": "叙事节奏",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 5380,
+              "end": 5384
+            }
+          ]
+        },
+        {
+          "id": "text_45",
+          "type": "text",
+          "sourceText": "起",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 5884,
+              "end": 5885
+            }
+          ]
+        },
+        {
+          "id": "text_46",
+          "type": "text",
+          "sourceText": "承",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 5900,
+              "end": 5901
+            }
+          ]
+        },
+        {
+          "id": "text_47",
+          "type": "text",
+          "sourceText": "转",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 5917,
+              "end": 5918
+            }
+          ]
+        },
+        {
+          "id": "text_48",
+          "type": "text",
+          "sourceText": "合",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 5933,
+              "end": 5934
+            }
+          ]
+        },
+        {
+          "id": "cat_explain",
+          "type": "sequence",
+          "sourceAsset": "sc/cat_explain/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "cat_fun",
+          "type": "sequence",
+          "sourceAsset": "sc/cat_fun/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "cat_story",
+          "type": "sequence",
+          "sourceAsset": "sc/cat_story/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "cat_mv",
+          "type": "sequence",
+          "sourceAsset": "sc/cat_mv/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "wall",
+          "type": "wall-sprites",
+          "sourceAsset": "sc/wall/{000..388}.jpg",
+          "required": true
+        },
+        {
+          "id": "mv_lens",
+          "type": "sequence",
+          "sourceAsset": "sc/mv_lens/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        },
+        {
+          "id": "lens_push",
+          "type": "dynamicText",
+          "sourceText": "推镜 · Dolly",
+          "required": true,
+          "maxChars": 14,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 8471,
+              "end": 8481
+            }
+          ]
+        },
+        {
+          "id": "lens_track",
+          "type": "dynamicText",
+          "sourceText": "跟拍 · Tracking",
+          "required": true,
+          "maxChars": 17,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 8485,
+              "end": 8498
+            }
+          ]
+        },
+        {
+          "id": "lens_close",
+          "type": "dynamicText",
+          "sourceText": "特写 · CU",
+          "required": true,
+          "maxChars": 11,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 8502,
+              "end": 8509
+            }
+          ]
+        },
+        {
+          "id": "wall_badge_icon",
+          "type": "image",
+          "sourceAsset": "assets/wall-badge.png",
+          "required": true,
+          "aspect": "1:1"
+        }
+      ],
+      "assets": [
+        "cat_explain",
+        "cat_fun",
+        "cat_story",
+        "cat_mv",
+        "wall",
+        "mv_lens",
+        "wall_badge_icon"
+      ],
+      "minFrames": 458,
+      "maxHoldFrames": 180,
+      "motionWindows": [
+        {
+          "id": "category_head",
+          "start": 40.4,
+          "end": 42.7,
+          "anchorCue": "category_title"
+        },
+        {
+          "id": "four_category_tiles",
+          "start": 43.17,
+          "end": 45.55,
+          "anchorCue": "category_1"
+        },
+        {
+          "id": "wall_and_quality",
+          "start": 45.55,
+          "end": 48.3,
+          "anchorCue": "wall_expand"
+        },
+        {
+          "id": "crossout",
+          "start": 48.3,
+          "end": 49.2,
+          "anchorCue": "cross_out"
+        },
+        {
+          "id": "camera_and_arc",
+          "start": 49.75,
+          "end": 52.6,
+          "anchorCue": "camera_demo"
+        }
+      ],
+      "sourceBlockSha256": "bec628dc5e899c2b01ab4775ab131218b4526de2ac23079d7b90514116842760"
+    },
+    {
+      "id": "s05",
+      "source_scene_index": 4,
+      "role": "情绪反转→身份卡→软件录屏→竞赛道",
+      "source": {
+        "start": 52.7,
+        "end": 69.4
+      },
+      "cues": [
+        {
+          "id": "shock",
+          "at": 52.7,
+          "kind": "震惊画面",
+          "required": false
+        },
+        {
+          "id": "crack",
+          "at": 54.87,
+          "kind": "红色裂纹与打击",
+          "required": true
+        },
+        {
+          "id": "identity",
+          "at": 55.4,
+          "kind": "人物身份卡",
+          "required": false
+        },
+        {
+          "id": "software_window",
+          "at": 57.9,
+          "kind": "软件录屏窗口",
+          "required": true
+        },
+        {
+          "id": "software_detail",
+          "at": 61.3,
+          "kind": "切换录屏功能与加速",
+          "required": false
+        },
+        {
+          "id": "competition",
+          "at": 66.37,
+          "kind": "竞争对象入场",
+          "required": true
+        },
+        {
+          "id": "lane_result",
+          "at": 68.3,
+          "kind": "赛道结果砸字",
+          "required": false
+        }
+      ],
+      "slots": [
+        {
+          "id": "text_00",
+          "type": "text",
+          "sourceText": "// 05 — 震撼，也是打击",
+          "required": true,
+          "maxChars": 23,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 122,
+              "end": 137
+            }
+          ]
+        },
+        {
+          "id": "text_04",
+          "type": "text",
+          "sourceText": "不仅是",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 275,
+              "end": 278
+            }
+          ]
+        },
+        {
+          "id": "text_05",
+          "type": "text",
+          "sourceText": "震撼，",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 298,
+              "end": 301
+            }
+          ]
+        },
+        {
+          "id": "text_06",
+          "type": "text",
+          "sourceText": "也是打击。",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 489,
+              "end": 494
+            }
+          ]
+        },
+        {
+          "id": "text_07",
+          "type": "text",
+          "sourceText": "// 示例身份标签",
+          "required": true,
+          "maxChars": 14,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1210,
+              "end": 1219
+            }
+          ]
+        },
+        {
+          "id": "text_08",
+          "type": "text",
+          "sourceText": "示例创作者",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1311,
+              "end": 1316
+            }
+          ]
+        },
+        {
+          "id": "text_09",
+          "type": "text",
+          "sourceText": "示例软件 · Example App",
+          "required": true,
+          "maxChars": 27,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1489,
+              "end": 1507
+            }
+          ]
+        },
+        {
+          "id": "text_10",
+          "type": "text",
+          "sourceText": "AI 匹配",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1529,
+              "end": 1534
+            }
+          ]
+        },
+        {
+          "id": "text_11",
+          "type": "text",
+          "sourceText": "镜头 · 动画 · 音效 · 素材 · 一键自动匹配",
+          "required": true,
+          "maxChars": 38,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1538,
+              "end": 1564
+            }
+          ]
+        },
+        {
+          "id": "text_12",
+          "type": "text",
+          "sourceText": "模板库",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1576,
+              "end": 1579
+            }
+          ]
+        },
+        {
+          "id": "text_13",
+          "type": "text",
+          "sourceText": "预设 / 素材模板 / Lottie 动效 / 定制动画",
+          "required": true,
+          "maxChars": 41,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1583,
+              "end": 1611
+            }
+          ]
+        },
+        {
+          "id": "text_14",
+          "type": "text",
+          "sourceText": "▶▶ 2.4×",
+          "required": true,
+          "maxChars": 11,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2135,
+              "end": 2142
+            }
+          ]
+        },
+        {
+          "id": "text_15",
+          "type": "text",
+          "sourceText": "// 今年年初 · 一直在死磕",
+          "required": true,
+          "maxChars": 23,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2239,
+              "end": 2254
+            }
+          ]
+        },
+        {
+          "id": "text_16",
+          "type": "text",
+          "sourceText": "AI 自动剪辑工具",
+          "required": true,
+          "maxChars": 14,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2365,
+              "end": 2374
+            }
+          ]
+        },
+        {
+          "id": "text_17",
+          "type": "text",
+          "sourceText": "示例痛点 · 制作",
+          "required": true,
+          "maxChars": 14,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2514,
+              "end": 2523
+            }
+          ]
+        },
+        {
+          "id": "text_18",
+          "type": "text",
+          "sourceText": "太费时间",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2551,
+              "end": 2555
+            }
+          ]
+        },
+        {
+          "id": "text_19",
+          "type": "text",
+          "sourceText": "对比组 A · 这波版本更新",
+          "required": true,
+          "maxChars": 21,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2824,
+              "end": 2838
+            }
+          ]
+        },
+        {
+          "id": "text_20",
+          "type": "text",
+          "sourceText": "示例方案 A",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2966,
+              "end": 2972
+            }
+          ]
+        },
+        {
+          "id": "text_22",
+          "type": "text",
+          "sourceText": "示例软件",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2976,
+              "end": 2980
+            }
+          ]
+        },
+        {
+          "id": "text_24",
+          "type": "text",
+          "sourceText": "传统剪辑",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2984,
+              "end": 2988
+            }
+          ]
+        },
+        {
+          "id": "text_26",
+          "type": "text",
+          "sourceText": "赛道格局，",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3712,
+              "end": 3717
+            }
+          ]
+        },
+        {
+          "id": "text_27",
+          "type": "text",
+          "sourceText": "改写。",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3737,
+              "end": 3740
+            }
+          ]
+        },
+        {
+          "id": "app_logo",
+          "type": "image",
+          "sourceAsset": "assets/app-logo.png",
+          "required": true,
+          "aspect": "1:1"
+        },
+        {
+          "id": "soft_match",
+          "type": "sequence",
+          "sourceAsset": "sc/soft_match/f_%04d.jpg",
+          "required": true,
+          "aspect": "preserve"
+        },
+        {
+          "id": "soft_tpl",
+          "type": "sequence",
+          "sourceAsset": "sc/soft_tpl/f_%04d.jpg",
+          "required": true,
+          "aspect": "preserve"
+        },
+        {
+          "id": "opus_hero",
+          "type": "sequence",
+          "sourceAsset": "sc/opus_hero/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        }
+      ],
+      "assets": [
+        "app_logo",
+        "soft_match",
+        "soft_tpl",
+        "opus_hero"
+      ],
+      "minFrames": 621,
+      "maxHoldFrames": 180,
+      "motionWindows": [
+        {
+          "id": "shock_crack",
+          "start": 54.1,
+          "end": 55.3,
+          "anchorCue": "crack"
+        },
+        {
+          "id": "identity_card",
+          "start": 55.4,
+          "end": 56.1,
+          "anchorCue": "identity"
+        },
+        {
+          "id": "portrait_software_video",
+          "start": 57.4,
+          "end": 66.3,
+          "anchorCue": "software_window"
+        },
+        {
+          "id": "competition_takeover",
+          "start": 66.3,
+          "end": 69.4,
+          "anchorCue": "competition"
+        }
+      ],
+      "sourceBlockSha256": "a2837ae80687ba1d27ef4961bedfbc6039d7e373ea67c11524ee1c50872f6fe7"
+    },
+    {
+      "id": "s06",
+      "source_scene_index": 5,
+      "role": "时间轴迭代→竞争者进场→账号卡",
+      "source": {
+        "start": 69.4,
+        "end": 78.1
+      },
+      "cues": [
+        {
+          "id": "iteration",
+          "at": 69.4,
+          "kind": "迭代速度",
+          "required": true
+        },
+        {
+          "id": "timeline",
+          "at": 70.2,
+          "kind": "时间轴变化",
+          "required": false
+        },
+        {
+          "id": "competitors",
+          "at": 71,
+          "kind": "竞品进入",
+          "required": false
+        },
+        {
+          "id": "fast_lane",
+          "at": 73.4,
+          "kind": "快车道",
+          "required": true
+        },
+        {
+          "id": "account",
+          "at": 75.85,
+          "kind": "账号卡",
+          "required": true
+        },
+        {
+          "id": "account_commit",
+          "at": 77.05,
+          "kind": "账号动作确认",
+          "required": false
+        }
+      ],
+      "slots": [
+        {
+          "id": "text_00",
+          "type": "text",
+          "sourceText": "// 06 — 快车道",
+          "required": true,
+          "maxChars": 17,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 133,
+              "end": 144
+            }
+          ]
+        },
+        {
+          "id": "text_02",
+          "type": "text",
+          "sourceText": "大模型的",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 230,
+              "end": 234
+            }
+          ]
+        },
+        {
+          "id": "text_03",
+          "type": "text",
+          "sourceText": "迭代速度",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 255,
+              "end": 259
+            }
+          ]
+        },
+        {
+          "id": "text_04",
+          "type": "text",
+          "sourceText": "2023",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 919,
+              "end": 923
+            }
+          ]
+        },
+        {
+          "id": "text_05",
+          "type": "text",
+          "sourceText": "NOW",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1016,
+              "end": 1019
+            }
+          ]
+        },
+        {
+          "id": "text_07",
+          "type": "text",
+          "sourceText": "示例方案 A",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1128,
+              "end": 1134
+            }
+          ]
+        },
+        {
+          "id": "text_09",
+          "type": "text",
+          "sourceText": "对比组 B",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1164,
+              "end": 1169
+            }
+          ]
+        },
+        {
+          "id": "text_11",
+          "type": "text",
+          "sourceText": "对比组 C",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1212,
+              "end": 1217
+            }
+          ]
+        },
+        {
+          "id": "text_12",
+          "type": "text",
+          "sourceText": "AI + 内容创作，",
+          "required": true,
+          "maxChars": 16,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2466,
+              "end": 2476
+            }
+          ]
+        },
+        {
+          "id": "text_13",
+          "type": "text",
+          "sourceText": "驶入快车道。",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2497,
+              "end": 2503
+            }
+          ]
+        },
+        {
+          "id": "text_14",
+          "type": "text",
+          "sourceText": "// 第一时间 · 启动",
+          "required": true,
+          "maxChars": 18,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3037,
+              "end": 3049
+            }
+          ]
+        },
+        {
+          "id": "text_15",
+          "type": "text",
+          "sourceText": "示例",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 3158,
+              "end": 3160
+            }
+          ]
+        },
+        {
+          "id": "text_16",
+          "type": "text",
+          "sourceText": "品牌",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3192,
+              "end": 3194
+            }
+          ],
+          "mustChange": true
+        },
+        {
+          "id": "text_17",
+          "type": "text",
+          "sourceText": "创作者简介 · 请按本期内容填写",
+          "required": true,
+          "maxChars": 24,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 3301,
+              "end": 3317
+            }
+          ]
+        },
+        {
+          "id": "text_18",
+          "type": "text",
+          "sourceText": "开始时间",
+          "required": true,
+          "maxChars": 11,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3729,
+              "end": 3733
+            }
+          ]
+        },
+        {
+          "id": "text_19",
+          "type": "text",
+          "sourceText": "第",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3737,
+              "end": 3738
+            }
+          ]
+        },
+        {
+          "id": "text_21",
+          "type": "text",
+          "sourceText": "天",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3760,
+              "end": 3761
+            }
+          ]
+        },
+        {
+          "id": "text_22",
+          "type": "text",
+          "sourceText": "消耗时间",
+          "required": true,
+          "maxChars": 11,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3767,
+              "end": 3771
+            }
+          ]
+        },
+        {
+          "id": "text_24",
+          "type": "text",
+          "sourceText": "小时",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3796,
+              "end": 3798
+            }
+          ]
+        },
+        {
+          "id": "text_25",
+          "type": "text",
+          "sourceText": "粉丝数",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3804,
+              "end": 3807
+            }
+          ]
+        },
+        {
+          "id": "text_27",
+          "type": "text",
+          "sourceText": "收入",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3837,
+              "end": 3839
+            }
+          ]
+        },
+        {
+          "id": "text_28",
+          "type": "text",
+          "sourceText": "¥",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3843,
+              "end": 3844
+            }
+          ]
+        },
+        {
+          "id": "account_days",
+          "type": "number",
+          "required": true,
+          "sourceCode": "counter(t, 76.4, 77.0, 0, 3)",
+          "valueTemplate": "counter(t, 76.4, 77.0, 0, {value})",
+          "note": "Only use a verified number for this episode; if illustrative, label the scene 示意.",
+          "sourceSpans": [
+            {
+              "start": 5748,
+              "end": 5776
+            }
+          ]
+        },
+        {
+          "id": "account_hours",
+          "type": "number",
+          "required": true,
+          "sourceCode": "counter(t, 76.6, 77.2, 0, 5)",
+          "valueTemplate": "counter(t, 76.6, 77.2, 0, {value})",
+          "note": "Only use a verified number for this episode; if illustrative, label the scene 示意.",
+          "sourceSpans": [
+            {
+              "start": 5810,
+              "end": 5838
+            }
+          ]
+        },
+        {
+          "id": "account_followers",
+          "type": "number",
+          "required": true,
+          "sourceCode": "counter(t, 76.8, 77.7, 0, 5822)",
+          "valueTemplate": "counter(t, 76.8, 77.7, 0, {value})",
+          "note": "Only use a verified number for this episode; if illustrative, label the scene 示意.",
+          "sourceSpans": [
+            {
+              "start": 5872,
+              "end": 5903
+            }
+          ]
+        },
+        {
+          "id": "presenter",
+          "type": "image",
+          "sourceAsset": "assets/presenter.png",
+          "required": true,
+          "aspect": "1:1"
+        },
+        {
+          "id": "account_income",
+          "type": "number",
+          "sourceCode": "sv[3].textContent = '0'",
+          "valueTemplate": "sv[3].textContent = String({value})",
+          "required": true,
+          "note": "Only use a verified number for this episode; if illustrative, label the scene 示意.",
+          "sourceSpans": [
+            {
+              "start": 5906,
+              "end": 5929
+            }
+          ]
+        }
+      ],
+      "assets": [
+        "presenter"
+      ],
+      "minFrames": 324,
+      "maxHoldFrames": 180,
+      "motionWindows": [
+        {
+          "id": "iteration_ticks",
+          "start": 69.4,
+          "end": 70.7,
+          "anchorCue": "iteration"
+        },
+        {
+          "id": "highway",
+          "start": 70.95,
+          "end": 75.7,
+          "anchorCue": "fast_lane"
+        },
+        {
+          "id": "account_card",
+          "start": 75.85,
+          "end": 78.05,
+          "anchorCue": "account"
+        }
+      ],
+      "sourceBlockSha256": "7b3edf2c4ea16c375c905bb912d1043c220a5c1fb1f91bcd7784d4056d7c0672"
+    },
+    {
+      "id": "s07",
+      "source_scene_index": 6,
+      "role": "旧工作流→时间压缩→工作/代码录屏",
+      "source": {
+        "start": 78.1,
+        "end": 89.7
+      },
+      "cues": [
+        {
+          "id": "before",
+          "at": 78.1,
+          "kind": "过去流程",
+          "required": true
+        },
+        {
+          "id": "process",
+          "at": 80.3,
+          "kind": "写稿拍摄剪辑",
+          "required": false
+        },
+        {
+          "id": "time_shift",
+          "at": 82.15,
+          "kind": "一小时目标",
+          "required": true
+        },
+        {
+          "id": "work_video",
+          "at": 83.3,
+          "kind": "工作录屏",
+          "required": false
+        },
+        {
+          "id": "output",
+          "at": 85.1,
+          "kind": "每天产出",
+          "required": true
+        },
+        {
+          "id": "code_video",
+          "at": 87.4,
+          "kind": "代码录屏",
+          "required": false
+        }
+      ],
+      "slots": [
+        {
+          "id": "text_00",
+          "type": "text",
+          "sourceText": "// 07 — 一小时",
+          "required": true,
+          "maxChars": 17,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 196,
+              "end": 207
+            }
+          ]
+        },
+        {
+          "id": "text_02",
+          "type": "text",
+          "sourceText": "放在以前，",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 293,
+              "end": 298
+            }
+          ]
+        },
+        {
+          "id": "text_03",
+          "type": "text",
+          "sourceText": "做一条视频",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 318,
+              "end": 323
+            }
+          ]
+        },
+        {
+          "id": "text_04",
+          "type": "text",
+          "sourceText": "1h",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 825,
+              "end": 827
+            }
+          ]
+        },
+        {
+          "id": "text_05",
+          "type": "text",
+          "sourceText": "写稿",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 374,
+              "end": 376
+            }
+          ]
+        },
+        {
+          "id": "text_06",
+          "type": "text",
+          "sourceText": "拍摄",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 388,
+              "end": 390
+            }
+          ]
+        },
+        {
+          "id": "text_07",
+          "type": "text",
+          "sourceText": "剪辑",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 403,
+              "end": 405
+            }
+          ]
+        },
+        {
+          "id": "text_08",
+          "type": "text",
+          "sourceText": "≈ 1–2 天",
+          "required": true,
+          "maxChars": 11,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1225,
+              "end": 1232
+            }
+          ]
+        },
+        {
+          "id": "text_09",
+          "type": "text",
+          "sourceText": "现在 →",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1537,
+              "end": 1541
+            }
+          ]
+        },
+        {
+          "id": "text_10",
+          "type": "text",
+          "sourceText": "1 小时",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1641,
+              "end": 1645
+            }
+          ]
+        },
+        {
+          "id": "text_11",
+          "type": "text",
+          "sourceText": "// 每天 24h",
+          "required": true,
+          "maxChars": 14,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2440,
+              "end": 2449
+            }
+          ]
+        },
+        {
+          "id": "text_12",
+          "type": "text",
+          "sourceText": "AI 开发工作",
+          "required": true,
+          "maxChars": 11,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2510,
+              "end": 2517
+            }
+          ]
+        },
+        {
+          "id": "text_13",
+          "type": "text",
+          "sourceText": "+ 1h 示例创作者",
+          "required": true,
+          "maxChars": 16,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2596,
+              "end": 2606
+            }
+          ]
+        },
+        {
+          "id": "text_14",
+          "type": "text",
+          "sourceText": "// 日常 · AI 开发工作",
+          "required": true,
+          "maxChars": 23,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3114,
+              "end": 3129
+            }
+          ]
+        },
+        {
+          "id": "text_15",
+          "type": "text",
+          "sourceText": "// 工作的日常",
+          "required": true,
+          "maxChars": 13,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3683,
+              "end": 3691
+            }
+          ]
+        },
+        {
+          "id": "text_16",
+          "type": "text",
+          "sourceText": "每天一小时，输出：",
+          "required": true,
+          "maxChars": 14,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3862,
+              "end": 3871
+            }
+          ]
+        },
+        {
+          "id": "text_18",
+          "type": "text",
+          "sourceText": "前沿 AI 技术分享",
+          "required": true,
+          "maxChars": 16,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3907,
+              "end": 3917
+            }
+          ]
+        },
+        {
+          "id": "text_20",
+          "type": "text",
+          "sourceText": "工作的日常",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3930,
+              "end": 3935
+            }
+          ]
+        },
+        {
+          "id": "work",
+          "type": "sequence",
+          "sourceAsset": "sc/work/f_%04d.jpg",
+          "required": true,
+          "aspect": "9:16"
+        },
+        {
+          "id": "coding",
+          "type": "sequence",
+          "sourceAsset": "sc/coding/f_%04d.jpg",
+          "required": true,
+          "aspect": "16:9"
+        }
+      ],
+      "assets": [
+        "work",
+        "coding"
+      ],
+      "minFrames": 432,
+      "maxHoldFrames": 180,
+      "motionWindows": [
+        {
+          "id": "old_workflow",
+          "start": 78.1,
+          "end": 82.1,
+          "anchorCue": "before"
+        },
+        {
+          "id": "time_compression",
+          "start": 82.15,
+          "end": 83.15,
+          "anchorCue": "time_shift"
+        },
+        {
+          "id": "work_and_output",
+          "start": 83.3,
+          "end": 87.5,
+          "anchorCue": "work_video"
+        },
+        {
+          "id": "coding_clip",
+          "start": 87.4,
+          "end": 89.7,
+          "anchorCue": "code_video"
+        }
+      ],
+      "sourceBlockSha256": "c21c9829b13257fa40305a4fcbd7b48c54d490208498abed098077ab49e2f942"
+    },
+    {
+      "id": "s08",
+      "source_scene_index": 7,
+      "role": "情绪收束→产能对比→逐帧焦虑→行动号召",
+      "source": {
+        "start": 89.7,
+        "end": 102.92
+      },
+      "cues": [
+        {
+          "id": "closing",
+          "at": 89.7,
+          "kind": "人物大卡回归",
+          "required": false
+        },
+        {
+          "id": "era",
+          "at": 91.85,
+          "kind": "新时代逐词入场",
+          "required": true
+        },
+        {
+          "id": "warning",
+          "at": 93.6,
+          "kind": "竞争警告",
+          "required": false
+        },
+        {
+          "id": "growth",
+          "at": 95.4,
+          "kind": "产能对比增长",
+          "required": true
+        },
+        {
+          "id": "frame_work",
+          "at": 96.5,
+          "kind": "逐帧烦恼",
+          "required": false
+        },
+        {
+          "id": "call_to_action",
+          "at": 98.6,
+          "kind": "行动按钮",
+          "required": true
+        },
+        {
+          "id": "comments",
+          "at": 100.1,
+          "kind": "评论提示",
+          "required": false
+        }
+      ],
+      "slots": [
+        {
+          "id": "text_00",
+          "type": "text",
+          "sourceText": "// 08 — 行动",
+          "required": true,
+          "maxChars": 16,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 132,
+              "end": 142
+            }
+          ]
+        },
+        {
+          "id": "text_04",
+          "type": "text",
+          "sourceText": "// 最后，掏句心窝子",
+          "required": true,
+          "maxChars": 17,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 272,
+              "end": 283
+            }
+          ]
+        },
+        {
+          "id": "text_05",
+          "type": "text",
+          "sourceText": "内容创作的",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 336,
+              "end": 341
+            }
+          ]
+        },
+        {
+          "id": "text_06",
+          "type": "text",
+          "sourceText": "新时代，",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 362,
+              "end": 366
+            }
+          ]
+        },
+        {
+          "id": "text_07",
+          "type": "text",
+          "sourceText": "真的",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 456,
+              "end": 458
+            }
+          ]
+        },
+        {
+          "id": "text_08",
+          "type": "text",
+          "sourceText": "来了。",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 479,
+              "end": 482
+            }
+          ]
+        },
+        {
+          "id": "text_09",
+          "type": "text",
+          "sourceText": "// 产能对比",
+          "required": true,
+          "maxChars": 11,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 792,
+              "end": 799
+            }
+          ]
+        },
+        {
+          "id": "text_10",
+          "type": "text",
+          "sourceText": "你的对手",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 923,
+              "end": 927
+            }
+          ]
+        },
+        {
+          "id": "text_11",
+          "type": "text",
+          "sourceText": "+ AI",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 984,
+              "end": 988
+            }
+          ]
+        },
+        {
+          "id": "text_13",
+          "type": "text",
+          "sourceText": "你",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1379,
+              "end": 1380
+            }
+          ]
+        },
+        {
+          "id": "text_16",
+          "type": "text",
+          "sourceText": "和 AI 一起，行动起来",
+          "required": true,
+          "maxChars": 18,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2389,
+              "end": 2401
+            }
+          ]
+        },
+        {
+          "id": "text_17",
+          "type": "text",
+          "sourceText": "示例",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2980,
+              "end": 2982
+            }
+          ]
+        },
+        {
+          "id": "text_18",
+          "type": "text",
+          "sourceText": "品牌",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3014,
+              "end": 3016
+            }
+          ],
+          "mustChange": true
+        },
+        {
+          "id": "text_19",
+          "type": "text",
+          "sourceText": "创作与技术 · 示例品牌说明",
+          "required": true,
+          "maxChars": 21,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 3120,
+              "end": 3134
+            }
+          ]
+        },
+        {
+          "id": "text_21",
+          "type": "text",
+          "sourceText": "有问题，评论区留言",
+          "required": true,
+          "maxChars": 14,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3609,
+              "end": 3618
+            }
+          ]
+        },
+        {
+          "id": "text_22",
+          "type": "text",
+          "sourceText": "// 我会尽量解答",
+          "required": true,
+          "maxChars": 14,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3679,
+              "end": 3688
+            }
+          ]
+        },
+        {
+          "id": "text_23",
+          "type": "text",
+          "sourceText": "拜拜",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 3800,
+              "end": 3802
+            }
+          ]
+        },
+        {
+          "id": "growth_factor",
+          "type": "number",
+          "required": true,
+          "note": "Only use a verified number for this episode; if illustrative, label the scene 示意.",
+          "sourceCode": "Math.round(1 + 9 * g)",
+          "valueTemplate": "Math.round(1 + ({value} - 1) * g)",
+          "sourceSpans": [
+            {
+              "start": 4519,
+              "end": 4540
+            }
+          ]
+        },
+        {
+          "id": "frame_label",
+          "type": "dynamicText",
+          "sourceText": "还在一帧一帧地磕",
+          "required": true,
+          "maxChars": 16,
+          "renderContext": "text",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1918,
+              "end": 1926
+            },
+            {
+              "start": 4751,
+              "end": 4759
+            }
+          ]
+        },
+        {
+          "id": "presenter",
+          "type": "image",
+          "sourceAsset": "assets/presenter.png",
+          "required": true,
+          "aspect": "1:1"
+        }
+      ],
+      "assets": [
+        "presenter"
+      ],
+      "minFrames": 492,
+      "maxHoldFrames": 180,
+      "motionWindows": [
+        {
+          "id": "era_head",
+          "start": 91.85,
+          "end": 93.5,
+          "anchorCue": "era"
+        },
+        {
+          "id": "warning_growth",
+          "start": 93.6,
+          "end": 96.5,
+          "anchorCue": "warning"
+        },
+        {
+          "id": "frame_by_frame",
+          "start": 96.5,
+          "end": 98.5,
+          "anchorCue": "frame_work"
+        },
+        {
+          "id": "call_to_action",
+          "start": 98.6,
+          "end": 100.0,
+          "anchorCue": "call_to_action"
+        },
+        {
+          "id": "comment_close",
+          "start": 100.1,
+          "end": 102.9,
+          "anchorCue": "comments"
+        }
+      ],
+      "sourceBlockSha256": "f21b24c36dfabef5ce509cc9f8f91c7a127bab61070e34e6b7b37715bc3c8276"
+    },
+    {
+      "id": "s09",
+      "source_scene_index": 8,
+      "role": "制作说明→逐字提示词→签名",
+      "source": {
+        "start": 102.92,
+        "end": 108.4
+      },
+      "cues": [
+        {
+          "id": "production",
+          "at": 102.92,
+          "kind": "制作信息",
+          "required": true
+        },
+        {
+          "id": "tool",
+          "at": 103.45,
+          "kind": "工具名称",
+          "required": false
+        },
+        {
+          "id": "prompt",
+          "at": 104.35,
+          "kind": "打字机提示词",
+          "required": true
+        },
+        {
+          "id": "signature",
+          "at": 107,
+          "kind": "片尾签名",
+          "required": false
+        }
+      ],
+      "slots": [
+        {
+          "id": "text_00",
+          "type": "text",
+          "sourceText": "// 09 — 制作说明",
+          "required": true,
+          "maxChars": 18,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 133,
+              "end": 145
+            }
+          ]
+        },
+        {
+          "id": "text_02",
+          "type": "text",
+          "sourceText": "制作工具：",
+          "required": true,
+          "maxChars": 9,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 194,
+              "end": 199
+            }
+          ]
+        },
+        {
+          "id": "text_03",
+          "type": "text",
+          "sourceText": "示例方案 A",
+          "required": true,
+          "maxChars": 10,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 227,
+              "end": 233
+            }
+          ]
+        },
+        {
+          "id": "text_04",
+          "type": "text",
+          "sourceText": "制作",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 282,
+              "end": 284
+            }
+          ]
+        },
+        {
+          "id": "text_05",
+          "type": "text",
+          "sourceText": "adu-motion-video",
+          "required": true,
+          "maxChars": 24,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 486,
+              "end": 502
+            }
+          ]
+        },
+        {
+          "id": "text_06",
+          "type": "text",
+          "sourceText": "动画 · 配乐 · 音效 全部由代码生成",
+          "required": true,
+          "maxChars": 30,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 609,
+              "end": 629
+            }
+          ]
+        },
+        {
+          "id": "text_07",
+          "type": "text",
+          "sourceText": "// 核心提示词 · prompt",
+          "required": true,
+          "maxChars": 25,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1267,
+              "end": 1284
+            }
+          ]
+        },
+        {
+          "id": "text_09",
+          "type": "text",
+          "sourceText": "示例",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1956,
+              "end": 1958
+            }
+          ]
+        },
+        {
+          "id": "text_10",
+          "type": "text",
+          "sourceText": "品牌",
+          "required": true,
+          "maxChars": 8,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 1986,
+              "end": 1988
+            }
+          ],
+          "mustChange": true
+        },
+        {
+          "id": "text_11",
+          "type": "text",
+          "sourceText": "// 提示词可以直接复制去试",
+          "required": true,
+          "maxChars": 21,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 2065,
+              "end": 2079
+            }
+          ]
+        },
+        {
+          "id": "typed_prompt",
+          "type": "dynamicText",
+          "sourceText": "使用 adu-motion-video，根据提供的文案、口播与素材制作横屏视频。选择现代图文动效，按语义编排动作，保留清楚的中英字幕，先检查短片再导出成片。",
+          "required": true,
+          "maxChars": 150,
+          "renderContext": "html",
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 673,
+              "end": 751
+            }
+          ]
+        },
+        {
+          "id": "presenter",
+          "type": "image",
+          "sourceAsset": "assets/presenter.png",
+          "required": true,
+          "aspect": "1:1"
+        }
+      ],
+      "assets": [
+        "presenter"
+      ],
+      "minFrames": 204,
+      "maxHoldFrames": 180,
+      "motionWindows": [
+        {
+          "id": "production_head",
+          "start": 102.92,
+          "end": 104.1,
+          "anchorCue": "production"
+        },
+        {
+          "id": "prompt_typing",
+          "start": 104.35,
+          "end": 106.8,
+          "anchorCue": "prompt"
+        },
+        {
+          "id": "signature",
+          "start": 107,
+          "end": 108.35,
+          "anchorCue": "signature"
+        }
+      ],
+      "sourceBlockSha256": "b8f81294b875c5b7bc5d5fe8fdf6a3526de28dff85722d880c26debfdd9c8371"
+    }
+  ],
+  "runtimeConfig": {
+    "PACK_BRAND": {
+      "type": "text",
+      "required": true,
+      "description": "Top-right brand label"
+    },
+    "PACK_PRESENTER_LABEL": {
+      "type": "text",
+      "required": false,
+      "default": "// on air · 主讲人"
+    }
+  },
+  "requireMotionWindows": true
+}

@@ -12,6 +12,8 @@
 # vert <dir> <NEW.mp4> [K]    requires a separately authored vert.html layout
 # seg <dir> <i> <NEW.mp4> [K] safe full fresh render, no cache speedup
 # check <file.mp4>            frame count/rate, complete decode, loudness and peak
+# macro-spec <pack> <NEW.json>  full-pack binding and semantic timing scaffold
+# macro-build <pack> <spec> <talk.mp4> <NEW dir> [--subs-js file]
 # Overrides: HTML=index.html W=1920 H=1080 FPS=60 END=seconds CHROME=/path/to/chrome
 set -euo pipefail
 SK="$(cd "$(dirname "$0")/.." && pwd)"
@@ -35,6 +37,18 @@ PY
   fi
 }
 case "$cmd" in
+macro-spec)
+  [ "$#" -eq 3 ] || { echo 'Usage: pipeline.sh macro-spec <anim3|anim4> <NEW.json>' >&2; exit 2; }
+  case "$D" in anim3|anim4) ;; *) echo 'Unknown full pack' >&2; exit 2 ;; esac
+  python3 "$SC/build_macro_project.py" scaffold "$SK/packs/$D" "$3"
+  ;;
+macro-build)
+  [ "$#" -ge 5 ] || { echo 'Usage: pipeline.sh macro-build <anim3|anim4> <spec.json> <edited-talk.mp4> <NEW project> [--subs-js file]' >&2; exit 2; }
+  case "$D" in anim3|anim4) ;; *) echo 'Unknown full pack' >&2; exit 2 ;; esac
+  PACK_DIR="$SK/packs/$D"
+  shift 2
+  python3 "$SC/build_macro_project.py" build "$PACK_DIR" "$@"
+  ;;
 doctor)
   python3 "$SC/doctor.py"
   ;;

@@ -1,4 +1,4 @@
 interface:
   display_name: "阿杜动效视频"
-  short_description: "精选苹果风动效模板，1 小时把口播做成能发布的 16:9 60fps 视频"
-  default_prompt: "使用 $adu-motion-video，检查我的素材和环境，先给分镜表（时间 · 台词 · 模板），确认后用模板制作并导出新版本 MP4。"
+  short_description: "复用完整工程编舞，为新口播适配动作、素材、字幕和声音"
+  default_prompt: "使用 $adu-motion-video，检查我的口播与素材，按语义选择完整场景包，绑定新文案和动作时间，保留镜头与声音细节，实际验收后导出新版本 MP4，并说明尚未验证的部分。"

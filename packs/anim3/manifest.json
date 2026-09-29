@@ -1,0 +1,4160 @@
+{
+  "id": "anim3-card-continuity",
+  "title": "编辑卡片连续叙事完整场景包",
+  "source": {
+    "engine": "DOM/CSS/JavaScript",
+    "sceneFile": "scenes.js",
+    "runtime": "index.html",
+    "fullSourceScenes": 12,
+    "sourceDuration": 82.0,
+    "originalFps": 60,
+    "assetPolicy": "Media are not bundled. Every selected scene image slot needs a user-supplied replacement."
+  },
+  "fps": 60,
+  "width": 1920,
+  "height": 1080,
+  "requireMotionWindows": true,
+  "voice": {
+    "type": "talking-head",
+    "required": true,
+    "clock": "output",
+    "sourceAsset": "talkmap.js + talk/",
+    "note": "Never warp lip sync with source scene clock"
+  },
+  "scenes": [
+    {
+      "id": "s01",
+      "title": "提问开场",
+      "role": "双行问题入场，人物卡弹入，关键词重击与物件弹起",
+      "source_scene_index": 0,
+      "sourceBlockSha256": "344fc16f307679db33f53348da7db10f96209c15f41891a7480093ffdb349a87",
+      "requireMotionWindows": true,
+      "motionWindows": [
+        {
+          "id": "opening_voice_card",
+          "start": 0,
+          "end": 1.4,
+          "anchorCue": "question_a"
+        },
+        {
+          "id": "answer_object_impact",
+          "start": 1.95,
+          "end": 3.3,
+          "anchorCue": "answer_slam"
+        }
+      ],
+      "source": {
+        "start": 0,
+        "end": 3.3
+      },
+      "cues": [
+        {
+          "id": "question_a",
+          "at": 0.6,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "question_b",
+          "at": 0.95,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "change",
+          "at": 1.95,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "answer_slam",
+          "at": 2.35,
+          "kind": "impact",
+          "lockFrames": 6
+        }
+      ],
+      "slots": [
+        {
+          "id": "section_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 01 — 开场",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 97,
+              "end": 107
+            }
+          ]
+        },
+        {
+          "id": "context",
+          "type": "text",
+          "required": true,
+          "sourceText": "AI 时代",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 217,
+              "end": 222
+            }
+          ]
+        },
+        {
+          "id": "question_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "为什么",
+          "renderContext": "html",
+          "maxChars": 4,
+          "sourceSpans": [
+            {
+              "start": 275,
+              "end": 278
+            }
+          ]
+        },
+        {
+          "id": "question_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "一定要",
+          "renderContext": "html",
+          "maxChars": 4,
+          "sourceSpans": [
+            {
+              "start": 296,
+              "end": 299
+            }
+          ]
+        },
+        {
+          "id": "change",
+          "type": "text",
+          "required": true,
+          "sourceText": "让工作进入",
+          "renderContext": "html",
+          "maxChars": 5,
+          "sourceSpans": [
+            {
+              "start": 363,
+              "end": 368
+            }
+          ]
+        },
+        {
+          "id": "answer",
+          "type": "text",
+          "required": true,
+          "sourceText": "新阶段",
+          "renderContext": "html",
+          "maxChars": 3,
+          "sourceSpans": [
+            {
+              "start": 472,
+              "end": 475
+            }
+          ]
+        },
+        {
+          "id": "image_x_macbook",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/x_macbook.png",
+          "aspect": "preserve",
+          "alpha": true,
+          "sourceWidth": 1400,
+          "sourceHeight": 948
+        }
+      ],
+      "assets": [
+        "assets/x_macbook.png"
+      ],
+      "minFrames": 108,
+      "maxHoldFrames": 90
+    },
+    {
+      "id": "s02",
+      "title": "旧环境与错误",
+      "role": "旧界面年份滚动、七个错误弹窗爆发，切换技能卡与进度条",
+      "source_scene_index": 1,
+      "sourceBlockSha256": "6cfc2f87c0bc592cd5628d275587128b4eec6e9e43fca9eb60bfd42fec395c96",
+      "requireMotionWindows": true,
+      "motionWindows": [
+        {
+          "id": "year_roll",
+          "start": 3.3,
+          "end": 4.8,
+          "anchorCue": "era"
+        },
+        {
+          "id": "crt_alert_swarm",
+          "start": 5.9,
+          "end": 8.6,
+          "anchorCue": "popup_1"
+        },
+        {
+          "id": "skill_progress",
+          "start": 9.8,
+          "end": 11.9,
+          "anchorCue": "progress"
+        }
+      ],
+      "source": {
+        "start": 3.3,
+        "end": 11.9
+      },
+      "cues": [
+        {
+          "id": "era",
+          "at": 3.6,
+          "kind": "counter",
+          "lockFrames": 3
+        },
+        {
+          "id": "old_device",
+          "at": 5.9,
+          "kind": "object",
+          "lockFrames": 3
+        },
+        {
+          "id": "warning",
+          "at": 6.4,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "popup_1",
+          "at": 7.1,
+          "kind": "cascade",
+          "lockFrames": 3
+        },
+        {
+          "id": "popup_7",
+          "at": 8.12,
+          "kind": "cascade",
+          "lockFrames": 3
+        },
+        {
+          "id": "skill_cards",
+          "at": 10.05,
+          "kind": "state",
+          "lockFrames": 3
+        },
+        {
+          "id": "progress",
+          "at": 10.5,
+          "kind": "progress",
+          "lockFrames": 3
+        }
+      ],
+      "slots": [
+        {
+          "id": "section_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 02 — 旧环境演示",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 135,
+              "end": 148
+            }
+          ]
+        },
+        {
+          "id": "era_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "示意时间轴 · 从",
+          "renderContext": "html",
+          "maxChars": 14,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 305,
+              "end": 314
+            }
+          ]
+        },
+        {
+          "id": "popup_context",
+          "type": "text",
+          "required": true,
+          "sourceText": "示意界面 · 通知与错误干扰",
+          "renderContext": "html",
+          "maxChars": 20,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1305,
+              "end": 1319
+            }
+          ]
+        },
+        {
+          "id": "skill_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "被迫学会的技能",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1446,
+              "end": 1453
+            }
+          ]
+        },
+        {
+          "id": "skill_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "杀毒",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 1685,
+              "end": 1687
+            }
+          ]
+        },
+        {
+          "id": "skill_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "重装系统",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 1874,
+              "end": 1878
+            }
+          ]
+        },
+        {
+          "id": "progress_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "正在重装系统… ",
+          "renderContext": "text",
+          "maxChars": 20,
+          "sourceSpans": [
+            {
+              "start": 3192,
+              "end": 3200
+            }
+          ]
+        },
+        {
+          "id": "alert_1",
+          "type": "text",
+          "required": true,
+          "sourceText": "活动提示",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 607,
+              "end": 611
+            }
+          ]
+        },
+        {
+          "id": "alert_2",
+          "type": "text",
+          "required": true,
+          "sourceText": "点击查看示例",
+          "renderContext": "html",
+          "maxChars": 16,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 615,
+              "end": 621
+            }
+          ]
+        },
+        {
+          "id": "alert_3",
+          "type": "text",
+          "required": true,
+          "sourceText": "警告",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 627,
+              "end": 629
+            }
+          ]
+        },
+        {
+          "id": "alert_4",
+          "type": "text",
+          "required": true,
+          "sourceText": "发现多个错误",
+          "renderContext": "html",
+          "maxChars": 16,
+          "sourceSpans": [
+            {
+              "start": 633,
+              "end": 639
+            }
+          ]
+        },
+        {
+          "id": "alert_5",
+          "type": "text",
+          "required": true,
+          "sourceText": "系统提示",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 645,
+              "end": 649
+            }
+          ]
+        },
+        {
+          "id": "alert_6",
+          "type": "text",
+          "required": true,
+          "sourceText": "任务运行缓慢",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 653,
+              "end": 659
+            }
+          ]
+        },
+        {
+          "id": "alert_7",
+          "type": "text",
+          "required": true,
+          "sourceText": "免费下载",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 665,
+              "end": 669
+            }
+          ]
+        },
+        {
+          "id": "alert_8",
+          "type": "text",
+          "required": true,
+          "sourceText": "高速下载器",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 673,
+              "end": 678
+            }
+          ]
+        },
+        {
+          "id": "alert_9",
+          "type": "text",
+          "required": true,
+          "sourceText": "错误",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 684,
+              "end": 686
+            }
+          ]
+        },
+        {
+          "id": "alert_10",
+          "type": "text",
+          "required": true,
+          "sourceText": "示例程序已停止",
+          "renderContext": "html",
+          "maxChars": 18,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 690,
+              "end": 697
+            }
+          ]
+        },
+        {
+          "id": "alert_11",
+          "type": "text",
+          "required": true,
+          "sourceText": "安全中心",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 703,
+              "end": 707
+            }
+          ]
+        },
+        {
+          "id": "alert_12",
+          "type": "text",
+          "required": true,
+          "sourceText": "立即修复！",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 711,
+              "end": 716
+            }
+          ]
+        },
+        {
+          "id": "alert_13",
+          "type": "text",
+          "required": true,
+          "sourceText": "提醒",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 722,
+              "end": 724
+            }
+          ]
+        },
+        {
+          "id": "alert_14",
+          "type": "text",
+          "required": true,
+          "sourceText": "请先检查设置",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 728,
+              "end": 734
+            }
+          ]
+        },
+        {
+          "id": "popup_button",
+          "type": "text",
+          "required": true,
+          "sourceText": "确定",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 1048,
+              "end": 1050
+            }
+          ]
+        },
+        {
+          "id": "image_x_crt",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/x_crt.png",
+          "aspect": "preserve",
+          "alpha": true,
+          "sourceWidth": 1298,
+          "sourceHeight": 1199
+        },
+        {
+          "id": "image_p_crt_stress",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/p_crt_stress.png",
+          "aspect": "preserve",
+          "alpha": true,
+          "sourceWidth": 961,
+          "sourceHeight": 1400
+        },
+        {
+          "id": "year_from",
+          "type": "number",
+          "required": true,
+          "binding": "s02.year_from",
+          "demoFallback": 2026,
+          "mustChange": true,
+          "min": 1000,
+          "max": 9999
+        },
+        {
+          "id": "year_to",
+          "type": "number",
+          "required": true,
+          "binding": "s02.year_to",
+          "demoFallback": 1995,
+          "mustChange": true,
+          "min": 1000,
+          "max": 9999
+        },
+        {
+          "id": "progress_final",
+          "type": "number",
+          "required": true,
+          "binding": "s02.progress_final",
+          "demoFallback": 87,
+          "mustChange": true,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "assets": [
+        "assets/x_crt.png",
+        "assets/p_crt_stress.png"
+      ],
+      "minFrames": 283,
+      "maxHoldFrames": 90
+    },
+    {
+      "id": "s03",
+      "title": "痛点计数",
+      "role": "群体记忆逐词进入，三张痛点卡与两组计数器连锁推进",
+      "source_scene_index": 2,
+      "sourceBlockSha256": "48b45ae1ab5f750e9556870b70ba95cae632bd85d9e8926302447b915548127d",
+      "requireMotionWindows": true,
+      "motionWindows": [
+        {
+          "id": "generation_words",
+          "start": 11.9,
+          "end": 13.4,
+          "anchorCue": "group_1"
+        },
+        {
+          "id": "shared_claim",
+          "start": 14.27,
+          "end": 15.0,
+          "anchorCue": "shared_pain"
+        },
+        {
+          "id": "pain_chain_and_counters",
+          "start": 15.9,
+          "end": 20.4,
+          "anchorCue": "pain_1"
+        }
+      ],
+      "source": {
+        "start": 11.9,
+        "end": 20.67
+      },
+      "cues": [
+        {
+          "id": "group_1",
+          "at": 12.05,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "group_2",
+          "at": 12.45,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "group_3",
+          "at": 12.85,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "shared_pain",
+          "at": 14.27,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "pain_1",
+          "at": 15.9,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "pain_2",
+          "at": 16.97,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "pain_3",
+          "at": 17.87,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "lost_time",
+          "at": 18.77,
+          "kind": "counter",
+          "lockFrames": 3
+        }
+      ],
+      "slots": [
+        {
+          "id": "section_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 03 — 共同记忆",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 141,
+              "end": 153
+            }
+          ]
+        },
+        {
+          "id": "group_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "00 后，",
+          "renderContext": "html",
+          "maxChars": 8,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 229,
+              "end": 234
+            }
+          ]
+        },
+        {
+          "id": "group_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "90 后，",
+          "renderContext": "html",
+          "maxChars": 8,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 255,
+              "end": 260
+            }
+          ]
+        },
+        {
+          "id": "group_c",
+          "type": "text",
+          "required": true,
+          "sourceText": "80 后，",
+          "renderContext": "html",
+          "maxChars": 8,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 281,
+              "end": 286
+            }
+          ]
+        },
+        {
+          "id": "shared",
+          "type": "text",
+          "required": true,
+          "sourceText": "很多人都感受过——",
+          "renderContext": "html",
+          "maxChars": 18,
+          "sourceSpans": [
+            {
+              "start": 382,
+              "end": 391
+            }
+          ]
+        },
+        {
+          "id": "pain_a_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "资源空间",
+          "renderContext": "html",
+          "maxChars": 18,
+          "sourceSpans": [
+            {
+              "start": 559,
+              "end": 563
+            }
+          ]
+        },
+        {
+          "id": "pain_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "空间已满",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 1024,
+              "end": 1028
+            }
+          ]
+        },
+        {
+          "id": "pain_b_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "项目文件_final.doc",
+          "renderContext": "html",
+          "maxChars": 30,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1221,
+              "end": 1235
+            }
+          ]
+        },
+        {
+          "id": "pain_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "文件崩溃",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1352,
+              "end": 1356
+            }
+          ]
+        },
+        {
+          "id": "pain_b_state",
+          "type": "text",
+          "required": true,
+          "sourceText": "（未响应）",
+          "renderContext": "html",
+          "maxChars": 14,
+          "sourceSpans": [
+            {
+              "start": 1457,
+              "end": 1462
+            }
+          ]
+        },
+        {
+          "id": "pain_c",
+          "type": "text",
+          "required": true,
+          "sourceText": "重装系统",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1643,
+              "end": 1647
+            }
+          ]
+        },
+        {
+          "id": "lost_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "浪费掉的时间",
+          "renderContext": "html",
+          "maxChars": 16,
+          "sourceSpans": [
+            {
+              "start": 2087,
+              "end": 2093
+            }
+          ]
+        },
+        {
+          "id": "lost_unit",
+          "type": "text",
+          "required": true,
+          "sourceText": "小时+",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 2239,
+              "end": 2242
+            }
+          ]
+        },
+        {
+          "id": "count_unit",
+          "type": "text",
+          "required": true,
+          "sourceText": "次",
+          "renderContext": "html",
+          "maxChars": 4,
+          "sourceSpans": [
+            {
+              "start": 1872,
+              "end": 1873
+            }
+          ]
+        },
+        {
+          "id": "disk_percent",
+          "type": "number",
+          "required": true,
+          "binding": "s03.disk_percent",
+          "demoFallback": 99.6,
+          "mustChange": true,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "id": "restart_total",
+          "type": "number",
+          "required": true,
+          "binding": "s03.restart_total",
+          "demoFallback": 12,
+          "mustChange": true,
+          "min": 1,
+          "max": 99
+        },
+        {
+          "id": "wasted_hours",
+          "type": "number",
+          "required": true,
+          "binding": "s03.wasted_hours",
+          "demoFallback": 1000,
+          "mustChange": true,
+          "min": 0,
+          "max": 1000000000
+        }
+      ],
+      "assets": [],
+      "minFrames": 289,
+      "maxHoldFrames": 90
+    },
+    {
+      "id": "s04",
+      "title": "迁移时间线",
+      "role": "手写问候、四代设备迁移时间线，账号卡跳跃与飞行动物",
+      "source_scene_index": 3,
+      "sourceBlockSha256": "a96010aa44a82aa702c9b8d842023ebefa277834a930af887e6c9da6fc90f15f",
+      "requireMotionWindows": true,
+      "motionWindows": [
+        {
+          "id": "handwritten_entry",
+          "start": 20.67,
+          "end": 22.3,
+          "anchorCue": "new_world"
+        },
+        {
+          "id": "four_device_migration",
+          "start": 23.6,
+          "end": 27.5,
+          "anchorCue": "account_move"
+        }
+      ],
+      "source": {
+        "start": 20.67,
+        "end": 28.37
+      },
+      "cues": [
+        {
+          "id": "new_world",
+          "at": 20.8,
+          "kind": "write",
+          "lockFrames": 3
+        },
+        {
+          "id": "migration_intro",
+          "at": 21.4,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "continuity",
+          "at": 23.8,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "devices",
+          "at": 24.0,
+          "kind": "cascade",
+          "lockFrames": 3
+        },
+        {
+          "id": "account_move",
+          "at": 24.3,
+          "kind": "motion",
+          "lockFrames": 3
+        },
+        {
+          "id": "preserved",
+          "at": 25.8,
+          "kind": "impact",
+          "lockFrames": 6
+        },
+        {
+          "id": "migration_tag",
+          "at": 26.6,
+          "kind": "card",
+          "lockFrames": 3
+        }
+      ],
+      "slots": [
+        {
+          "id": "section_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 04 — 迁移到新环境",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 135,
+              "end": 149
+            }
+          ]
+        },
+        {
+          "id": "greeting",
+          "type": "text",
+          "required": true,
+          "sourceText": "hello",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 325,
+              "end": 330
+            }
+          ]
+        },
+        {
+          "id": "intro",
+          "type": "text",
+          "required": true,
+          "sourceText": "示意流程 · 账号资料迁移",
+          "renderContext": "html",
+          "maxChars": 24,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 486,
+              "end": 499
+            }
+          ]
+        },
+        {
+          "id": "stage_1",
+          "type": "text",
+          "required": true,
+          "sourceText": "阶段 1",
+          "renderContext": "html",
+          "maxChars": 10,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 671,
+              "end": 675
+            }
+          ]
+        },
+        {
+          "id": "stage_2",
+          "type": "text",
+          "required": true,
+          "sourceText": "阶段 2",
+          "renderContext": "html",
+          "maxChars": 10,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 689,
+              "end": 693
+            }
+          ]
+        },
+        {
+          "id": "stage_3",
+          "type": "text",
+          "required": true,
+          "sourceText": "阶段 3",
+          "renderContext": "html",
+          "maxChars": 10,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 707,
+              "end": 711
+            }
+          ]
+        },
+        {
+          "id": "stage_4",
+          "type": "text",
+          "required": true,
+          "sourceText": "阶段 4",
+          "renderContext": "html",
+          "maxChars": 10,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 725,
+              "end": 729
+            }
+          ]
+        },
+        {
+          "id": "device_1",
+          "type": "text",
+          "required": true,
+          "sourceText": "设备 A",
+          "renderContext": "html",
+          "maxChars": 12,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 679,
+              "end": 683
+            }
+          ]
+        },
+        {
+          "id": "device_2",
+          "type": "text",
+          "required": true,
+          "sourceText": "设备 B",
+          "renderContext": "html",
+          "maxChars": 12,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 697,
+              "end": 701
+            }
+          ]
+        },
+        {
+          "id": "device_3",
+          "type": "text",
+          "required": true,
+          "sourceText": "设备 C",
+          "renderContext": "html",
+          "maxChars": 12,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 715,
+              "end": 719
+            }
+          ]
+        },
+        {
+          "id": "device_4",
+          "type": "text",
+          "required": true,
+          "sourceText": "设备 D",
+          "renderContext": "html",
+          "maxChars": 12,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 733,
+              "end": 737
+            }
+          ]
+        },
+        {
+          "id": "account_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "示例账户资料",
+          "renderContext": "html",
+          "maxChars": 14,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1618,
+              "end": 1624
+            }
+          ]
+        },
+        {
+          "id": "account_title",
+          "type": "text",
+          "required": true,
+          "sourceText": "示例账户 · 起点 →",
+          "renderContext": "html",
+          "maxChars": 20,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1689,
+              "end": 1700
+            }
+          ]
+        },
+        {
+          "id": "account_items",
+          "type": "text",
+          "required": true,
+          "sourceText": "照片 · 设置 · 软件",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 1780,
+              "end": 1792
+            }
+          ]
+        },
+        {
+          "id": "continuity",
+          "type": "text",
+          "required": true,
+          "sourceText": "已有的用户资料，",
+          "renderContext": "html",
+          "maxChars": 20,
+          "sourceSpans": [
+            {
+              "start": 1867,
+              "end": 1875
+            }
+          ]
+        },
+        {
+          "id": "now",
+          "type": "text",
+          "required": true,
+          "sourceText": "至今",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 1940,
+              "end": 1942
+            }
+          ]
+        },
+        {
+          "id": "result",
+          "type": "text",
+          "required": true,
+          "sourceText": "完整保存。",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1980,
+              "end": 1985
+            }
+          ]
+        },
+        {
+          "id": "migration_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "示意动作 · 资料迁移到新设备",
+          "renderContext": "html",
+          "maxChars": 26,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2120,
+              "end": 2135
+            }
+          ]
+        },
+        {
+          "id": "image_x_macbook",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/x_macbook.png",
+          "aspect": "preserve",
+          "alpha": true,
+          "sourceWidth": 1400,
+          "sourceHeight": 948
+        },
+        {
+          "id": "image_b_fly",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/b_fly.png",
+          "aspect": "preserve",
+          "alpha": true,
+          "sourceWidth": 1254,
+          "sourceHeight": 1250
+        }
+      ],
+      "assets": [
+        "assets/x_macbook.png",
+        "assets/b_fly.png"
+      ],
+      "minFrames": 254,
+      "maxHoldFrames": 90
+    },
+    {
+      "id": "s05",
+      "title": "注意力转折",
+      "role": "通知围绕真人卡并溶解，六张身份卡与应用坞跳动，圆形蓝屏转折",
+      "source_scene_index": 4,
+      "sourceBlockSha256": "279ea5965a0a5e8b01ea5438f5f54f1f8e72d8de4c1ecabfee7efd7646b6d9b1",
+      "requireMotionWindows": true,
+      "motionWindows": [
+        {
+          "id": "notification_orbit_dissolve",
+          "start": 28.37,
+          "end": 30.7,
+          "anchorCue": "focus"
+        },
+        {
+          "id": "six_roles_and_app_dock",
+          "start": 31.27,
+          "end": 34.55,
+          "anchorCue": "apps"
+        },
+        {
+          "id": "circular_attention_reveal",
+          "start": 34.6,
+          "end": 36.8,
+          "anchorCue": "answer"
+        }
+      ],
+      "source": {
+        "start": 28.37,
+        "end": 36.8
+      },
+      "cues": [
+        {
+          "id": "notifications",
+          "at": 28.5,
+          "kind": "cascade",
+          "lockFrames": 3
+        },
+        {
+          "id": "claim",
+          "at": 28.45,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "focus",
+          "at": 29.8,
+          "kind": "impact",
+          "lockFrames": 6
+        },
+        {
+          "id": "focus_on",
+          "at": 30.3,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "people",
+          "at": 31.4,
+          "kind": "cascade",
+          "lockFrames": 3
+        },
+        {
+          "id": "apps",
+          "at": 32.9,
+          "kind": "cascade",
+          "lockFrames": 3
+        },
+        {
+          "id": "blue_transition",
+          "at": 34.6,
+          "kind": "mask",
+          "lockFrames": 3
+        },
+        {
+          "id": "setup",
+          "at": 34.97,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "answer",
+          "at": 36.1,
+          "kind": "impact",
+          "lockFrames": 6
+        }
+      ],
+      "slots": [
+        {
+          "id": "section_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 05 — 专注",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 141,
+              "end": 151
+            }
+          ]
+        },
+        {
+          "id": "notification_1",
+          "type": "text",
+          "required": true,
+          "sourceText": "有 12 条新通知",
+          "renderContext": "html",
+          "maxChars": 20,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 228,
+              "end": 237
+            }
+          ]
+        },
+        {
+          "id": "notification_2",
+          "type": "text",
+          "required": true,
+          "sourceText": "需要重启以安装更新",
+          "renderContext": "html",
+          "maxChars": 22,
+          "sourceSpans": [
+            {
+              "start": 259,
+              "end": 268
+            }
+          ]
+        },
+        {
+          "id": "notification_3",
+          "type": "text",
+          "required": true,
+          "sourceText": "磁盘空间不足",
+          "renderContext": "html",
+          "maxChars": 16,
+          "sourceSpans": [
+            {
+              "start": 290,
+              "end": 296
+            }
+          ]
+        },
+        {
+          "id": "notification_4",
+          "type": "text",
+          "required": true,
+          "sourceText": "弹窗广告",
+          "renderContext": "html",
+          "maxChars": 16,
+          "sourceSpans": [
+            {
+              "start": 318,
+              "end": 322
+            }
+          ]
+        },
+        {
+          "id": "notification_5",
+          "type": "text",
+          "required": true,
+          "sourceText": "驱动程序已过期",
+          "renderContext": "html",
+          "maxChars": 18,
+          "sourceSpans": [
+            {
+              "start": 345,
+              "end": 352
+            }
+          ]
+        },
+        {
+          "id": "notification_6",
+          "type": "text",
+          "required": true,
+          "sourceText": "安全软件拦截",
+          "renderContext": "html",
+          "maxChars": 18,
+          "sourceSpans": [
+            {
+              "start": 375,
+              "end": 381
+            }
+          ]
+        },
+        {
+          "id": "claim",
+          "type": "text",
+          "required": true,
+          "sourceText": "理想工作环境：",
+          "renderContext": "html",
+          "maxChars": 18,
+          "sourceSpans": [
+            {
+              "start": 581,
+              "end": 588
+            }
+          ]
+        },
+        {
+          "id": "setup_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "让你",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 684,
+              "end": 686
+            }
+          ]
+        },
+        {
+          "id": "focus_word",
+          "type": "text",
+          "required": true,
+          "sourceText": "专注",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 724,
+              "end": 726
+            }
+          ]
+        },
+        {
+          "id": "setup_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "工作。",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 763,
+              "end": 766
+            }
+          ]
+        },
+        {
+          "id": "focus_on",
+          "type": "text",
+          "required": true,
+          "sourceText": "专注模式 · 已开启",
+          "renderContext": "html",
+          "maxChars": 20,
+          "sourceSpans": [
+            {
+              "start": 898,
+              "end": 908
+            }
+          ]
+        },
+        {
+          "id": "people_line",
+          "type": "text",
+          "required": true,
+          "sourceText": "博主大牛、商业大佬，",
+          "renderContext": "html",
+          "maxChars": 20,
+          "sourceSpans": [
+            {
+              "start": 1500,
+              "end": 1510
+            }
+          ]
+        },
+        {
+          "id": "focus_phrase",
+          "type": "text",
+          "required": true,
+          "sourceText": "让注意力",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1577,
+              "end": 1581
+            }
+          ]
+        },
+        {
+          "id": "focus_result",
+          "type": "text",
+          "required": true,
+          "sourceText": "专注。",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 1637,
+              "end": 1640
+            }
+          ]
+        },
+        {
+          "id": "role_1",
+          "type": "text",
+          "required": true,
+          "sourceText": "科技博主",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 959,
+              "end": 963
+            }
+          ]
+        },
+        {
+          "id": "role_2",
+          "type": "text",
+          "required": true,
+          "sourceText": "程序员",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 967,
+              "end": 970
+            }
+          ]
+        },
+        {
+          "id": "role_3",
+          "type": "text",
+          "required": true,
+          "sourceText": "设计师",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 974,
+              "end": 977
+            }
+          ]
+        },
+        {
+          "id": "role_4",
+          "type": "text",
+          "required": true,
+          "sourceText": "创业者",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 981,
+              "end": 984
+            }
+          ]
+        },
+        {
+          "id": "role_5",
+          "type": "text",
+          "required": true,
+          "sourceText": "投资人",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 988,
+              "end": 991
+            }
+          ]
+        },
+        {
+          "id": "role_6",
+          "type": "text",
+          "required": true,
+          "sourceText": "剪辑师",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 995,
+              "end": 998
+            }
+          ]
+        },
+        {
+          "id": "app_1",
+          "type": "text",
+          "required": true,
+          "sourceText": "Final Cut Pro",
+          "renderContext": "html",
+          "maxChars": 18,
+          "sourceSpans": [
+            {
+              "start": 1726,
+              "end": 1739
+            }
+          ]
+        },
+        {
+          "id": "app_2",
+          "type": "text",
+          "required": true,
+          "sourceText": "Logic Pro",
+          "renderContext": "html",
+          "maxChars": 18,
+          "sourceSpans": [
+            {
+              "start": 1769,
+              "end": 1778
+            }
+          ]
+        },
+        {
+          "id": "app_3",
+          "type": "text",
+          "required": true,
+          "sourceText": "Xcode",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1808,
+              "end": 1813
+            }
+          ]
+        },
+        {
+          "id": "app_4",
+          "type": "text",
+          "required": true,
+          "sourceText": "Motion",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1844,
+              "end": 1850
+            }
+          ]
+        },
+        {
+          "id": "app_5",
+          "type": "text",
+          "required": true,
+          "sourceText": "Keynote",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1880,
+              "end": 1887
+            }
+          ]
+        },
+        {
+          "id": "dock_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "示例软件生态 · 按实际项目替换",
+          "renderContext": "html",
+          "maxChars": 30,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2491,
+              "end": 2507
+            }
+          ]
+        },
+        {
+          "id": "setup_c",
+          "type": "text",
+          "required": true,
+          "sourceText": "他们最清楚：",
+          "renderContext": "html",
+          "maxChars": 16,
+          "sourceSpans": [
+            {
+              "start": 2681,
+              "end": 2687
+            }
+          ]
+        },
+        {
+          "id": "setup_d",
+          "type": "text",
+          "required": true,
+          "sourceText": "最贵的是",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 2787,
+              "end": 2791
+            }
+          ]
+        },
+        {
+          "id": "answer",
+          "type": "text",
+          "required": true,
+          "sourceText": "注意力",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 2989,
+              "end": 2992
+            }
+          ]
+        }
+      ],
+      "assets": [],
+      "minFrames": 278,
+      "maxHoldFrames": 90
+    },
+    {
+      "id": "s06",
+      "title": "指挥网络",
+      "role": "中心人物联通六个任务节点，数据包沿曲线流动，停机时整网灰化",
+      "source_scene_index": 5,
+      "sourceBlockSha256": "e61c14118fb7f63dc810a5464708b72cfc0ec115c161017a3a83a23d94619a9f",
+      "requireMotionWindows": true,
+      "motionWindows": [
+        {
+          "id": "continuous_agent_network_and_shutdown",
+          "start": 36.8,
+          "end": 44.53,
+          "anchorCue": "powerdown"
+        }
+      ],
+      "source": {
+        "start": 36.8,
+        "end": 44.53
+      },
+      "cues": [
+        {
+          "id": "thesis",
+          "at": 36.85,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "operator",
+          "at": 37.85,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "center",
+          "at": 37.9,
+          "kind": "face",
+          "lockFrames": 3
+        },
+        {
+          "id": "agents",
+          "at": 38.3,
+          "kind": "cascade",
+          "lockFrames": 3
+        },
+        {
+          "id": "tool",
+          "at": 40.45,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "hub",
+          "at": 41.1,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "powerdown",
+          "at": 42.2,
+          "kind": "state",
+          "lockFrames": 3
+        },
+        {
+          "id": "stop",
+          "at": 42.35,
+          "kind": "impact",
+          "lockFrames": 6
+        }
+      ],
+      "slots": [
+        {
+          "id": "section_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 06 — 指挥部",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 138,
+              "end": 149
+            }
+          ]
+        },
+        {
+          "id": "center_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 你",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 203,
+              "end": 207
+            }
+          ]
+        },
+        {
+          "id": "role_1",
+          "type": "text",
+          "required": true,
+          "sourceText": "写代码",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 316,
+              "end": 319
+            }
+          ]
+        },
+        {
+          "id": "role_2",
+          "type": "text",
+          "required": true,
+          "sourceText": "做设计",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 336,
+              "end": 339
+            }
+          ]
+        },
+        {
+          "id": "role_3",
+          "type": "text",
+          "required": true,
+          "sourceText": "写文案",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 356,
+              "end": 359
+            }
+          ]
+        },
+        {
+          "id": "role_4",
+          "type": "text",
+          "required": true,
+          "sourceText": "做调研",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 376,
+              "end": 379
+            }
+          ]
+        },
+        {
+          "id": "role_5",
+          "type": "text",
+          "required": true,
+          "sourceText": "剪视频",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 396,
+              "end": 399
+            }
+          ]
+        },
+        {
+          "id": "role_6",
+          "type": "text",
+          "required": true,
+          "sourceText": "跑数据",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 416,
+              "end": 419
+            }
+          ]
+        },
+        {
+          "id": "thesis",
+          "type": "text",
+          "required": true,
+          "sourceText": "AI 时代，更是这样。",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 1776,
+              "end": 1787
+            }
+          ]
+        },
+        {
+          "id": "operator",
+          "type": "text",
+          "required": true,
+          "sourceText": "你，指挥一群 AI 干活。",
+          "renderContext": "html",
+          "maxChars": 26,
+          "sourceSpans": [
+            {
+              "start": 1878,
+              "end": 1891
+            }
+          ]
+        },
+        {
+          "id": "tool",
+          "type": "text",
+          "required": true,
+          "sourceText": "电脑，就是你的",
+          "renderContext": "html",
+          "maxChars": 20,
+          "sourceSpans": [
+            {
+              "start": 1982,
+              "end": 1989
+            }
+          ]
+        },
+        {
+          "id": "hub",
+          "type": "text",
+          "required": true,
+          "sourceText": "指挥部。",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 2038,
+              "end": 2042
+            }
+          ]
+        },
+        {
+          "id": "stop_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "你一停，",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 2239,
+              "end": 2243
+            }
+          ]
+        },
+        {
+          "id": "stop_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "整支 AI 队伍都得停下来等你",
+          "renderContext": "html",
+          "maxChars": 26,
+          "sourceSpans": [
+            {
+              "start": 2307,
+              "end": 2322
+            }
+          ]
+        },
+        {
+          "id": "waiting",
+          "type": "text",
+          "required": true,
+          "sourceText": "等待中",
+          "renderContext": "text",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 3799,
+              "end": 3802
+            }
+          ]
+        },
+        {
+          "id": "done",
+          "type": "text",
+          "required": true,
+          "sourceText": "✓ 完成",
+          "renderContext": "text",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 3856,
+              "end": 3860
+            }
+          ]
+        }
+      ],
+      "assets": [],
+      "minFrames": 255,
+      "maxHoldFrames": 90
+    },
+    {
+      "id": "s07",
+      "title": "时间差与双赛道",
+      "role": "两版发布时间差可视化、关系反转、双赛道竞速与机会结论",
+      "source_scene_index": 6,
+      "sourceBlockSha256": "f666a185164eaa0a4866c484cf66d4436b29d94e1ed0df92ff35c35da06d886a",
+      "requireMotionWindows": true,
+      "motionWindows": [
+        {
+          "id": "version_timeline",
+          "start": 44.53,
+          "end": 48.6,
+          "anchorCue": "gap"
+        },
+        {
+          "id": "relationship_reveal",
+          "start": 48.6,
+          "end": 51.9,
+          "anchorCue": "surprise"
+        },
+        {
+          "id": "two_lane_race",
+          "start": 52.0,
+          "end": 55.67,
+          "anchorCue": "race"
+        }
+      ],
+      "source": {
+        "start": 44.53,
+        "end": 55.67
+      },
+      "cues": [
+        {
+          "id": "versions",
+          "at": 44.6,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "gap_intro",
+          "at": 45.75,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "version_a",
+          "at": 45.8,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "gap",
+          "at": 46.9,
+          "kind": "progress",
+          "lockFrames": 3
+        },
+        {
+          "id": "version_b",
+          "at": 48.1,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "twist",
+          "at": 48.6,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "surprise",
+          "at": 50.35,
+          "kind": "impact",
+          "lockFrames": 6
+        },
+        {
+          "id": "race",
+          "at": 52.4,
+          "kind": "motion",
+          "lockFrames": 3
+        },
+        {
+          "id": "difference",
+          "at": 54.6,
+          "kind": "impact",
+          "lockFrames": 6
+        }
+      ],
+      "slots": [
+        {
+          "id": "section_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 07 — 版本发布时间对比",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 142,
+              "end": 158
+            }
+          ]
+        },
+        {
+          "id": "intro",
+          "type": "text",
+          "required": true,
+          "sourceText": "两个版本的发布，",
+          "renderContext": "html",
+          "maxChars": 20,
+          "sourceSpans": [
+            {
+              "start": 195,
+              "end": 203
+            }
+          ]
+        },
+        {
+          "id": "setup",
+          "type": "text",
+          "required": true,
+          "sourceText": "可以看出",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 268,
+              "end": 272
+            }
+          ]
+        },
+        {
+          "id": "gap_title",
+          "type": "text",
+          "required": true,
+          "sourceText": "版本发布时间对比。",
+          "renderContext": "html",
+          "maxChars": 22,
+          "sourceSpans": [
+            {
+              "start": 310,
+              "end": 319
+            }
+          ]
+        },
+        {
+          "id": "timeline_start",
+          "type": "text",
+          "required": true,
+          "sourceText": "2024.05",
+          "renderContext": "html",
+          "maxChars": 12,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 584,
+              "end": 591
+            }
+          ]
+        },
+        {
+          "id": "timeline_tick_2",
+          "type": "text",
+          "required": true,
+          "sourceText": "06",
+          "renderContext": "html",
+          "maxChars": 12,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 595,
+              "end": 597
+            }
+          ]
+        },
+        {
+          "id": "timeline_tick_3",
+          "type": "text",
+          "required": true,
+          "sourceText": "07",
+          "renderContext": "html",
+          "maxChars": 12,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 601,
+              "end": 603
+            }
+          ]
+        },
+        {
+          "id": "timeline_tick_4",
+          "type": "text",
+          "required": true,
+          "sourceText": "08",
+          "renderContext": "html",
+          "maxChars": 12,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 607,
+              "end": 609
+            }
+          ]
+        },
+        {
+          "id": "timeline_tick_5",
+          "type": "text",
+          "required": true,
+          "sourceText": "09",
+          "renderContext": "html",
+          "maxChars": 12,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 613,
+              "end": 615
+            }
+          ]
+        },
+        {
+          "id": "timeline_end",
+          "type": "text",
+          "required": true,
+          "sourceText": "2024.10",
+          "renderContext": "html",
+          "maxChars": 12,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 619,
+              "end": 626
+            }
+          ]
+        },
+        {
+          "id": "version_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "版本 A · 示意",
+          "renderContext": "html",
+          "maxChars": 18,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1222,
+              "end": 1231
+            }
+          ]
+        },
+        {
+          "id": "version_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "版本 B · 示意",
+          "renderContext": "html",
+          "maxChars": 18,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1385,
+              "end": 1394
+            }
+          ]
+        },
+        {
+          "id": "gap",
+          "type": "text",
+          "required": true,
+          "sourceText": "晚了 5 个月",
+          "renderContext": "html",
+          "maxChars": 16,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1540,
+              "end": 1547
+            }
+          ]
+        },
+        {
+          "id": "twist_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "反转",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 1881,
+              "end": 1883
+            }
+          ]
+        },
+        {
+          "id": "twist_setup",
+          "type": "text",
+          "required": true,
+          "sourceText": "还有一个值得注意的关联——",
+          "renderContext": "html",
+          "maxChars": 30,
+          "sourceSpans": [
+            {
+              "start": 1971,
+              "end": 1984
+            }
+          ]
+        },
+        {
+          "id": "twist_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "就是 ",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 2099,
+              "end": 2102
+            }
+          ]
+        },
+        {
+          "id": "twist_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "方案 B",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 2130,
+              "end": 2134
+            }
+          ]
+        },
+        {
+          "id": "twist_c",
+          "type": "text",
+          "required": true,
+          "sourceText": "具体关系请填写真实资料",
+          "renderContext": "html",
+          "maxChars": 28,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 2210,
+              "end": 2221
+            }
+          ]
+        },
+        {
+          "id": "race_intro",
+          "type": "text",
+          "required": true,
+          "sourceText": "别人第一天就用上新工具，",
+          "renderContext": "html",
+          "maxChars": 26,
+          "sourceSpans": [
+            {
+              "start": 2446,
+              "end": 2458
+            }
+          ]
+        },
+        {
+          "id": "race_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "你还在",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 2524,
+              "end": 2527
+            }
+          ]
+        },
+        {
+          "id": "race_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "等适配。",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 2575,
+              "end": 2579
+            }
+          ]
+        },
+        {
+          "id": "lane_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "方案 A · 示意",
+          "renderContext": "html",
+          "maxChars": 20,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 3111,
+              "end": 3120
+            }
+          ]
+        },
+        {
+          "id": "lane_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "方案 B · 示意",
+          "renderContext": "html",
+          "maxChars": 20,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 3167,
+              "end": 3176
+            }
+          ]
+        },
+        {
+          "id": "result_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "✓ 已上手 · 已产出",
+          "renderContext": "text",
+          "maxChars": 18,
+          "sourceSpans": [
+            {
+              "start": 4313,
+              "end": 4324
+            }
+          ]
+        },
+        {
+          "id": "result_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "等待适配",
+          "renderContext": "text",
+          "maxChars": 14,
+          "sourceSpans": [
+            {
+              "start": 4386,
+              "end": 4390
+            }
+          ]
+        },
+        {
+          "id": "difference_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "差的是",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 3235,
+              "end": 3238
+            }
+          ]
+        },
+        {
+          "id": "difference_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "一整轮机会。",
+          "renderContext": "html",
+          "maxChars": 16,
+          "sourceSpans": [
+            {
+              "start": 3276,
+              "end": 3282
+            }
+          ]
+        }
+      ],
+      "assets": [],
+      "minFrames": 367,
+      "maxHoldFrames": 90
+    },
+    {
+      "id": "s08",
+      "title": "容量对比",
+      "role": "负面卡退场，双数值横条竞争与知识点强调",
+      "source_scene_index": 7,
+      "sourceBlockSha256": "2df4927128aaa7447b2bdb4102b399319f42e81aaa6f47f7e203bdc5ad91372e",
+      "requireMotionWindows": true,
+      "motionWindows": [
+        {
+          "id": "weakness_and_prop",
+          "start": 55.67,
+          "end": 57.3,
+          "anchorCue": "negative"
+        },
+        {
+          "id": "pivot_and_two_bar_comparison",
+          "start": 57.37,
+          "end": 59.9,
+          "anchorCue": "bar_b"
+        }
+      ],
+      "source": {
+        "start": 55.67,
+        "end": 59.9
+      },
+      "cues": [
+        {
+          "id": "negative",
+          "at": 55.8,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "character",
+          "at": 56.0,
+          "kind": "character",
+          "lockFrames": 3
+        },
+        {
+          "id": "turn",
+          "at": 57.7,
+          "kind": "impact",
+          "lockFrames": 6
+        },
+        {
+          "id": "data_card",
+          "at": 57.9,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "bar_a",
+          "at": 58.2,
+          "kind": "progress",
+          "lockFrames": 3
+        },
+        {
+          "id": "bar_b",
+          "at": 58.5,
+          "kind": "progress",
+          "lockFrames": 3
+        },
+        {
+          "id": "end",
+          "at": 59.5,
+          "kind": "impact",
+          "lockFrames": 6
+        }
+      ],
+      "slots": [
+        {
+          "id": "section_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 08 — 公道话",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 137,
+              "end": 148
+            }
+          ]
+        },
+        {
+          "id": "negative_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "缺点",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 256,
+              "end": 258
+            }
+          ]
+        },
+        {
+          "id": "negative_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "旧目标",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 361,
+              "end": 364
+            }
+          ]
+        },
+        {
+          "id": "negative_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "旧方案更合适",
+          "renderContext": "html",
+          "maxChars": 18,
+          "sourceSpans": [
+            {
+              "start": 409,
+              "end": 415
+            }
+          ]
+        },
+        {
+          "id": "pivot_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "但，",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 552,
+              "end": 554
+            }
+          ]
+        },
+        {
+          "id": "pivot_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "AI 时代了。",
+          "renderContext": "html",
+          "maxChars": 14,
+          "sourceSpans": [
+            {
+              "start": 603,
+              "end": 610
+            }
+          ]
+        },
+        {
+          "id": "data_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "知识点 · 统一内存",
+          "renderContext": "html",
+          "maxChars": 22,
+          "sourceSpans": [
+            {
+              "start": 771,
+              "end": 781
+            }
+          ]
+        },
+        {
+          "id": "data_explain",
+          "type": "text",
+          "required": true,
+          "sourceText": "本地跑大模型，先看能装进多少内存",
+          "renderContext": "html",
+          "maxChars": 34,
+          "sourceSpans": [
+            {
+              "start": 869,
+              "end": 885
+            }
+          ]
+        },
+        {
+          "id": "bar_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "旗舰游戏显卡 · 显存",
+          "renderContext": "html",
+          "maxChars": 22,
+          "sourceSpans": [
+            {
+              "start": 1061,
+              "end": 1072
+            }
+          ]
+        },
+        {
+          "id": "bar_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "设备 B · 示意容量",
+          "renderContext": "html",
+          "maxChars": 24,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1452,
+              "end": 1463
+            }
+          ]
+        },
+        {
+          "id": "bar_unit",
+          "type": "text",
+          "required": true,
+          "sourceText": "GB",
+          "renderContext": "text",
+          "maxChars": 3,
+          "sourceSpans": [
+            {
+              "start": 2204,
+              "end": 2206
+            }
+          ]
+        },
+        {
+          "id": "bottom",
+          "type": "text",
+          "required": true,
+          "sourceText": "CPU · GPU · 神经网络引擎 共用同一池内存 · 超大模型可以整个放进本机",
+          "renderContext": "html",
+          "maxChars": 68,
+          "sourceSpans": [
+            {
+              "start": 1852,
+              "end": 1893
+            }
+          ]
+        },
+        {
+          "id": "image_p_gamepad",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/p_gamepad.png",
+          "aspect": "preserve",
+          "alpha": true,
+          "sourceWidth": 654,
+          "sourceHeight": 1400
+        },
+        {
+          "id": "bar_a_value",
+          "type": "number",
+          "required": true,
+          "binding": "s08.bar_a_value",
+          "demoFallback": 32,
+          "mustChange": true,
+          "min": 1,
+          "max": 999
+        },
+        {
+          "id": "bar_b_value",
+          "type": "number",
+          "required": true,
+          "binding": "s08.bar_b_value",
+          "demoFallback": 512,
+          "mustChange": true,
+          "min": 1,
+          "max": 999
+        }
+      ],
+      "assets": [
+        "assets/p_gamepad.png"
+      ],
+      "minFrames": 139,
+      "maxHoldFrames": 90
+    },
+    {
+      "id": "s09",
+      "title": "终端演示",
+      "role": "终端窗口逐行敲字，工具名切换，角色姿态弹入",
+      "source_scene_index": 8,
+      "sourceBlockSha256": "8d2a8461c01abe839c8cdfa77987d8d0258f920402a62a6838b1a9d20f5a0988",
+      "requireMotionWindows": true,
+      "motionWindows": [
+        {
+          "id": "continuous_terminal_typing",
+          "start": 59.9,
+          "end": 63.0,
+          "anchorCue": "command_a"
+        }
+      ],
+      "source": {
+        "start": 59.9,
+        "end": 63.0
+      },
+      "cues": [
+        {
+          "id": "tool_a",
+          "at": 59.95,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "tool_b",
+          "at": 60.2,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "command_a",
+          "at": 60.3,
+          "kind": "typing",
+          "lockFrames": 3
+        },
+        {
+          "id": "result_a",
+          "at": 60.8,
+          "kind": "check",
+          "lockFrames": 3
+        },
+        {
+          "id": "command_b",
+          "at": 61.2,
+          "kind": "typing",
+          "lockFrames": 3
+        },
+        {
+          "id": "result_b",
+          "at": 61.9,
+          "kind": "check",
+          "lockFrames": 3
+        },
+        {
+          "id": "result_c",
+          "at": 62.3,
+          "kind": "check",
+          "lockFrames": 3
+        }
+      ],
+      "slots": [
+        {
+          "id": "section_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 09 — 试试看",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 133,
+              "end": 144
+            }
+          ]
+        },
+        {
+          "id": "lead",
+          "type": "text",
+          "required": true,
+          "sourceText": "试试",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 181,
+              "end": 183
+            }
+          ]
+        },
+        {
+          "id": "tool_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "工具 A",
+          "renderContext": "html",
+          "maxChars": 12,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 228,
+              "end": 232
+            }
+          ]
+        },
+        {
+          "id": "joiner",
+          "type": "text",
+          "required": true,
+          "sourceText": "或",
+          "renderContext": "html",
+          "maxChars": 6,
+          "sourceSpans": [
+            {
+              "start": 265,
+              "end": 266
+            }
+          ]
+        },
+        {
+          "id": "tool_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "工具 B",
+          "renderContext": "html",
+          "maxChars": 12,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 310,
+              "end": 314
+            }
+          ]
+        },
+        {
+          "id": "tab_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "Terminal — tool-a",
+          "renderContext": "text",
+          "maxChars": 22,
+          "sourceSpans": [
+            {
+              "start": 1516,
+              "end": 1533
+            }
+          ]
+        },
+        {
+          "id": "tab_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "Terminal — tool-b",
+          "renderContext": "text",
+          "maxChars": 22,
+          "sourceSpans": [
+            {
+              "start": 1494,
+              "end": 1511
+            }
+          ]
+        },
+        {
+          "id": "command_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "❯ 帮我做一个作品集网站",
+          "renderContext": "html",
+          "maxChars": 28,
+          "sourceSpans": [
+            {
+              "start": 1147,
+              "end": 1159
+            }
+          ]
+        },
+        {
+          "id": "result_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "✓ 已生成页面 · 已部署上线",
+          "renderContext": "text",
+          "maxChars": 30,
+          "sourceSpans": [
+            {
+              "start": 1181,
+              "end": 1196
+            }
+          ]
+        },
+        {
+          "id": "command_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "❯ 把这期视频剪好，配上字幕",
+          "renderContext": "html",
+          "maxChars": 30,
+          "sourceSpans": [
+            {
+              "start": 1219,
+              "end": 1233
+            }
+          ]
+        },
+        {
+          "id": "result_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "✓ 粗剪完成",
+          "renderContext": "text",
+          "maxChars": 18,
+          "sourceSpans": [
+            {
+              "start": 1255,
+              "end": 1261
+            }
+          ]
+        },
+        {
+          "id": "result_c",
+          "type": "text",
+          "required": true,
+          "sourceText": "✓ 字幕已生成",
+          "renderContext": "html",
+          "maxChars": 18,
+          "sourceSpans": [
+            {
+              "start": 1286,
+              "end": 1293
+            }
+          ]
+        },
+        {
+          "id": "image_p_typing_excited",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/p_typing_excited.png",
+          "aspect": "preserve",
+          "alpha": true,
+          "sourceWidth": 987,
+          "sourceHeight": 1400
+        }
+      ],
+      "assets": [
+        "assets/p_typing_excited.png"
+      ],
+      "minFrames": 102,
+      "maxHoldFrames": 90
+    },
+    {
+      "id": "s10",
+      "title": "创作反馈",
+      "role": "六个作品卡、倾斜天平、三张指标计数器与飞鸟",
+      "source_scene_index": 9,
+      "sourceBlockSha256": "3ac4e071fc809b444f7f85f0427482a4bbbe7d263d8a9fce5248b35c3d837ab3",
+      "requireMotionWindows": true,
+      "motionWindows": [
+        {
+          "id": "six_creation_cards",
+          "start": 63.0,
+          "end": 65.3,
+          "anchorCue": "works"
+        },
+        {
+          "id": "tilting_scale_and_bird",
+          "start": 65.5,
+          "end": 67.2,
+          "anchorCue": "tip"
+        },
+        {
+          "id": "three_feedback_counters",
+          "start": 67.37,
+          "end": 69.6,
+          "anchorCue": "stats"
+        }
+      ],
+      "source": {
+        "start": 63.0,
+        "end": 69.6
+      },
+      "cues": [
+        {
+          "id": "create_a",
+          "at": 63.0,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "works",
+          "at": 63.2,
+          "kind": "cascade",
+          "lockFrames": 3
+        },
+        {
+          "id": "create_b",
+          "at": 64.1,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "balance",
+          "at": 65.5,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "tip",
+          "at": 66.3,
+          "kind": "motion",
+          "lockFrames": 3
+        },
+        {
+          "id": "bird",
+          "at": 66.35,
+          "kind": "character",
+          "lockFrames": 3
+        },
+        {
+          "id": "feedback",
+          "at": 67.37,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "stats",
+          "at": 67.5,
+          "kind": "cascade",
+          "lockFrames": 3
+        },
+        {
+          "id": "payoff",
+          "at": 68.4,
+          "kind": "impact",
+          "lockFrames": 6
+        }
+      ],
+      "slots": [
+        {
+          "id": "section_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 10 — 创造",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 160,
+              "end": 170
+            }
+          ]
+        },
+        {
+          "id": "create_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "制造一些东西，",
+          "renderContext": "html",
+          "maxChars": 20,
+          "sourceSpans": [
+            {
+              "start": 207,
+              "end": 214
+            }
+          ]
+        },
+        {
+          "id": "create_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "创造一些内容，",
+          "renderContext": "html",
+          "maxChars": 20,
+          "sourceSpans": [
+            {
+              "start": 234,
+              "end": 241
+            }
+          ]
+        },
+        {
+          "id": "work_1",
+          "type": "text",
+          "required": true,
+          "sourceText": "个人网站",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 315,
+              "end": 319
+            }
+          ]
+        },
+        {
+          "id": "work_2",
+          "type": "text",
+          "required": true,
+          "sourceText": "小程序",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 323,
+              "end": 326
+            }
+          ]
+        },
+        {
+          "id": "work_3",
+          "type": "text",
+          "required": true,
+          "sourceText": "短视频",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 330,
+              "end": 333
+            }
+          ]
+        },
+        {
+          "id": "work_4",
+          "type": "text",
+          "required": true,
+          "sourceText": "公众号文章",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 337,
+              "end": 342
+            }
+          ]
+        },
+        {
+          "id": "work_5",
+          "type": "text",
+          "required": true,
+          "sourceText": "效率工具",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 346,
+              "end": 350
+            }
+          ]
+        },
+        {
+          "id": "work_6",
+          "type": "text",
+          "required": true,
+          "sourceText": "原创音乐",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 354,
+              "end": 358
+            }
+          ]
+        },
+        {
+          "id": "balance_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "它的乐趣，",
+          "renderContext": "html",
+          "maxChars": 16,
+          "sourceSpans": [
+            {
+              "start": 750,
+              "end": 755
+            }
+          ]
+        },
+        {
+          "id": "balance_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "远大于游戏。",
+          "renderContext": "html",
+          "maxChars": 16,
+          "sourceSpans": [
+            {
+              "start": 775,
+              "end": 781
+            }
+          ]
+        },
+        {
+          "id": "left_pan_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 创造",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1340,
+              "end": 1345
+            }
+          ]
+        },
+        {
+          "id": "right_pan_label",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 游戏",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1613,
+              "end": 1618
+            }
+          ]
+        },
+        {
+          "id": "left_pan",
+          "type": "text",
+          "required": true,
+          "sourceText": "🛠 创造",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1453,
+              "end": 1457
+            }
+          ]
+        },
+        {
+          "id": "right_pan",
+          "type": "text",
+          "required": true,
+          "sourceText": "🎮 游戏",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1708,
+              "end": 1712
+            }
+          ]
+        },
+        {
+          "id": "feedback_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "而且，能产生很多",
+          "renderContext": "html",
+          "maxChars": 20,
+          "sourceSpans": [
+            {
+              "start": 1911,
+              "end": 1919
+            }
+          ]
+        },
+        {
+          "id": "feedback_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "正面回馈。",
+          "renderContext": "html",
+          "maxChars": 14,
+          "sourceSpans": [
+            {
+              "start": 2022,
+              "end": 2027
+            }
+          ]
+        },
+        {
+          "id": "metric_1",
+          "type": "text",
+          "required": true,
+          "sourceText": "点赞",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 2117,
+              "end": 2119
+            }
+          ]
+        },
+        {
+          "id": "metric_2",
+          "type": "text",
+          "required": true,
+          "sourceText": "评论",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 2166,
+              "end": 2168
+            }
+          ]
+        },
+        {
+          "id": "metric_3",
+          "type": "text",
+          "required": true,
+          "sourceText": "新粉丝",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 2213,
+              "end": 2216
+            }
+          ]
+        },
+        {
+          "id": "bubble",
+          "type": "text",
+          "required": true,
+          "sourceText": "好玩！",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 2692,
+              "end": 2695
+            }
+          ]
+        },
+        {
+          "id": "image_b_squawk",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/b_squawk.png",
+          "aspect": "preserve",
+          "alpha": true,
+          "sourceWidth": 1234,
+          "sourceHeight": 1234
+        },
+        {
+          "id": "metric_1_value",
+          "type": "number",
+          "required": true,
+          "binding": "s10.metric_1_value",
+          "demoFallback": 12480,
+          "mustChange": true,
+          "min": 0,
+          "max": 999999
+        },
+        {
+          "id": "metric_2_value",
+          "type": "number",
+          "required": true,
+          "binding": "s10.metric_2_value",
+          "demoFallback": 864,
+          "mustChange": true,
+          "min": 0,
+          "max": 999999
+        },
+        {
+          "id": "metric_3_value",
+          "type": "number",
+          "required": true,
+          "binding": "s10.metric_3_value",
+          "demoFallback": 2315,
+          "mustChange": true,
+          "min": 0,
+          "max": 999999
+        }
+      ],
+      "assets": [
+        "assets/b_squawk.png"
+      ],
+      "minFrames": 217,
+      "maxHoldFrames": 90
+    },
+    {
+      "id": "s11",
+      "title": "结论清单",
+      "role": "四张结论卡依次勾选，末尾关键词砸屏",
+      "source_scene_index": 10,
+      "sourceBlockSha256": "b1c95ab957b4f6118b81d10fd47e8556dd713b480799be73b673d46b69bbe9af",
+      "requireMotionWindows": true,
+      "motionWindows": [
+        {
+          "id": "four_checklist_cards",
+          "start": 69.6,
+          "end": 71.6,
+          "anchorCue": "reason_1"
+        },
+        {
+          "id": "closing_slam",
+          "start": 72.0,
+          "end": 73.25,
+          "anchorCue": "action_b"
+        }
+      ],
+      "source": {
+        "start": 69.6,
+        "end": 73.25
+      },
+      "cues": [
+        {
+          "id": "conclusion",
+          "at": 69.7,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "reason_1",
+          "at": 69.9,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "reason_2",
+          "at": 70.3,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "reason_3",
+          "at": 70.7,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "reason_4",
+          "at": 71.1,
+          "kind": "card",
+          "lockFrames": 3
+        },
+        {
+          "id": "action_a",
+          "at": 72.0,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "action_b",
+          "at": 72.3,
+          "kind": "impact",
+          "lockFrames": 6
+        }
+      ],
+      "slots": [
+        {
+          "id": "section_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 11 — 结论",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 141,
+              "end": 151
+            }
+          ]
+        },
+        {
+          "id": "reason_1",
+          "type": "text",
+          "required": true,
+          "sourceText": "专注",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 171,
+              "end": 173
+            }
+          ]
+        },
+        {
+          "id": "reason_1_body",
+          "type": "text",
+          "required": true,
+          "sourceText": "资料与任务清楚归档",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 177,
+              "end": 186
+            }
+          ]
+        },
+        {
+          "id": "reason_2",
+          "type": "text",
+          "required": true,
+          "sourceText": "首发",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 192,
+              "end": 194
+            }
+          ]
+        },
+        {
+          "id": "reason_2_body",
+          "type": "text",
+          "required": true,
+          "sourceText": "按实际版本记录比较",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 198,
+              "end": 207
+            }
+          ]
+        },
+        {
+          "id": "reason_3",
+          "type": "text",
+          "required": true,
+          "sourceText": "内存",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 213,
+              "end": 215
+            }
+          ]
+        },
+        {
+          "id": "reason_3_body",
+          "type": "text",
+          "required": true,
+          "sourceText": "按实际设备容量选择",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 219,
+              "end": 228
+            }
+          ]
+        },
+        {
+          "id": "reason_4",
+          "type": "text",
+          "required": true,
+          "sourceText": "生态",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 234,
+              "end": 236
+            }
+          ]
+        },
+        {
+          "id": "reason_4_body",
+          "type": "text",
+          "required": true,
+          "sourceText": "按实际需求组织工具",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 240,
+              "end": 249
+            }
+          ]
+        },
+        {
+          "id": "conclusion",
+          "type": "text",
+          "required": true,
+          "sourceText": "所以 AI 时代，想跟上进程——第一件事",
+          "renderContext": "html",
+          "maxChars": 34,
+          "sourceSpans": [
+            {
+              "start": 966,
+              "end": 986
+            }
+          ]
+        },
+        {
+          "id": "action_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "让工作进入",
+          "renderContext": "html",
+          "maxChars": 14,
+          "sourceSpans": [
+            {
+              "start": 1040,
+              "end": 1045
+            }
+          ]
+        },
+        {
+          "id": "action_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "专注。",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 1149,
+              "end": 1152
+            }
+          ]
+        }
+      ],
+      "assets": [],
+      "minFrames": 120,
+      "maxHoldFrames": 90
+    },
+    {
+      "id": "s12",
+      "title": "评论与名片",
+      "role": "三条评论滑入、误区划掉盖章、整屏名片上推与角色结尾",
+      "source_scene_index": 11,
+      "sourceBlockSha256": "20db6a55bd0e297308198603d3748ed8e7e770110e1fed5afd8454589dd84588",
+      "requireMotionWindows": true,
+      "motionWindows": [
+        {
+          "id": "three_comments",
+          "start": 73.25,
+          "end": 75.6,
+          "anchorCue": "comments"
+        },
+        {
+          "id": "myth_strike_and_stamp",
+          "start": 75.8,
+          "end": 79.3,
+          "anchorCue": "stamp"
+        },
+        {
+          "id": "outro_card_and_character",
+          "start": 79.3,
+          "end": 82.0,
+          "anchorCue": "name"
+        }
+      ],
+      "source": {
+        "start": 73.25,
+        "end": 82.0
+      },
+      "cues": [
+        {
+          "id": "invite",
+          "at": 73.3,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "comments",
+          "at": 74.0,
+          "kind": "cascade",
+          "lockFrames": 3
+        },
+        {
+          "id": "reply",
+          "at": 74.9,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "myth",
+          "at": 77.6,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "strike",
+          "at": 78.45,
+          "kind": "motion",
+          "lockFrames": 3
+        },
+        {
+          "id": "stamp",
+          "at": 78.55,
+          "kind": "impact",
+          "lockFrames": 6
+        },
+        {
+          "id": "outro_slide",
+          "at": 79.3,
+          "kind": "transition",
+          "lockFrames": 6
+        },
+        {
+          "id": "name",
+          "at": 80.1,
+          "kind": "word",
+          "lockFrames": 3
+        },
+        {
+          "id": "goodbye",
+          "at": 80.95,
+          "kind": "word",
+          "lockFrames": 3
+        }
+      ],
+      "slots": [
+        {
+          "id": "section_tag",
+          "type": "text",
+          "required": true,
+          "sourceText": "// 12 — 你呢？",
+          "renderContext": "html",
+          "maxChars": 24,
+          "sourceSpans": [
+            {
+              "start": 156,
+              "end": 167
+            }
+          ]
+        },
+        {
+          "id": "invite",
+          "type": "text",
+          "required": true,
+          "sourceText": "如果你也有经验，",
+          "renderContext": "html",
+          "maxChars": 20,
+          "sourceSpans": [
+            {
+              "start": 214,
+              "end": 222
+            }
+          ]
+        },
+        {
+          "id": "channel",
+          "type": "text",
+          "required": true,
+          "sourceText": "评论区",
+          "renderContext": "html",
+          "maxChars": 10,
+          "sourceSpans": [
+            {
+              "start": 312,
+              "end": 315
+            }
+          ]
+        },
+        {
+          "id": "reply",
+          "type": "text",
+          "required": true,
+          "sourceText": "聊一聊。",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 363,
+              "end": 367
+            }
+          ]
+        },
+        {
+          "id": "comment_1",
+          "type": "text",
+          "required": true,
+          "sourceText": "示例评论：整理后更容易找到资料",
+          "renderContext": "html",
+          "maxChars": 36,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 447,
+              "end": 462
+            }
+          ]
+        },
+        {
+          "id": "comment_2",
+          "type": "text",
+          "required": true,
+          "sourceText": "示例评论：新的工作区更清晰",
+          "renderContext": "html",
+          "maxChars": 36,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 499,
+              "end": 512
+            }
+          ]
+        },
+        {
+          "id": "comment_3",
+          "type": "text",
+          "required": true,
+          "sourceText": "示例评论：希望增加更多比较",
+          "renderContext": "html",
+          "maxChars": 36,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 549,
+              "end": 562
+            }
+          ]
+        },
+        {
+          "id": "time",
+          "type": "text",
+          "required": true,
+          "sourceText": "现在，",
+          "renderContext": "html",
+          "maxChars": 16,
+          "sourceSpans": [
+            {
+              "start": 1116,
+              "end": 1119
+            }
+          ]
+        },
+        {
+          "id": "myth_intro",
+          "type": "text",
+          "required": true,
+          "sourceText": "还有人觉得",
+          "renderContext": "html",
+          "maxChars": 16,
+          "sourceSpans": [
+            {
+              "start": 1139,
+              "end": 1144
+            }
+          ]
+        },
+        {
+          "id": "myth",
+          "type": "text",
+          "required": true,
+          "sourceText": "只有一种选择？",
+          "renderContext": "html",
+          "maxChars": 20,
+          "sourceSpans": [
+            {
+              "start": 1319,
+              "end": 1326
+            }
+          ]
+        },
+        {
+          "id": "stamp",
+          "type": "text",
+          "required": true,
+          "sourceText": "误区 ✕",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1641,
+              "end": 1645
+            }
+          ]
+        },
+        {
+          "id": "outro_a",
+          "type": "text",
+          "required": true,
+          "sourceText": "来自",
+          "renderContext": "html",
+          "maxChars": 8,
+          "sourceSpans": [
+            {
+              "start": 1902,
+              "end": 1904
+            }
+          ]
+        },
+        {
+          "id": "outro_b",
+          "type": "text",
+          "required": true,
+          "sourceText": "示例",
+          "renderContext": "html",
+          "maxChars": 8,
+          "mustChange": true,
+          "sourceSpans": [
+            {
+              "start": 1931,
+              "end": 1933
+            }
+          ]
+        },
+        {
+          "id": "outro_name",
+          "type": "text",
+          "required": true,
+          "sourceText": "创作者",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 1977,
+              "end": 1980
+            }
+          ]
+        },
+        {
+          "id": "goodbye",
+          "type": "text",
+          "required": true,
+          "sourceText": "下期见。",
+          "renderContext": "html",
+          "maxChars": 12,
+          "sourceSpans": [
+            {
+              "start": 2061,
+              "end": 2065
+            }
+          ]
+        },
+        {
+          "id": "image_c_a",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/c_a.png",
+          "aspect": "preserve",
+          "alpha": true,
+          "sourceWidth": 953,
+          "sourceHeight": 1521
+        },
+        {
+          "id": "image_b_fly",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/b_fly.png",
+          "aspect": "preserve",
+          "alpha": true,
+          "sourceWidth": 1254,
+          "sourceHeight": 1250
+        },
+        {
+          "id": "like_1",
+          "type": "number",
+          "required": true,
+          "binding": "s12.like_1",
+          "demoFallback": 328,
+          "mustChange": true,
+          "min": 0,
+          "max": 1000000000
+        },
+        {
+          "id": "like_2",
+          "type": "number",
+          "required": true,
+          "binding": "s12.like_2",
+          "demoFallback": 215,
+          "mustChange": true,
+          "min": 0,
+          "max": 1000000000
+        },
+        {
+          "id": "like_3",
+          "type": "number",
+          "required": true,
+          "binding": "s12.like_3",
+          "demoFallback": 196,
+          "mustChange": true,
+          "min": 0,
+          "max": 1000000000
+        }
+      ],
+      "assets": [
+        "assets/c_a.png",
+        "assets/b_fly.png"
+      ],
+      "minFrames": 288,
+      "maxHoldFrames": 90
+    }
+  ]
+}

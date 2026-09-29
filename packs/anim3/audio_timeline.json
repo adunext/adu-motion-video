@@ -1,0 +1,41 @@
+{
+  "sourceDuration": 82.0,
+  "sourceSampleRate": 44100,
+  "audioSource": "audio-source.py",
+  "notes": "This describes the original arrangement. Re-map all seconds through the same scene clock as the animation before using the current 48 kHz audio pipeline. The original file has no explicit ENV or DARK list.",
+  "SEC": [
+    {"start": 0.0, "end": 3.3, "mode": "synth", "energy": 0.45, "options": {"kick_on": false, "clapon": false}},
+    {"start": 3.3, "end": 11.9, "mode": "chip-8bit", "energy": 0.45, "options": {"kick_on": true, "hat_on": true}},
+    {"start": 11.9, "end": 20.2, "mode": "chip-8bit", "energy": 0.45, "options": {"kick_on": true, "hat_on": true}},
+    {"start": 20.67, "end": 28.35, "mode": "synth", "energy": 0.45, "options": {"kick_on": false, "clapon": false, "hats": true}},
+    {"start": 28.35, "end": 36.8, "mode": "synth", "energy": 0.75, "options": {}},
+    {"start": 36.8, "end": 42.2, "mode": "synth", "energy": 0.9, "options": {}},
+    {"start": 42.2, "end": 44.53, "mode": "piano-break", "energy": 0.25, "options": {"downbeat_stop": true}},
+    {"start": 44.53, "end": 55.67, "mode": "synth", "energy": 0.8, "options": {}},
+    {"start": 55.67, "end": 59.9, "mode": "synth", "energy": 0.45, "options": {"clapon": false}},
+    {"start": 59.9, "end": 69.6, "mode": "synth", "energy": 1.0, "options": {}},
+    {"start": 69.6, "end": 79.3, "mode": "synth", "energy": 0.9, "options": {}},
+    {"start": 79.3, "end": 81.9, "mode": "synth", "energy": 0.4, "options": {"kick_on": false, "clapon": false}}
+  ],
+  "ENV": [],
+  "HITS": {
+    "drop": [20.66, 28.35, 36.1, 44.53, 59.9, 72.3],
+    "riser": [[27.3, 28.35], [35.1, 36.1], [56.8, 57.7], [71.2, 72.3], [77.5, 78.55]],
+    "crash": []
+  },
+  "DARK": [],
+  "specialEvents": [
+    {"at": 19.9, "type": "chip-resolution", "note": "short 8-bit resolving tone"},
+    {"at": 20.66, "type": "bell-chord", "notes": [62, 69, 74, 77, 81], "duration": 3.0},
+    {"at": 20.66, "type": "pad-chord", "notes": [62, 69, 74, 77], "duration": 3.2},
+    {"at": 42.2, "type": "powerdown", "duration": 0.6},
+    {"at": 42.6, "type": "piano-note", "note": 74, "duration": 1.2},
+    {"at": 43.05, "type": "piano-note", "note": 69, "duration": 1.2},
+    {"at": 43.5, "type": "piano-note", "note": 65, "duration": 1.2},
+    {"at": 43.95, "type": "piano-note", "note": 62, "duration": 1.2},
+    {"at": 43.4, "type": "riser", "duration": 1.1},
+    {"at": 80.1, "type": "outro-arpeggio", "notes": [62, 65, 69, 74, 77], "duration": 2.2}
+  ],
+  "fade": {"start": 81.1, "end": 81.9, "curve": "power-1.3"},
+  "sceneSfx": {"source": "scenes.js", "method": "S() cue array evaluated in browser", "retime": "map each SFX.t and duration endpoints with the selected scene instance's knots", "synthesis": "scripts/audiolib.py supports the original SFX type names"}
+}

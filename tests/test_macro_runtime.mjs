@@ -1,0 +1,25 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+
+test('reused opening retains early SFX and later scenes retain pre-roll', async () => {
+  const element=()=>({style:{},appendChild(){}});
+  const ctx={console,Math,Number,Promise}; ctx.window=ctx;
+  ctx.document={createElement:element,fonts:{ready:Promise.resolve()},images:[]};
+  const els=new Map();ctx.$=id=>{if(!els.has(id))els.set(id,element());return els.get(id);};
+  ctx.clamp=x=>Math.min(1,Math.max(0,x));ctx.lerp=(a,b,p)=>a+(b-a)*p;
+  ctx.CONFIG={};ctx.SFX=[];
+  ctx.SCENES=[0,1].map(()=>({el:element(),opt:{},update(){},cam(){return null;}}));
+  ctx.MACRO_PLAN={fps:60,end_frame:600,scenes:[
+    {output_start_frame:0,output_end_frame:300,time_map:[{source:3.3,output_frame:0},{source:8.3,output_frame:300}]},
+    {output_start_frame:300,output_end_frame:600,time_map:[{source:20,output_frame:300},{source:25,output_frame:600}]}]};
+  ctx.MACRO_SOURCE_SFX=[[{t:3.25,type:'swoosh',d:.5}],[{t:19.95,type:'whoosh',d:.5}]];
+  vm.runInNewContext(fs.readFileSync(new URL('../scripts/macro_runtime.js',import.meta.url),'utf8'),ctx);
+  await ctx.READY;
+  assert.equal(ctx.SFX.length,2);
+  assert.equal(ctx.SFX[0].t,0);
+  assert.equal(ctx.SFX[0].d,.5);
+  assert.equal(ctx.SFX[1].t,4.95);
+  assert.equal(ctx.SFX[1].d,.5);
+});

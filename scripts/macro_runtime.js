@@ -1,0 +1,124 @@
+/* Full-scene pack playback. Each authored scene retains its source clock; the
+   presenter, subtitles, audio and edit timeline always use output time. */
+(() => {
+  const plan = window.MACRO_PLAN;
+  if (!plan || !Array.isArray(plan.scenes) || SCENES.length !== plan.scenes.length) {
+    throw Error('Macro plan/scene count mismatch');
+  }
+  const fps = plan.fps;
+  window.END = plan.end_frame / fps;
+  const fx = $('fx');
+  const wipe = document.createElement('div');
+  wipe.style.cssText = 'position:absolute;inset:0;transform:translateX(100%)'; fx.appendChild(wipe);
+  const circle = document.createElement('div');
+  circle.style.cssText = 'position:absolute;left:960px;top:540px;width:10px;height:10px;border-radius:50%;opacity:0'; fx.appendChild(circle);
+  const flash = document.createElement('div');
+  flash.style.cssText = 'position:absolute;inset:0;background:#fff;opacity:0'; fx.appendChild(flash);
+  const fade = document.createElement('div');
+  fade.style.cssText = 'position:absolute;inset:0;background:#000;opacity:0'; fx.appendChild(fade);
+
+  function sourceAt(item, outputFrame) {
+    const points = item.time_map;
+    for (let i = 1; i < points.length; i++) {
+      const a = points[i - 1], b = points[i];
+      if (outputFrame <= b.output_frame || i === points.length - 1) {
+        const x = clamp((outputFrame - a.output_frame) / (b.output_frame - a.output_frame));
+        return lerp(a.source, b.source, x);
+      }
+    }
+    return points[0].source;
+  }
+
+  function outputAt(item, source) {
+    const points = item.time_map;
+    if (source < points[0].source) return points[0].output_frame + Math.round((source - points[0].source) * fps);
+    if (source > points.at(-1).source) return points.at(-1).output_frame + Math.round((source - points.at(-1).source) * fps);
+    for (let i = 1; i < points.length; i++) {
+      const a = points[i - 1], b = points[i];
+      if (source <= b.source) return Math.round(lerp(a.output_frame, b.output_frame, (source - a.source) / (b.source - a.source)));
+    }
+    return points.at(-1).output_frame;
+  }
+
+  // Source S() calls are captured once for each instantiated block. The final
+  // SFX list is retimed to the new scene arrangement, including repeated scenes.
+  if (!Array.isArray(window.MACRO_SOURCE_SFX) || window.MACRO_SOURCE_SFX.length !== SCENES.length)
+    throw Error('Source SFX capture is incomplete');
+  SFX.length = 0;
+  plan.scenes.forEach((item, i) => {
+    for (const cue of window.MACRO_SOURCE_SFX[i]) {
+      const authoredFrame = outputAt(item, cue.t);
+      // A reused opening scene has no preceding shot for its transition
+      // lead-in. Keep that sound at frame zero instead of silently dropping it.
+      const frame = i === 0 ? Math.max(0, authoredFrame) : authoredFrame;
+      if (frame < 0 || frame >= plan.end_frame) continue;
+      const mapped = {...cue, t: frame / fps};
+      if (typeof cue.d === 'number' && cue.d > 0)
+        mapped.d = Math.max(1 / fps, (outputAt(item, cue.t + cue.d) - authoredFrame) / fps);
+      SFX.push(mapped);
+    }
+  });
+  SFX.sort((a, b) => a.t - b.t);
+
+  function transition(frame, current) {
+    wipe.style.transform = 'translateX(100%)';
+    circle.style.opacity = '0'; circle.style.transform = 'translate(-50%,-50%) scale(0)';
+    flash.style.opacity = '0'; $('world').style.filter = '';
+    if (!current) return;
+    let transitionIndex = current.index;
+    const nextIndex = transitionIndex + 1;
+    if (nextIndex < SCENES.length) {
+      const next = SCENES[nextIndex], nextStart = plan.scenes[nextIndex].output_start_frame;
+      if (next.opt.trans && frame >= nextStart - (next.opt.td || .5) * fps / 2)
+        transitionIndex = nextIndex;
+    }
+    const item = plan.scenes[transitionIndex], sc = SCENES[transitionIndex], tr = sc.opt.trans;
+    if (!tr || transitionIndex === 0) return; // no outgoing shot before this project's first frame
+    const duration = (sc.opt.td || .5) * fps;
+    const x = (frame - (item.output_start_frame - duration / 2)) / duration;
+    if (x < 0 || x > 1) return;
+    if (tr === 'wipe') {
+      wipe.style.background = sc.opt.tc || sc.el.style.background;
+      wipe.style.transform = `translateX(${lerp(100, -100, EZ.inout(x))}%)`;
+    } else if (tr === 'circle') {
+      const p = x < .5 ? EZ.in(x * 2) : 1;
+      const q = x < .5 ? 0 : EZ.out((x - .5) * 2);
+      circle.style.background = sc.opt.tc || sc.el.style.background;
+      circle.style.left = (sc.opt.cx || 960) + 'px'; circle.style.top = (sc.opt.cy || 540) + 'px';
+      circle.style.transform = `translate(-50%,-50%) scale(${p * 460})`;
+      circle.style.opacity = String(Math.min(1 - q, clamp(p * 25)));
+    } else if (tr === 'flash') {
+      flash.style.opacity = String(Math.max(0, 1 - Math.abs(x - .5) * 2.2) * (sc.opt.fa || .9));
+    } else if (tr === 'blur') {
+      $('world').style.filter = `blur(${(Math.sin(x * Math.PI) * 24).toFixed(1)}px)`;
+    }
+  }
+
+  window.renderAt = function (t) {
+    if (!Number.isFinite(t)) throw Error('renderAt needs a finite output time');
+    const frame = Math.max(0, Math.min(plan.end_frame - 1, Math.floor(t * fps + 1e-6)));
+    const index = plan.scenes.findIndex(item => frame >= item.output_start_frame && frame < item.output_end_frame);
+    if (index < 0) throw Error(`No macro scene at output frame ${frame}`);
+    const item = plan.scenes[index], sc = SCENES[index], source = sourceAt(item, frame);
+    window.MACRO_OUTPUT_T = frame / fps;
+    window.PACK_OUTPUT_TIME = frame / fps;
+    window.MACRO_IS_OPENING_SCENE = index === 0;
+    window.PACK_NUMBERS = window.MACRO_NUMBERS_BY_INSTANCE?.[index] || {};
+    window.MACRO_MEDIA_ALIAS = window.MACRO_MEDIA_BY_INSTANCE?.[index] || {};
+    for (let i = 0; i < SCENES.length; i++) SCENES[i].el.style.display = i === index ? 'block' : 'none';
+    sc.update(source);
+    const cam = sc.cam(source), world = $('world');
+    if (cam) world.style.transform = `translate(${(cam.sx || 0).toFixed(2)}px,${(cam.sy || 0).toFixed(2)}px) scale(${(cam.z || 1).toFixed(4)}) translate(${(960 - (cam.x || 960)).toFixed(2)}px,${(540 - (cam.y || 540)).toFixed(2)}px)`;
+    else world.style.transform = '';
+    transition(frame, {index});
+    const fadeSeconds = CONFIG.fadeEndSeconds || 0;
+    fade.style.opacity = String(fadeSeconds ? clamp((t - (window.END - fadeSeconds)) / fadeSeconds) : 0);
+    if (window.OVERLAY) window.OVERLAY(frame / fps);
+  };
+  window.READY = (async () => {
+    await document.fonts.ready;
+    await Promise.all([...document.images].map(im => im.complete ? 0 : new Promise(resolve => { im.onload = im.onerror = resolve; })));
+    await window.renderAt(0);
+    document.title = 'done';
+  })();
+})();

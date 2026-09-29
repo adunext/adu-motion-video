@@ -2,104 +2,72 @@
 
 # adu-motion-video
 
-**按阿杜的审美精选动效模板，让 AI 在 1 小时内把你的口播做成能发布的视频。**
+把**新口播视频、文案和本期素材**交给能读写本地文件、运行命令的 AI Agent（如 Codex 或 Claude Code），由它选择完整动画工程中的场景，绑定新台词与素材，检查声画，再导出可编辑工程和 MP4。
 
-你给口播视频和文案，AI 按字幕时间挑模板、填参数、配字幕和音乐，本地逐帧导出 1920×1080 60fps MP4。每个场景就是一行代码，改起来也快。
+**大量模板整理上传中，敬请期待。** 当前提供两套完整场景包，共 21 个原工程宏场景；另有 9 个适合快速起步的基础 `TPL`。完整场景包是复用已制作动画的默认入口。它们仍处于 **experimental** 阶段，尚未把“任意新文案都能自动复刻原片效果”作为已验证能力。
 
-> 模板持续添加中。目前推荐 **Claude Code**、**Codex**；正在向下兼容 **Kimi、豆包** 等国产大模型（用 [AGENTS.md](AGENTS.md) 作入口）。
+![从口播到成片的制作流程](assets/tutorials/01-workflow.png)
 
-## 能做什么
+## 先准备什么
 
-| 视频类型 | 适合的模板组合 |
-|---|---|
-| **真人口播** | 开场标题 → 论点卡 → 数字 → 金句 → 片尾 |
-| **知识讲解** | 步骤时间线 → 清单打勾 → 对比 → 数字 |
-| **AI 工具 / 产品测评** | 软件窗口演示 → 功能打勾 → 以前 vs 现在 |
-| **观点短评 / 新闻解读** | 大标题砸入 → 划掉盖章 → 金句高潮 |
-| **课程切片 / 教程** | 步骤 → 清单 → 窗口录屏 |
-| **竖屏版**（抖音 / 视频号） | 同一工程另写 `vert.html` 重排，见 [竖屏](references/portrait.md) |
-| **手绘卡通叙事** | 角色与道具表演、补漏句的同镜头续接，见 [手绘](references/handdrawn-animation.md) |
+- 一条已经剪好、长度确定的口播视频，以及对应文案；带时间码的字幕（SRT）有助于绑定动作，关键字最好有逐词时间。
+- 本期要展示的录屏、图片、头像、标识、作品视频和可用配乐。公开仓库不附带原作者的真人画面或第三方作品。选用需要这些素材的场景时，必须提供替代素材。
+- 期望的画幅、账号名、字幕语言和交付目录。当前完整场景包按 **1920×1080、60fps** 制作；竖屏需要另做布局，不能直接裁切。
+- 本机 Node.js 18+、Python 3.10+、FFmpeg/ffprobe、Chrome，以及可运行本地命令的 Agent。macOS 是主要开发环境；其他平台需自行完成导出验证。
 
-另有：中英双语逐字变色字幕、代码合成的 68 种音效、配乐自动避让人声、-15 LUFS 响度、导出后自动核验帧数和完整解码。
+最终可得到一个可再编辑的项目目录、带音乐与音效的 MP4，以及帧数、解码和响度检查结果。画面质量仍须观看完整成片并与原工程关键动作对照；命令通过不等于视觉验收通过。
 
-## 模板一览
+## 选择制作路线
 
-![9 个模板的实际渲染](assets/tutorials/templates.png)
+| 路线 | 内容与用途 | 当前边界 |
+| --- | --- | --- |
+| [完整场景包 `anim3`](packs/anim3/README.md) | 12 个连续编辑卡片场景，保留人物、道具、数字、镜头、转场与原场景音效编舞 | 实验性；新文案与素材需逐场绑定和验收 |
+| [完整场景包 `anim4`](packs/anim4/README.md) | 9 个作品展示与口播场景，保留作品墙、九宫格、软件窗口、赛道等完整编舞 | 实验性；作品墙、录屏等需要本期素材 |
+| [基础 `TPL`](references/templates.md) | 9 个短场景函数，用于快速原型或从零组合较轻的片段 | Quick-start；不代表上述原工程的全部动画 |
+| [手绘卡通叙事](references/handdrawn-animation.md) | 角色与道具表演、同镜头续接的方法 | 目前是制作方法和既有示例，尚未提取为完整场景包 |
 
-| # | 模板 | 一行调用示例 |
-|---|---|---|
-| 01 | 开场大标题 | `TPL.hero({t0:0, t1:4, lines:[['把想法',0], ['做成*画面*',1.2]]})` |
-| 02 | 论点 + 要点卡 | `TPL.point({t0:4, t1:8, words:[['清楚表达',4.3], ['*每个重点*',4.8,'slam']], cards:[['先讲清楚',5.8]]})` |
-| 03 | 数字滚动 | `TPL.number({t0:8, t1:12, label:'耗时', at:8.4, value:60, unit:'分钟'})` |
-| 04 | 对比 + 盖章 | `TPL.compare({..., left:{title:'以前',items:[...]}, right:{...}, strikeAt:14, stamp:'淘汰'})` |
-| 05 | 步骤时间线 | `TPL.steps({..., title:'三步出片', steps:[['导入',16.4], ['选模板',17.2]]})` |
-| 06 | 金句 | `TPL.quote({t0:20, t1:23, at:20.2, lines:['好内容','值得*好动效*']})` |
-| 07 | 软件演示 | `TPL.demo({..., title:'App', seq:{dir:'rec',n:300}, features:[['一键导入',23.6]]})` |
-| 08 | 清单打勾 | `TPL.checklist({..., title:'发布前检查', items:[['16:9',27.4]]})` |
-| 09 | 片尾制作说明 | `TPL.outro({..., lines:['本视频由 AI 制作'], prompt:'...'})` |
+`anim3`、`anim4` 是工程包 ID，不是用户视频标题或两种固定品牌风格。完整场景包可挑选、重排、重复场景，但必须尊重动作顺序、素材含义和片长。短到容不下原动作的片段会拒绝构建；多出的时间优先给可停留的画面，不会把所有动画整段慢放。作品墙需要先把至少 27 个真实独立作品制备为 389 张展示精灵，并如实保留独立作品数；不能直接拿 27 张精灵输入构建器。详见[完整工程复用与验收](references/full-project-templating.md)。
 
-`*文字*` 自动变蓝；时间都是口播秒数。全部参数见 [templates.md](references/templates.md)。
+![视觉家族与场景选择示意](assets/tutorials/02-style-map.png)
 
-## 3 步上手
-
-**1. 安装**（macOS 已完整实测；Linux / WSL 未端到端验证）
+## 用 Codex 或 Claude Code 开始
 
 ```bash
-# Claude Code
+# 任选与你的 Agent 对应的位置；也可以克隆到其他路径并让 Agent 读取 SKILL.md
 git clone https://github.com/adunext/adu-motion-video.git ~/.claude/skills/adu-motion-video
-# Codex
-git clone https://github.com/adunext/adu-motion-video.git ~/.agents/skills/adu-motion-video
+# Codex 可用：git clone https://github.com/adunext/adu-motion-video.git ~/.codex/skills/adu-motion-video
+
+PL="$HOME/.claude/skills/adu-motion-video/scripts/pipeline.sh"
+# 若装在 Codex 目录：PL="$HOME/.codex/skills/adu-motion-video/scripts/pipeline.sh"
+bash "$PL" doctor
+bash "$PL" setup
 ```
 
-需要 Node.js 18+、Python 3.10+、FFmpeg、Chrome。然后跑一次：
+让 Agent 先阅读 [SKILL.md](SKILL.md)、[制作约定](references/rules.md) 和所选工程包说明。以下以 `anim4` 为例；`anim3` 用同样命令替换包 ID：
 
 ```bash
-PL=~/.claude/skills/adu-motion-video/scripts/pipeline.sh   # Codex 换成 ~/.agents/...
-bash $PL doctor && bash $PL setup
-bash $PL demo ~/Desktop/adu-demo      # 36 秒演示，9 个模板各一次
+bash "$PL" macro-spec anim4 /已有目录/本期配置.json
+# 编辑配置：挑场景、填账号及每场文案/数字/素材路径、绑定关键台词时间
+bash "$PL" macro-build anim4 /已有目录/本期配置.json /已有目录/剪好口播.mp4 /已有目录/新工程
+bash "$PL" stills /已有目录/新工程 0,4,12
+bash "$PL" audio /已有目录/新工程
+bash "$PL" mix /已有目录/新工程
+bash "$PL" render /已有目录/新工程 /已有目录/新片_v1_16x9_60fps.mp4
+bash "$PL" check /已有目录/新片_v1_16x9_60fps.mp4
 ```
 
-**2. 准备素材**
+以上路径只是格式示例，`macro-spec` 输出和新工程路径必须事先不存在。可传 `--subs-js /路径/新口播字幕.js` 给 `macro-build`；字幕必须与新口播对齐。`macro-spec` 会列出原工程所有场景，实际使用前删去不需要的场景，按新口播顺序排列，并补齐所有必填槽。配置还可指定本期音乐 `music:{mode:"track",path,offset}`；`anim4` 默认在 macOS 使用 Vision 跟踪新口播人脸，其他系统要显式提供审核过的固定裁切。构建器要求目标场景总帧数与剪好口播相符，允许最多 1 帧误差。长短差异和动作锚点的处理见[完整工程复用与验收](references/full-project-templating.md)。
 
-```text
-我的视频/
-├── 口播.mp4     必需：剪好的口播
-├── 文案.txt     必需
-├── 字幕.srt     强烈建议（时间点从这里取）
-├── 音乐.mp3     可选：有授权的配乐
-└── 素材/        可选：录屏、截图、logo
-```
+可以直接对 Agent 说：
 
-**3. 对 AI 说**
+> 使用 adu-motion-video 的完整场景包制作这条新口播。口播、SRT、文案和本期录屏在 `/实际路径/素材目录`。先按语义选 `anim3` 或 `anim4` 的完整场景，列出所需替代素材和关键台词时间，补齐配置后生成工程；检查首帧、转场、文字裁切、口型、音乐和音效，再导出新 MP4。不要把原工程的示例文字、数字或第三方素材带进新片。
 
-```text
-使用 adu-motion-video，把 /实际路径/我的视频 做成 16:9 60fps 动效视频。
-账号名"我的账号"，要中英双语字幕，用我的音乐.mp3。
-先给我看分镜表（时间 · 台词 · 模板），确认后再做，最后导出新文件。
-```
+Agent 缺少 Skill 机制时，先读 [AGENTS.md](AGENTS.md)。基础模板只需运行 `bash "$PL" demo /不存在的新目录` 查看 36 秒示例；参数见[模板目录](references/templates.md)。
 
-## 用 Kimi、豆包等模型
+## 验收与扩展
 
-这些模型没有 Skill 机制。在支持读写文件和执行命令的 Agent 工具里（如 Kimi CLI、Trae、Cursor、OpenCode 等），克隆本仓库后告诉模型：
+至少检查第一帧有人物时人物是否可见、所有关键动作前后帧、最长文案的字体与安全区、录屏和图片裁切、场景交接、全段口型、字幕、音乐层次、音效位置及片尾。再与原工程的对应动作连续播放对照。任何一项未完成，只能标记为 experimental 或局部通过，不能宣称完整复刻验收通过。[教程：检查连续动作](assets/tutorials/03-continuity.png) · [验证记录](docs/validation.md)。
 
-```text
-先完整阅读 <仓库路径>/AGENTS.md，按里面的流程把 /实际路径/我的视频 做成动效视频。
-```
+每做完一条高质量新片，应把真正通用的场景和素材槽整理进新场景包，记录源工程、动作保护区、可换文案/数值/媒体、音乐事件和验收样片；不能只把成片切成静态卡片。仓库结构与贡献要求见[完整工程复用与验收](references/full-project-templating.md)。
 
-兼容性仍在测试中：模型越弱，越建议只用模板、不手写场景，并在每步完成后抽帧检查。
-
-## 目录
-
-```text
-SKILL.md / AGENTS.md   AI 入口（内容相同）
-template/              新工程起点：templates.js 模板库、scenes.js、config.js、audio.py
-scripts/pipeline.sh    doctor · setup · new · import · stills · audio · mix · render · check
-references/            模板参数、API、音频、字幕、竖屏、手绘、排错
-examples/              历史配方源码和可独立运行的小示例
-```
-
-## 贡献模板
-
-把模板函数加进 `template/templates.js`，在 `template/scenes.js` 演示里加一行，截图检查后提 PR。规则见 [templates.md](references/templates.md#新增模板的规则)。
-
-MIT License · 第三方说明见 [THIRD_PARTY.md](THIRD_PARTY.md)
+MIT License · 第三方说明见 [THIRD_PARTY.md](THIRD_PARTY.md)。

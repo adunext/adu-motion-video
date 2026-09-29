@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<style>
+.cam{position:relative;border-radius:28px;overflow:hidden;background:#111;box-shadow:0 30px 70px rgba(0,0,0,.28)}
+.cam img{width:100%;height:100%;object-fit:cover;display:block}
+.cam .lab{position:absolute;left:18px;top:16px;font:400 19px ui-monospace,'PingFang SC',monospace;color:#fff;background:rgba(10,10,10,.5);padding:6px 14px;border-radius:30px;-webkit-backdrop-filter:blur(8px)}
+.win95{background:#c0c0c0;border:3px solid;border-color:#fff #404040 #404040 #fff;box-shadow:3px 3px 0 #000;color:#000;font-family:'PingFang SC',sans-serif}
+.win95 .tb{background:linear-gradient(90deg,#000080,#1084d0);color:#fff;font-weight:600;font-size:20px;padding:3px 8px;display:flex;justify-content:space-between;align-items:center}
+.win95 .bt{display:flex;gap:3px}.win95 .bt span{width:22px;height:19px;background:#c0c0c0;border:2px solid;border-color:#fff #404040 #404040 #fff;color:#000;font-size:13px;line-height:14px;text-align:center;font-weight:700}
+.b95{display:inline-block;background:#c0c0c0;border:3px solid;border-color:#fff #404040 #404040 #fff;padding:3px 18px;font-size:20px;color:#000}
+.glass{background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(24px) saturate(1.6);border:1px solid rgba(255,255,255,.8);box-shadow:0 20px 50px rgba(0,0,0,.12)}
+.notif{width:470px;border-radius:22px;padding:16px 20px;display:flex;gap:14px;align-items:center;font:500 24px -apple-system,'PingFang SC'}
+.notif .ic{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;flex:none}
+.appic{width:132px;height:132px;border-radius:30px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 26px rgba(0,0,0,.2)}
+</style>
+</head><body>
+<div id="stage"><div id="world"></div><div id="fx"></div><div id="ov" style="position:absolute;inset:0;pointer-events:none"></div></div>
+<script src="config.js"></script>
+<script src="talkmap.js"></script>
+<script src="face.js"></script>
+<script src="subs.js"></script>
+<script src="wall.js"></script>
+<script src="lib.js"></script>
+<script src="scenes.js"></script>
+<script src="subtitles.js"></script>
+<script src="macro_main.js"></script>
+</body></html>
