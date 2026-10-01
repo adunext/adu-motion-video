@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import ast
 import hashlib
+from html.parser import HTMLParser
 import json
 from pathlib import Path
 import re
@@ -63,6 +64,51 @@ def audio_recipe(path, end):
             'sfxEvents':[], 'limits':['Runtime S() owns action cues; do not mix reference SFX twice.']}
 
 
+def source_styles(source, entry, reviewed_files=None):
+    """Preserve explicitly reviewed stylesheet/inline order from the source head.
+
+    Existing proposals keep their original style.css + inline recipe. New routes
+    can name hashed CSS files; font resources remain an environment decision.
+    """
+    html=(source/entry).read_text()
+    if reviewed_files is None:
+        css=(source/'style.css').read_text()+'\n'+'\n'.join(
+            re.findall(r'<style[^>]*>([\s\S]*?)</style>',html,flags=re.I))
+    else:
+        require(isinstance(reviewed_files,dict) and reviewed_files,
+                'styleFiles must name reviewed CSS files and their hashes')
+        styles={}
+        for name, expected in reviewed_files.items():
+            require(isinstance(name,str) and not Path(name).is_absolute()
+                    and '..' not in Path(name).parts and name.endswith('.css'),
+                    'Stylesheet files must be project-relative CSS paths')
+            path=(source/name).resolve()
+            require(path.is_relative_to(source.resolve()) and sha(path.read_bytes())==expected,
+                    f'Reviewed stylesheet changed or escaped project: {name}')
+            styles[name]=path.read_text()
+
+        class OrderedHead(HTMLParser):
+            def __init__(self):
+                super().__init__();self.parts=[];self.used=set();self.in_style=False;self.in_head=False
+            def handle_starttag(self,tag,attrs):
+                attrs=dict(attrs)
+                if tag=='head':self.in_head=True
+                if not self.in_head:return
+                if tag=='style':self.in_style=True;self.parts.append('')
+                if tag=='link' and 'stylesheet' in attrs.get('rel','').lower().split():
+                    name=attrs.get('href')
+                    if name in styles:self.parts.append(styles[name]);self.used.add(name)
+            def handle_data(self,data):
+                if self.in_head and self.in_style:self.parts[-1]+=data
+            def handle_endtag(self,tag):
+                if tag=='style':self.in_style=False
+                if tag=='head':self.in_head=False
+        parser=OrderedHead();parser.feed(html)
+        require(parser.used==set(styles), 'Every reviewed stylesheet must be linked in the source head')
+        css='\n'.join(parser.parts)
+    return re.sub(r'@font-face\s*\{[^}]*\}', '', css, flags=re.I)
+
+
 def extract(source, proposal_path, output):
     proposal=json.loads(proposal_path.read_text())
     require(not output.exists(), f'Refusing existing pack: {output}')
@@ -104,12 +150,9 @@ def extract(source, proposal_path, output):
             bind_authored_block(raw['block'], {**scene,'slots':[{**s,'mustChange':False} for s in scene['slots']]}, values, scene['id'])
             (stage/scene['sourceCodeFile']).write_text(raw['block'])
             scenes.append(scene)
-        index=(source/proposal.get('entry','index.html')).read_text()
-        inline='\n'.join(re.findall(r'<style[^>]*>([\s\S]*?)</style>',index,flags=re.I))
-        css=(source/'style.css').read_text()+ '\n'+inline
+        css=source_styles(source,proposal.get('entry','index.html'),proposal.get('styleFiles'))
         # Environment fonts remain external. Public packs must document and check
         # fonts; never copy system or personal font binaries while extracting.
-        css=re.sub(r'@font-face\s*\{[^}]*\}', '', css, flags=re.I)
         (stage/'style.css').write_text(css)
         for file in ['lib.js','config.js',*proposal.get('runtimeFiles',[])]:
             require('/' not in file and file.endswith('.js'), 'Runtime files must be explicit top-level JavaScript')

@@ -8,7 +8,7 @@ import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from build_macro_project import pack_scene_parts
 from adapt_project import AdaptError
-from extract_authored_pack import audio_recipe
+from extract_authored_pack import audio_recipe, source_styles
 from replay_authored_pack import replay
 
 
@@ -32,6 +32,37 @@ class AuthoredPackTest(unittest.TestCase):
             score=audio_recipe(path,10)
             self.assertEqual(score['SEC'][1]['mode'],'reflective-piano')
             self.assertEqual(score['ENV'][-1],{'at':10,'db':0})
+
+    def test_reviewed_styles_follow_source_head_cascade_order(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            (root/'style.css').write_text('.panel{color:red}')
+            (root/'stage.css').write_text('.panel{color:blue;perspective:1600px}')
+            (root/'index.html').write_text('<head><style>.panel{color:black}</style>'
+                '<link rel="stylesheet" href="style.css"><link href="stage.css" rel="stylesheet">'
+                '<style>@font-face{font-family:private;src:url(private.ttf)}.panel{color:green}</style></head>')
+            reviewed={n:hashlib.sha256((root/n).read_bytes()).hexdigest() for n in ('style.css','stage.css')}
+            css=source_styles(root,'index.html',reviewed)
+            self.assertLess(css.index('black'),css.index('red'))
+            self.assertLess(css.index('red'),css.index('blue'))
+            self.assertLess(css.index('blue'),css.index('green'))
+            self.assertNotIn('private.ttf',css)
+            (root/'stage.css').write_text('changed')
+            with self.assertRaisesRegex(ValueError,'stylesheet changed'):source_styles(root,'index.html',reviewed)
+
+    def test_reviewed_styles_must_be_linked_and_cannot_escape_source(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'index.html').write_text('<head></head>')
+            (root/'style.css').write_text('body{}')
+            digest=hashlib.sha256((root/'style.css').read_bytes()).hexdigest()
+            with self.assertRaisesRegex(ValueError,'must be linked'):source_styles(root,'index.html',{'style.css':digest})
+            with self.assertRaisesRegex(ValueError,'project-relative'):source_styles(root,'index.html',{'../style.css':digest})
+
+    def test_existing_proposals_keep_their_original_css_recipe(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'style.css').write_text('body{color:red}')
+            (root/'index.html').write_text('<head><style>body{color:blue}</style></head>')
+            self.assertEqual(source_styles(root,'index.html'),'body{color:red}\nbody{color:blue}')
 
     def test_replay_rejects_absolute_provenance_before_any_mutation(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -31,8 +31,15 @@ A/B 来源全片重放已获作者认可。A 新片为 99.5 秒，四个公共�
 
 公开包保存代码、样式、声音配方、内容示意与许可通知，不含原人物、个人录屏、原字幕、原混音或私人来源记录。评审只附标签、摘要和明确限制；私人影片保留在作者验收集。成片工程保存实际包版本、源码与媒体摘要。
 
-`anim3/anim4` 的 12/9 个旧宏场景保持 experimental，9 个基础 TPL 为 quick-start。手绘为制作方法与示例；C/D/E 尚未提炼为公共路线包。历史实验数量或制作经验不能作为本页稳定能力。
+`anim3/anim4` 的 12/9 个旧宏场景保持 experimental，9 个基础 TPL 为 quick-start。手绘为制作方法与示例；C/D/E 各新增三个语义组的 0.2.2-candidate 包，仍待其自己的新内容整片、独立使用与声画验收；未晋级稳定。历史实验数量或制作经验不能作为本页稳定能力。
 
 ## 后续扩展
 
 新路线继续完成自己的新内容整片与独立使用；新增来源按[接入契约](../references/template-intake.md)登记和分类，不限定为 A–E。`publish_reviewed_pack.py` 只把已记录审查覆盖的组冻结为新版本，不替代判断。未用的新内容组、未适配的引擎或来源区间保持自己的状态。
+
+
+## 3.2.0-rc.1 的 C/D/E 候选
+
+[stage-performance](../packs/stage-performance/0.2.2-candidate/README.md)、[editorial-performance](../packs/editorial-performance/0.2.2-candidate/README.md) 和 [kinetic-performance](../packs/kinetic-performance/0.2.2-candidate/README.md) 各保留主张回应、实际证据聚焦、分解归纳三个完整组。源路线完整独立闭包的 1,715 个状态点、反向寻帧、11 个场景选项与 88/91/105 个 SFX 相同；该结构检查不替代连续声音与栅格对照。参数 span 与输入草稿已核对；这些是候选边界，未验证的最大输入或相邻连接不由测试自动认可。
+
+C 的 style.css/stage.css/HTML 内联样式按源 head 的加载顺序保存；D 的人物栏、页眉和本期页码独立绑定；E 保留整词动作与四物件收拢。各包复制自己的 helper 和 CSS；旧稳定包字节不改。
