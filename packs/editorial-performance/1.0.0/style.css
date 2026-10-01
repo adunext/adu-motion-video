@@ -1,0 +1,47 @@
+
+:root{--paper:#F7F7F5;--ink:#0A0A0A;--blue:#2462EA;--blue2:#5B8CFF;--g1:#8C8C8C;--g2:#6B6B6B;--line:#E7E7E4}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink)}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--paper)}
+#world{position:absolute;inset:0;transform-origin:960px 540px}
+#fx{position:absolute;inset:0;pointer-events:none}
+.sc{position:absolute;inset:0;overflow:hidden;display:none}
+.e{position:absolute;left:0;top:0;white-space:nowrap}
+.mono{font-family:'SFM','PingFang SC',monospace}
+.tag{font:400 22px 'SFM','PingFang SC',monospace;color:var(--g1);letter-spacing:.5px}
+.acc{color:var(--blue)}
+.h1{font-size:108px;font-weight:600;letter-spacing:-1.5px;line-height:1.12}
+.h2{font-size:88px;font-weight:600;letter-spacing:-1px;line-height:1.15}
+.h3{font-size:56px;font-weight:600;letter-spacing:-.5px}
+.grid{position:absolute;inset:-240px;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:240px 240px;opacity:.6}
+.gridD{position:absolute;inset:-240px;background-image:linear-gradient(#1a1a1a 1px,transparent 1px),linear-gradient(90deg,#1a1a1a 1px,transparent 1px);background-size:240px 240px}
+.gridB{position:absolute;inset:-240px;background-image:linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);background-size:240px 240px}
+.card{background:#fff;border:1.5px solid var(--line);border-radius:22px;position:relative}
+.card .lb{position:absolute;left:24px;top:20px;font:400 19px 'SFM','PingFang SC',monospace;color:var(--g1)}
+.card .ix{position:absolute;right:24px;top:20px;font:400 19px 'SFM',monospace;color:var(--g1)}
+.dcard{background:#161616;border:1.5px solid #262626;border-radius:22px;position:relative;color:#fff}
+.dcard .lb{position:absolute;left:24px;top:20px;font:400 19px 'SFM','PingFang SC',monospace;color:#777}
+.ch{filter:drop-shadow(0 26px 30px rgba(0,0,0,.16))}
+.chD{filter:drop-shadow(0 26px 34px rgba(0,0,0,.55))}
+.bubble{background:#fff;border:2px solid var(--ink);border-radius:40px;padding:10px 28px;font:500 32px -apple-system,'PingFang SC',sans-serif}
+.pill{display:inline-block;padding:8px 22px;border-radius:40px;font:500 26px -apple-system,'PingFang SC',sans-serif}
+.term{background:#0E0E0E;border-radius:16px;padding:26px 30px;font:400 26px 'SFM','PingFang SC',monospace;color:#bbb;line-height:1.7}
+.hl{background:var(--blue);color:#fff;border-radius:18px;padding:0 18px}
+
+
+.cam{position:relative;border-radius:28px;overflow:hidden;background:#111;box-shadow:0 30px 70px rgba(0,0,0,.28)}
+.cam img{width:100%;height:100%;object-fit:cover;display:block}
+.cam.round{border-radius:50%;box-shadow:0 0 0 5px #fff,0 24px 50px rgba(0,0,0,.35)}
+.cam.round img{object-position:50% 50%}
+.cam .lab{position:absolute;left:18px;top:16px;font:400 19px 'SFM','PingFang SC',monospace;color:#fff;background:rgba(10,10,10,.5);padding:6px 14px;border-radius:30px;-webkit-backdrop-filter:blur(8px)}
+.vt{position:relative;overflow:hidden;background:#000}
+.vt img{width:100%;height:100%;object-fit:cover;display:block}
+.glassD{background:rgba(20,20,20,.84);-webkit-backdrop-filter:blur(26px) saturate(1.4);border:1.5px solid rgba(255,255,255,.09);border-radius:26px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:40px;font:600 24px -apple-system,'PingFang SC',sans-serif;white-space:nowrap}
+.macwin{border-radius:16px;overflow:hidden;background:#1c1c1e;box-shadow:0 40px 100px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08)}
+.macwin .tb{height:40px;display:flex;align-items:center;gap:9px;padding:0 16px;background:#2a2a2c;color:#d8d8d8;font:500 17px -apple-system,'PingFang SC'}
+.macwin .tb i{width:13px;height:13px;border-radius:50%;display:block}
+.macwin .body{position:relative;overflow:hidden}
+.macwin .body img{width:100%;height:100%;display:block;object-fit:cover}
+.check{width:44px;height:44px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font:700 26px -apple-system}

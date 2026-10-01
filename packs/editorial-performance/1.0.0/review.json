@@ -1,0 +1,66 @@
+{
+  "reviewer": "Owner current chat, with independent maker and recorded technical checks",
+  "passed": true,
+  "scope": "route-subset",
+  "checks": [
+    "continuous-source-av",
+    "continuous-new-av",
+    "reuse-record",
+    "independent-use",
+    "clean-install",
+    "distribution-rights"
+  ],
+  "limits": [
+    "Only three selected groups; the other source intervals have not been generalized or validated with new content.",
+    "macOS, installed PingFang/SF Mono, CPython 3.14.7, Node 23.11.0, Chrome/FFmpeg, 1920x1080 at 60fps.",
+    "One full 99.5-second new-content film made from fresh dependencies by a maker not involved in extraction; this is not an arbitrary-topic or cross-platform guarantee.",
+    "Public unit/runtime bytes preserved; episode-specific local bridges are excluded from this stable pack.",
+    "Original strict raster results remain unchanged; no pixel-perfect rendering claim and no audit threshold relaxed.",
+    "Original strict browser audit failed at frame 1411 despite identical DOM; bounded repeat found identical source image hashes and output clocks, but fresh raster differences remain.",
+    "This owner-approved D film uses musicVolume 0 with voice and SFX retained; the original public score is not removed or globally disabled."
+  ],
+  "recipes": [
+    "claim-and-response",
+    "evidence-and-focus",
+    "decompose-and-consolidate"
+  ],
+  "artifacts": [
+    {
+      "id": "source-owner-review",
+      "sha256": "76c337f1155e4dd4beb911dac371d221a8af2f8c42da9b5dd2016da353c2bcd5"
+    },
+    {
+      "id": "new-film-owner-review",
+      "sha256": "a1899e6f30852056a38cc3ecd7acef3d3e8175e9bc39162b9baa61fcd1b4e185"
+    },
+    {
+      "id": "source-replay-state",
+      "sha256": "9778815b40f7f55d1945d1305167e21a01cd9cecaaace2cbf6a426a016fa13ef"
+    },
+    {
+      "id": "independent-new-film",
+      "sha256": "e52231918d8ee591977c167216b33526cbfda049d96fcc15a61e067863cbdbf7"
+    },
+    {
+      "id": "independent-reuse-record",
+      "sha256": "2a837178b242cbfe7281b88014000d955f99cdf238d5fc17c7cecf9da3a78fc1"
+    },
+    {
+      "id": "independent-technical-checks",
+      "sha256": "ee49be926af5560cb6ac2de36847d1163f83ecd407ceff62edcd0bd437b78ea7"
+    },
+    {
+      "id": "independent-public-integrity",
+      "sha256": "5bd7136cc8489e308e4e068304f322eafb41cf918c104c71d1d5d34991d5c2bd"
+    },
+    {
+      "id": "candidate-distribution-content",
+      "sha256": "df41b2f16124ed89899edc6bda971c8f7ca1f35c448f9f16a087c50b2e073756"
+    },
+    {
+      "id": "frozen-public-package",
+      "sha256": "ce4e0da16bab3444502cb7a2c63833c81271c6536f90ce98402807e4150b3b34"
+    }
+  ],
+  "date": "2026-10-01"
+}

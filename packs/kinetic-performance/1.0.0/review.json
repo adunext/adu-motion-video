@@ -1,0 +1,65 @@
+{
+  "reviewer": "Owner current chat, with independent maker and recorded technical checks",
+  "passed": true,
+  "scope": "route-subset",
+  "checks": [
+    "continuous-source-av",
+    "continuous-new-av",
+    "reuse-record",
+    "independent-use",
+    "clean-install",
+    "distribution-rights"
+  ],
+  "limits": [
+    "Only three selected groups; the other source intervals have not been generalized or validated with new content.",
+    "macOS, installed PingFang/SF Mono, CPython 3.14.7, Node 23.11.0, Chrome/FFmpeg, 1920x1080 at 60fps.",
+    "One full 99.5-second new-content film made from fresh dependencies by a maker not involved in extraction; this is not an arbitrary-topic or cross-platform guarantee.",
+    "Public unit/runtime bytes preserved; episode-specific local bridges are excluded from this stable pack.",
+    "Original strict raster results remain unchanged; no pixel-perfect rendering claim and no audit threshold relaxed.",
+    "Original strict browser audit has zero issues and 10 raster warnings; exit 1 preserved."
+  ],
+  "recipes": [
+    "claim-and-response",
+    "evidence-and-focus",
+    "decompose-and-consolidate"
+  ],
+  "artifacts": [
+    {
+      "id": "source-owner-review",
+      "sha256": "76c337f1155e4dd4beb911dac371d221a8af2f8c42da9b5dd2016da353c2bcd5"
+    },
+    {
+      "id": "new-film-owner-review",
+      "sha256": "a1899e6f30852056a38cc3ecd7acef3d3e8175e9bc39162b9baa61fcd1b4e185"
+    },
+    {
+      "id": "source-replay-state",
+      "sha256": "b786ad4ef07ff268b23b6c9e1d7f4e229950b4905eff58f6368c808c06a58b9f"
+    },
+    {
+      "id": "independent-new-film",
+      "sha256": "3c802bef468b9bf7b96690a9f674237df4e36d9255d9b508cb81040a1a11a584"
+    },
+    {
+      "id": "independent-reuse-record",
+      "sha256": "a9ffbf94ba0a1d25a25cb357ff5f979de3ab5567a745a3ee2438ae6db49c1cd2"
+    },
+    {
+      "id": "independent-technical-checks",
+      "sha256": "de8d42ce225bd3c8e3f851ee41134f4b436c1257aed8bdc7a5e8761f2d593d3e"
+    },
+    {
+      "id": "independent-public-integrity",
+      "sha256": "2075bdb2a48cc73301ca5408aa2ce71cfaaffde27f1dfd525c514d583bee4fab"
+    },
+    {
+      "id": "candidate-distribution-content",
+      "sha256": "df41b2f16124ed89899edc6bda971c8f7ca1f35c448f9f16a087c50b2e073756"
+    },
+    {
+      "id": "frozen-public-package",
+      "sha256": "ce4e0da16bab3444502cb7a2c63833c81271c6536f90ce98402807e4150b3b34"
+    }
+  ],
+  "date": "2026-10-01"
+}

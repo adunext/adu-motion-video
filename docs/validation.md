@@ -1,5 +1,19 @@
 # 发布检查
 
+## 3.2.0：C/D/E 的九个稳定组（2026-10-01）
+
+作者针对三条源演出回复“D 的这个背景音乐去掉其它正常”；D 修订只移除当前影片的背景配乐，视频 packet hash 不变，配音与动作音效保留。随后针对三部 99.5 秒新片明确回复“三片成立，继续发布”。新片均由未参与提炼的执行者只从冻结 3.2.0-rc.1 公开包与本期口播、字幕、本人实录进行全新依赖安装制作；原声未变速，公共组内部与引擎未改写。
+
+三个新稳定包各覆盖 claim-and-response、evidence-and-focus、decompose-and-consolidate。九个单位、helper、样式、声音和命名绑定与已审片候选字节相同，候选和既有 93 个包文件保持原样。C 使用五个公共实例与两个本期桥接（476/5,970 帧），D 使用六个公共实例无桥接，E 使用五个公共实例与四个本期桥接（1,432/5,970 帧）；桥接不进入稳定库。适用范围仍为 macOS、安装中的 PingFang/SF Mono、1920×1080/60fps。五版源剩余区间不随这批少数组一起泛化。
+
+三片完整解码、5,970 帧的时间戳与人物输出时钟通过；最终响度 C/D/E 为 −15.6/−15.7/−15.6 LUFS，真峰均 −1.2 dBTP。D 本期 mix.musicVolume=0，保留 53 个 SFX，公共源配乐合成仍不变。C/E 保留各自音乐与动作声音。三份独立使用记录均明确执行者没有以静帧或默音技术播放冒充实际听看，作者声画判断另行保存。
+
+原严格浏览器检查没有放宽：C exit 1 / needs-raster-review，0 issue/7 warnings；E exit 1 / needs-raster-review，0 issue/10 warnings。D 为 failed，1 issue/5 warnings；1411 的 DOM 相同却有像素差异。有界复查时输出时钟、源 JPEG SHA 和 DOM 相同，连续 seek 最大差 1，fresh 对照仍有最大差 29，未发现这次媒体取帧错位。自动 failed 与 screenshots 保留，作者认可不改写它。没有宣称跨页面逐像素等价。
+
+CSS 提炼新增 styleFiles 明确顺序与摘要：C 保留 style.css/stage.css/内联样式的源 head 级联；旧提案仍按原 style.css + inline 字节处理。对应顺序/缺项/逃逸与旧行为检查包含在 50 项 Python 检查中；Node/browser 8 项此前通过，其代码没有在本批改变。来源注册、九个契约的文本容量/缺素材负例、源码与运行文件摘要以及实际新片记录分别保留。
+
+稳定发行核验进行中：最终归档将检查新稳定版本发现/绑定，并从新的依赖目录重建代表片；结果随后追加。三位独立制作的临时 npm/Python 安装均已清理。
+
 ## 3.1.0 首批稳定镜头组（2026-10-01）
 
 作者针对完整 A/B、两条交叉短段与新增组的原/新声画对照回复“成立”。新版本按实际用过的组冻结：classic-performance@1.0.0 三个组、continuous-performance@1.0.0 两个组、paper-balance@1.0.0 一个续接组。旧候选原字节保留；B 的 simplify-plan-disrupt 未被新内容使用，仍为 candidate，不随整个包晋级。稳定范围见[能力矩阵](capability-matrix.md)。

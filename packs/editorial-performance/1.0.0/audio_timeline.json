@@ -1,0 +1,236 @@
+{
+  "schema": "adu-authored-score/1",
+  "sourceSha256": "ca17b5cb096298b9a8c829e8cc036490abc78c254c2971376106f7270b33756c",
+  "SEC": [
+    {
+      "id": "score-00",
+      "start": 0.0,
+      "end": 15.466,
+      "mode": "reflective-piano"
+    },
+    {
+      "id": "score-01",
+      "start": 15.466,
+      "end": 19.866,
+      "energy": 0.46,
+      "options": {
+        "arp": false,
+        "hats": false,
+        "clapon": false
+      },
+      "mode": "synth"
+    },
+    {
+      "id": "score-02",
+      "start": 19.866,
+      "end": 25.6,
+      "energy": 0.68,
+      "options": {
+        "arp": true,
+        "hats": false
+      },
+      "mode": "synth"
+    },
+    {
+      "id": "score-03",
+      "start": 25.6,
+      "end": 48.233,
+      "mode": "reflective-piano"
+    },
+    {
+      "id": "score-04",
+      "start": 48.233,
+      "end": 68.6,
+      "energy": 0.48,
+      "options": {
+        "arp": false,
+        "hats": false,
+        "clapon": false
+      },
+      "mode": "synth"
+    },
+    {
+      "id": "score-05",
+      "start": 68.6,
+      "end": 84.3,
+      "energy": 0.57,
+      "options": {
+        "arp": true,
+        "hats": false,
+        "clapon": false
+      },
+      "mode": "synth"
+    },
+    {
+      "id": "score-06",
+      "start": 84.3,
+      "end": 101.666,
+      "mode": "reflective-piano"
+    },
+    {
+      "id": "score-07",
+      "start": 101.666,
+      "end": 118.2,
+      "energy": 0.44,
+      "options": {
+        "arp": false,
+        "hats": false,
+        "clapon": false
+      },
+      "mode": "synth"
+    },
+    {
+      "id": "score-08",
+      "start": 118.2,
+      "end": 142.4,
+      "energy": 0.52,
+      "options": {
+        "arp": true,
+        "hats": false,
+        "clapon": false
+      },
+      "mode": "synth"
+    },
+    {
+      "id": "score-09",
+      "start": 142.4,
+      "end": 163.233333333,
+      "energy": 0.61,
+      "options": {
+        "arp": true,
+        "hats": false,
+        "clapon": false
+      },
+      "mode": "synth"
+    },
+    {
+      "id": "score-10",
+      "start": 163.233333333,
+      "end": 168.73333333333332,
+      "mode": "reflective-piano"
+    }
+  ],
+  "ENV": [
+    {
+      "at": 0,
+      "db": 2
+    },
+    {
+      "at": 3.4,
+      "db": 0
+    },
+    {
+      "at": 8.56,
+      "db": 2
+    },
+    {
+      "at": 11.1,
+      "db": -2
+    },
+    {
+      "at": 15.466,
+      "db": 0
+    },
+    {
+      "at": 19.866,
+      "db": 3
+    },
+    {
+      "at": 23.9,
+      "db": 1
+    },
+    {
+      "at": 25.6,
+      "db": -1
+    },
+    {
+      "at": 33.066,
+      "db": 0
+    },
+    {
+      "at": 41.1,
+      "db": 1
+    },
+    {
+      "at": 48.233,
+      "db": 0
+    },
+    {
+      "at": 68.6,
+      "db": 1
+    },
+    {
+      "at": 84.3,
+      "db": 1
+    },
+    {
+      "at": 86.533,
+      "db": 2
+    },
+    {
+      "at": 90,
+      "db": 0
+    },
+    {
+      "at": 101.666,
+      "db": -1
+    },
+    {
+      "at": 118.2,
+      "db": 1
+    },
+    {
+      "at": 122,
+      "db": 0
+    },
+    {
+      "at": 142.4,
+      "db": 2
+    },
+    {
+      "at": 149.4,
+      "db": 2
+    },
+    {
+      "at": 160.433,
+      "db": 1
+    },
+    {
+      "at": 163.233333333,
+      "db": 4
+    },
+    {
+      "at": 168.73333333333332,
+      "db": 0
+    }
+  ],
+  "HITS": {
+    "crash": [
+      19.866,
+      149.4
+    ],
+    "drop": [
+      26.933
+    ],
+    "riser": [
+      [
+        19.2,
+        19.866
+      ],
+      [
+        148.7,
+        149.4
+      ]
+    ]
+  },
+  "DARK": [],
+  "mix": {
+    "profile": "opus-five-v1",
+    "fadeOutSourceStart": 167.9333333333333,
+    "fadeOutSeconds": 0.8
+  },
+  "sfxEvents": [],
+  "limits": [
+    "Runtime S() owns action cues; do not mix reference SFX twice."
+  ]
+}
