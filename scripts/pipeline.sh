@@ -119,14 +119,13 @@ audio)
   ;;
 mix)
   END_VALUE=$(end_of)
-  VOL=${3:-0.50}
-  python3 - "$VOL" <<'PY'
-import math, sys
-v = float(sys.argv[1])
-if not math.isfinite(v) or v < 0:
-    raise SystemExit('Music volume must be a finite nonnegative number')
-PY
-  case "${VOICE:-file}" in
+  MIX_HELPER="$D/audio_runtime/mix_recipe.py"
+  if [ ! -f "$MIX_HELPER" ]; then
+    MIX_HELPER="$SC/mix_recipe.py"
+  fi
+  VOL=$(python3 "$MIX_HELPER" volume "$D" "${3:-}")
+  VOICE_MODE=$(python3 "$MIX_HELPER" voice "$D" "${VOICE:-}")
+  case "$VOICE_MODE" in
     none) VOICE_INPUT=(-f lavfi -t "$END_VALUE" -i anullsrc=r=48000:cl=stereo) ;;
     file)
       [ -f "$D/voice.wav" ] || { echo 'Missing voice.wav. Extract your narration first; for an intentional music-only demo use VOICE=none.' >&2; exit 2; }
@@ -141,12 +140,17 @@ PY
   else
     SHOW=(-f lavfi -t "$END_VALUE" -i anullsrc=r=44100:cl=stereo)
   fi
-  ffmpeg -y -loglevel error "${VOICE_INPUT[@]}" "${SHOW[@]}" -i "$D/bgm.wav" -i "$D/sfx.wav" -filter_complex "\
+  MIX_GRAPH="\
 [0:a]apad,highpass=f=70,acompressor=threshold=-20dB:ratio=2.5:attack=5:release=120,loudnorm=I=-16:TP=-1.5:LRA=9,asplit=3[v][vsc][vsc2];\
 [1:a]volume=1.0[sh0];[sh0][vsc2]sidechaincompress=threshold=0.02:ratio=8:attack=15:release=350[sh];\
 [2:a]volume=$VOL[b];[b][vsc]sidechaincompress=threshold=0.05:ratio=3:attack=30:release=450[bd];\
 [3:a]volume=0.5,highpass=f=60[s];\
-[v][sh][bd][s]amix=inputs=4:normalize=0:duration=longest,atrim=0:$END_VALUE,alimiter=limit=0.92:level=false,loudnorm=I=-15.5:TP=-1.2:LRA=9,aresample=48000[out]" -map "[out]" -c:a pcm_s16le "$D/mix.wav"
+[v][sh][bd][s]amix=inputs=4:normalize=0:duration=longest,atrim=0:$END_VALUE,alimiter=limit=0.92:level=false,loudnorm=I=-15.5:TP=-1.2:LRA=9,aresample=48000[out]"
+  MIX_EXPLICIT=0
+  [ -z "${3:-}${VOICE:-}" ] || MIX_EXPLICIT=1
+  MIX_GRAPH=$(python3 "$MIX_HELPER" graph "$D" "$MIX_GRAPH" "$END_VALUE" "$VOL" "$VOICE_MODE" "$MIX_EXPLICIT")
+  ffmpeg -y -loglevel error "${VOICE_INPUT[@]}" "${SHOW[@]}" -i "$D/bgm.wav" -i "$D/sfx.wav" -filter_complex "$MIX_GRAPH" -map "[out]" -c:a pcm_s16le "$D/mix.wav"
+  python3 "$MIX_HELPER" save "$D" "$END_VALUE" "$VOL" "$VOICE_MODE" "$MIX_GRAPH"
   ffmpeg -hide_banner -i "$D/mix.wav" -af ebur128 -f null - 2>&1 | grep -E '^\s+I:' | tail -1
   ;;
 render|vert)

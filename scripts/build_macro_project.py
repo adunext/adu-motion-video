@@ -20,6 +20,7 @@ import sys
 import tempfile
 
 from adapt_project import AdaptError, compile_plan, read_json
+from mix_recipe import initial_settings
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -291,6 +292,10 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
     if output.exists() or output.is_symlink(): fail(f'Refusing existing project: {output}')
     if not output.parent.is_dir(): fail(f'Project parent does not exist: {output.parent}')
     pack = read_json(pack_dir / 'manifest.json'); spec = read_json(spec_path)
+    try:
+        mix_settings = initial_settings(spec)
+    except ValueError as exc:
+        raise AdaptError(str(exc)) from exc
     if not talk.is_file(): fail(f'Missing edited talk video: {talk}')
     brand = spec.get('brand')
     if not isinstance(brand, str) or not brand.strip():
@@ -527,6 +532,9 @@ function raceAt(e, sourceTime, opacity=1) {
             dst_music = stage / 'assets' / ('music' + src_music.suffix.lower())
             shutil.copy2(src_music, dst_music); music['path'] = 'assets/' + dst_music.name
         write_project_audio(stage, music)
+        shutil.copy2(ROOT / 'scripts' / 'mix_recipe.py', stage / 'audio_runtime' / 'mix_recipe.py')
+        if mix_settings is not None:
+            (stage / 'mix_recipe.json').write_text(json.dumps(mix_settings, indent=2) + '\n')
         (stage / 'macro_build_report.json').write_text(json.dumps({'face': face_report, 'font': font_report,
              'narrationFrames': imported['frames'], 'outputFrames': plan['end_frame'], 'subtitlePreset': subtitle_preset,
              'status': 'built-not-visually-accepted'}, ensure_ascii=False, indent=2) + '\n')
@@ -536,7 +544,7 @@ function raceAt(e, sourceTime, opacity=1) {
                                   'startFrame': item['output_start_frame'], 'endFrame': item['output_end_frame'],
                                   'reuse': 'reviewed-parameter-binding' } for item in plan['scenes']],
                       'frozenRuntime': {name: hashlib.sha256((stage / name).read_bytes()).hexdigest()
-                                        for name in ['lib.js', 'macro_main.js', 'style.css', *pack.get('runtimeFiles', [])]},
+                                        for name in ['lib.js', 'macro_main.js', 'style.css', 'audio_runtime/mix_recipe.py', *pack.get('runtimeFiles', [])]},
                       'qualityStatus': 'built-not-visually-accepted'}
         (stage / 'recipe_versions.json').write_text(json.dumps(provenance, ensure_ascii=False, indent=2) + '\n')
         (stage / 'macro_source_audio.json').write_text((pack_dir / 'audio_timeline.json').read_text()
