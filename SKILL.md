@@ -2,7 +2,7 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。需要可读写本地文件并运行命令的 Agent。
 metadata:
-  version: "3.3.0-rc.1"
+  version: "3.3.0"
 ---
 
 # adu-motion-video
@@ -20,7 +20,7 @@ metadata:
 2. 只需轻量短片、探索版式时，使用 9 个基础 [`TPL`](references/templates.md)；它们是 quick-start，不包含完整工程包里的全部动作。
 3. 手绘角色、补录同镜头续接，读[手绘动画方法](references/handdrawn-animation.md)。目前没有对应完整工程包，不要把方法文档称为已自动模板化。
 
-本地 3.3.0-rc.1 新增 `paper-ball-performance@0.1.3-candidate` 两个纸面小球候选组：六类资料聚合成网络，以及七步日历、六类能力、三项开箱和交付卡堆叠。需要本期真人口播/文案，并显式提供源标题字体；尚未获连续声画认可，不占用已发布风格编号。见[候选说明](adapters/paper-ball/README.md)。已发布 3.2.0 的十五个稳定组保持原字节。
+3.3.0 新增 **02-B · 纸面聚合** `paper-ball-performance@1.0.0`：六类资料聚合成网络，以及七步日历、六类能力、三项开箱和交付卡堆叠两个稳定组。源/重放对照与 18.2667 秒不同内容样片已获作者声画确认。需要本期真人口播/文案，并显式提供固定 SHA 的标题字体；详见[包说明](packs/paper-ball-performance/1.0.0/README.md)。这是组级增量，不是新整片路线；严格栅格问题保留在 review.json。3.2.0 的十五个稳定组与旧候选均保持原字节，当前七个风格共十七个稳定组。
 
 ## 完整工程包流程
 

@@ -105,7 +105,7 @@ def freeze(source: Path, evidence_path: Path, readme_path: Path, target: Path):
     promoted['validation'] = {'review': 'review.json', 'scope': scope,
                               'sourceAndNewContent': 'owner-accepted',
                               'independentUse': 'recorded in review checks' if 'independent-use' in required
-                              else 'not required for this single-group increment; no full-route claim',
+                              else 'not required for this group-level increment; no full-route claim',
                               'limits': limits}
     promoted.setdefault('distribution', {})['status'] = 'stable within recorded scope and environment'
     promoted['files'] = {name: sha(data) for name, data in sorted(blobs.items())}

@@ -1,0 +1,46 @@
+{
+  "schema": "adu-authored-score/1",
+  "SEC": [
+    {
+      "id": "cards-to-network",
+      "start": 40.483333333333334,
+      "end": 45.43333333333333,
+      "mode": "synth",
+      "energy": 0.35,
+      "options": {
+        "kick_on": false,
+        "clapon": false
+      }
+    },
+    {
+      "id": "calendar-to-delivery",
+      "start": 115.83333333333333,
+      "end": 127.1,
+      "mode": "synth",
+      "energy": 0.35,
+      "options": {
+        "kick_on": false,
+        "clapon": false
+      }
+    }
+  ],
+  "ENV": [
+    {
+      "at": 0,
+      "db": -6
+    },
+    {
+      "at": 140,
+      "db": -6
+    }
+  ],
+  "HITS": {},
+  "DARK": [],
+  "sfxEvents": [],
+  "mix": {
+    "profile": "opus-five-v1"
+  },
+  "limits": [
+    "Synth is a disclosed new score; source external BGM is not reproduced. Runtime action SFX retain authored generators/gains/pan/durations."
+  ]
+}

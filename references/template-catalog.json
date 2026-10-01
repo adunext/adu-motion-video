@@ -1,6 +1,6 @@
 {
   "schema": "adu-template-catalog/1",
-  "updated": "2026-10-01",
+  "updated": "2026-10-02",
   "numbering": "template-style",
   "templates": [
     {
@@ -97,9 +97,26 @@
             "透明插图"
           ],
           "scope": "一个续接镜头组"
+        },
+        {
+          "id": "02-B",
+          "title": "纸面聚合",
+          "status": "released",
+          "selection": "paper-ball-performance@1.0.0",
+          "preview": "assets/demos/02-B.gif",
+          "demo": "assets/demos/02-B.mp4",
+          "requires": [
+            "本期真人口播",
+            "对应文案",
+            "固定 SHA 的优设标题黑字体文件（externalFontFiles.title）"
+          ],
+          "scope": "两个完整镜头组；源/重放对照与 18.2667 秒不同内容样片已验收，非完整新路线",
+          "previewBasis": "作者已认可的新内容样片的 8 秒开箱交付舞台局部；排除人物、字幕、账号角标和声音",
+          "demoAudio": "none; silent detail preview",
+          "qualityLimits": "严格栅格审计仍保留 1 issue/2 warning；实际限制见包 review.json"
         }
       ]
     }
   ],
-  "releaseVersion": "3.2.0"
+  "releaseVersion": "3.3.0"
 }

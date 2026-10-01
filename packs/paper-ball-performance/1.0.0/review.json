@@ -1,0 +1,65 @@
+{
+  "reviewer": "project owner; continuous source/replay and new-content approval recorded",
+  "passed": true,
+  "scope": "group",
+  "checks": [
+    "continuous-source-av",
+    "continuous-new-av",
+    "reuse-record",
+    "clean-install",
+    "distribution-rights"
+  ],
+  "limits": [
+    "Two complete groups only; source callbacks 13 and 30/31. The other 32 source scenes and the complete 35-scene source retain their prior state.",
+    "Owner accepted the two source/replay pairs and the 18.2667 second new sample with feedback 正确; this is group-level acceptance, not a full new route or an independent-author film.",
+    "Verified macOS, 1920x1080 at 60fps, existing Chrome/FFmpeg, installed PingFang SC/Hannotate SC, and explicit source-hash YouSheBiaoTiHei font input. No Windows/Linux/vertical or alternate-font acceptance.",
+    "973 forward frame states and 20 reverse seeks match; source raster sample differences remain recorded (maximum 23). No pixel-perfect claim.",
+    "New-content strict audit remains FAILED with 1 issue and 2 warnings; bounded probe DOM states match while browser raster/seek output varies. Human audiovisual acceptance does not override the audit.",
+    "Candidate archive cold install rebuilt both groups with fresh Python/npm; 16 runtime/data/font files and 4 WAV files matched. Existing OS tools and supplied owner inputs remain required; no blank-OS or independent-author claim.",
+    "Six input cards, eleven network nodes, seven calendar pages and ten delivery cards are fixed symbolic choreography; new labels do not prove actual counts or outcomes.",
+    "Required YSBT font binary and owner media/music are not publicly bundled; preserve explicit user input and licensing boundaries. Default new synth score does not reproduce the source song."
+  ],
+  "recipes": [
+    "cards-to-network",
+    "calendar-to-delivery"
+  ],
+  "artifacts": [
+    {
+      "id": "owner-continuous-av",
+      "sha256": "491d405651922f2bd7b45fcff594c20adb3c07f4f99a22f02fdd706e3a13df1f"
+    },
+    {
+      "id": "candidate-cold-install",
+      "sha256": "34081157c7e41fae048f9a657fe35318afd02bc88bf25d5de7c8c8e347144cca"
+    },
+    {
+      "id": "source-frame-state-replay",
+      "sha256": "3e847b3039ef125895ba0a0de6befcc24c074e48970d07970e07f8327ef05cdb"
+    },
+    {
+      "id": "source-raster-samples",
+      "sha256": "51310821033bcba02fc73511f35a32bad7d2477cdd7c7da0980344128e8580b3"
+    },
+    {
+      "id": "new-strict-audit",
+      "sha256": "fb3c8404b58d91b0385d243d471d754007ea02f1c37ec82b7a8f5397da4f8d05"
+    },
+    {
+      "id": "new-bounded-raster-probe",
+      "sha256": "c5c68b496e88c98b7b14887cf4a94c06e919994daa80fa1bf749daf067252471"
+    },
+    {
+      "id": "new-encoded-audio",
+      "sha256": "e3373750870b386389f235ccedcae6fd8b454438b735f6637aa88fa58f005e15"
+    },
+    {
+      "id": "production-reuse-ledger",
+      "sha256": "ffd9fa57eda5cb94879a4ca07716a63985b1eea74fcd2ee609a7c02afd32710f"
+    },
+    {
+      "id": "distribution-boundaries",
+      "sha256": "9a6ff36d6e4f32054d277804118f93d680b47d97b8c330a76eacd397eb3c8dc3"
+    }
+  ],
+  "date": "2026-10-02"
+}
