@@ -1,0 +1,43 @@
+{
+  "reviewer": "project owner; recorded approval in production QA",
+  "passed": true,
+  "scope": "route-subset",
+  "checks": [
+    "clean-install",
+    "continuous-new-av",
+    "continuous-source-av",
+    "distribution-rights",
+    "independent-use",
+    "reuse-record"
+  ],
+  "limits": [
+    "Only the listed recipes are released; other source intervals and candidate recipes retain their previous maturity.",
+    "Verified macOS, installed PingFang/SF Mono, 1920x1080 at 60fps; no Windows/Linux or alternate-font acceptance.",
+    "Human approval applies to the presented new films and short segments, not arbitrary future inputs.",
+    "Existing raster differences and source-authored entry timing remain disclosed; no automated audit result was overridden.",
+    "The A/B pilot requires at least one independent production: the B film supplies this shared workflow evidence; this is not a separate independent A film."
+  ],
+  "recipes": [
+    "claim-into-container",
+    "decompose-and-consolidate"
+  ],
+  "artifacts": [
+    {
+      "id": "owner-stage-three-av",
+      "sha256": "92d1c68f67702c35c67e52fae5a4e1db8c7ba46b7bb33a4aba86b8a1ff043a05"
+    },
+    {
+      "id": "candidate-cold-install",
+      "sha256": "4110b9f7af8490c3e69769d85474df10bfb953c915ec0eda5dbe89c7ef88b77c"
+    },
+    {
+      "id": "distribution-code-license",
+      "sha256": "0f1d5e25e1035cf4fb24809d66dff30642a2d4c5a33837ba7e0e8af4ff66fdfc"
+    },
+    {
+      "id": "independent-b-use",
+      "sha256": "2c875941ac130612c89f6db0d16d616928895a857bbd2046aa30369fd730df9f"
+    }
+  ],
+  "date": "2026-10-01"
+}

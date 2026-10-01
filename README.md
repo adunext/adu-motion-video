@@ -4,7 +4,7 @@
 
 把**新口播视频、文案和本期素材**交给能读写本地文件、运行命令的 AI Agent（如 Codex 或 Claude Code），由它选择完整动画工程中的场景，绑定新台词与素材，检查声画，再导出可编辑工程和 MP4。
 
-当前开发候选为 **3.1.0-rc.2**。新增 A「原片节奏」与 B「连续形变」的完整镜头组，以及试点外来源的纸面透视组，保留各自的运动、人物与声音关系，用命名语义字段填写本期内容。A/B 已通过原内容重放与代表性换稿短段的作者判断；完整新片与独立制作已交付，正常速度声画判断仍待答复。冻结 rc.1 的冷安装构建和导出通过，rc.2 只更新版本与交接文档，运行代码、依赖和镜头组保持相同。候选不能称为稳定，逐组范围见[能力与验收矩阵](docs/capability-matrix.md)。旧 `anim3/anim4` 的 21 个完整宏场景仍为 experimental，9 个基础 `TPL` 可用于快速起步。
+**3.1.0** 的稳定范围为 A「原片节奏」三个组、B「连续形变」两个组，以及试点外来源的纸面透视续接组，环境为 macOS、横屏 1080p60。原内容重放、完整 A/B 新片、交叉短段及新增组对照已由作者确认成立；至少一部完整新片由未参与提炼的执行者从冻结包独立制作。镜头组仍保留各自的运动、人物与声音关系，通过命名语义字段填写本期内容。逐组范围与剩余限制见[能力与验收矩阵](docs/capability-matrix.md)。B 的计划干扰组与旧候选版本继续保留为 candidate；旧 `anim3/anim4` 的 21 个完整宏场景仍为 experimental，9 个基础 `TPL` 可用于快速起步。
 
 ![从口播到成片的制作流程](assets/tutorials/01-workflow.png)
 
@@ -13,7 +13,7 @@
 - 一条已经剪好、长度确定的口播视频，以及对应文案；带时间码的字幕（SRT）有助于绑定动作，关键字最好有逐词时间。
 - 本期要展示的录屏、图片、头像、标识、作品视频和可用配乐。公开仓库不附带原作者的真人画面或第三方作品。选用需要这些素材的场景时，必须提供替代素材。
 - 期望的画幅、账号名、字幕语言和交付目录。当前完整场景包按 **1920×1080、60fps** 制作；竖屏需要另做布局，不能直接裁切。
-- 本机 Node.js 18+、FFmpeg/ffprobe、Chrome，以及可运行本地命令的 Agent。当前 A/B 候选组合在 macOS / CPython 3.14.7 / 1080p60 验证，Python 包固定在 requirements-runtime.txt；其它平台、字体与 Python 组合需单独验证。
+- 本机 Node.js 18+、FFmpeg/ffprobe、Chrome，以及可运行本地命令的 Agent。当前稳定组合在 macOS / CPython 3.14.7 / 1080p60 验证，Python 包固定在 requirements-runtime.txt；其它平台、字体与 Python 组合需单独验证。
 
 最终可得到一个可再编辑的项目目录、带音乐与音效的 MP4，以及帧数、解码和响度检查结果。画面质量仍须观看完整成片并与原工程关键动作对照；命令通过不等于视觉验收通过。
 
@@ -21,9 +21,9 @@
 
 | 路线 | 内容与用途 | 当前边界 |
 | --- | --- | --- |
-| [A 原片节奏](packs/classic-performance/0.2.1-candidate/README.md) | 主张与人物、真实证据聚焦、三项分解归纳 | Candidate；完整新片与独立使用待验收 |
-| [B 连续形变](packs/continuous-performance/0.2.1-candidate/README.md) | 同一容器改变角色、拆解与闭合、计划受干扰 | Candidate；完整新片与独立使用待验收 |
-| [纸面透视组](packs/paper-balance/0.1.6-candidate/README.md) | 疑问、天平、用途、批注与三步确认 | Candidate；源/新短段待声画判断，属于续接组 |
+| [A 原片节奏](packs/classic-performance/1.0.0/README.md) | 主张与人物、真实证据聚焦、三项分解归纳 | Stable；三个组，已验收的 macOS 1080p60 |
+| [B 连续形变](packs/continuous-performance/1.0.0/README.md) | 同一容器改变角色、拆解与闭合 | Stable；两个组，计划干扰组仍为 candidate |
+| [纸面透视组](packs/paper-balance/1.0.0/README.md) | 疑问、天平、用途、批注与三步确认 | Stable；一个续接组，保留约 0.37 秒的源入场 |
 | [完整场景包 `anim3`](packs/anim3/README.md) | 12 个连续编辑卡片场景，保留人物、道具、数字、镜头、转场与原场景音效编舞 | 实验性；新文案与素材需逐场绑定和验收 |
 | [完整场景包 `anim4`](packs/anim4/README.md) | 9 个作品展示与口播场景，保留作品墙、九宫格、软件窗口、赛道等完整编舞 | 实验性；作品墙、录屏等需要本期素材 |
 | [基础 `TPL`](references/templates.md) | 9 个短场景函数，用于快速原型或从零组合较轻的片段 | Quick-start；不代表上述原工程的全部动画 |
@@ -46,12 +46,13 @@ bash "$PL" doctor
 bash "$PL" setup
 ```
 
-让 Agent 先阅读 [SKILL.md](SKILL.md)、[制作约定](references/rules.md) 和所选工程包说明。以下以 `anim4` 为例；`anim3` 用同样命令替换包 ID：
+让 Agent 先阅读 [SKILL.md](SKILL.md)、[制作约定](references/rules.md) 和所选包说明。先发现包，选显式版本；以下以稳定的 A 包为例：
 
 ```bash
-bash "$PL" macro-spec anim4 /已有目录/本期配置.json
+bash "$PL" packs
+bash "$PL" macro-spec classic-performance@1.0.0 /已有目录/本期配置.json
 # 编辑配置：挑场景、填账号及每场文案/数字/素材路径、绑定关键台词时间
-bash "$PL" macro-build anim4 /已有目录/本期配置.json /已有目录/剪好口播.mp4 /已有目录/新工程
+bash "$PL" macro-build classic-performance@1.0.0 /已有目录/本期配置.json /已有目录/剪好口播.mp4 /已有目录/新工程
 bash "$PL" stills /已有目录/新工程 0,4,12
 bash "$PL" audio /已有目录/新工程
 bash "$PL" mix /已有目录/新工程

@@ -41,9 +41,17 @@
 
 源码重放、新内容表达、独立安装使用分别记录。正常速度连续声画、最终编码文件、真实字幕/取帧/响度/真峰与对照证据缺一项就只报告已验证范围。候选包不得仅凭测试通过而标稳定；发布按实际通过的路线与环境增量进行。
 
+## 冻结已评审的发布版本
+
+已有候选保持原字节。用 `python3 scripts/publish_reviewed_pack.py CANDIDATE REVIEW.json REVIEWED-README.md NEW_VERSION_DIR` 创建新版本，只包含评审列出的完整组。这个入口记录人工判断，不会代替观看、许可核对或独立使用。
+
+Review 固定 `packId`、`sourceVersion`、`sourceRevision`、`manifestSha256`，提供新的稳定 `version`、`reviewer`、`passed:true`、`recipes:[组ID]`、`limits`、`scope` 和 `checks`。scope 为 `group` 或 `route-subset`；共同检查为 `continuous-source-av`、`continuous-new-av`、`reuse-record`、`clean-install`、`distribution-rights`，路线范围另需 `independent-use`。按实际计划注明独立证据覆盖一条路线还是本轮共享生产流程，不能把一个独立影片称为所有路线都独立验证。
+
+`artifacts` 只提供 `{id:"evidence-label",sha256:"64位小写摘要"}`。公共版本保存这些标签、摘要与限制，不附私人路径或影片。新的 README 必须写明确的 `包ID@新版本`。错误源哈希、缺门槛、未识别组、被改写的冻结文件或已存在输出会拒绝；未列出的单位不随新版晋级。新版本保存 `promotedFrom`、原单位/运行字节和重新冻结的文件清单。
+
 ## 已实施的不同契约接入实例
 
-`paper-balance@0.1.6-candidate` 来自另一份完成的 inline DOM/perspective 工程，属于“新叙事组 + 不同运行契约适配”，并非新增稳定路线。它将疑问、天平、用途、插图批注与三步小球确认保留成一个完整组。实际新内容短段为 13.9 秒；原演出区间的同内容重放为 11.833 秒。连续声画审片仍待作者判断。
+`paper-balance` 来自另一份完成的 inline DOM/perspective 工程，属于“新叙事组 + 不同运行契约适配”，并非新增稳定路线。它将疑问、天平、用途、插图批注与三步小球确认保留成一个完整组。实际新内容短段为 13.9 秒；原演出区间的同内容重放为 11.833 秒。原/新对照已获作者认可，1.0.0 为这一个续接组的稳定版本；0.1.6-candidate 保持原样供追溯。
 
 这份来源没有 Scene 闭包，不能直接运行通用 authored-unit 提取器。专用 [adapter](../adapters/paper-balance/README.md) 固定来源修订、入口哈希和已审查代码区间；只把该组接到 Scene 宿主，沿用目录发现、语义绑定、音效重映与导出。其它 inline 工程不由它自动支持。
 
