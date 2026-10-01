@@ -1,0 +1,119 @@
+{
+  "date": "2026-10-01",
+  "purpose": "README viewing exports; source files left unchanged",
+  "cover": {
+    "display": "assets/cover.jpg",
+    "originalBytes": 2218426,
+    "displayBytes": 284709
+  },
+  "demos": [
+    {
+      "id": "01-A",
+      "video": {
+        "path": "assets/demos/01-A.mp4",
+        "bytes": 529482,
+        "duration": 17.05,
+        "width": 960,
+        "height": 540,
+        "fps": "24/1",
+        "audio": "aac",
+        "decodePassed": true
+      },
+      "preview": {
+        "path": "assets/demos/01-A.gif",
+        "bytes": 424676,
+        "duration": 8.01
+      }
+    },
+    {
+      "id": "01-B",
+      "video": {
+        "path": "assets/demos/01-B.mp4",
+        "bytes": 577346,
+        "duration": 20.25,
+        "width": 960,
+        "height": 540,
+        "fps": "24/1",
+        "audio": "aac",
+        "decodePassed": true
+      },
+      "preview": {
+        "path": "assets/demos/01-B.gif",
+        "bytes": 240406,
+        "duration": 8.01
+      }
+    },
+    {
+      "id": "01-C",
+      "video": {
+        "path": "assets/demos/01-C.mp4",
+        "bytes": 645224,
+        "duration": 18.0,
+        "width": 960,
+        "height": 540,
+        "fps": "24/1",
+        "audio": "aac",
+        "decodePassed": true
+      },
+      "preview": {
+        "path": "assets/demos/01-C.gif",
+        "bytes": 475894,
+        "duration": 8.01
+      }
+    },
+    {
+      "id": "01-D",
+      "video": {
+        "path": "assets/demos/01-D.mp4",
+        "bytes": 786048,
+        "duration": 18.0,
+        "width": 960,
+        "height": 540,
+        "fps": "24/1",
+        "audio": "aac",
+        "decodePassed": true
+      },
+      "preview": {
+        "path": "assets/demos/01-D.gif",
+        "bytes": 683994,
+        "duration": 8.01
+      }
+    },
+    {
+      "id": "01-E",
+      "video": {
+        "path": "assets/demos/01-E.mp4",
+        "bytes": 576344,
+        "duration": 18.0,
+        "width": 960,
+        "height": 540,
+        "fps": "24/1",
+        "audio": "aac",
+        "decodePassed": true
+      },
+      "preview": {
+        "path": "assets/demos/01-E.gif",
+        "bytes": 280007,
+        "duration": 8.01
+      }
+    },
+    {
+      "id": "02-A",
+      "video": {
+        "path": "assets/demos/02-A.mp4",
+        "bytes": 483566,
+        "duration": 13.916667,
+        "width": 960,
+        "height": 540,
+        "fps": "24/1",
+        "audio": "aac",
+        "decodePassed": true
+      },
+      "preview": {
+        "path": "assets/demos/02-A.gif",
+        "bytes": 506119,
+        "duration": 8.01
+      }
+    }
+  ]
+}
