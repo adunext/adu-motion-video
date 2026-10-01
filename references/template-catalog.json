@@ -1,0 +1,105 @@
+{
+  "schema": "adu-template-catalog/1",
+  "updated": "2026-10-01",
+  "numbering": "template-style",
+  "templates": [
+    {
+      "id": "01",
+      "title": "现代图文口播",
+      "styles": [
+        {
+          "id": "01-A",
+          "title": "原片节奏",
+          "status": "released",
+          "selection": "classic-performance@1.0.0",
+          "preview": "assets/demos/01-A.gif",
+          "demo": "assets/demos/01-A.mp4",
+          "requires": [
+            "本期真人口播",
+            "对应文案",
+            "证据组：三段本期真实视频"
+          ]
+        },
+        {
+          "id": "01-B",
+          "title": "连续形变",
+          "status": "released",
+          "selection": "continuous-performance@1.0.0",
+          "preview": "assets/demos/01-B.gif",
+          "demo": "assets/demos/01-B.mp4",
+          "requires": [
+            "本期真人口播",
+            "对应文案",
+            "演示或证据组：本期真实视频"
+          ]
+        },
+        {
+          "id": "01-C",
+          "title": "纵深舞台",
+          "status": "released",
+          "selection": "stage-performance@1.0.0",
+          "preview": "assets/demos/01-C.gif",
+          "demo": "assets/demos/01-C.mp4",
+          "requires": [
+            "本期真人口播",
+            "对应文案",
+            "演示或证据组：本期真实视频"
+          ],
+          "scope": "三个完整镜头组；新内容整片与独立使用已验收",
+          "previewBasis": "已保留的源演出短段；新内容验收摘要见实际包 review.json"
+        },
+        {
+          "id": "01-D",
+          "title": "杂志分屏",
+          "status": "released",
+          "selection": "editorial-performance@1.0.0",
+          "preview": "assets/demos/01-D.gif",
+          "demo": "assets/demos/01-D.mp4",
+          "requires": [
+            "本期真人口播",
+            "对应文案",
+            "演示或证据组：本期真实视频"
+          ],
+          "scope": "三个完整镜头组；新内容整片与独立使用已验收",
+          "previewBasis": "已保留的源演出短段；新内容验收摘要见实际包 review.json"
+        },
+        {
+          "id": "01-E",
+          "title": "节拍字效",
+          "status": "released",
+          "selection": "kinetic-performance@1.0.0",
+          "preview": "assets/demos/01-E.gif",
+          "demo": "assets/demos/01-E.mp4",
+          "requires": [
+            "本期真人口播",
+            "对应文案",
+            "演示或证据组：本期真实视频"
+          ],
+          "scope": "三个完整镜头组；新内容整片与独立使用已验收",
+          "previewBasis": "已保留的源演出短段；新内容验收摘要见实际包 review.json"
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "title": "纸面透视讲解",
+      "styles": [
+        {
+          "id": "02-A",
+          "title": "纸面天平",
+          "status": "released",
+          "selection": "paper-balance@1.0.0",
+          "preview": "assets/demos/02-A.gif",
+          "demo": "assets/demos/02-A.mp4",
+          "requires": [
+            "本期真人口播",
+            "对应文案",
+            "透明插图"
+          ],
+          "scope": "一个续接镜头组"
+        }
+      ]
+    }
+  ],
+  "releaseVersion": "3.2.0"
+}
