@@ -2,7 +2,7 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。需要可读写本地文件并运行命令的 Agent。
 metadata:
-  version: "3.0.0-rc.2"
+  version: "3.1.0-rc.1"
 ---
 
 # adu-motion-video

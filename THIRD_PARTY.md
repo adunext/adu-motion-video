@@ -10,6 +10,8 @@ The project’s own toolkit code and documentation are licensed under the [MIT L
 
 Dependency implementations are not bundled. The package lock records Playwright Core and its Apache-2.0 metadata. Copies of the corresponding installed package's [LICENSE](third-party/playwright-core/LICENSE) and [NOTICE](third-party/playwright-core/NOTICE) are retained for reference. These apply to Playwright, not to all project files.
 
+Acorn is installed separately under its MIT license. The package lock records its version; a copy of its [LICENSE](third-party/acorn/LICENSE) is retained. Its implementation is not bundled.
+
 Python packages, FFmpeg, Chromium / Chrome and Apple's Vision / AppKit are separately installed tools. They retain their own licenses and distribution terms. Their code and binaries are not redistributed in this repository.
 
 ## Fonts and media
