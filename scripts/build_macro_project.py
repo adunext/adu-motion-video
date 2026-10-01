@@ -140,6 +140,47 @@ def safe_name(value: str) -> str:
     return result[:64] + '-' + hashlib.sha256(value.encode('utf-8')).hexdigest()[:16]
 
 
+def copy_external_fonts(pack: dict, spec: dict, spec_dir: Path, stage: Path) -> tuple[str, list[dict]]:
+    """Require explicit, fingerprinted fonts instead of silently substituting.
+
+    Font binaries excluded from a public pack can travel in the owner's new
+    project. This records the input; it does not grant redistribution rights.
+    """
+    requirements = pack.get('externalFonts', [])
+    if not isinstance(requirements, list): fail('externalFonts must be an array')
+    inputs = spec.get('externalFontFiles', {})
+    if not isinstance(inputs, dict): fail('externalFontFiles must be an object')
+    declared = [item.get('id') for item in requirements if isinstance(item, dict)]
+    if len(declared) != len(requirements) or any(not isinstance(id, str) for id in declared) or len(set(declared)) != len(declared):
+        fail('External font IDs must be distinct')
+    if set(inputs) - set(declared): fail('Unknown externalFontFiles ID')
+    verified = []
+    for item in requirements:
+        id = item.get('id'); family = item.get('family'); expected = item.get('sha256')
+        format = item.get('format'); extension = item.get('extension')
+        if not isinstance(id, str) or not re.fullmatch(r'[a-z][a-z0-9-]*', id): fail('Invalid external font ID')
+        if not isinstance(family, str) or not re.fullmatch(r'[A-Za-z][A-Za-z0-9 _-]*', family): fail('Invalid external font family')
+        if not isinstance(expected, str) or not re.fullmatch(r'[0-9a-f]{64}', expected): fail('External font needs a frozen SHA256')
+        if (format, extension) not in {('truetype','.ttf'),('opentype','.otf'),('woff','.woff'),('woff2','.woff2')}:
+            fail('Unsupported external font format/extension')
+        value = inputs.get(id)
+        if value is None and not item.get('required', True): continue
+        if not isinstance(value, str) or not value.strip(): fail(f'Provide externalFontFiles.{id}; source font substitution is not automatic')
+        source = (spec_dir / value).resolve()
+        if not source.is_file() or source.suffix.lower() != extension: fail(f'External font {id} must be a supplied {extension} file')
+        actual = hashlib.sha256(source.read_bytes()).hexdigest()
+        if actual != expected: fail(f'External font {id} differs from the reviewed source font; review a new pack version')
+        verified.append((source, item))
+    css = []; report = []
+    for source, item in verified:
+        target = stage / 'fonts' / (item['id'] + item['extension'])
+        target.parent.mkdir(exist_ok=True); shutil.copy2(source, target)
+        css.append(f"@font-face{{font-family:'{item['family']}';src:url(fonts/{target.name}) format('{item['format']}')}}")
+        report.append({'id':item['id'],'family':item['family'],'sha256':item['sha256'],
+                       'projectFile':target.relative_to(stage).as_posix(),'mode':'explicit-owner-supplied'})
+    return '\n'.join(css) + ('\n' if css else ''), report
+
+
 def prepare_face(stage: Path, spec: dict, needed: bool, fps: int, frames: int) -> dict:
     """Face-aware crops must never silently become a centre crop on a new clip."""
     setting = spec.get('faceTracking', {'mode': 'auto' if needed else 'none'})
@@ -251,6 +292,8 @@ def scaffold(pack: dict, output: Path) -> None:
     if output.exists(): fail(f'Refusing existing file: {output}')
     data: dict = {'pack': pack['id'], 'fps': pack['fps'], 'brand': '',
                   'presenterLabel': '// on air · 主讲人', 'scenes': []}
+    if pack.get('externalFonts'):
+        data['externalFontFiles'] = {item['id']: '' for item in pack['externalFonts']}
     for scene in pack['scenes']:
         start, end = scene['source']['start'], scene['source']['end']
         slots = {}
@@ -312,6 +355,7 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
     with tempfile.TemporaryDirectory(prefix='.adu-macro-', dir=output.parent) as tmp:
         stage = Path(tmp) / 'project'
         shutil.copytree(ROOT / 'template', stage)
+        external_font_css, external_font_report = copy_external_fonts(pack, spec, spec_path.parent, stage)
         (stage / 'sc').mkdir(); (stage / 'talk').mkdir()
         for data in ('talkmap.js', 'face.js', 'subs.js'):
             (stage / data).write_text('// Optional data absent. Generated data may replace this stub.\n')
@@ -351,7 +395,8 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
                 font_url = font.as_uri()
                 font_report = {'mode': 'macOS-system-SFM', 'portable': False}
             css = "@font-face{font-family:'SFM';src:url(" + json.dumps(font_url) + ");}\n" + css
-        (stage / 'style.css').write_text(css)
+        if external_font_report: font_report['externalFonts'] = external_font_report
+        (stage / 'style.css').write_text(external_font_css + css)
         # Use the hardened shared library: missing talk/wall media fail explicitly,
         # 60fps timecode, deterministic frame readiness, optional face fallback.
         lib = ((pack_dir / 'lib.js') if pack.get('sourceFormat') == 'authored-unit/1'

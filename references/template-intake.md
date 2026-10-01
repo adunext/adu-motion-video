@@ -70,3 +70,10 @@ Review 固定 `packId`、`sourceVersion`、`sourceRevision`、`manifestSha256`�
 `stage-performance`、`editorial-performance` 和 `kinetic-performance` 各从源路线选择三个完整叙事组，保留各自 helper、CSS、人物、动作与声音。每份来源关联实际候选与稳定版本；1.0.0 只覆盖主张回应、实际证据聚焦与分解归纳，不覆盖剩余源区间。
 
 三位未参与提炼的执行者从冻结包和新的 99.5 秒口播/字幕/本人实录独立完成全片，公共组内部不改写；C 的两个桥接、E 的四个桥接只在本期工程保存，D 整片为六个公共组实例。源演出和完整新片分别得到作者确认。严格栅格异常、有界复查、最终编码与声音、版本/来源与临时清理分别记录，确认不覆盖自动检查失败。新增稳定包不修改已有包字节。
+
+
+## modular scene() / Canvas 的新增候选
+
+`paper-ball-performance@0.1.3-candidate` 来自另一个完成修订，保留 `cards-to-network` 与 `calendar-to-delivery` 两组。专用 [adapter](../adapters/paper-ball/README.md) 锁定四个源码文件与三个原回调的 AST 跨度、元素编号种子和空边界 carry；其余 32 场不实例化，也不随组验证晋级。字体提前加载，私有人物图片请求加入宿主等待队列，保持源动作函数。
+
+优设标题黑为显式所有者输入；公共包只有其 SHA 和字体族契约，没有该字体二进制。`macro-spec` 草稿包含 `externalFontFiles.title`；构建器在导入口播前验证字体摘要，保存到新工程并记录。不能静默换字形或据免费商用声明推定再分发条款。其它 OFL 通知保留。源同内容控制与新内容编排分别保存，候选等待作者连续声画认可。
