@@ -94,7 +94,7 @@ function executable(chromium, explicit) {
 
 async function main() {
   const opt = parse(), chromium = await playwright(opt), browserPath = executable(chromium, opt.browser || process.env.CHROME);
-  let browser, ff, ffDone, temporary;
+  let browser, ff, ffDone, temporary, report;
   const errors = new Set();
   const check = () => { if (errors.size) throw Error([...errors].join('\n')); };
   try {
@@ -170,7 +170,7 @@ async function main() {
     const end = opt.end ?? await page.evaluate(() => Number(window.END ?? window.CONFIG?.end));
     if (!Number.isFinite(end) || end <= 0) throw Error('Set --end or provide a positive window.END');
     if (opt.probe) {
-      check(); console.log(JSON.stringify({ entry: opt.entry, end, fps: opt.fps, width: opt.width, height: opt.height, browser: browserPath })); return;
+      check(); report = { entry: opt.entry, end, fps: opt.fps, width: opt.width, height: opt.height, browser: browserPath }; return;
     }
     if (opt['stills-dir']) {
       if (opt.times.some(t => t >= end)) throw Error('Still times must precede END/--end');
@@ -181,7 +181,7 @@ async function main() {
       }
       fs.mkdirSync(opt.target);
       for (const file of fs.readdirSync(temporary)) fs.copyFileSync(path.join(temporary, file), path.join(opt.target, file), fs.constants.COPYFILE_EXCL);
-      console.log(JSON.stringify({ output: opt.target, times: opt.times, browser: browserPath }));
+      report = { output: opt.target, times: opt.times, browser: browserPath };
       return;
     }
     const first = Math.round(opt.start * opt.fps), last = Math.round(end * opt.fps), count = last - first, duration = count / opt.fps;
@@ -220,11 +220,28 @@ async function main() {
     check();
     fs.copyFileSync(output, opt.target, fs.constants.COPYFILE_EXCL);
     const imageDecodeRetries = await page.evaluate(() => window.ADU_DECODE_RETRIES || 0);
-    console.log(JSON.stringify({ output: opt.target, frames: count, fps: opt.fps, duration, start: first / opt.fps, end: last / opt.fps, audio: !!opt.audio, imageDecodeRetries, browser: browserPath }));
+    report = { output: opt.target, frames: count, fps: opt.fps, duration, start: first / opt.fps, end: last / opt.fps, audio: !!opt.audio, imageDecodeRetries, browser: browserPath };
   } finally {
     if (ff && ff.exitCode === null) { ff.kill('SIGKILL'); await ffDone; }
-    try { await browser?.close(); }
-    finally { if (temporary) fs.rmSync(temporary, { recursive: true, force: true }); }
+    let shutdownForced = false, shutdownTimer;
+    try {
+      if (browser) {
+        // Chrome helpers can retain inherited pipes after the main browser exits.
+        // Playwright's process-exit handler kills only this launch's process tree
+        // and removes its profile; the CLI exits after its own cleanup below.
+        const closed = await Promise.race([
+          browser.close().then(() => true),
+          new Promise(resolve => { shutdownTimer = setTimeout(() => resolve(false), 15000); }),
+        ]);
+        shutdownForced = !closed;
+      }
+    } finally {
+      clearTimeout(shutdownTimer);
+      if (temporary) fs.rmSync(temporary, { recursive: true, force: true });
+    }
+    if (report) console.log(JSON.stringify({ ...report, browserShutdownForced: shutdownForced }));
   }
 }
-main().catch(error => { console.error(`Render failed: ${error.message}`); process.exitCode = 1; });
+main().then(() => process.exit(0)).catch(error => {
+  console.error(`Render failed: ${error.message}`); process.exit(1);
+});

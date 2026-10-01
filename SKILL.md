@@ -13,7 +13,7 @@ metadata:
 
 用户新增完成工程、提炼新镜头组或更新模板库时，读[持续模板接入](references/template-intake.md)。先登记来源和实际状态，再按价值提炼；收到工程不代表已经有可发布模板。`bash "$PL" packs` 只列包的语义与版本元数据，按任务加载相关清单；同一 ID 有多个版本时显式选择 `id@version`。
 
-1. 默认查看[完整工程复用说明](references/full-project-templating.md)与 `packs/anim3/manifest.json`、`packs/anim4/manifest.json`。`anim3` 为 12 个连续编辑卡片宏场景；`anim4` 为 9 个作品展示宏场景。它们是工程包 ID，不是某个用户视频的品牌或可直接套用的文案。
+1. 默认运行 `bash "$PL" packs`，按表达目的选择显式版本，读取相关包的 `README.md` 与 `manifest.json`，并查看[完整工程复用说明](references/full-project-templating.md)。`classic-performance` 保留错峰、人物回应与回稳；`continuous-performance` 保留同物件变形、拆解与闭合。它们目前为 macOS 1080p60 **candidate**，只包含清单中的完整镜头组，尚未通过完整新片与独立使用验收。旧 `anim3/anim4` 分别有 12/9 个完整场景，仍为 experimental。包 ID 与原片标题、品牌无关。
 2. 只需轻量短片、探索版式时，使用 9 个基础 [`TPL`](references/templates.md)；它们是 quick-start，不包含完整工程包里的全部动作。
 3. 手绘角色、补录同镜头续接，读[手绘动画方法](references/handdrawn-animation.md)。目前没有对应完整工程包，不要把方法文档称为已自动模板化。
 
@@ -21,8 +21,8 @@ metadata:
 
 1. `bash "$PL" doctor` 检查 Node、Python、FFmpeg 和 Chrome；缺依赖且允许安装时再 `bash "$PL" setup`。保持源工程和原成片只读，输出到不存在的新路径。
 2. 先锁定用户指定的模板来源。素材目录里的其他 `anim`、新工程或旧成片不自动成为动画底稿；不能只插入少数模板片段就称整片使用了指定模板。逐场记录来源包与场景 ID，混用完整包见[来源与多包编排](references/full-project-templating.md#来源与多包编排)。对齐新口播和文案，取得关键台词的准确时间。SRT 只有整句时间时，不可臆测句内某个词的时间；用逐词对齐数据或人工标注。读包的 `role`、`cues`、`motionWindows`、`slots`，按意义挑选、重排或重复完整场景。先列出分镜和缺少的素材。
-3. `bash "$PL" macro-spec anim4 /路径/本期配置.json`（或 `anim3`）生成配置草稿。删去不选的场景，调整顺序和每场 `durationFrames`；逐场绑定必填台词触发点、画面文字、数值和媒体路径。`brand` 填本期账号。本期音乐可用 `music:{mode:"track",path,offset}` 指定；未指定时按原编曲结构重合成。`anim4` 及 `anim3` 的方形人物窗场景默认在 macOS 使用 Vision 跟踪新口播人脸；不能自动跟踪时须显式配置审核过的 `faceTracking:{mode:"fixed",cx,cy,h}`。任何来源演示数据与示例文字都须替换或明确标“示意”。媒体准备看包目录中的 `README.md`；`anim4` 有 `prepare_media.py` 处理录屏序列和作品墙。
-4. `bash "$PL" macro-build anim4 /路径/本期配置.json /路径/剪好口播.mp4 /路径/新工程 [--subs-js /路径/字幕.js]`。新口播长度应与计划总帧数相符。适配器把关键动作窗口锁在原速，较长段落只伸展可停留区；如果时间不够，会报错，改分镜或片段长度，不靠全片线性拉伸。缺文字、数字、媒体或关键 cue 也会报错。
+3. `bash "$PL" macro-spec 包ID@版本 /路径/本期配置.json` 生成配置草稿。删去不选的场景，调整顺序和每场 `durationFrames`；有 `inputs` 的组填写命名语义字段，必填事件 `cues` 另绑定真实台词落点。`brand` 填本期账号。本期音乐可用 `music:{mode:"track",path,offset}` 指定；未指定时按原编曲结构重合成。人物窗默认在 macOS 使用 Vision 跟踪新口播人脸；不能自动跟踪时须显式配置审核过的 `faceTracking:{mode:"fixed",cx,cy,h}`。任何来源演示数据与示例文字都须替换或明确标“示意”。素材的空路径代表缺项；媒体准备与容量限制看包目录中的 `README.md`。
+4. `bash "$PL" macro-build 包ID@版本 /路径/本期配置.json /路径/剪好口播.mp4 /路径/新工程 [--subs-js /路径/字幕.js]`。新口播长度应与计划总帧数相符。适配器把关键动作窗口锁在原速，较长段落只伸展可停留区；如果时间不够，会报错，改分镜或片段长度，不靠全片线性拉伸。缺文字、数字、媒体或关键 cue 也会报错。
 5. `bash "$PL" stills /路径/新工程 0,4,12,...` 抽查首帧、每个 cue 前中后、最长文字、场景接缝和片尾；再播放所有复杂运动区间，与原工程对照。检查字体、媒体比例/裁切、真实口型、字幕、SFX 与音乐。修订配置或工程并重新验证。
 6. `bash "$PL" audio /路径/新工程` → `bash "$PL" mix /路径/新工程` → `bash "$PL" render /路径/新工程 /路径/新片_v1.mp4` → `bash "$PL" check /路径/新片_v1.mp4`。完整观看并听取最终编码文件；`check` 的帧数、解码和响度不能替代视觉与内容验收。
 

@@ -22,6 +22,7 @@ import sys
 import tempfile
 import unicodedata
 import xml.etree.ElementTree as ET
+from semantic_inputs import SemanticInputError, expand_inputs
 
 
 class AdaptError(ValueError):
@@ -256,6 +257,7 @@ def slot_bindings(scene: dict, target: dict, spec_dir: Path, project: Path | Non
             require(not slot.get("required", True), f"Missing required slot {scene['id']}.{slot_id} ({kind})")
             continue
         label = f"{scene['id']}.{slot_id}"
+        video_settings = dict(value) if kind == "video" and slot.get("playback") and isinstance(value, dict) else None
         if isinstance(value, dict) and kind not in {"sequence", "wall", "wall-sprites"}:
             value = value.get("text") if kind in {"text", "dynamicText"} else value.get("path", value.get("value"))
         if kind in {"text", "dynamicText"}:
@@ -365,6 +367,11 @@ def slot_bindings(scene: dict, target: dict, spec_dir: Path, project: Path | Non
             meta = probe_media(path, kind)
             check_aspect(meta, slot, label)
             value = str(path)
+            if kind == "video" and slot.get("playback"):
+                settings = video_settings or {}
+                offset = number(settings.get("offset", 0), f"{label}.offset")
+                require(offset >= 0, f"{label}.offset must be nonnegative")
+                value = {"path": value, "offset": offset, "duration": meta.get("duration")}
         if slot.get("mustChange"):
             baselines = [slot[key] for key in ("sourceText", "demoFallback", "placeholder")
                          if key in slot and slot[key] is not None]
@@ -666,6 +673,42 @@ def source_to_output_frame(scene: dict, source_at: float) -> int:
     return int(math.floor(interpolate(source_at, points) + 0.5))
 
 
+def media_clocks(source: dict, item: dict, fps: int) -> list[dict]:
+    """Real video uses elapsed output time even while an authored reading gap grows."""
+    clocks = []
+    for slot in source.get("slots", []):
+        playback = slot.get("playback")
+        if slot.get("type") != "video" or not playback:
+            continue
+        label = item["id"] + "." + slot["id"]
+        a = number(playback.get("start"), label + ".playback.start")
+        b = number(playback.get("end"), label + ".playback.end")
+        require(item["source_start"] <= a < b <= item["source_end"], label + " playback exceeds scene")
+        first, last = source_to_output_frame(item, a), source_to_output_frame(item, b)
+        rate = number(playback.get("rate", 1), label + ".playback.rate", positive=True)
+        sample_fps = integer(playback.get("fps", 30), label + ".playback.fps", minimum=1)
+        require(sample_fps <= 120, label + " media sampling exceeds 120fps")
+        value = item["slots"][slot["id"]]
+        duration = number(value.get("duration"), label + ".duration", positive=True)
+        needed = (last - first) / fps * rate
+        available = duration - value["offset"]
+        require(available > 0, label + " offset lies beyond the video")
+        # A terminal hold is a recipe capability, never an implicit fallback.
+        allowed = number(playback.get("terminalHoldSeconds", 0), label + ".terminalHoldSeconds")
+        require(allowed >= 0, label + " terminal hold must be nonnegative")
+        hold = max(0, (needed - available) / rate)
+        require(hold <= allowed + 1 / sample_fps,
+                f"{label} needs {needed:.3f}s of media after offset; has {available:.3f}s. "
+                "Supply a longer recording or change the scene; silent looping/freezing is not allowed")
+        clocks.append({"slot": slot["id"], "sourceDirectory": Path(slot["sourceAsset"]).name,
+                       "clock": "output", "startFrame": first, "endFrame": last,
+                       "start": first / fps, "end": last / fps, "rate": rate,
+                       "fps": sample_fps, "offset": value["offset"],
+                       "preparedFrames": max(1, int(math.ceil(min(needed, available) * sample_fps - 1e-6))),
+                       "terminalHoldSeconds": round(hold, 6), "loop": False})
+    return clocks
+
+
 def map_audio_timeline(plan: dict, authored: dict) -> dict:
     """Retime the two source arrangement schemas; synthesize afresh at output length."""
     fps = plan["fps"]
@@ -833,6 +876,7 @@ def map_audio_timeline(plan: dict, authored: dict) -> dict:
         "sampleRate": authored.get("sampleRate", authored.get("sourceSampleRate", 44100)),
         "voiceClock": "output", "musicRerenderRequired": True,
         "externalTrackNeedsNewDropAlignment": bool(authored.get("externalTrack", {}).get("optional")),
+        "mixProfile": authored.get("mix", {}).get("profile", "legacy-macro"),
     }
     return plan
 
@@ -871,12 +915,18 @@ def compile_plan(manifest: dict, spec: dict, *, spec_dir: Path | None = None,
         start, end = target_span(target, previous_end, fps, i)
         previous_end = end
         source_index, source = sources[source_id]
+        try:
+            target = expand_inputs(source, target)
+        except SemanticInputError as exc:
+            raise AdaptError(f'{instance_id}: {exc}') from exc
         if manifest.get("requireMotionWindows") or spec.get("requireMotionWindows"):
             require(bool(source.get("motionWindows")),
                     f"{source_id} has no authored motionWindows; cannot claim full-motion fidelity for this scene")
         slots, details = slot_bindings(source, target, spec_dir, project, manifest.get("assetDefinitions"))
-        result_scenes.append(timed_scene(source, target, source_index, start, end, fps, src_fps,
-                                         transcript, slots, details))
+        planned = timed_scene(source, target, source_index, start, end, fps, src_fps,
+                              transcript, slots, details)
+        planned["mediaClocks"] = media_clocks(source, planned, fps)
+        result_scenes.append(planned)
     duration = previous_end / fps
     narration = spec.get("narrationDuration")
     if narration is not None:

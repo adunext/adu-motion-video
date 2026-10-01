@@ -91,6 +91,13 @@ def bind_authored_block(block: str, scene: dict, values: dict, instance_id: str)
         fail(f'{instance_id}: source block hash changed or is absent; regenerate and review pack bindings')
     changes: list[tuple[int, int, str, str]] = []
     numbers = {}
+    for expression in scene.get('plainTextExpressions', []):
+        source = '.textContent=' + expression + ';'
+        if not isinstance(expression, str) or block.count(source) != 1:
+            fail(f'{instance_id}: reviewed plain-text expression changed')
+        start = block.index(source)
+        changes.append((start, start + len(source),
+                        '.textContent=PACK_PLAIN_TEXT(' + expression + ');', instance_id + '.plainText'))
     for slot in scene.get('slots', []):
         if slot['id'] not in values: continue
         kind, value = slot['type'], values[slot['id']]
@@ -176,7 +183,7 @@ def copy_media(stage: Path, pack: dict, item: dict, source_scene: dict, block: s
     definitions = pack.get('assetDefinitions', {})
     for slot in source_scene.get('slots', []):
         kind, slot_id = slot.get('type'), slot['id']
-        if kind not in ('image', 'sequence', 'wall-sprites'): continue
+        if kind not in ('image', 'sequence', 'wall-sprites', 'video'): continue
         if slot_id not in item['slots']: fail(f'{item["id"]}.{slot_id}: missing required media')
         value = item['slots'][slot_id]
         authored = slot.get('sourceAsset')
@@ -190,6 +197,27 @@ def copy_media(stage: Path, pack: dict, item: dict, source_scene: dict, block: s
             if original not in block: fail(f'{item["id"]}.{slot_id}: image {original} is absent from its scene code')
             block = block.replace(original, target.name)
             exported_value = target.relative_to(stage).as_posix()
+        elif kind == 'video':
+            clocks = [clock for clock in item.get('mediaClocks', []) if clock['slot'] == slot_id]
+            if len(clocks) != 1: fail(f'{item["id"]}.{slot_id}: video needs one reviewed playback contract')
+            clock = clocks[0]
+            original_dir = clock['sourceDirectory']
+            if f"'{original_dir}'" not in block and f'"{original_dir}"' not in block:
+                fail(f'{item["id"]}.{slot_id}: source video directory is absent from its scene')
+            source = Path(value['path'])
+            target = stage / 'sc' / name; target.mkdir()
+            subprocess.run(['ffmpeg', '-v', 'error', '-n', '-ss', str(clock['offset']),
+                            '-i', str(source), '-an', '-vf',
+                            f'fps={clock["fps"]},scale=1280:720:force_original_aspect_ratio=decrease:flags=lanczos,pad=1280:720:(ow-iw)/2:(oh-ih)/2',
+                            '-frames:v', str(clock['preparedFrames']), '-q:v', '3',
+                            str(target / 'f_%04d.jpg')], check=True)
+            frames = sorted(target.glob('f_*.jpg'))
+            if len(frames) != clock['preparedFrames']:
+                fail(f'{item["id"]}.{slot_id}: media decoder produced {len(frames)} of {clock["preparedFrames"]} frames')
+            alias[original_dir] = name
+            clock['directory'] = name
+            exported_value = {**value, 'path': target.relative_to(stage).as_posix(),
+                              'preparedFrames': len(frames), 'clock': 'output'}
         elif kind == 'sequence':
             original_dir = Path(authored).parent.name
             definition = definitions.get(slot_id, {})
@@ -234,6 +262,11 @@ def scaffold(pack: dict, output: Path) -> None:
                                'durationFrames': round((end - start) * pack['fps']),
                                'cues': {cue['id']: {'at': cue['at']} for cue in scene.get('cues', [])},
                                'slots': slots})
+        if scene.get('inputExample'):
+            data['scenes'][-1]['inputs'] = scene['inputExample']
+            for slot in scene.get('slots', []):
+                if slot.get('inputPath') or slot.get('inputTemplate'):
+                    data['scenes'][-1]['slots'].pop(slot['id'], None)
     output.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
 
 
@@ -284,7 +317,7 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
         plan = compile_plan(pack, spec, spec_dir=spec_path.parent, project=stage,
                             audio_timeline=audio_timeline)
         imported = read_json(stage / 'import.json')
-        if abs(imported['frames'] - plan['end_frame']) > 1:
+        if imported['frames'] != plan['end_frame']:
             fail(f'Edited talk has {imported["frames"]} frames but timeline has {plan["end_frame"]}; match the edited narration exactly. Silent trimming or frozen presenter tails are not allowed')
         imported.pop('source', None)
         imported.update(narrationAssets={'frames': 'talk/clip_000', 'audio': 'voice.wav'},
@@ -323,6 +356,28 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
         lib = lib.replace('const tc = t => {', 'const tc = t => { t = window.MACRO_OUTPUT_T ?? t;')
         lib = lib.replace('const seqSrc = (dir, i, n) => `sc/${dir}/',
                           'const seqSrc = (dir, i, n) => `sc/${window.MACRO_MEDIA_ALIAS?.[dir] || dir}/')
+        if any(item.get('mediaClocks') for item in plan['scenes']):
+            signature = 'function seqAt(dir, n, fps, t, t0, loop = true) {'
+            if lib.count(signature) != 1: fail('Output-clock video requires the supported seqAt function signature')
+            lib = lib.replace(signature, signature + '''
+  const clock = window.MACRO_VIDEO_CLOCKS?.find(c => c.sourceDirectory === dir);
+  if (clock) {
+    if (!Number.isFinite(window.MACRO_OUTPUT_T)) throw Error('Video needs the output clock');
+    const elapsed = Math.max(0, window.MACRO_OUTPUT_T - clock.start);
+    const frame = Math.min(clock.preparedFrames - 1, Math.floor(elapsed * clock.rate * clock.fps + 1e-6));
+    return seqSrc(dir, frame + 1, clock.preparedFrames);
+  }
+''')
+        if any(scene.get('plainTextExpressions') for scene in pack['scenes']):
+            lib += '''
+const PACK_PLAIN_TEXT = (() => {
+  const decoder = document.createElement('textarea'), cache = new Map();
+  return value => {
+    if (!cache.has(value)) { decoder.innerHTML = value; cache.set(value, decoder.value); }
+    return cache.get(value);
+  };
+})();
+'''
         if pack.get('sourceFormat') == 'authored-unit/1':
             # Route helpers keep source geometry, but identity and progress use
             # this project. Never globally replace literal episode text.

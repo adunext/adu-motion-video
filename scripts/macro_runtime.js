@@ -105,6 +105,7 @@
     window.MACRO_IS_OPENING_SCENE = index === 0;
     window.PACK_NUMBERS = window.MACRO_NUMBERS_BY_INSTANCE?.[index] || {};
     window.MACRO_MEDIA_ALIAS = window.MACRO_MEDIA_BY_INSTANCE?.[index] || {};
+    window.MACRO_VIDEO_CLOCKS = item.mediaClocks || [];
     for (let i = 0; i < SCENES.length; i++) SCENES[i].el.style.display = i === index ? 'block' : 'none';
     sc.update(source);
     const cam = sc.cam(source), world = $('world');

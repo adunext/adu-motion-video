@@ -21,6 +21,31 @@ def run(args):
     return result.stdout
 
 
+def input_timing(probe, fps):
+    streams = probe.get('streams', [])
+    video = next((s for s in streams if s.get('codec_type') == 'video'), None)
+    audio = next((s for s in streams if s.get('codec_type') == 'audio'), None)
+    if video is None or audio is None:
+        raise ValueError('input needs video and narration audio')
+    container = probe.get('format', {})
+    origin = float(container.get('start_time') or 0)
+    offset = max(0., float(video.get('start_time') or origin) - origin)
+    raw_duration = float(video.get('duration') or
+                         (float(container.get('duration') or 0) - offset))
+    end = offset + raw_duration
+    if not math.isfinite(end) or end <= 0:
+        raise ValueError('input video has no finite positive duration')
+    count = math.floor(end * fps + .5)
+    if count < 1:
+        raise ValueError('input video is too short')
+    return dict(frames=count, duration=count / fps, videoStartSeconds=offset,
+                videoStreamDurationSeconds=raw_duration, videoEndSeconds=end,
+                audioStartSeconds=max(0., float(audio.get('start_time') or origin) - origin),
+                audioStreamDurationSeconds=float(audio.get('duration') or 0),
+                frameResampling='nearest source frame on the output grid; edge padding limited to frame quantization',
+                maximumEdgeQuantizationSeconds=1 / fps)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('project', type=Path)
@@ -46,27 +71,24 @@ def main():
         target = project / name
         if target.exists() or target.is_symlink(): ap.error(f'{name} already exists; use a fresh project')
     probe = json.loads(run(['ffprobe', '-v', 'error', '-show_streams', '-show_format', '-of', 'json', video]))
-    stream = next((s for s in probe.get('streams', []) if s.get('codec_type') == 'video'), {})
-    if not any(s.get('codec_type') == 'audio' for s in probe.get('streams', [])): ap.error('input has no audio; provide a talking-head clip with narration')
-    duration = float(stream.get('duration') or probe.get('format', {}).get('duration') or 0)
-    if not math.isfinite(duration) or duration <= 0: ap.error('input video has no finite positive duration')
-    count = math.floor(duration * a.fps + .5)
-    if count < 1: ap.error('input video is too short')
-    duration = count / a.fps
-    report = dict(source=str(video), frames=count, fps=a.fps, duration=duration,
+    timing = input_timing(probe, a.fps)
+    count, duration = timing['frames'], timing['duration']
+    if timing['videoStartSeconds'] > 1 / a.fps + 1e-5:
+        ap.error('video starts more than one output frame after the input clock; provide an aligned clip rather than padding a frozen presenter')
+    report = dict(source=str(video), fps=a.fps, **timing,
                   frame_width=width, frame_height=height, subtitles='not generated',
                   next_step='Set CONFIG.demo=false, CONFIG.fps=fps, CONFIG.end=duration; author scenes/race/captions for this clip. No creative timeline was rewritten.')
     with tempfile.TemporaryDirectory(prefix='adu-talk-import-') as temporary:
         work = Path(temporary)
         sequence = work / 'talk' / 'clip_000'
         sequence.mkdir(parents=True)
-        vf = (f'fps={a.fps},scale={width}:{height}:force_original_aspect_ratio=decrease:flags=lanczos,'
+        vf = (f'fps={a.fps}:start_time=0,scale={width}:{height}:force_original_aspect_ratio=decrease:flags=lanczos,'
               f'pad={width}:{height}:(ow-iw)/2:(oh-ih)/2,tpad=stop_mode=clone:stop_duration={1/a.fps}')
         run(['ffmpeg', '-v', 'error', '-n', '-i', video, '-map', '0:v:0', '-vf', vf,
              '-frames:v', count, '-q:v', '3', sequence / 'f_%05d.jpg'])
         if len(list(sequence.glob('f_*.jpg'))) != count: raise RuntimeError('Extracted frame count mismatch')
         run(['ffmpeg', '-v', 'error', '-n', '-i', video, '-map', '0:a:0', '-vn',
-             '-af', f'apad,atrim=duration={duration}', '-ar', '48000', '-ac', '2', '-c:a', 'pcm_s16le', work / 'voice.wav'])
+             '-af', f'aresample=48000:first_pts=0,apad,atrim=duration={duration}', '-ar', '48000', '-ac', '2', '-c:a', 'pcm_s16le', work / 'voice.wav'])
         data = 'const TALKF=["clip_000"];const TALKMAP=' + json.dumps([[0, i+1] for i in range(count)], separators=(',', ':')) + ';\n'
         (work / 'talkmap.js').write_text(data)
         (work / 'import.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')

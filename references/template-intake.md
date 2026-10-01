@@ -31,4 +31,12 @@
 
 `authored-unit/1` 包沿用 macro-spec/macro-build 的输出口播时钟、保护动作窗、输入检查、音效重映和导出流程；runtimeFiles 保留路线运动函数。生成工程的 `recipe_versions.json` 固定包版本、源哈希、场景来源、输出帧和运行代码哈希。旧工程内已经保存 runtime，更新库不会自动改变它。
 
+`python3 scripts/source_registry.py link SOURCE_RECORD PACK/manifest.json` 将清单哈希与每组 ID/版本关联到来源。来源修订不符或同一 ID/版本内容变化会拒绝；关联本身不晋级质量状态。修改配方或公开元数据时创建新版本，旧版本保持可追溯。
+
+镜头组可用 `inputPath` 声明有名的语义字段，例如 `claim.line1`、`parts.0.label`、`evidence.video`。多个可见位置可以绑定同一个字段；`inputTemplate` 只插入文本值，例如 `// {chapter} — {label}`，不运行代码。配方内部仍固定经过核对的源码跨度，使用者在目标 spec 的 `inputs` 提供内容；不要同时填同一字段生成的内部 `slots`。`inputExample` 是可编辑的内容示意，媒体的空值表示缺项。
+
+真实视频槽声明 `playback:{start,end,fps,rate,terminalHoldSeconds}`；start/end 在源编舞时钟内，rate 默认为 1。目标 `inputs` 提供 `{path,offset}`。实际播放以映射后的输出起点和输出经过时间取帧，阅读区变长时不会随动画时钟慢放视频。媒体不够长会拒绝；仅配方明确支持的末帧停留可以使用，实际停留写入 `mediaClocks`。人物口播也必须与工程总帧数完全一致。输入轨道的一帧起始偏移按输出帧网格重采样并记入 import.json；更大的视频起始空缺须先提供对齐后的素材。
+
+默认登记只冻结源码、保存媒体指纹并依赖原素材；独立完整快照要在首次登记时使用 `--freeze-media`。已有修订不会因重复命令而升级为媒体快照，若需要另一份完整冻结，使用独立 registry。
+
 源码重放、新内容表达、独立安装使用分别记录。正常速度连续声画、最终编码文件、真实字幕/取帧/响度/真峰与对照证据缺一项就只报告已验证范围。候选包不得仅凭测试通过而标稳定；发布按实际通过的路线与环境增量进行。

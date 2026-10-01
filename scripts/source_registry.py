@@ -119,9 +119,11 @@ def register(root, final, registry, source_id, entry, context, freeze_media=Fals
     target = registry / source_id / revision
     if target.exists():
         existing = read(target / "source.json")
+        require(not freeze_media or existing['mediaStorage'] == 'snapshot',
+                'This immutable revision was registered without media copies; --freeze-media cannot upgrade it. Use a separate registry to make an independent snapshot.')
         verify(target)
         return {"sourceId": source_id, "revision": revision, "path": str(target), "duplicate": True,
-                "state": existing["state"]}
+                "state": existing["state"], "mediaStorage": existing['mediaStorage']}
     registry.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".source-intake-", dir=registry) as tmp:
         stage = Path(tmp) / "record"
@@ -204,6 +206,34 @@ def refresh_index(registry):
     write(registry / "index.json", {"schema": "adu-source-index/1", "private": True, "sources": items})
 
 
+def link_recipes(record_dir, manifest_path):
+    record, manifest = read(record_dir / 'source.json'), read(manifest_path)
+    require(manifest.get('sourceRevision') == record['revision'],
+            'Pack belongs to a different source revision')
+    require(manifest.get('id') and manifest.get('version') and manifest.get('scenes'),
+            'Pack must identify its version and recipes')
+    manifest_hash = digest(manifest_path)['sha256']
+    additions = []
+    for scene in manifest['scenes']:
+        require(scene.get('id') and scene.get('sourceRevision') == record['revision'],
+                'Every linked recipe must identify this source revision')
+        item = {'packId': manifest['id'], 'version': manifest['version'],
+                'recipeId': scene['id'], 'manifestSha256': manifest_hash}
+        same = [x for x in record['recipes'] if
+                (x['packId'], x['version'], x['recipeId']) ==
+                (item['packId'], item['version'], item['recipeId'])]
+        require(not same or same == [item],
+                'An existing recipe version changed; publish a new version instead')
+        if not same:
+            additions.append(item)
+    require(digest(manifest_path)['sha256'] == manifest_hash, 'Pack changed during linking')
+    record['recipes'].extend(additions)
+    write(record_dir / 'source.json', record)
+    refresh_index(record_dir.parent.parent)
+    return {'sourceId': record['sourceId'], 'addedRecipes': len(additions),
+            'qualityCertified': False}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -215,11 +245,14 @@ def main():
     check = sub.add_parser("verify"); check.add_argument("record", type=Path)
     promote = sub.add_parser("advance"); promote.add_argument("record", type=Path)
     promote.add_argument("state", choices=STATES[1:]); promote.add_argument("--evidence", type=Path, required=True)
+    link = sub.add_parser('link', help='Associate immutable pack/recipe versions with their source')
+    link.add_argument('record', type=Path); link.add_argument('manifest', type=Path)
     args = parser.parse_args()
     try:
         if args.command == "register":
             result = register(args.project, args.render, args.registry, args.id, args.entry, read(args.context), args.freeze_media)
         elif args.command == "verify": result = verify(args.record)
+        elif args.command == 'link': result = link_recipes(args.record, args.manifest)
         else: result = advance(args.record, args.state, args.evidence)
         print(json.dumps(result, ensure_ascii=False))
     except (ValueError, OSError, subprocess.CalledProcessError) as exc:

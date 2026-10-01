@@ -125,6 +125,8 @@ def render(project: Path, track: Path | None = None, offset: float = 0):
     if unknown: raise ValueError(f'Missing source SFX generators: {sorted(unknown)}')
     score = plan.get('audio')
     if not score or score.get('sfxMixSource') != 'runtime-scene-S-only': raise ValueError('Missing mapped source score')
+    profile = score.get('mixProfile', 'legacy-macro')
+    if profile not in ('legacy-macro', 'opus-five-v1'): raise ValueError(f'Unknown score mix profile: {profile}')
     A.init(end); A.rng = np.random.default_rng(11)
     music = np.zeros((A.N, 2)); sections = []
     if track:
@@ -154,9 +156,12 @@ def render(project: Path, track: Path | None = None, offset: float = 0):
     crashes = []
     for hit in score.get('hits', []):
         if hit['kind'] == 'subDrops': A.add(fx, A.pan(A.sub_drop(1.1, .5), 0), hit['at'])
-        elif hit['kind'] == 'crashes': crashes.append(hit)
+        elif hit['kind'] == 'crashes':
+            if profile == 'opus-five-v1':
+                A.add(fx, A.pan(A.crash_cym(), (hit['at'] % 2) - .5), hit['at'])
+            else: crashes.append(hit)
         else: raise ValueError(f'Unimplemented source hit: {hit["kind"]}')
-    music += fx * (.6 if track else 1.)
+    music += fx * (.6 if track or profile == 'opus-five-v1' else 1.)
     keys = [(e['at'], e['db']) for e in score.get('envelope', [])]
     if keys: music *= A.env_curve(keys)[:, None]
     for hit in crashes: A.add(music, A.pan(A.crash_cym(), (hit['at'] % 2) - .5), hit['at'])
@@ -173,6 +178,7 @@ def render(project: Path, track: Path | None = None, offset: float = 0):
         data /= max(np.max(np.abs(data)) * 1.1, 1e-9)
         A.write_wav(str(project / f'{name}.wav'), data)
     report = {'mode': 'track' if track else 'source-synth', 'duration': end, 'sampleRate': A.SR,
+              'mixProfile': profile,
               'renderedSections': len(sections), 'bars': sum(s['bars'] for s in sections),
               'specialEvents': rendered_special, 'plannedSpecialEvents': len(joined), 'hits': len(score.get('hits', [])),
               'sfx': len(cues['sfx']), 'voiceRetimed': False,
