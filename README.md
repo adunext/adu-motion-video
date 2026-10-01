@@ -119,6 +119,8 @@ https://github.com/adunext/adu-motion-video
 
 **无需登录或 API Key。** 截至 2026-10-01，线上目录返回 `total: 11028`；目录、注解和单文件下载均已实测。先查目录与注解，再按返回的 `preset` 下载需要的 JSON，保存到本期工程的素材目录。获取方法和使用边界见[动画素材 API](references/lottie-assets.md)。
 
+**请求额度：每个 IP 每天 20 次，全接口每天合计 2,000 次，北京时间零点重置。** 查询目录、注解和下载素材共用额度，请缓存后按需使用。超额返回 `429`；每日额度用完时按 `Retry-After` 等待，避免反复重试。
+
 ```bash
 # 查询目录；避免每条视频都重新拉全库
 curl -fsS https://adudir.com/api/lottie-catalog/manifest -o lottie-manifest.json
