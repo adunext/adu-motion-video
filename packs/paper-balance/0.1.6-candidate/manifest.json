@@ -1,0 +1,576 @@
+{
+  "id": "paper-balance",
+  "version": "0.1.6-candidate",
+  "status": "candidate",
+  "title": "纸面透视 · 矛盾转用途",
+  "sourceFormat": "authored-unit/1",
+  "sourceRevision": "279ffaa155c59ae35940c31fa09b9d85c960c2148a20368f146563fc70069d4b",
+  "source": {
+    "engine": "DOM/CSS perspective",
+    "assetPolicy": "Owner media are not bundled; bind a new symbolic illustration and narration."
+  },
+  "fps": 60,
+  "width": 1920,
+  "height": 1080,
+  "requireMotionWindows": true,
+  "runtimeFiles": [],
+  "scenes": [
+    {
+      "id": "apparent-tension-to-value",
+      "role": "表面矛盾 → 实际用途 → 可执行三步",
+      "source": {
+        "start": 13.73,
+        "end": 25.57
+      },
+      "sourceCodeFile": "units/apparent-tension-to-value.js",
+      "sourceBlockSha256": "667261b93a3eee5b501f094319e44e5d4d975f3ee6b544265638bfc221deeda3",
+      "sourceRevision": "279ffaa155c59ae35940c31fa09b9d85c960c2148a20368f146563fc70069d4b",
+      "requiresFaceTracking": true,
+      "minFrames": 710,
+      "maxHoldFrames": 360,
+      "motionWindows": [
+        {
+          "start": 13.73,
+          "end": 14.9
+        },
+        {
+          "start": 15.4,
+          "end": 17.6
+        },
+        {
+          "start": 17.7,
+          "end": 18.1
+        },
+        {
+          "start": 19.7,
+          "end": 20.1
+        },
+        {
+          "start": 20.6,
+          "end": 21.0
+        },
+        {
+          "start": 21.3,
+          "end": 22.0
+        },
+        {
+          "start": 23.43,
+          "end": 25.57
+        }
+      ],
+      "cues": [
+        {
+          "id": "value",
+          "at": 17.7,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "illustration",
+          "at": 20.6,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "steps",
+          "at": 23.43,
+          "kind": "semantic",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "presenter",
+          "type": "text",
+          "sourceText": "on air · 阿杜Next",
+          "sourceSpans": [
+            {
+              "start": 4495,
+              "end": 4510,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 20,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "presenterLabel"
+        },
+        {
+          "id": "context",
+          "type": "text",
+          "sourceText": "Q · 很多人问",
+          "sourceSpans": [
+            {
+              "start": 8729,
+              "end": 8737,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "context"
+        },
+        {
+          "id": "lead-0",
+          "type": "text",
+          "sourceText": "一边",
+          "sourceSpans": [
+            {
+              "start": 8814,
+              "end": 8816,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 3,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "opposition.leftLead"
+        },
+        {
+          "id": "lead-1",
+          "type": "text",
+          "sourceText": "一边",
+          "sourceSpans": [
+            {
+              "start": 8862,
+              "end": 8864,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 3,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "opposition.rightLead"
+        },
+        {
+          "id": "left",
+          "type": "text",
+          "sourceText": "吐槽",
+          "sourceSpans": [
+            {
+              "start": 8842,
+              "end": 8844,
+              "renderContext": "html"
+            },
+            {
+              "start": 9622,
+              "end": 9624,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "opposition.left"
+        },
+        {
+          "id": "subject",
+          "type": "text",
+          "sourceText": "OpenAI",
+          "sourceSpans": [
+            {
+              "start": 8852,
+              "end": 8858,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "opposition.subject"
+        },
+        {
+          "id": "right",
+          "type": "text",
+          "sourceText": "还在用",
+          "sourceSpans": [
+            {
+              "start": 8890,
+              "end": 8893,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "opposition.right"
+        },
+        {
+          "id": "right-scale",
+          "type": "text",
+          "sourceText": "在用",
+          "sourceSpans": [
+            {
+              "start": 9866,
+              "end": 9868,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "opposition.rightShort"
+        },
+        {
+          "id": "heading",
+          "type": "text",
+          "sourceText": "PRODUCTIVITY",
+          "sourceSpans": [
+            {
+              "start": 10008,
+              "end": 10020,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 12,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "value.heading"
+        },
+        {
+          "id": "lead",
+          "type": "text",
+          "sourceText": "它是",
+          "sourceSpans": [
+            {
+              "start": 10080,
+              "end": 10082,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 3,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "value.lead"
+        },
+        {
+          "id": "value",
+          "type": "text",
+          "sourceText": "生产力工具",
+          "sourceSpans": [
+            {
+              "start": 10108,
+              "end": 10113,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "value.label"
+        },
+        {
+          "id": "annotation",
+          "type": "text",
+          "sourceText": "学它 → 复刻它",
+          "sourceSpans": [
+            {
+              "start": 10399,
+              "end": 10407,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 12,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "annotation"
+        },
+        {
+          "id": "step-0",
+          "type": "text",
+          "sourceText": "用它",
+          "sourceSpans": [
+            {
+              "start": 10625,
+              "end": 10627,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "steps.0.label"
+        },
+        {
+          "id": "step-1",
+          "type": "text",
+          "sourceText": "学它",
+          "sourceSpans": [
+            {
+              "start": 10631,
+              "end": 10633,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "steps.1.label"
+        },
+        {
+          "id": "step-2",
+          "type": "text",
+          "sourceText": "复刻它",
+          "sourceSpans": [
+            {
+              "start": 10637,
+              "end": 10640,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "steps.2.label"
+        },
+        {
+          "id": "step-summary",
+          "type": "text",
+          "sourceText": "USE · LEARN · REPLICATE",
+          "sourceSpans": [
+            {
+              "start": 11161,
+              "end": 11184,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 34,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "stepSummary"
+        },
+        {
+          "id": "illustration",
+          "type": "image",
+          "sourceAsset": "assets/mirror_cut.png",
+          "required": true,
+          "inputPath": "illustration",
+          "purpose": "transparent symbolic illustration supporting the same subject; not evidence"
+        }
+      ],
+      "inputExample": {
+        "presenterLabel": "on air · 本期讲述者",
+        "context": "Q · 本期问题",
+        "opposition": {
+          "leftLead": "继续",
+          "left": "分享",
+          "subject": "项目",
+          "rightLead": "同时",
+          "right": "经营",
+          "rightShort": "经营"
+        },
+        "value": {
+          "heading": "VALUE",
+          "lead": "先看",
+          "label": "真实需求"
+        },
+        "annotation": "接触 → 验证 → 打磨",
+        "steps": [
+          {
+            "label": "接触"
+          },
+          {
+            "label": "验证"
+          },
+          {
+            "label": "打磨"
+          }
+        ],
+        "stepSummary": "CONTACT · VALIDATE · REFINE",
+        "illustration": ""
+      },
+      "boundaries": {
+        "entry": "retains source presenter return, question and balance entrance",
+        "exit": "includes all three recap confirmations, ball trail and release",
+        "connection": "self-contained continuation; other connections unverified",
+        "openingPresenterDelaySeconds": 0.37
+      },
+      "limits": [
+        "Not for two unrelated subjects or a factual comparison with measured values.",
+        "The opening has a source-authored 0.37s presenter return, not a title-card opening.",
+        "The illustration is symbolic; real proof needs another evidence group.",
+        "The source 25.55s whoosh belongs to the next group and is excluded from this standalone group.",
+        "Source music track is private; a new full-length track or the declared synth alternative is required.",
+        "Output-clock captions remain visible beneath the recap; the original suppressed captions in dark chapters."
+      ],
+      "provenance": {
+        "sourceFile": "index.html",
+        "sourceEntrySha256": "4f14cbd5178d5a0f25cfed8afbc920711c68d9e56dadc3e3c67700c654df8062",
+        "ranges": [
+          {
+            "id": "colors-and-easing",
+            "sourceFile": "index.html",
+            "startCodepoint": 3817,
+            "endCodepoint": 4672,
+            "sha256": "e36740b2c15f48f3486f305ec9e7be2a010d91f9ba6b599180437ae25efad561",
+            "sourceLines": [
+              54,
+              60
+            ]
+          },
+          {
+            "id": "source-transform-functions",
+            "sourceFile": "index.html",
+            "startCodepoint": 5244,
+            "endCodepoint": 5880,
+            "sha256": "8704554eb350edee3238d4dd97ae1eedc820861d30eb06e326aadf339306f413",
+            "sourceLines": [
+              65,
+              67
+            ]
+          },
+          {
+            "id": "annotation-functions",
+            "sourceFile": "index.html",
+            "startCodepoint": 6189,
+            "endCodepoint": 7499,
+            "sha256": "c0a987c72a4e82a85c9e2f53c4ab263d722058b2e72a918625fd2a0427f6a1a4",
+            "sourceLines": [
+              69,
+              76
+            ]
+          },
+          {
+            "id": "presenter-and-pose-keys",
+            "sourceFile": "index.html",
+            "startCodepoint": 7822,
+            "endCodepoint": 9250,
+            "sha256": "dcd7074480c1c9cadc0020aec505b563e9d6b672409cf37e9b9057402876c85d",
+            "sourceLines": [
+              81,
+              89
+            ]
+          },
+          {
+            "id": "presenter-draw",
+            "sourceFile": "index.html",
+            "startCodepoint": 9640,
+            "endCodepoint": 10559,
+            "sha256": "d80fb4fd98f8f289ec50bce4399220ffdb2831235c90b5a5fa39b06339762833",
+            "sourceLines": [
+              90,
+              104
+            ]
+          },
+          {
+            "id": "ball-and-trail",
+            "sourceFile": "index.html",
+            "startCodepoint": 10625,
+            "endCodepoint": 12451,
+            "sha256": "0212b596b80ad879e9d1f0f580e4f40eb7a52c0f36a3f9585c7bee2c30d00ae4",
+            "sourceLines": [
+              105,
+              120
+            ]
+          },
+          {
+            "id": "balance-value-and-recap-elements",
+            "sourceFile": "index.html",
+            "startCodepoint": 14927,
+            "endCodepoint": 17329,
+            "sha256": "c3e9e6337431ff80f6c52807e6bed371db896a316f767effd01045c0b09c7a50",
+            "sourceLines": [
+              135,
+              145
+            ]
+          },
+          {
+            "id": "balance-value-and-recap-motion",
+            "sourceFile": "index.html",
+            "startCodepoint": 34056,
+            "endCodepoint": 35161,
+            "sha256": "5770ffe8317cb8c397e50ca98854249fa060f1863ed4afd844a8b1c918d41bea",
+            "sourceLines": [
+              241,
+              250
+            ]
+          }
+        ],
+        "adapter": "adapters/paper-balance/extract.py",
+        "adapterSha256": "ef4790152b7e27d13e5184b0e88da85d5c99f5f6d5db8ef371387b55f12d49bd",
+        "ports": [
+          "Scene host and scoped layer IDs",
+          "presenter pixels and crop use output clock",
+          "generated sprite becomes required image input",
+          "source shake is zero throughout this protected interval"
+        ]
+      }
+    }
+  ],
+  "assetDefinitions": {},
+  "environment": {
+    "platform": "macOS",
+    "fonts": [
+      {
+        "sourceFile": "Anton.woff2",
+        "sha256": "fbe5c43983d4a583cd9c760a5c124451505dad21d9a74cd2ae957fd3f7358ac4",
+        "license": "SIL-OFL-1.1",
+        "storage": "unmodified source WOFF2 embedded in CSS"
+      },
+      {
+        "sourceFile": "Caveat.woff2",
+        "sha256": "594b089a80408340296b9ef2f5b589c8c752d1021994ab4707b202462a42249b",
+        "license": "SIL-OFL-1.1",
+        "storage": "unmodified source WOFF2 embedded in CSS"
+      },
+      {
+        "sourceFile": "Geist-normal-500.woff2",
+        "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+        "license": "SIL-OFL-1.1",
+        "storage": "unmodified source WOFF2 embedded in CSS"
+      },
+      {
+        "sourceFile": "Geist-normal-700.woff2",
+        "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+        "license": "SIL-OFL-1.1",
+        "storage": "unmodified source WOFF2 embedded in CSS"
+      },
+      {
+        "sourceFile": "GeistMono-normal-500.woff2",
+        "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b",
+        "license": "SIL-OFL-1.1",
+        "storage": "unmodified source WOFF2 embedded in CSS"
+      }
+    ],
+    "systemFonts": [
+      "PingFang SC",
+      "SFNSMono.ttf"
+    ],
+    "runtimeBase": "classic-performance@0.2.1-candidate helpers; no A performance is imported"
+  },
+  "validation": {
+    "sourceReplay": "pending",
+    "newContent": "pending",
+    "independentUse": "pending"
+  },
+  "files": {
+    "LICENSE": "0f1d5e25e1035cf4fb24809d66dff30642a2d4c5a33837ba7e0e8af4ff66fdfc",
+    "README.md": "12f0edaf0c21258a03a5befbab2440f98c6220ec54311fd6ce4a6911aab255ec",
+    "audio_timeline.json": "a52ec43ff01a36aafc99b9312b12542f088cac49423fc16e2329669164fbd68b",
+    "config.js": "b193bbf4f710883657a04d01bf268386272368055ba4e6135f524f45480a8ae9",
+    "lib.js": "feced1178a494b7b7bd7f1632f5c25652d6e06e304bcd99dcd085a0f4b5bcd33",
+    "licenses/OFL-anton.txt": "ee67e6ee22790b7929f1a3769ca2801d565c64b5a9096942c1adf5596de9c9e4",
+    "licenses/OFL-caveat.txt": "1f9d81d094273d82f3898a1ee8b598a717d050ecbf5ff7bede105b704880157b",
+    "licenses/OFL-geist.txt": "1781d2806a07d91c4edf4740b88449fab7d0eadad53f7c351b94cd4d4eb8c00f",
+    "licenses/OFL-geistmono.txt": "1781d2806a07d91c4edf4740b88449fab7d0eadad53f7c351b94cd4d4eb8c00f",
+    "style.css": "dca5800cbbda221d3cb60376da805827e7382bce7e1bfa54d5fb4c86fc0c6823",
+    "units/apparent-tension-to-value.js": "667261b93a3eee5b501f094319e44e5d4d975f3ee6b544265638bfc221deeda3"
+  }
+}
