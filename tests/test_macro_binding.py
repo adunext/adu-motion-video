@@ -67,6 +67,17 @@ class MacroBindingTests(unittest.TestCase):
         scene={"sourceBlockSha256":hashlib.sha256(block.encode()).hexdigest(),"slots":[slot,{**slot,"id":"b"}]}
         with self.assertRaises(AdaptError):bind_authored_block(block,scene,{"a":"one","b":"two"},"test")
 
+    def test_one_semantic_binding_preserves_html_and_plain_text_contexts(self):
+        block="const html='<b>Old label</b>'; const text='Old label';"
+        starts=[block.index('Old label'),block.rindex('Old label')]
+        scene={'sourceBlockSha256':hashlib.sha256(block.encode()).hexdigest(),
+               'slots':[{'id':'evidence.title','type':'dynamicText','sourceText':'Old label','renderContext':'html',
+                         'sourceSpans':[{'start':starts[0],'end':starts[0]+9},
+                                        {'start':starts[1],'end':starts[1]+9,'renderContext':'text'}]}]}
+        bound,_=bind_authored_block(block,scene,{'evidence.title':'A & B < 3'},'test')
+        self.assertIn("html='<b>A &amp; B &lt; 3</b>'",bound)
+        self.assertIn("text='A & B < 3'",bound)
+
     def test_all_public_text_ranges_match_and_are_disjoint(self):
         import json
         from build_macro_project import scene_parts

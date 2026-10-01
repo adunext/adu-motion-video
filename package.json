@@ -12,6 +12,7 @@
   "license": "MIT",
   "description": "Local video authoring, motion graphics and hand-drawn animation skill with runnable examples",
   "dependencies": {
+    "acorn": "8.15.0",
     "playwright-core": "1.58"
   },
   "private": true,

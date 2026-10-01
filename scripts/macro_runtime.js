@@ -117,6 +117,20 @@
   };
   window.READY = (async () => {
     await document.fonts.ready;
+    // CSS sprites are absent from document.images. Decode them in bounded
+    // batches so a complete source wall is neither skipped nor loaded in one
+    // memory-heavy burst. This also makes missing source sheets explicit.
+    const wallItems = typeof WALL !== 'undefined' ? WALL : [];
+    window.WALL_READY_COUNT = 0;
+    for (let a = 0; a < wallItems.length; a += 12) {
+      await Promise.all(wallItems.slice(a, a + 12).map((_, j) => new Promise((resolve, reject) => {
+        const i = a + j, img = new Image();
+        img.onload = () => img.decode().then(() => { window.WALL_READY_COUNT++; resolve(); },
+          error => reject(new Error(`Wall ${i}: ${error.message}`)));
+        img.onerror = () => reject(new Error(`Missing video-wall sprite ${i}`));
+        img.src = `sc/wall/${String(i).padStart(3, '0')}.jpg`;
+      })));
+    }
     await Promise.all([...document.images].map(im => im.complete ? 0 : new Promise(resolve => { im.onload = im.onerror = resolve; })));
     await window.renderAt(0);
     document.title = 'done';

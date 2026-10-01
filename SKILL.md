@@ -11,6 +11,8 @@ metadata:
 
 ## 选择入口
 
+用户新增完成工程、提炼新镜头组或更新模板库时，读[持续模板接入](references/template-intake.md)。先登记来源和实际状态，再按价值提炼；收到工程不代表已经有可发布模板。`bash "$PL" packs` 只列包的语义与版本元数据，按任务加载相关清单；同一 ID 有多个版本时显式选择 `id@version`。
+
 1. 默认查看[完整工程复用说明](references/full-project-templating.md)与 `packs/anim3/manifest.json`、`packs/anim4/manifest.json`。`anim3` 为 12 个连续编辑卡片宏场景；`anim4` 为 9 个作品展示宏场景。它们是工程包 ID，不是某个用户视频的品牌或可直接套用的文案。
 2. 只需轻量短片、探索版式时，使用 9 个基础 [`TPL`](references/templates.md)；它们是 quick-start，不包含完整工程包里的全部动作。
 3. 手绘角色、补录同镜头续接，读[手绘动画方法](references/handdrawn-animation.md)。目前没有对应完整工程包，不要把方法文档称为已自动模板化。

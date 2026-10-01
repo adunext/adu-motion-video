@@ -1,0 +1,6 @@
+# Validated source replay profile: macOS, CPython 3.14.7, 1080p60.
+# Other Python/platform combinations need their own install and media validation.
+numpy==2.5.3
+pillow==12.3.0
+scipy==1.18.1
+opencv-python-headless==5.0.0.93

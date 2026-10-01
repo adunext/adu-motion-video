@@ -44,6 +44,33 @@ def scene_parts(source: str) -> tuple[str, list[str]]:
     return prelude, scenes
 
 
+def pack_scene_parts(pack_dir: Path, pack: dict) -> tuple[str, list[str]]:
+    """Load reviewed independent closures without instantiating unused siblings."""
+    if pack.get('sourceFormat') != 'authored-unit/1':
+        return scene_parts((pack_dir / 'scenes.js').read_text())
+    fingerprints = pack.get('files')
+    if not isinstance(fingerprints, dict) or not fingerprints:
+        fail('Independent authored pack needs frozen runtime and source file hashes')
+    for relative, expected in fingerprints.items():
+        if not isinstance(relative, str) or Path(relative).is_absolute() or '..' in Path(relative).parts:
+            fail('Pack fingerprint path must be local and relative')
+        path = (pack_dir / relative).resolve()
+        if not path.is_relative_to(pack_dir.resolve()) or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+            fail(f'Frozen pack file changed: {relative}; create a reviewed new pack version')
+    blocks = []
+    for scene in pack['scenes']:
+        relative = scene.get('sourceCodeFile')
+        if not isinstance(relative, str) or Path(relative).is_absolute() or '..' in Path(relative).parts:
+            fail(f'{scene["id"]}: sourceCodeFile must be a relative pack file')
+        path = (pack_dir / relative).resolve()
+        if not path.is_relative_to(pack_dir.resolve()): fail('Source code escaped pack directory')
+        block = path.read_text()
+        if hashlib.sha256(block.encode()).hexdigest() != scene.get('sourceBlockSha256'):
+            fail(f'{scene["id"]}: independent authored source hash changed')
+        blocks.append(block)
+    return '', blocks
+
+
 def js_content(value: str, *, html_context: bool) -> str:
     if html_context: value = html.escape(value, quote=True)
     # A single escaped representation is safe inside ', ", and ` strings.
@@ -73,12 +100,14 @@ def bind_authored_block(block: str, scene: dict, values: dict, instance_id: str)
             if not spans: fail(f'{label}: a full pack needs reviewed sourceSpans for every text field')
             if slot.get('mustChange') and value == old:
                 fail(f'{label}: replace the source placeholder {old!r} with this episode\'s content')
-            new = js_content(str(value), html_context=slot.get('renderContext') == 'html')
             for span in spans:
                 start, end = span.get('start'), span.get('end')
                 if not isinstance(start, int) or not isinstance(end, int) or not 0 <= start < end <= len(block):
                     fail(f'{label}: invalid source span')
                 if block[start:end] != old: fail(f'{label}: source span no longer matches its declared text')
+                context = span.get('renderContext', slot.get('renderContext'))
+                if context not in ('html', 'text', None): fail(f'{label}: invalid render context')
+                new = js_content(str(value), html_context=context == 'html')
                 changes.append((start, end, new, label))
         elif kind == 'number':
             if slot.get('binding'):
@@ -239,8 +268,7 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
     subtitle_preset = spec.get('subtitlePreset', 'large-en')
     if subtitle_preset not in ('standard', 'large-en'):
         fail('subtitlePreset must be standard or large-en')
-    source = (pack_dir / 'scenes.js').read_text()
-    prelude, authored_scenes = scene_parts(source)
+    prelude, authored_scenes = pack_scene_parts(pack_dir, pack)
     if len(authored_scenes) != len(pack['scenes']):
         fail(f'Pack scene count mismatch: manifest={len(pack["scenes"])} source={len(authored_scenes)}')
     with tempfile.TemporaryDirectory(prefix='.adu-macro-', dir=output.parent) as tmp:
@@ -288,12 +316,20 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
         (stage / 'style.css').write_text(css)
         # Use the hardened shared library: missing talk/wall media fail explicitly,
         # 60fps timecode, deterministic frame readiness, optional face fallback.
-        lib = (ROOT / 'template' / 'lib.js').read_text()
+        lib = ((pack_dir / 'lib.js') if pack.get('sourceFormat') == 'authored-unit/1'
+               else (ROOT / 'template' / 'lib.js')).read_text()
         lib = lib.replace('const talkSrc = t => {', 'const talkSrc = t => {\n  t = window.MACRO_OUTPUT_T ?? t;')
         lib = lib.replace('function faceAt(t) {', 'function faceAt(t) {\n  t = window.MACRO_OUTPUT_T ?? t;')
         lib = lib.replace('const tc = t => {', 'const tc = t => { t = window.MACRO_OUTPUT_T ?? t;')
         lib = lib.replace('const seqSrc = (dir, i, n) => `sc/${dir}/',
                           'const seqSrc = (dir, i, n) => `sc/${window.MACRO_MEDIA_ALIAS?.[dir] || dir}/')
+        if pack.get('sourceFormat') == 'authored-unit/1':
+            # Route helpers keep source geometry, but identity and progress use
+            # this project. Never globally replace literal episode text.
+            lib = lib.replace('AduNext&nbsp;&nbsp;<span>', '${window.PACK_BRAND_HTML}&nbsp;&nbsp;<span>')
+            lib = lib.replace("label = '// on air · 阿杜'", 'label = window.PACK_PRESENTER_LABEL')
+            lib = lib.replace('function raceAt(e, t, o = 1) {',
+                              'function raceAt(e, t, o = 1) { t = window.MACRO_OUTPUT_T ?? t;')
         (stage / 'lib.js').write_text(lib)
         # anim4's authored faceAt assumes tracking is always present. Shared
         # fallback preserves the geometry while accepting projects without it.
@@ -330,7 +366,7 @@ function raceAt(e, sourceTime, opacity=1) {
         for index, item in enumerate(plan['scenes']):
             authored = pack['scenes'][item['source_scene_index']]
             block = authored_scenes[item['source_scene_index']]
-            if re.search(r'\brace\(sc\.el', block):
+            if re.search(r'\brace\(sc\.el', block) or authored.get('hasProgressRail'):
                 race_segments.append({'startFrame': item['output_start_frame'], 'endFrame': item['output_end_frame']})
             block, instance_numbers = bind_authored_block(block, authored, item['slots'], item['id'])
             block, aliases = copy_media(stage, pack, item, authored, block, wall_sources)
@@ -377,13 +413,37 @@ function raceAt(e, sourceTime, opacity=1) {
                                              'window.MACRO_RACE_SEGMENTS = ' + json.dumps(race_segments) + ';\n')
         (stage / 'macro_plan.json').write_text(json.dumps(plan, ensure_ascii=False, indent=2) + '\n')
         (stage / 'macro_main.js').write_text((ROOT / 'scripts' / 'macro_runtime.js').read_text())
+        runtime_scripts = []
+        for relative in pack.get('runtimeFiles', []):
+            if not isinstance(relative, str) or Path(relative).is_absolute() or '..' in Path(relative).parts or not relative.endswith('.js'):
+                fail('runtimeFiles must contain local JavaScript paths')
+            path = (pack_dir / relative).resolve()
+            if not path.is_relative_to(pack_dir.resolve()): fail('Runtime escaped pack directory')
+            target = stage / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(path, target)
+            runtime_scripts.append('<script src=' + json.dumps(relative) + '></script>')
+        if pack.get('sourceFormat') == 'authored-unit/1':
+            (stage / 'config.js').write_text((pack_dir / 'config.js').read_text())
         config = (stage / 'config.js').read_text() + (f'\nCONFIG.demo=false; CONFIG.fps={plan["fps"]}; '
                   f'CONFIG.end={plan["durationSeconds"]}; CONFIG.subtitles={str(bool(subs_js)).lower()};\n'
                   f'CONFIG.brand={json.dumps(brand, ensure_ascii=False)}; '
                   f'CONFIG.account={json.dumps(brand, ensure_ascii=False)};\n'
                   f'CONFIG.subtitlePreset={json.dumps(subtitle_preset)};\n'
                   f'window.PACK_BRAND={json.dumps(brand, ensure_ascii=False)}; '
+                  f'window.PACK_BRAND_HTML={json.dumps(html.escape(brand, quote=True), ensure_ascii=False)}; '
                   f'window.PACK_PRESENTER_LABEL={json.dumps(html.escape(presenter_label, quote=True), ensure_ascii=False)};\n')
+        if pack.get('sourceFormat') == 'authored-unit/1':
+            race = spec.get('progressRail')
+            if race is None:
+                race = {'labels': [item['id'] for item in plan['scenes']] + ['end'],
+                        'keys': [item['output_start_frame'] / plan['fps'] for item in plan['scenes']] +
+                                [plan['durationSeconds'], plan['durationSeconds'] + 1 / plan['fps']]}
+            if not isinstance(race, dict): fail('progressRail must be an object')
+            keys, labels = race.get('keys', []), race.get('labels', [])
+            if len(keys) != len(labels) + 1 or len(labels) < 2 or any(not isinstance(v, (int, float)) for v in keys) or any(a >= b for a,b in zip(keys,keys[1:])):
+                fail('progressRail needs increasing keys and len(keys) = len(labels) + 1')
+            config += 'CONFIG.race=' + json.dumps(race, ensure_ascii=False) + ';\n'
         (stage / 'config.js').write_text(config)
         fade_seconds = spec.get('fadeEndSeconds', 0)
         if not isinstance(fade_seconds, (int, float)) or isinstance(fade_seconds, bool) or not 0 <= fade_seconds <= 2:
@@ -396,7 +456,7 @@ function raceAt(e, sourceTime, opacity=1) {
 <div id="stage"><div id="world"></div><div id="fx"></div><div id="ov" style="position:absolute;inset:0;pointer-events:none"></div></div>
 <script src="config.js"></script><script src="talkmap.js"></script><script src="face.js"></script>
 <script src="subs.js"></script><script src="wall.js"></script><script src="macro_plan.js"></script>
-<script src="lib.js"></script><script src="scenes.js"></script><script src="subtitles.js"></script>
+<script src="lib.js"></script>''' + ''.join(runtime_scripts) + '''<script src="scenes.js"></script><script src="subtitles.js"></script>
 <script src="macro_main.js"></script></body></html>\n''')
         # Recompose the complete mapped score, never the generic starter score.
         music = spec.get('music', {'mode': 'synth'})
@@ -415,6 +475,15 @@ function raceAt(e, sourceTime, opacity=1) {
         (stage / 'macro_build_report.json').write_text(json.dumps({'face': face_report, 'font': font_report,
              'narrationFrames': imported['frames'], 'outputFrames': plan['end_frame'], 'subtitlePreset': subtitle_preset,
              'status': 'built-not-visually-accepted'}, ensure_ascii=False, indent=2) + '\n')
+        provenance = {'pack': pack['id'], 'version': pack.get('version'), 'manifestSha256': hashlib.sha256((pack_dir / 'manifest.json').read_bytes()).hexdigest(),
+                      'scenes': [{ 'instance': item['id'], 'sceneId': item['sceneId'],
+                                  'sourceBlockSha256': pack['scenes'][item['source_scene_index']].get('sourceBlockSha256'),
+                                  'startFrame': item['output_start_frame'], 'endFrame': item['output_end_frame'],
+                                  'reuse': 'reviewed-parameter-binding' } for item in plan['scenes']],
+                      'frozenRuntime': {name: hashlib.sha256((stage / name).read_bytes()).hexdigest()
+                                        for name in ['lib.js', 'macro_main.js', 'style.css', *pack.get('runtimeFiles', [])]},
+                      'qualityStatus': 'built-not-visually-accepted'}
+        (stage / 'recipe_versions.json').write_text(json.dumps(provenance, ensure_ascii=False, indent=2) + '\n')
         (stage / 'macro_source_audio.json').write_text((pack_dir / 'audio_timeline.json').read_text()
                                                       if (pack_dir / 'audio_timeline.json').exists() else '{}\n')
         stage.rename(output)

@@ -38,28 +38,29 @@ PY
 }
 case "$cmd" in
 macro-spec)
-  [ "$#" -eq 3 ] || { echo 'Usage: pipeline.sh macro-spec <anim3|anim4> <NEW.json>' >&2; exit 2; }
-  case "$D" in anim3|anim4) ;; *) echo 'Unknown full pack' >&2; exit 2 ;; esac
-  python3 "$SC/build_macro_project.py" scaffold "$SK/packs/$D" "$3"
+  [ "$#" -eq 3 ] || { echo 'Usage: pipeline.sh macro-spec <pack-id@version|pack-directory> <NEW.json>' >&2; exit 2; }
+  PACK_DIR="$(python3 "$SC/pack_catalog.py" resolve "$D")"
+  python3 "$SC/build_macro_project.py" scaffold "$PACK_DIR" "$3"
   ;;
 macro-build)
-  [ "$#" -ge 5 ] || { echo 'Usage: pipeline.sh macro-build <anim3|anim4> <spec.json> <edited-talk.mp4> <NEW project> [--subs-js file]' >&2; exit 2; }
-  case "$D" in anim3|anim4) ;; *) echo 'Unknown full pack' >&2; exit 2 ;; esac
-  PACK_DIR="$SK/packs/$D"
+  [ "$#" -ge 5 ] || { echo 'Usage: pipeline.sh macro-build <pack-id@version|pack-directory> <spec.json> <edited-talk.mp4> <NEW project> [--subs-js file]' >&2; exit 2; }
+  PACK_DIR="$(python3 "$SC/pack_catalog.py" resolve "$D")"
   shift 2
   python3 "$SC/build_macro_project.py" build "$PACK_DIR" "$@"
+  ;;
+packs)
+  shift
+  python3 "$SC/pack_catalog.py" list "$@"
   ;;
 doctor)
   python3 "$SC/doctor.py"
   ;;
 setup)
-  if [ ! -d "$SK/node_modules/playwright-core" ]; then
-    npm ci --prefix "$SK"
-  fi
+  npm ci --prefix "$SK"
   if [ ! -x "$PY" ]; then
     python3 -m venv "$SK/.venv"
   fi
-  "$PY" -m pip -q install numpy pillow opencv-python-headless scipy
+  "$PY" -m pip -q install -r "$SK/requirements-runtime.txt"
   node --input-type=module - "$SC/chrome.mjs" <<'JS'
 import {pathToFileURL} from 'node:url';
 const {chrome} = await import(pathToFileURL(process.argv[2]).href);
