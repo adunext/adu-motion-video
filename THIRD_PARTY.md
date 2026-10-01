@@ -16,7 +16,9 @@ Python packages, FFmpeg, Chromium / Chrome and Apple's Vision / AppKit are separ
 
 ## Fonts and media
 
-No font binary is included because a complete redistribution basis was not present with the source font folder. No Apple system font is copied or embedded; CSS uses local system stacks. Users may add fonts that they are authorized to use and must retain the relevant notices.
+The `paper-balance@0.1.6-candidate` pack embeds unmodified WOFF2 font bytes in its CSS: Anton, Caveat, Geist and Geist Mono. These fonts are distributed under the SIL Open Font License 1.1. Their full copyright and license notices are preserved both in the CSS and as [Anton](packs/paper-balance/0.1.6-candidate/licenses/OFL-anton.txt), [Caveat](packs/paper-balance/0.1.6-candidate/licenses/OFL-caveat.txt), [Geist](packs/paper-balance/0.1.6-candidate/licenses/OFL-geist.txt) and [Geist Mono](packs/paper-balance/0.1.6-candidate/licenses/OFL-geistmono.txt) notices. The reviewed extractor retains the same notices under `adapters/paper-balance/licenses/`.
+
+No Apple system font is copied or embedded. Chinese text still uses the user's installed PingFang stack, and the candidate environment also relies on installed SF Mono. The A/B and legacy packs do not redistribute their source font folders. Users may add fonts that they are authorized to use and must retain the relevant notices; embedded open fonts do not establish cross-platform visual equivalence.
 
 The tutorial diagrams, generic demo illustrations and example-frame screenshots under `assets/tutorials/` and `template/assets/` are authored for this toolkit. The Canvas2D example does not bundle p5.brush, third-party character code or footage; the p5 adaptation guide describes an interface pattern for users who supply their own licensed projects.
 
