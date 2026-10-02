@@ -14,7 +14,7 @@ Adu-motion-video（简称 **adumotion**）是阿杜开源的一个**模板级 Sk
 
 ### 先看模板，再选风格
 
-**先选一级模板，再挑喜欢的画面风格。** 当前共 2 类模板、7 种风格、17 个已发布镜头组。点击下方动图下载 MP4；详细编号与素材要求见[模板与风格目录](references/template-catalog.md)。
+**先选一级模板，再挑喜欢的画面风格。** 已发布 2 类模板、7 种风格、17 个镜头组；另提供「深色 3D」试用模板。点击下方动图下载 MP4；详细编号与素材要求见[模板与风格目录](references/template-catalog.md)。
 
 #### 模板 01 · 现代图文口播
 
@@ -37,6 +37,14 @@ Adu-motion-video（简称 **adumotion**）是阿杜开源的一个**模板级 Sk
   <a href="assets/demos/02-B.mp4?raw=true"><img src="assets/demos/02-B.gif" alt="02-B · 纸面聚合，局部静音预览" width="115" height="80"></a>
 </p>
 
+#### 模板 03 · 深色 3D（试用）
+
+暗色舞台、立体窗口、镜头推进与多屏展陈。适合产品演示、工具评测和作品集。**9 场完整编舞 · experimental**。按所选场景准备口播、作品、比较视频或软件录屏。[查看模板说明](references/dark-3d-template.md)。
+
+<p>
+  <a href="assets/demos/03-A.mp4?raw=true"><img src="assets/demos/03-A.gif" alt="03-A · 多屏展陈，深色软件窗口源演出预览" width="142" height="80"></a>
+</p>
+
 使用时直接告诉 AI 完整编号，例如 **01-B**。动图均为 8 秒静音预览，样片说明与具体发布范围可在下方展开。
 
 <details>
@@ -45,6 +53,8 @@ Adu-motion-video（简称 **adumotion**）是阿杜开源的一个**模板级 Sk
 02-B 为排除人物、字幕、账号角标和声音的开箱交付局部，其它已有 MP4 demo 含声音。01-A、01-B、02-A 展示的是已发布模板制作的新内容；01-C、01-D、01-E 展示原工程的风格短段，其三个组已完成各自新内容整片与独立使用验收，并随 3.2.0 发布；预览不代表来源的所有演出已进入稳定库。
 
 3.3.0 新增的 [02-B · 纸面聚合](packs/paper-ball-performance/1.0.0/README.md) 只覆盖两个已验收镜头组；完整源工程的其它 32 场保持原状态。新稿的六卡、七页与十卡属于固定示意编舞，须按本期意义填写。更多模板与风格持续更新。
+
+03-A 是既有深色软件窗口段的静音源演出预览，仅包含所有者口播与本人软件录屏。其九场宏场景保持 experimental，编号接入不代表新内容整片或稳定路线已验收。
 
 </details>
 
@@ -120,6 +130,7 @@ https://github.com/adunext/adu-motion-video
 | 01-E | `kinetic-performance@1.0.0` | 已发布；三个完整组 |
 | 02-A | `paper-balance@1.0.0` | 已发布；一个段落镜头组 |
 | 02-B | `paper-ball-performance@1.0.0` | 3.3.0；两个完整镜头组 |
+| 03-A | `anim4-showcase-macro@1.0.0` | 试用 / experimental；九场完整编舞 |
 
 3.3.0 共七个风格中的十七个稳定完整镜头组。02-B 的源/重放对照与 18.2667 秒新内容已获作者确认，严格栅格审计的 1 issue/2 warning 和复查结果仍保留；此增量不声称完整新路线或新独立作者验证。完整实测范围为 macOS、横屏 1920×1080、60fps。竖屏需重新布局，其它系统与字体组合需另行验证。新稿要留足动作与读字时间；实际 Token 消耗随素材处理、片长和修改量变化，尚无统一量化基准。
 
@@ -167,7 +178,7 @@ curl -fsS https://adudir.com/api/lottie-catalog/file/insider_loading.json -o ins
 | [纸面透视组](packs/paper-balance/1.0.0/README.md) | 疑问、天平、用途、批注与三步确认 | Stable；一个续接组，保留约 0.37 秒的源入场 |
 | [纸面聚合组](packs/paper-ball-performance/1.0.0/README.md) | 六类资料聚合成网络；日历、能力、开箱与交付 | Stable；两个组，标题字体为显式用户输入，原声不变速 |
 | [完整场景包 `anim3`](packs/anim3/README.md) | 12 个连续编辑卡片场景，保留人物、道具、数字、镜头、转场与原场景音效编舞 | 实验性；新文案与素材需逐场绑定和验收 |
-| [完整场景包 `anim4`](packs/anim4/README.md) | 9 个作品展示与口播场景，保留作品墙、九宫格、软件窗口、赛道等完整编舞 | 实验性；作品墙、录屏等需要本期素材 |
+| [03-A 深色 3D · 多屏展陈](references/dark-3d-template.md) | 复用 `anim4` 的 9 个完整场景，保留作品墙、九宫格、软件窗口、赛道等编舞 | 试用 / experimental；作品墙、录屏等需要本期素材 |
 | [基础 `TPL`](references/templates.md) | 9 个短场景函数，用于快速原型或从零组合较轻的片段 | Quick-start；不代表上述原工程的全部动画 |
 | [手绘卡通叙事](references/handdrawn-animation.md) | 角色与道具表演、同镜头续接的方法 | 目前是制作方法和既有示例，尚未提取为完整场景包 |
 

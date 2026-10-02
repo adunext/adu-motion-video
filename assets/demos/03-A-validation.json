@@ -1,0 +1,41 @@
+{
+  "schema": "adu-demo-validation/1",
+  "id": "03-A",
+  "kind": "silent-source-preview",
+  "selection": "anim4-showcase-macro@1.0.0",
+  "templateStatus": "experimental",
+  "source": {
+    "id": "owner-completed-showcase-v7",
+    "sha256": "0b78e5c9e5e032d350968121cd1c9a18438b7e8b34b3ecbcdda5c8ecef510ade",
+    "rangeSeconds": [
+      57.4,
+      65.4
+    ]
+  },
+  "content": "Owner presenter and owner software recording, no third-party wall or comparison videos in this excerpt.",
+  "outputs": {
+    "mp4": {
+      "sha256": "149136f48042b2b7e53a15b9701a540c31070ec53d04f947162c2a8bc571f205",
+      "width": 960,
+      "height": 540,
+      "fps": 24,
+      "frames": 192,
+      "durationSeconds": 8,
+      "audio": false,
+      "fullDecode": "pass"
+    },
+    "gif": {
+      "sha256": "7b845c501c1b8eee98c0d78e4e1d366124a74dff706e41795901ab397160a391",
+      "width": 400,
+      "height": 225,
+      "fps": 8,
+      "frames": 64,
+      "durationSeconds": 8,
+      "allFramesDecoded": true
+    }
+  },
+  "limits": [
+    "Source performance excerpt; not a different-content or independent-use validation.",
+    "Raw narration, recordings, personal subtitles and full mixes are not distributed as template inputs."
+  ]
+}

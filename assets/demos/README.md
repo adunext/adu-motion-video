@@ -10,7 +10,10 @@
 | 01-D | 已发布风格的原工程演出片段 | [18.00 秒 MP4](01-D.mp4?raw=true) | [8 秒 GIF](01-D.gif) |
 | 01-E | 已发布风格的原工程演出片段 | [18.00 秒 MP4](01-E.mp4?raw=true) | [8 秒 GIF](01-E.gif) |
 | 02-A | 已发布模板的新内容样片 | [13.92 秒 MP4](02-A.mp4?raw=true) | [8 秒 GIF](02-A.gif) |
+| 03-A | 深色 3D 试用模板的源演出软件窗口段 | [8 秒静音 MP4](03-A.mp4?raw=true) | [8 秒 GIF](03-A.gif) |
 
 MP4 使用 960×540、24fps 和 AAC 音轨；GIF 使用 400×225、8fps。仅用于轻量预览，正式制作规格仍按所选模板。GIF 是正常速度短段，不代替完整 demo。导出核验见 [media-validation.json](media-validation.json)。
 
 C/D/E 的观看文件保持原导出字节。3.2.0 各发布三个已验证完整组；这些源风格短段不替代新内容整片证据，也不表示来源所有镜头都可复用。实际组范围见[能力矩阵](../../docs/capability-matrix.md)。
+
+03-A 来自所有者完成片的 57.4–65.4 秒，展示所有者口播和本人软件录屏，移除声音。它只用于观看，原始口播与录屏不作为模板输入分发；九场宏场景仍为 experimental。规格与源摘要见 [03-A-validation.json](03-A-validation.json)。

@@ -15,6 +15,8 @@ metadata:
 
 用户新增完成工程、提炼新镜头组或更新模板库时，读[持续模板接入](references/template-intake.md)。先登记来源和实际状态，再按价值提炼；收到工程不代表已经有可发布模板。`bash "$PL" packs` 只列包的语义与版本元数据，按任务加载相关清单；同一 ID 有多个版本时显式选择 `id@version`。
 
+用户指定 **03 · 深色 3D / 03-A · 多屏展陈** 时，读[深色 3D 模板](references/dark-3d-template.md)，选择 `anim4-showcase-macro@1.0.0`。它保留九场作品墙、多屏比较、重点放大与软件窗口编舞，当前为 experimental；按本期材料选择完整场景并完成声画检查，不计入十七个稳定组。
+
 1. 默认运行 `bash "$PL" packs`，按表达目的选择显式版本，读取相关包的 `README.md` 与 `manifest.json`，并查看[完整工程复用说明](references/full-project-templating.md)。`classic-performance@1.0.0` 保留错峰、人物回应与回稳，共三个已验证组；`continuous-performance@1.0.0` 保留同物件变形、拆解与闭合，共两个已验证组。`paper-balance@1.0.0` 是一个纸面透视续接组。稳定范围限于已验收的 macOS 1080p60，不代表整份来源或任意文案已模板化；逐组边界见[能力矩阵](docs/capability-matrix.md)。旧候选版本保留，B 的计划干扰组仍在候选中。旧 `anim3/anim4` 分别有 12/9 个完整场景，仍为 experimental。包 ID 与原片标题、品牌无关。
    C/D/E 的 `stage-performance@1.0.0`、`editorial-performance@1.0.0` 与 `kinetic-performance@1.0.0` 各有三个稳定组，分别保留前后层与人物让位、分栏与跨栏交接、整词与实体回应。每条路线都由未参与提炼的执行者从冻结公开包和本期输入独立制作一部 99.5 秒新片，作者确认成立。旧候选原字节保留；本期桥接不计作公开稳定组。
 2. 只需轻量短片、探索版式时，使用 9 个基础 [`TPL`](references/templates.md)；它们是 quick-start，不包含完整工程包里的全部动作。

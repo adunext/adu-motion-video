@@ -116,6 +116,29 @@
           "qualityLimits": "严格栅格审计仍保留 1 issue/2 warning；实际限制见包 review.json"
         }
       ]
+    },
+    {
+      "id": "03",
+      "title": "深色 3D",
+      "styles": [
+        {
+          "id": "03-A",
+          "title": "多屏展陈",
+          "status": "experimental",
+          "selection": "anim4-showcase-macro@1.0.0",
+          "preview": "assets/demos/03-A.gif",
+          "demo": "assets/demos/03-A.mp4",
+          "requires": [
+            "本期真人口播与对应文案",
+            "所选场景的真实作品、比较视频与软件录屏",
+            "按场景提供头像、标识、作品清单与来源图标"
+          ],
+          "scope": "九场既有完整宏场景；当前为试用，未作为新稳定路线发布",
+          "guide": "references/dark-3d-template.md",
+          "previewBasis": "源演出的深色软件窗口段；只展示所有者口播与本人软件录屏，不是新内容成片证据",
+          "demoAudio": "none; silent source performance preview"
+        }
+      ]
     }
   ],
   "releaseVersion": "3.3.0"
