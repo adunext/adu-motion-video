@@ -81,5 +81,35 @@ class ReviewedPublicationTest(unittest.TestCase):
                 with self.assertRaises(ValueError): freeze(source, evidence, readme, root / 'stable')
                 self.assertFalse((root / 'stable').exists())
 
+    def test_embedded_adaptation_subset_keeps_source_locks_and_dependencies(self):
+        from adaptation import load_profile
+        for dependent in (False, True):
+            with self.subTest(dependent=dependent), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                source, evidence, readme, record = self.fixture(root)
+                manifest = json.loads((source / 'manifest.json').read_text())
+                manifest['adaptationProfile'] = {'schema': 'adu-adaptation-profile/1',
+                    'id': 'example-adaptation', 'version': '0.1.0', 'scenes': [
+                        {'sceneId': s['id'], 'sourceBlockSha256': s['sourceBlockSha256'],
+                         'intents': ['claim'], 'requiredPhases': ['claim'], 'effects': ['card'],
+                         'energy': 1, 'cardinality': {}, 'entry': {'mode': 'independent'}, 'exit': {},
+                         'cueRoles': {}, 'splitPolicy': {'mode': 'atomic', 'reason': 'complete scene'},
+                         'audio': {'mode': 'source-remap', 'tailPolicy': 'preserve'}} for s in manifest['scenes']]}
+                if dependent:
+                    manifest['adaptationProfile']['scenes'][0]['entry'] = {'mode': 'match-cut', 'requiresPrevious': ['unreviewed']}
+                (source / 'manifest.json').write_text(json.dumps(manifest))
+                record['manifestSha256'] = hashlib.sha256((source / 'manifest.json').read_bytes()).hexdigest()
+                evidence.write_text(json.dumps(record))
+                if dependent:
+                    with self.assertRaisesRegex(ValueError, 'unknown scenes'):
+                        freeze(source, evidence, readme, root / 'stable')
+                    self.assertFalse((root / 'stable').exists())
+                else:
+                    freeze(source, evidence, readme, root / 'stable')
+                    result = json.loads((root / 'stable/manifest.json').read_text())
+                    profile = load_profile(result, root / 'absent')
+                    self.assertEqual([s['sceneId'] for s in profile['scenes']], ['used'])
+                    self.assertEqual(profile['pack']['version'], '1.0.0')
+
 
 if __name__ == '__main__': unittest.main()

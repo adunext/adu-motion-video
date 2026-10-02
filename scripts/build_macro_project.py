@@ -318,7 +318,7 @@ def write_project_audio(stage: Path, music: dict) -> None:
     """Freeze the sound recipe with the project so future skill updates cannot alter it."""
     runtime = stage / 'audio_runtime'
     runtime.mkdir(exist_ok=True)
-    for name in ('macro_audio.py', 'audiolib.py'):
+    for name in ('macro_audio.py', 'audiolib.py', 'adaptation_audio.py'):
         shutil.copy2(ROOT / 'scripts' / name, runtime / name)
     (stage / 'macro_music.json').write_text(json.dumps(music, ensure_ascii=False, indent=2) + '\n')
     (stage / 'audio.py').write_text('''import sys, json
@@ -335,6 +335,8 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
     if output.exists() or output.is_symlink(): fail(f'Refusing existing project: {output}')
     if not output.parent.is_dir(): fail(f'Project parent does not exist: {output.parent}')
     pack = read_json(pack_dir / 'manifest.json'); spec = read_json(spec_path)
+    from adaptation import load_profile, validate_adapted_spec
+    adaptation = validate_adapted_spec(pack, spec, spec_path.parent, ROOT / 'adaptation-profiles', allow_pending_talk=True)
     try:
         mix_settings = initial_settings(spec)
     except ValueError as exc:
@@ -517,6 +519,14 @@ function raceAt(e, sourceTime, opacity=1) {
                                              'window.MACRO_NUMBERS_BY_INSTANCE = ' + json.dumps(number_maps) + ';\n'
                                              'window.MACRO_RACE_SEGMENTS = ' + json.dumps(race_segments) + ';\n')
         (stage / 'macro_plan.json').write_text(json.dumps(plan, ensure_ascii=False, indent=2) + '\n')
+        from adaptation_audio import audio_boundary_report
+        (stage / 'audio_boundary_report.json').write_text(json.dumps(audio_boundary_report(plan), ensure_ascii=False, indent=2) + '\n')
+        if adaptation['applicable']:
+            profile = load_profile(pack, ROOT / 'adaptation-profiles',
+                                   profile_id=spec['adaptation']['profileId'],
+                                   version=spec['adaptation']['profileVersion'])
+            (stage / 'adaptation_profile.json').write_text(json.dumps(profile, ensure_ascii=False, indent=2) + '\n')
+            (stage / 'adaptation_report.json').write_text(json.dumps(plan['adaptation'], ensure_ascii=False, indent=2) + '\n')
         (stage / 'macro_main.js').write_text((ROOT / 'scripts' / 'macro_runtime.js').read_text())
         runtime_scripts = []
         for relative in pack.get('runtimeFiles', []):
@@ -589,8 +599,13 @@ function raceAt(e, sourceTime, opacity=1) {
                                   'startFrame': item['output_start_frame'], 'endFrame': item['output_end_frame'],
                                   'reuse': 'reviewed-parameter-binding' } for item in plan['scenes']],
                       'frozenRuntime': {name: hashlib.sha256((stage / name).read_bytes()).hexdigest()
-                                        for name in ['lib.js', 'macro_main.js', 'style.css', 'audio_runtime/mix_recipe.py', *pack.get('runtimeFiles', [])]},
+                                        for name in ['lib.js', 'macro_main.js', 'style.css', 'audio_runtime/mix_recipe.py',
+                                                     'audio_runtime/macro_audio.py', 'audio_runtime/audiolib.py',
+                                                     'audio_runtime/adaptation_audio.py', *pack.get('runtimeFiles', [])]},
                       'qualityStatus': 'built-not-visually-accepted'}
+        if adaptation['applicable']:
+            provenance['adaptation'] = {key: spec['adaptation'][key]
+                                        for key in ('profileId', 'profileVersion', 'profileDigest')}
         (stage / 'recipe_versions.json').write_text(json.dumps(provenance, ensure_ascii=False, indent=2) + '\n')
         (stage / 'macro_source_audio.json').write_text((pack_dir / 'audio_timeline.json').read_text()
                                                       if (pack_dir / 'audio_timeline.json').exists() else '{}\n')

@@ -1,0 +1,78 @@
+{
+  "schema": "adu-adaptation-profile/1",
+  "id": "paper-balance-adaptation",
+  "version": "0.1.0",
+  "quality": "adaptation-experimental",
+  "pack": {
+    "id": "paper-balance",
+    "version": "1.0.0",
+    "manifestDigest": "f988596b7351fbdfdc06d541efcfb4bd49d29dbb20c7da1af1959f874fe36829"
+  },
+  "review": {
+    "basis": "source-code-and-manifest",
+    "status": "code-reviewed",
+    "scope": "只覆盖完整现有场景的规划能力；不代表新文案、新接缝或新音视频通过作者验收。"
+  },
+  "scenes": [
+    {
+      "intents": [
+        "tension-value-steps"
+      ],
+      "requiredPhases": [
+        "tension",
+        "value",
+        "illustration",
+        "steps"
+      ],
+      "effects": [
+        "paper-balance",
+        "illustration-reveal",
+        "three-step-confirmation",
+        "ball-release"
+      ],
+      "energy": 2,
+      "cardinality": {
+        "opposition": {
+          "min": 2,
+          "max": 2
+        },
+        "steps": {
+          "min": 3,
+          "max": 3
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "天平左右矛盾、重心转向实际价值、插图与三步确认共用纸面空间；小球尾迹和释放位于完整组末尾，不能在回顾前截断。"
+      },
+      "sceneId": "apparent-tension-to-value",
+      "sourceBlockSha256": "667261b93a3eee5b501f094319e44e5d4d975f3ee6b544265638bfc221deeda3",
+      "entry": {
+        "mode": "independent"
+      },
+      "exit": {},
+      "cueRoles": {
+        "value": "value",
+        "illustration": "illustration",
+        "steps": "steps"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "保留源码小球碰撞、手写和确认等原动作音效的生成参数与尾音。公开包合成配乐是已披露的新配乐替代，不是原外部BGM；新组合仍须连续试听。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "units/apparent-tension-to-value.js",
+        "role": "表面矛盾 → 实际用途 → 可执行三步",
+        "boundaryBasis": {
+          "entry": "retains source presenter return, question and balance entrance",
+          "exit": "includes all three recap confirmations, ball trail and release",
+          "connection": "self-contained continuation; other connections unverified",
+          "openingPresenterDelaySeconds": 0.37
+        },
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。"
+      }
+    }
+  ]
+}

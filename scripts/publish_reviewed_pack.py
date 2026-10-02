@@ -109,6 +109,13 @@ def freeze(source: Path, evidence_path: Path, readme_path: Path, target: Path):
                               'limits': limits}
     promoted.setdefault('distribution', {})['status'] = 'stable within recorded scope and environment'
     promoted['files'] = {name: sha(data) for name, data in sorted(blobs.items())}
+    if 'adaptationProfile' in promoted:
+        from adaptation import load_profile
+        promoted['adaptationProfile']['scenes'] = [item for item in promoted['adaptationProfile']['scenes']
+                                                    if item['sceneId'] in ids]
+        # A selected group cannot drop a required predecessor/successor when
+        # publishing a subset. The embedded contract binds the new manifest.
+        load_profile(promoted, Path(__file__).resolve().parents[1] / 'adaptation-profiles')
     require((source / 'manifest.json').read_bytes() == manifest_bytes,
             'Source manifest changed during publication')
     with tempfile.TemporaryDirectory(prefix='adu-reviewed-pack-') as temporary:

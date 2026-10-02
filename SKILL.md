@@ -2,7 +2,7 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。需要可读写本地文件并运行命令的 Agent。
 metadata:
-  version: "3.3.1"
+  version: "3.4.0"
 ---
 
 # adu-motion-video
@@ -25,6 +25,8 @@ metadata:
 3.3.0 新增 **02-B · 纸面聚合** `paper-ball-performance@1.0.0`：六类资料聚合成网络，以及七步日历、六类能力、三项开箱和交付卡堆叠两个稳定组。源/重放对照与 18.2667 秒不同内容样片已获作者声画确认。需要本期真人口播/文案，并显式提供固定 SHA 的标题字体；详见[包说明](packs/paper-ball-performance/1.0.0/README.md)。这是组级增量，不是新整片路线；严格栅格问题保留在 review.json。3.2.0 的十五个稳定组与旧候选均保持原字节，当前七个风格共十七个稳定组。
 
 ## 完整工程包流程
+
+新文案先按[系统适配机制](references/adaptive-composition.md)形成 `brief.json`，运行 `bash "$PL" macro-plan 包ID@版本 brief.json 新规划目录`。该入口按语义阶段、数量、原速动作窗和前后场依赖筛选，再在合法组合内减少效果重复。8 个风格包的 26 个完整组已有代码核对的适配 profile，能力仍为 adaptation-experimental。输出 `spec.json/report.json/report.md/profile.json`；退出码 0 为绑定检查通过，2 为已保存待补或受阻草稿，1 为无效输入。媒体或真实关键词时码缺失时修改 brief 并重新规划，不填源演示时码。`macro-spec` 保留为历史/人工配方入口，它不提供这层语义与邻接诊断；新制作优先沿用带 `adaptation` 的计划，构建会重新验证。
 
 1. `bash "$PL" doctor` 检查 Node、Python、FFmpeg 和 Chrome；缺依赖且允许安装时再 `bash "$PL" setup`。保持源工程和原成片只读，输出到不存在的新路径。
 2. 先锁定用户指定的模板来源。素材目录里的其他 `anim`、新工程或旧成片不自动成为动画底稿；不能只插入少数模板片段就称整片使用了指定模板。逐场记录来源包与场景 ID，混用完整包见[来源与多包编排](references/full-project-templating.md#来源与多包编排)。对齐新口播和文案，取得关键台词的准确时间。SRT 只有整句时间时，不可臆测句内某个词的时间；用逐词对齐数据或人工标注。读包的 `role`、`cues`、`motionWindows`、`slots`，按意义挑选、重排或重复完整场景。先列出分镜和缺少的素材。

@@ -884,6 +884,11 @@ def map_audio_timeline(plan: dict, authored: dict) -> dict:
 def compile_plan(manifest: dict, spec: dict, *, spec_dir: Path | None = None,
                  project: Path | None = None, audio_timeline: dict | None = None) -> dict:
     spec_dir = Path.cwd() if spec_dir is None else Path(spec_dir)
+    # Import lazily: the selector reuses this module's original timing solver.
+    from adaptation import validate_adapted_spec
+    adaptation = validate_adapted_spec(manifest, spec, spec_dir,
+                                      Path(__file__).resolve().parents[1] / 'adaptation-profiles',
+                                      project=project)
     pack_id = manifest.get("id")
     require(isinstance(pack_id, str) and pack_id, "Pack manifest needs id")
     require(spec.get("pack", pack_id) == pack_id, f"Target pack {spec.get('pack')} differs from manifest {pack_id}")
@@ -941,6 +946,8 @@ def compile_plan(manifest: dict, spec: dict, *, spec_dir: Path | None = None,
     plan["fidelity"] = "motion-windows" if all(scene["motionWindows"] for scene in result_scenes) else "cue-only"
     if audio_timeline is not None:
         map_audio_timeline(plan, audio_timeline)
+    if adaptation['applicable']:
+        plan['adaptation'] = adaptation
     return plan
 
 

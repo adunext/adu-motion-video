@@ -150,6 +150,8 @@ https://github.com/adunext/adu-motion-video
 
 ## 技术资料
 
+新增[文案适配机制](references/adaptive-composition.md)：按表达关系选择完整镜头组，检查数量、动作时间、相邻衔接与声音尾音，并在合格组合内减少效果重复。已覆盖 8 个风格包、26 个完整组的规划规则；[两种文案与诊断示例](examples/adaptation/README.md)可查看选场差异。适配能力仍需本期声画验收，原模板发布等级保持不变。
+
 <details>
 <summary><strong>展开模板版本、素材 API 与安装制作说明</strong></summary>
 

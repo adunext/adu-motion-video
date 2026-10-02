@@ -1,0 +1,184 @@
+{
+  "schema": "adu-adaptation-report/1",
+  "ready": false,
+  "status": "needs-binding",
+  "profileId": "classic-performance-adaptation",
+  "profileDigest": "a5441e5b047ac7a3da6cbfe16f0a40b111fa1c55f29fa9dc203aad6dce0d43ac",
+  "selectedScenes": [
+    "evidence-focus",
+    "decompose-and-consolidate"
+  ],
+  "segments": [
+    {
+      "segmentId": "meeting-evidence",
+      "candidates": [
+        {
+          "sceneId": "claim-into-container",
+          "status": "rejected",
+          "reasons": [
+            "intent 'evidence-result-observations' is not supported",
+            "required semantic phases missing or out of order: claim → method → distribution → proof → response",
+            "cardinality receivers needs an explicit count"
+          ]
+        },
+        {
+          "sceneId": "evidence-focus",
+          "status": "needs-binding",
+          "reasons": [],
+          "missing": [
+            "anchor overview (overview)",
+            "anchor result (result)",
+            "anchor focus (focus)",
+            "slot overview",
+            "slot detail",
+            "slot result"
+          ],
+          "deferred": [
+            {
+              "sceneId": "evidence-focus",
+              "instanceId": "meeting-evidence",
+              "slot": "presenter",
+              "check": "imported-narration",
+              "stage": "after-macro-build-import",
+              "reason": "本期 talk 在 macro-build 导入后验证；当前仅通过导入前检查"
+            }
+          ]
+        },
+        {
+          "sceneId": "decompose-and-consolidate",
+          "status": "rejected",
+          "reasons": [
+            "intent 'evidence-result-observations' is not supported",
+            "required semantic phases missing or out of order: concept → parts → consolidation → result",
+            "cardinality parts needs an explicit count"
+          ]
+        }
+      ]
+    },
+    {
+      "segmentId": "meeting-method",
+      "candidates": [
+        {
+          "sceneId": "claim-into-container",
+          "status": "rejected",
+          "reasons": [
+            "intent 'concept-decomposition' is not supported",
+            "required semantic phases missing or out of order: claim → method → distribution → proof → response",
+            "cardinality receivers needs an explicit count"
+          ]
+        },
+        {
+          "sceneId": "evidence-focus",
+          "status": "rejected",
+          "reasons": [
+            "intent 'concept-decomposition' is not supported",
+            "required semantic phases missing or out of order: overview → detail → result → observations → conclusion",
+            "cardinality observations needs an explicit count",
+            "cardinality evidence needs an explicit count"
+          ]
+        },
+        {
+          "sceneId": "decompose-and-consolidate",
+          "status": "needs-binding",
+          "reasons": [],
+          "missing": [
+            "anchor concept (concept)",
+            "anchor decompose (decompose)",
+            "anchor result (result)"
+          ],
+          "deferred": [
+            {
+              "sceneId": "decompose-and-consolidate",
+              "instanceId": "meeting-method",
+              "slot": "presenter",
+              "check": "imported-narration",
+              "stage": "after-macro-build-import",
+              "reason": "本期 talk 在 macro-build 导入后验证；当前仅通过导入前检查"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "selection": [
+    {
+      "segmentId": "meeting-evidence",
+      "sceneId": "evidence-focus",
+      "intent": "evidence-result-observations",
+      "effects": [
+        "video-relay",
+        "sequential-focus",
+        "conclusion-reveal"
+      ],
+      "energy": 2,
+      "incrementalCost": 6000.0,
+      "missingBindingCost": 6000,
+      "missingSeamCost": 0
+    },
+    {
+      "segmentId": "meeting-method",
+      "sceneId": "decompose-and-consolidate",
+      "intent": "concept-decomposition",
+      "effects": [
+        "keyword-impact",
+        "three-part-demo",
+        "card-archive",
+        "container-reveal"
+      ],
+      "energy": 3,
+      "incrementalCost": 3000.0,
+      "missingBindingCost": 3000,
+      "missingSeamCost": 0
+    }
+  ],
+  "score": 9000.0,
+  "validationStage": "pre-import",
+  "deferred": [
+    {
+      "sceneId": "evidence-focus",
+      "instanceId": "meeting-evidence",
+      "slot": "presenter",
+      "check": "imported-narration",
+      "stage": "after-macro-build-import",
+      "reason": "本期 talk 在 macro-build 导入后验证；当前仅通过导入前检查"
+    },
+    {
+      "sceneId": "decompose-and-consolidate",
+      "instanceId": "meeting-method",
+      "slot": "presenter",
+      "check": "imported-narration",
+      "stage": "after-macro-build-import",
+      "reason": "本期 talk 在 macro-build 导入后验证；当前仅通过导入前检查"
+    }
+  ],
+  "missing": [
+    "anchor overview (overview)",
+    "anchor result (result)",
+    "anchor focus (focus)",
+    "slot overview",
+    "slot detail",
+    "slot result",
+    "anchor concept (concept)",
+    "anchor decompose (decompose)",
+    "anchor result (result)"
+  ],
+  "seamRejections": [],
+  "search": {
+    "algorithm": "bounded-sequence-beam",
+    "beamWidth": 64,
+    "truncated": false
+  },
+  "audio": {
+    "policy": "preserve-source-events-and-tails",
+    "eventCount": 0,
+    "events": [],
+    "observedSource": "manifest-scene-sfx-only",
+    "runtimeEventCoverage": "unknown-until-frozen-runtime-events-are-inspected",
+    "denseWindows": [],
+    "unknownDurationCount": 0,
+    "preRoll": "unknown-without-exact-audio-timeline",
+    "reverbTail": "unknown-without-exact-audio-generator",
+    "reviewRequired": true,
+    "note": "No event is removed or shortened. Build/render must inspect the frozen audio source and listen continuously."
+  }
+}

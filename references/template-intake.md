@@ -31,6 +31,10 @@
 
 `authored-unit/1` 包沿用 macro-spec/macro-build 的输出口播时钟、保护动作窗、输入检查、音效重映和导出流程；runtimeFiles 保留路线运动函数。生成工程的 `recipe_versions.json` 固定包版本、源哈希、场景来源、输出帧和运行代码哈希。旧工程内已经保存 runtime，更新库不会自动改变它。
 
+新提案必须同时提供 `adaptationProfile`，结构参照 [现有能力合同](../adaptation-profiles/classic-performance/1.0.0.json)：去掉顶层 `pack` 锁，其余保留 `schema/id/version/scenes`；每个提炼单位都有 sceneId、意图、必需阶段、数量、效果家族、强度、进入/离开依赖、cueRoles、atomic 拆分策略和声音保留规则。`sourceBlockSha256` 可省略，由已审查 AST 源码填写；填了错误摘要会拒绝。提炼器在发布任何输出前检查合同，把它嵌入新 manifest。规划时再绑定完整 manifest 摘要，构建时再验；不通过修改旧包补能力。`--legacy` 仅供重新执行历史无合同提案，产物明确标 `unprofiled-legacy`，不获得自动适配资格。子集发布也检查前后依赖，不能发布一个缺少必要接力前场的组。
+
+能力设计和验证矩阵见[系统适配机制](adaptive-composition.md)。至少准备不同文案、短/长时长、数量和最长文本边界、两类新邻接以及音效尾音的声画证据。工具只校验结构和约束；这些检查不会自动晋级候选状态。
+
 `python3 scripts/source_registry.py link SOURCE_RECORD PACK/manifest.json` 将清单哈希与每组 ID/版本关联到来源。来源修订不符或同一 ID/版本内容变化会拒绝；关联本身不晋级质量状态。修改配方或公开元数据时创建新版本，旧版本保持可追溯。
 
 镜头组可用 `inputPath` 声明有名的语义字段，例如 `claim.line1`、`parts.0.label`、`evidence.video`。多个可见位置可以绑定同一个字段；`inputTemplate` 只插入文本值，例如 `// {chapter} — {label}`，不运行代码。配方内部仍固定经过核对的源码跨度，使用者在目标 spec 的 `inputs` 提供内容；不要同时填同一字段生成的内部 `slots`。`inputExample` 是可编辑的内容示意，媒体的空值表示缺项。

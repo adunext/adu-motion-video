@@ -1,0 +1,188 @@
+{
+  "schema": "adu-adaptation-profile/1",
+  "id": "classic-performance-adaptation",
+  "version": "0.1.0",
+  "quality": "adaptation-experimental",
+  "pack": {
+    "id": "classic-performance",
+    "version": "1.0.0",
+    "manifestDigest": "ec8e5c64f5d8dde0ca900a24b431207544529f768935e58c215a2ffa05eb73f8"
+  },
+  "review": {
+    "basis": "source-code-and-manifest",
+    "status": "code-reviewed",
+    "scope": "只覆盖完整现有场景的规划能力；不代表新文案、新接缝或新音视频通过作者验收。"
+  },
+  "scenes": [
+    {
+      "intents": [
+        "claim-method-proof-response"
+      ],
+      "requiredPhases": [
+        "claim",
+        "method",
+        "distribution",
+        "proof",
+        "response"
+      ],
+      "effects": [
+        "title-impact",
+        "container-reveal",
+        "staggered-distribution",
+        "presenter-reaction"
+      ],
+      "energy": 3,
+      "cardinality": {
+        "receivers": {
+          "min": 3,
+          "max": 3
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "主张、容器与三对象分发、证据和人物回应共同构成一次论证；当前只暴露完整组，没有独立子场景初始化与出场合同。"
+      },
+      "sceneId": "claim-into-container",
+      "sourceBlockSha256": "6dda3cacea9d11239f594807c4c7abdb8c5a202f22a21918062f0bc26b2da577",
+      "entry": {
+        "mode": "independent"
+      },
+      "exit": {},
+      "cueRoles": {
+        "container": "container",
+        "proof": "proof",
+        "response": "response"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "动作音效随真实关键词锚点与受保护动作映射，保留持续时间及尾音；新相邻组的重叠、音乐起伏与最终编码声画需逐段审核。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "units/claim-into-container.js",
+        "role": "主张→方法容器→三对象分发→证据→回应",
+        "boundaryBasis": {
+          "mode": "complete-original-scene",
+          "entry": "independent initial state; new narration presenter",
+          "exit": "retained source response and reading; next group establishes its own state"
+        },
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。"
+      }
+    },
+    {
+      "intents": [
+        "evidence-result-observations"
+      ],
+      "requiredPhases": [
+        "overview",
+        "detail",
+        "result",
+        "observations",
+        "conclusion"
+      ],
+      "effects": [
+        "video-relay",
+        "sequential-focus",
+        "conclusion-reveal"
+      ],
+      "energy": 2,
+      "cardinality": {
+        "observations": {
+          "min": 3,
+          "max": 3
+        },
+        "evidence": {
+          "min": 3,
+          "max": 3
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "三段视频按 overview→detail→result 接力，后续三项聚焦建立在结果上；切出单个聚焦会丢失真实证据和收束。"
+      },
+      "sceneId": "evidence-focus",
+      "sourceBlockSha256": "2e0ac04a41d46a55354af09c183d515ceaa7e59657b773bdeaedb72efb6f2678",
+      "entry": {
+        "mode": "independent"
+      },
+      "exit": {},
+      "cueRoles": {
+        "overview": "overview",
+        "result": "result",
+        "focus": "focus"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "动作音效随真实关键词锚点与受保护动作映射，保留持续时间及尾音；新相邻组的重叠、音乐起伏与最终编码声画需逐段审核。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "units/evidence-focus.js",
+        "role": "真实证据播放→三项聚焦→结论",
+        "boundaryBasis": {
+          "mode": "complete-original-scene",
+          "entry": "independent initial state; new narration presenter",
+          "exit": "retained source response and reading; next group establishes its own state"
+        },
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。"
+      }
+    },
+    {
+      "intents": [
+        "concept-decomposition"
+      ],
+      "requiredPhases": [
+        "concept",
+        "parts",
+        "consolidation",
+        "result"
+      ],
+      "effects": [
+        "keyword-impact",
+        "three-part-demo",
+        "card-archive",
+        "container-reveal"
+      ],
+      "energy": 3,
+      "cardinality": {
+        "parts": {
+          "min": 3,
+          "max": 3
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "三项样例依次演示后归档到同一方法容器；内部停留只允许读字延长，不能当作可独立拼接的剪点。"
+      },
+      "sceneId": "decompose-and-consolidate",
+      "sourceBlockSha256": "3e002508e96c802c7c7a25f96fb088f1f4db3e84767ac62846118ef58928874f",
+      "entry": {
+        "mode": "independent"
+      },
+      "exit": {},
+      "cueRoles": {
+        "concept": "concept",
+        "decompose": "decompose",
+        "result": "result"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "动作音效随真实关键词锚点与受保护动作映射，保留持续时间及尾音；新相邻组的重叠、音乐起伏与最终编码声画需逐段审核。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "units/decompose-and-consolidate.js",
+        "role": "关键词冲击→三项演示→分解归档→方法容器",
+        "boundaryBasis": {
+          "mode": "complete-original-scene",
+          "entry": "independent initial state; new narration presenter",
+          "exit": "retained source response and reading; next group establishes its own state"
+        },
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。"
+      }
+    }
+  ]
+}

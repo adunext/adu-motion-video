@@ -1,0 +1,70 @@
+{
+  "schema": "adu-adaptation-report/1",
+  "ready": false,
+  "status": "blocked",
+  "profileId": "classic-performance-adaptation",
+  "profileDigest": "a5441e5b047ac7a3da6cbfe16f0a40b111fa1c55f29fa9dc203aad6dce0d43ac",
+  "selectedScenes": [],
+  "segments": [
+    {
+      "segmentId": "too-short-and-incomplete",
+      "candidates": [
+        {
+          "sceneId": "claim-into-container",
+          "status": "rejected",
+          "reasons": [
+            "intent 'concept-decomposition' is not supported",
+            "required semantic phases missing or out of order: claim → method → distribution → proof → response",
+            "cardinality receivers needs an explicit count",
+            "claim-into-container needs at least 836 frames, got 120"
+          ]
+        },
+        {
+          "sceneId": "evidence-focus",
+          "status": "rejected",
+          "reasons": [
+            "intent 'concept-decomposition' is not supported",
+            "required semantic phases missing or out of order: overview → detail → result → observations → conclusion",
+            "cardinality observations needs an explicit count",
+            "cardinality evidence needs an explicit count",
+            "evidence-focus needs at least 880 frames, got 120"
+          ]
+        },
+        {
+          "sceneId": "decompose-and-consolidate",
+          "status": "rejected",
+          "reasons": [
+            "required semantic phases missing or out of order: concept → parts → consolidation → result",
+            "cardinality parts=5 is outside 3..3",
+            "decompose-and-consolidate needs at least 882 frames, got 120"
+          ]
+        }
+      ]
+    }
+  ],
+  "selection": [],
+  "score": null,
+  "validationStage": "bound-media",
+  "deferred": [],
+  "missing": [],
+  "seamRejections": [],
+  "search": {
+    "algorithm": "bounded-sequence-beam",
+    "beamWidth": 64,
+    "truncated": false
+  },
+  "audio": {
+    "policy": "preserve-source-events-and-tails",
+    "eventCount": 0,
+    "events": [],
+    "observedSource": "manifest-scene-sfx-only",
+    "runtimeEventCoverage": "unknown-until-frozen-runtime-events-are-inspected",
+    "denseWindows": [],
+    "unknownDurationCount": 0,
+    "preRoll": "unknown-without-exact-audio-timeline",
+    "reverbTail": "unknown-without-exact-audio-generator",
+    "reviewRequired": true,
+    "note": "No event is removed or shortened. Build/render must inspect the frozen audio source and listen continuously."
+  },
+  "reason": "No complete feasible sequence within the bounded search; revise semantics, narration duration, anchors, or scene dependencies. No static fallback was inserted."
+}

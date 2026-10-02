@@ -12,6 +12,7 @@ from pathlib import Path
 import subprocess
 import numpy as np
 import audiolib as A
+from adaptation_audio import audio_boundary_report
 
 
 def merged_sections(sections):
@@ -184,6 +185,7 @@ def render(project: Path, track: Path | None = None, offset: float = 0):
               'sfx': len(cues['sfx']), 'voiceRetimed': False,
               'review': 'Structure rendered; listening and source/reference comparison still required.'}
     (project / 'macro_audio_report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+    (project / 'audio_boundary_report.json').write_text(json.dumps(audio_boundary_report(plan, cues), ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(report, ensure_ascii=False))
 
 

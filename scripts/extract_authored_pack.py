@@ -109,12 +109,41 @@ def source_styles(source, entry, reviewed_files=None):
     return re.sub(r'@font-face\s*\{[^}]*\}', '', css, flags=re.I)
 
 
-def extract(source, proposal_path, output):
+def attach_adaptation_profile(manifest, descriptor, *, legacy=False):
+    """Freeze semantic/port requirements with new extraction, before publication."""
+    from copy import deepcopy
+    from adaptation import load_profile
+    if descriptor is None:
+        require(legacy, 'New extraction requires proposal.adaptationProfile; --legacy is only for replaying historical proposals')
+        manifest['adaptationStatus'] = 'unprofiled-legacy'
+        return
+    require(isinstance(descriptor, dict), 'adaptationProfile must be an object')
+    require('pack' not in descriptor, 'Embedded adaptationProfile omits pack; binding is derived from the frozen manifest')
+    manifest['adaptationProfile'] = deepcopy(descriptor)
+    declared = descriptor.get('scenes', [])
+    require(isinstance(declared, list) and all(isinstance(s, dict) for s in declared),
+            'adaptationProfile.scenes must be objects')
+    require({s.get('sceneId') for s in declared} == {s['id'] for s in manifest['scenes']},
+            'New extraction needs an adaptation contract for every extracted scene')
+    # Hashes come from the reviewed AST blocks, never from a copied proposal.
+    hashes = {s['id']: s['sourceBlockSha256'] for s in manifest['scenes']}
+    for item in manifest['adaptationProfile']['scenes']:
+        supplied = item.get('sourceBlockSha256')
+        require(supplied is None or supplied == hashes[item['sceneId']],
+                'adaptationProfile sourceBlockSha256 differs from extracted source')
+        item['sourceBlockSha256'] = hashes[item['sceneId']]
+    manifest['adaptationStatus'] = 'contract-validated-not-av-accepted'
+    load_profile(manifest, ROOT / 'adaptation-profiles')
+
+
+def extract(source, proposal_path, output, *, legacy=False):
     proposal=json.loads(proposal_path.read_text())
     require(not output.exists(), f'Refusing existing pack: {output}')
     require(output.parent.is_dir(), 'Output parent must exist')
     require(proposal.get('id') and proposal.get('version') and proposal.get('sourceRevision'),
             'Proposal needs pack id, version and frozen sourceRevision')
+    require(proposal.get('adaptationProfile') is not None or legacy,
+            'New extraction requires proposal.adaptationProfile; --legacy is only for replaying historical proposals')
     inventories={}
     with tempfile.TemporaryDirectory(prefix='adu-pack-extract-') as tmp:
         for file, expected in proposal['sourceFiles'].items():
@@ -171,6 +200,7 @@ def extract(source, proposal_path, output):
                   'assetDefinitions':proposal.get('assetDefinitions',{}),'environment':proposal.get('environment',{}),
                   'validation':{'sourceReplay':'pending','newContent':'pending','independentUse':'pending'},
                   'files':{p.relative_to(stage).as_posix():sha(p.read_bytes()) for p in sorted(stage.rglob('*')) if p.is_file()}}
+        attach_adaptation_profile(manifest, proposal.get('adaptationProfile'), legacy=legacy)
         (stage/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
         shutil.copytree(stage,output)
     return {'pack':proposal['id'],'version':proposal['version'],'units':len(scenes),'status':'candidate','path':str(output)}
@@ -179,7 +209,8 @@ def extract(source, proposal_path, output):
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('source',type=Path);parser.add_argument('proposal',type=Path);parser.add_argument('output',type=Path)
+    parser.add_argument('--legacy', action='store_true', help='Replay an old proposal without an adaptation contract; output stays unprofiled')
     args=parser.parse_args()
-    try: print(json.dumps(extract(args.source.resolve(),args.proposal.resolve(),args.output.resolve()),ensure_ascii=False))
+    try: print(json.dumps(extract(args.source.resolve(),args.proposal.resolve(),args.output.resolve(),legacy=args.legacy),ensure_ascii=False))
     except (ValueError,KeyError,IndexError,OSError,subprocess.CalledProcessError) as exc:
         raise SystemExit(f'Pack extraction failed: {exc}') from exc

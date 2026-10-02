@@ -8,4 +8,6 @@
 
 运行命令见 [README](README.md) 和 `scripts/pipeline.sh`。明确告知用户输入素材、生成工程与 MP4 的路径，以及首帧、字体、裁切、字幕、口型、音乐、音效、完整解码和原工程对照的实际检查结果。未完整验收的结果标记 **experimental**；不要保证任意新文案能自动无损套用。
 
+新文案复用先读[系统适配机制](references/adaptive-composition.md)，将整段表达标注意图、阶段、数量与真实落点，再运行 `macro-plan 包@版本 brief.json 新目录`。现有 8 份版本绑定 profile 覆盖 26 个完整组；先校验语义、容量、动作和接缝，再优化效果重复度。`needs-binding/blocked` 必须补 brief 或调整分镜并重新规划；不能删除 spec.adaptation 或修改 ready 来跳过检查。新提炼必须提供结构化 adaptationProfile；`--legacy` 仅重放历史提案。动作窗间隙不是自动剪点，细拆须另做独立入/出场与声画验证的新变体。
+
 03-A「深色 3D · 多屏展陈」选择 `anim4-showcase-macro@1.1.1-candidate`，读取[专门说明](references/dark-3d-template.md)。九场源码沿用旧包，新增原生竖屏，本期 1.1.1 色彩修正版已保存；冷安装历史属于 1.1.0，当前待作者连续声画确认；旧 1.0.0 和十七个稳定组保持原字节。不能把候选技术检查报告成新路线稳定或独立作者验收。

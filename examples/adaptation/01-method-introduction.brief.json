@@ -1,0 +1,113 @@
+{
+  "schema": "adu-adaptation-brief/1",
+  "fps": 60,
+  "brand": "内容示意",
+  "description": "同一01-A模板：方法介绍，优先使用主张分发与拆解归档两组；公开规划示例，没有配套真实口播、素材或关键词对齐。anchors留空是有意保留未解决项，不能直接当成可交付成片。",
+  "segments": [
+    {
+      "id": "care-method",
+      "text": "别靠记性照料阳台，先做一张照料卡。香草、观叶和多肉分别记录，每天根据这张卡调整。出差回来也有据可查。",
+      "intent": "claim-method-proof-response",
+      "phases": [
+        "claim",
+        "method",
+        "distribution",
+        "proof",
+        "response"
+      ],
+      "durationFrames": 960,
+      "counts": {
+        "receivers": 3
+      },
+      "anchors": {},
+      "candidates": {
+        "claim-into-container": {
+          "inputs": {
+            "chapter": "01",
+            "label": "阳台照料",
+            "claim": {
+              "line1": "别靠记性",
+              "line2": "照料绿植",
+              "context": "阳台照料方法 · 内容示意"
+            },
+            "container": {
+              "heading": "先做一张照料卡",
+              "type": "个人习惯 · 方法示意",
+              "name": "阳台照料卡",
+              "contents": "浇水　·　光照　·　观察",
+              "status": "✓ 可以记录"
+            },
+            "receivers": [
+              "香草",
+              "观叶",
+              "多肉"
+            ],
+            "proof": {
+              "heading": "每天只看这张卡",
+              "chain": "观察 → 记录 → 调整"
+            },
+            "response": {
+              "context": "照料习惯 · 内容示意",
+              "setup": "出差回来再检查",
+              "impact": "有据可查",
+              "resolve": "调整照料，不再猜。"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "care-checklist",
+      "text": "记录可以拆成三个支点：看叶片，量土壤，记变化。把三个支点归到照料卡里，下次调整时就有依据。",
+      "intent": "concept-decomposition",
+      "phases": [
+        "concept",
+        "parts",
+        "consolidation",
+        "result"
+      ],
+      "durationFrames": 1080,
+      "counts": {
+        "parts": 3
+      },
+      "anchors": {},
+      "candidates": {
+        "decompose-and-consolidate": {
+          "inputs": {
+            "chapter": "02",
+            "label": "观察与记录",
+            "context": "个人实践 · 内容示意",
+            "question": "怎样留下观察？",
+            "concept": "记录",
+            "explanation": "将一次经历，整理成可重复的步骤",
+            "decomposeHeading": "分开观察三个支点",
+            "consolidateHeading": "把三个支点，汇成一张卡",
+            "parts": [
+              {
+                "label": "叶片",
+                "sample": "叶色",
+                "record": "记下叶色"
+              },
+              {
+                "label": "土壤",
+                "sample": "湿度",
+                "record": "记录湿度"
+              },
+              {
+                "label": "变化",
+                "sample": "日期",
+                "record": "对照日期"
+              }
+            ],
+            "result": {
+              "file": "阳台观察卡",
+              "label": "下次可用",
+              "contents": "观察　·　记录　·　调整",
+              "conclusion": "先留下记录，再持续改善"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

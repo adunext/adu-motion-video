@@ -1,0 +1,111 @@
+{
+  "schema": "adu-adaptation-brief/1",
+  "fps": 60,
+  "brand": "内容示意",
+  "description": "同一01-A模板：证据复盘，优先使用真实证据聚焦与拆解归档两组；公开规划示例，没有配套真实口播、素材或关键词对齐。anchors留空是有意保留未解决项，不能直接当成可交付成片。",
+  "segments": [
+    {
+      "id": "meeting-evidence",
+      "text": "先看本次会议的原始记录，再看整理过程和最终行动表。三处变化值得检查：记录是否汇总，责任是否明确，后续是否有人跟进。",
+      "intent": "evidence-result-observations",
+      "phases": [
+        "overview",
+        "detail",
+        "result",
+        "observations",
+        "conclusion"
+      ],
+      "durationFrames": 960,
+      "counts": {
+        "observations": 3,
+        "evidence": 3
+      },
+      "anchors": {},
+      "candidates": {
+        "evidence-focus": {
+          "inputs": {
+            "chapter": "01",
+            "label": "会议复盘",
+            "entry": "先看这次真实记录",
+            "claim": "实际记录，让复盘具体",
+            "evidence": {
+              "title": "本期会议 · 待提供真实材料",
+              "resultTitle": "本期整理 · 待提供真实材料",
+              "overview": null,
+              "detail": null,
+              "result": null
+            },
+            "observations": [
+              {
+                "before": "散落",
+                "after": "汇总"
+              },
+              {
+                "before": "含糊",
+                "after": "明确"
+              },
+              {
+                "before": "遗漏",
+                "after": "跟进"
+              }
+            ],
+            "conclusion": "有过程，才有可执行的复盘"
+          }
+        }
+      }
+    },
+    {
+      "id": "meeting-method",
+      "text": "将复盘拆成三步：把事实列出来，把决定写清楚，再给行动定日期。把这三步收进复盘卡，下一次开会前接着用。",
+      "intent": "concept-decomposition",
+      "phases": [
+        "concept",
+        "parts",
+        "consolidation",
+        "result"
+      ],
+      "durationFrames": 1200,
+      "counts": {
+        "parts": 3
+      },
+      "anchors": {},
+      "candidates": {
+        "decompose-and-consolidate": {
+          "inputs": {
+            "chapter": "02",
+            "label": "形成复盘卡",
+            "context": "个人实践 · 内容示意",
+            "question": "怎样让结论落地？",
+            "concept": "复盘",
+            "explanation": "将一次经历，整理成可重复的步骤",
+            "decomposeHeading": "分开观察三个支点",
+            "consolidateHeading": "把三个支点，汇成一张卡",
+            "parts": [
+              {
+                "label": "事实",
+                "sample": "记录",
+                "record": "保留事实"
+              },
+              {
+                "label": "决定",
+                "sample": "共识",
+                "record": "写清决定"
+              },
+              {
+                "label": "行动",
+                "sample": "日期",
+                "record": "明确日期"
+              }
+            ],
+            "result": {
+              "file": "会议复盘卡",
+              "label": "下次可用",
+              "contents": "事实　·　决定　·　行动",
+              "conclusion": "先留下记录，再持续改善"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

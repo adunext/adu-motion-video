@@ -13,6 +13,7 @@
 # seg <dir> <i> <NEW.mp4> [K] safe full fresh render, no cache speedup
 # check <file.mp4>            frame count/rate, complete decode, loudness and peak
 # macro-spec <pack> <NEW.json>  full-pack binding and semantic timing scaffold
+# macro-plan <pack> <brief.json> <NEW dir>  semantic/continuity/variety plan (draft exits 2)
 # macro-build <pack> <spec> <talk.mp4> <NEW dir> [--subs-js file]
 # Overrides: HTML=index.html W=1920 H=1080 FPS=60 END=seconds CHROME=/path/to/chrome
 set -euo pipefail
@@ -37,6 +38,10 @@ PY
   fi
 }
 case "$cmd" in
+macro-plan)
+  [ "$#" -eq 4 ] || { echo 'Usage: pipeline.sh macro-plan <pack-id@version|pack-directory> <brief.json> <NEW directory>' >&2; exit 2; }
+  python3 "$SC/plan_macro_project.py" "$2" "$3" "$4"
+  ;;
 macro-spec)
   [ "$#" -eq 3 ] || { echo 'Usage: pipeline.sh macro-spec <pack-id@version|pack-directory> <NEW.json>' >&2; exit 2; }
   PACK_DIR="$(python3 "$SC/pack_catalog.py" resolve "$D")"

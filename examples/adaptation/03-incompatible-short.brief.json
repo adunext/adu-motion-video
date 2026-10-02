@@ -1,0 +1,23 @@
+{
+  "schema": "adu-adaptation-brief/1",
+  "fps": 60,
+  "brand": "内容示意",
+  "description": "故意不适配：时长不足、五项内容与固定三项冲突、缺收束阶段和真实关键词时码；公开规划示例，没有配套真实口播、素材或关键词对齐。anchors留空是有意保留未解决项，不能直接当成可交付成片。",
+  "segments": [
+    {
+      "id": "too-short-and-incomplete",
+      "text": "五个技巧，两秒讲完。",
+      "intent": "concept-decomposition",
+      "phases": [
+        "concept",
+        "parts"
+      ],
+      "durationFrames": 120,
+      "counts": {
+        "parts": 5
+      },
+      "anchors": {},
+      "candidates": {}
+    }
+  ]
+}

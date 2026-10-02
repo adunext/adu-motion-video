@@ -1,0 +1,193 @@
+{
+  "schema": "adu-adaptation-profile/1",
+  "id": "stage-performance-adaptation",
+  "version": "0.1.0",
+  "quality": "adaptation-experimental",
+  "pack": {
+    "id": "stage-performance",
+    "version": "1.0.0",
+    "manifestDigest": "6368f1698d1f17da718a26db7e08252cf9262ace42ce90e0ccf60713657ca5de"
+  },
+  "review": {
+    "basis": "source-code-and-manifest",
+    "status": "code-reviewed",
+    "scope": "只覆盖完整现有场景的规划能力；不代表新文案、新接缝或新音视频通过作者验收。"
+  },
+  "scenes": [
+    {
+      "intents": [
+        "claim-method-proof-response"
+      ],
+      "requiredPhases": [
+        "claim",
+        "method",
+        "distribution",
+        "proof",
+        "response"
+      ],
+      "effects": [
+        "depth-stage",
+        "foreground-background-relay",
+        "staggered-distribution",
+        "presenter-reaction"
+      ],
+      "energy": 2,
+      "cardinality": {
+        "audience": {
+          "min": 3,
+          "max": 3
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "人物在前后层让位，方法、三对象与回应沿舞台完成；当前没有重新建立纵深关系的子变体。"
+      },
+      "sceneId": "claim-and-response",
+      "sourceBlockSha256": "39bc3f3577abb71513703133f51638947a42c3cbb7171d24b7cb92666cd65603",
+      "entry": {
+        "mode": "independent"
+      },
+      "exit": {},
+      "cueRoles": {
+        "method": "method",
+        "distribution": "distribution",
+        "proof": "proof",
+        "response": "response"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "动作音效随真实关键词锚点与受保护动作映射，保留持续时间及尾音；新相邻组的重叠、音乐起伏与最终编码声画需逐段审核。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "units/claim-and-response.js",
+        "role": "主张 → 方法与对象 → 本期实践 → 回应",
+        "boundaryBasis": {
+          "mode": "complete-original-scene",
+          "entry": "Independent source initial state, output-clock presenter, original layer relationships",
+          "exit": "Original response/read/fold retained; next scene establishes its own state",
+          "review": "Source closure retained; continuous source/new AV still requires owner review"
+        },
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。"
+      }
+    },
+    {
+      "intents": [
+        "evidence-result-observations"
+      ],
+      "requiredPhases": [
+        "overview",
+        "detail",
+        "result",
+        "observations",
+        "conclusion"
+      ],
+      "effects": [
+        "depth-stage",
+        "video-relay",
+        "three-point-focus",
+        "presenter-reframe"
+      ],
+      "energy": 2,
+      "cardinality": {
+        "observations": {
+          "min": 3,
+          "max": 3
+        },
+        "evidence": {
+          "min": 3,
+          "max": 3
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "三段真实材料与人物让位、三项观察共同完成；需保留素材交接和舞台层次，内部阅读间隙不能独立起场。"
+      },
+      "sceneId": "evidence-and-focus",
+      "sourceBlockSha256": "42785febdbbda540f290b2df5c4455633e375399d8c40125dab08fb795ab31af",
+      "entry": {
+        "mode": "independent"
+      },
+      "exit": {},
+      "cueRoles": {
+        "overview": "overview",
+        "detail": "detail",
+        "result": "result",
+        "focus": "focus"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "动作音效随真实关键词锚点与受保护动作映射，保留持续时间及尾音；新相邻组的重叠、音乐起伏与最终编码声画需逐段审核。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "units/evidence-and-focus.js",
+        "role": "实际材料 → 本期结果 → 三处观察 → 归纳",
+        "boundaryBasis": {
+          "mode": "complete-original-scene",
+          "entry": "Independent source initial state, output-clock presenter, original layer relationships",
+          "exit": "Original response/read/fold retained; next scene establishes its own state",
+          "review": "Source closure retained; continuous source/new AV still requires owner review"
+        },
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。"
+      }
+    },
+    {
+      "intents": [
+        "concept-decomposition"
+      ],
+      "requiredPhases": [
+        "concept",
+        "parts",
+        "consolidation",
+        "result"
+      ],
+      "effects": [
+        "depth-stage",
+        "three-part-demo",
+        "group-consolidation"
+      ],
+      "energy": 2,
+      "cardinality": {
+        "parts": {
+          "min": 3,
+          "max": 3
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "三张面板的字效、栅格与路径演示先展开后收拢，属于完整因果链；新子片段尚无验收。"
+      },
+      "sceneId": "decompose-and-consolidate",
+      "sourceBlockSha256": "63f3354311fc4c413e11a08ff92e0cfe1408347c0774ab615b2cff3046b3e51d",
+      "entry": {
+        "mode": "independent"
+      },
+      "exit": {},
+      "cueRoles": {
+        "concept": "concept",
+        "decompose": "decompose",
+        "consolidate": "consolidate"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "动作音效随真实关键词锚点与受保护动作映射，保留持续时间及尾音；新相邻组的重叠、音乐起伏与最终编码声画需逐段审核。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "units/decompose-and-consolidate.js",
+        "role": "概念 → 分解为步骤 → 收拢 → 本期方法",
+        "boundaryBasis": {
+          "mode": "complete-original-scene",
+          "entry": "Independent source initial state, output-clock presenter, original layer relationships",
+          "exit": "Original response/read/fold retained; next scene establishes its own state",
+          "review": "Source closure retained; continuous source/new AV still requires owner review"
+        },
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。"
+      }
+    }
+  ]
+}
