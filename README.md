@@ -29,11 +29,11 @@ Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选�
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/01-A.mp4?raw=true"><img src="assets/demos/01-A.gif" alt="01-A · 原片节奏" width="128" height="72"><br><strong>01-A</strong><br><sub>原片节奏</sub></a></td>
-    <td align="center" width="144"><a href="assets/demos/01-B.mp4?raw=true"><img src="assets/demos/01-B.gif" alt="01-B · 连续形变" width="128" height="72"><br><strong>01-B</strong><br><sub>连续形变</sub></a></td>
-    <td align="center" width="144"><a href="assets/demos/01-C.mp4?raw=true"><img src="assets/demos/01-C.gif" alt="01-C · 纵深舞台" width="128" height="72"><br><strong>01-C</strong><br><sub>纵深舞台</sub></a></td>
-    <td align="center" width="144"><a href="assets/demos/01-D.mp4?raw=true"><img src="assets/demos/01-D.gif" alt="01-D · 杂志分屏" width="128" height="72"><br><strong>01-D</strong><br><sub>杂志分屏</sub></a></td>
-    <td align="center" width="144"><a href="assets/demos/01-E.mp4?raw=true"><img src="assets/demos/01-E.gif" alt="01-E · 节拍字效" width="128" height="72"><br><strong>01-E</strong><br><sub>节拍字效</sub></a></td>
+    <td align="center" width="144"><a href="assets/demos/01-A.mp4?raw=true"><img src="assets/demos/01-A.gif" alt="01-A · 原片节奏" width="128" height="72"></a><br><strong>01-A</strong><br><sub>原片节奏</sub></td>
+    <td align="center" width="144"><a href="assets/demos/01-B.mp4?raw=true"><img src="assets/demos/01-B.gif" alt="01-B · 连续形变" width="128" height="72"></a><br><strong>01-B</strong><br><sub>连续形变</sub></td>
+    <td align="center" width="144"><a href="assets/demos/01-C.mp4?raw=true"><img src="assets/demos/01-C.gif" alt="01-C · 纵深舞台" width="128" height="72"></a><br><strong>01-C</strong><br><sub>纵深舞台</sub></td>
+    <td align="center" width="144"><a href="assets/demos/01-D.mp4?raw=true"><img src="assets/demos/01-D.gif" alt="01-D · 杂志分屏" width="128" height="72"></a><br><strong>01-D</strong><br><sub>杂志分屏</sub></td>
+    <td align="center" width="144"><a href="assets/demos/01-E.mp4?raw=true"><img src="assets/demos/01-E.gif" alt="01-E · 节拍字效" width="128" height="72"></a><br><strong>01-E</strong><br><sub>节拍字效</sub></td>
   </tr>
 </table>
 
@@ -48,8 +48,8 @@ Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选�
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/02-A.mp4?raw=true"><img src="assets/demos/02-A.gif" alt="02-A · 纸面天平" width="128" height="72"><br><strong>02-A</strong><br><sub>纸面天平</sub></a></td>
-    <td align="center" width="144"><a href="assets/demos/02-B.mp4?raw=true"><img src="assets/demos/02-B.gif" alt="02-B · 纸面聚合，局部静音预览" width="104" height="72"><br><strong>02-B</strong><br><sub>纸面聚合</sub></a></td>
+    <td align="center" width="144"><a href="assets/demos/02-A.mp4?raw=true"><img src="assets/demos/02-A.gif" alt="02-A · 纸面天平" width="128" height="72"></a><br><strong>02-A</strong><br><sub>纸面天平</sub></td>
+    <td align="center" width="144"><a href="assets/demos/02-B.mp4?raw=true"><img src="assets/demos/02-B.gif" alt="02-B · 纸面聚合，局部静音预览" width="104" height="72"></a><br><strong>02-B</strong><br><sub>纸面聚合</sub></td>
   </tr>
 </table>
 
@@ -66,8 +66,8 @@ Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选�
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/03-A.mp4?raw=true"><img src="assets/demos/03-A.gif" alt="03-A · 多屏展陈，新内容横屏窗口预览" width="128" height="72"><br><strong>03-A · 横屏</strong><br><sub>多屏展陈</sub></a></td>
-    <td align="center" width="144"><a href="assets/demos/03-A-portrait.mp4?raw=true"><img src="assets/demos/03-A-portrait.gif" alt="03-A · 多屏展陈，新内容原生竖屏窗口预览" width="40" height="72"><br><strong>03-A · 竖屏</strong><br><sub>多屏展陈</sub></a></td>
+    <td align="center" width="144"><a href="assets/demos/03-A.mp4?raw=true"><img src="assets/demos/03-A.gif" alt="03-A · 多屏展陈，新内容横屏窗口预览" width="128" height="72"></a><br><strong>03-A · 横屏</strong><br><sub>多屏展陈</sub></td>
+    <td align="center" width="144"><a href="assets/demos/03-A-portrait.mp4?raw=true"><img src="assets/demos/03-A-portrait.gif" alt="03-A · 多屏展陈，新内容原生竖屏窗口预览" width="40" height="72"></a><br><strong>03-A · 竖屏</strong><br><sub>多屏展陈</sub></td>
   </tr>
 </table>
 
