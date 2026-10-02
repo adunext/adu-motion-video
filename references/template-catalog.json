@@ -125,7 +125,7 @@
           "id": "03-A",
           "title": "多屏展陈",
           "status": "candidate",
-          "selection": "anim4-showcase-macro@1.1.0-candidate",
+          "selection": "anim4-showcase-macro@1.1.1-candidate",
           "preview": "assets/demos/03-A.gif",
           "demo": "assets/demos/03-A.mp4",
           "requires": [

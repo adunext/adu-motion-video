@@ -17,6 +17,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from color_management import verify_color, export_plan
 
 
 SCRIPT = Path(__file__).resolve().parent
@@ -208,6 +209,7 @@ def main():
             try:
                 renderer_output = run([*common, '--start', first / args.fps, '--end', last / args.fps, '--output', part])
                 metadata = verify(part, last - first, args.fps, args.width, args.height)
+                verify_color(next(s for s in metadata['streams'] if s['codec_type'] == 'video'))
             except Exception as exc:
                 raise RuntimeError(f'Segment {i} (frames {first}..{last - 1}) failed: {exc}') from exc
             print(f'Segment {i + 1}/{k} verified ({last - first} frames)', file=sys.stderr)
@@ -241,13 +243,14 @@ def main():
                  '-af', 'apad', '-c:a', 'aac', '-b:a', '256k', '-t', duration,
                  '-movflags', '+faststart', completed])
         metadata = verify(completed, count, args.fps, args.width, args.height, bool(audio))
+        verify_color(next(s for s in metadata['streams'] if s['codec_type'] == 'video'))
         frame_clock = verify_frame_clock(completed, count, args.fps)
         run(['ffmpeg', '-v', 'error', '-xerror', '-i', completed, '-map', '0:v:0', '-map', '0:a?', '-f', 'null', '-'])
         report = {'schema': 'adu-motion-video-export/v1', 'created_utc': datetime.now(timezone.utc).isoformat(),
                   'project': str(project), 'entry': str(entry), 'output': str(output), 'fps': args.fps,
                   'width': args.width, 'height': args.height, 'frames': count, 'duration': duration,
                   'audio': str(audio) if audio else None, 'segments': sorted(segments, key=lambda s: s['index']),
-                  'source_sha256': original_sources, 'reused_segments': False,
+                  'source_sha256': original_sources, 'reused_segments': False, 'color': export_plan(),
                   'verification': 'all segment exits + frame counts; concat/mux metadata; every display timestamp; complete media decode',
                   'frame_clock': frame_clock,
                   'visual_review': 'not performed by this command',

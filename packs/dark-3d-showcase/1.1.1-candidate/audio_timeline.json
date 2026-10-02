@@ -1,0 +1,1808 @@
+{
+  "id": "anim4-showcase-audio",
+  "sourceEnd": 108.4,
+  "sampleRate": 44100,
+  "channels": 2,
+  "tempo": {
+    "bpm": 120,
+    "beatsPerBar": 4,
+    "keyMovement": "D minor → F major",
+    "fourBarProgression": [
+      [
+        38,
+        [
+          62,
+          65,
+          69,
+          72
+        ]
+      ],
+      [
+        34,
+        [
+          62,
+          65,
+          70,
+          74
+        ]
+      ],
+      [
+        41,
+        [
+          65,
+          69,
+          72,
+          76
+        ]
+      ],
+      [
+        36,
+        [
+          64,
+          67,
+          72,
+          76
+        ]
+      ]
+    ]
+  },
+  "synthBed": {
+    "sections": [
+      {
+        "start": 0.0,
+        "end": 3.85,
+        "mode": "rhythm",
+        "level": 0.45,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": false,
+          "clap": false,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 3.85,
+        "end": 8.8,
+        "mode": "rhythm",
+        "level": 0.7,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": false,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 8.8,
+        "end": 22.0,
+        "mode": "rhythm",
+        "level": 0.7,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 22.0,
+        "end": 25.9,
+        "mode": "rhythm",
+        "level": 0.85,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 25.9,
+        "end": 29.0,
+        "mode": "rhythm",
+        "level": 0.5,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": false,
+          "clap": false,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 29.0,
+        "end": 33.1,
+        "mode": "rhythm",
+        "level": 1.0,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 33.1,
+        "end": 40.4,
+        "mode": "rhythm",
+        "level": 0.85,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 40.4,
+        "end": 45.55,
+        "mode": "rhythm",
+        "level": 0.75,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 45.55,
+        "end": 48.3,
+        "mode": "rhythm",
+        "level": 1.0,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 48.3,
+        "end": 52.7,
+        "mode": "rhythm",
+        "level": 0.8,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 52.7,
+        "end": 66.37,
+        "mode": "reflective-piano",
+        "level": 0.24,
+        "instruments": [
+          "pad",
+          "bass",
+          "electric-piano"
+        ]
+      },
+      {
+        "start": 66.37,
+        "end": 69.4,
+        "mode": "rhythm",
+        "level": 0.9,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": false,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 69.4,
+        "end": 73.4,
+        "mode": "rhythm",
+        "level": 0.85,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 73.4,
+        "end": 74.87,
+        "mode": "rhythm",
+        "level": 0.6,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": false,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 74.87,
+        "end": 78.1,
+        "mode": "rhythm",
+        "level": 1.0,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 78.1,
+        "end": 89.7,
+        "mode": "rhythm",
+        "level": 0.75,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 89.7,
+        "end": 93.15,
+        "mode": "rhythm",
+        "level": 0.5,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": false,
+          "clap": false,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 93.15,
+        "end": 98.6,
+        "mode": "rhythm",
+        "level": 0.85,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 98.6,
+        "end": 99.25,
+        "mode": "rhythm",
+        "level": 0.4,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": false,
+          "clap": false,
+          "hats": false,
+          "arp": true
+        }
+      },
+      {
+        "start": 99.25,
+        "end": 101.3,
+        "mode": "rhythm",
+        "level": 1.0,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": true,
+          "hats": true,
+          "arp": true
+        }
+      },
+      {
+        "start": 102.9,
+        "end": 107.3,
+        "mode": "rhythm",
+        "level": 0.55,
+        "instruments": {
+          "pad": true,
+          "bass": true,
+          "kick": true,
+          "clap": false,
+          "hats": true,
+          "arp": true
+        }
+      }
+    ],
+    "progressionClock": "2.0 seconds/bar; reset at each section",
+    "canRecreateWithSource": true
+  },
+  "musicEvents": {
+    "openingBellArpeggio": {
+      "at": 1.55,
+      "notes": [
+        74,
+        78,
+        81,
+        86
+      ],
+      "spacing": 0.06
+    },
+    "subDrops": [
+      3.85,
+      7.75,
+      29.0,
+      45.55,
+      54.87,
+      74.87,
+      93.15,
+      99.25
+    ],
+    "risers": [
+      {
+        "start": 24.9,
+        "end": 25.9
+      },
+      {
+        "start": 28.0,
+        "end": 29.0
+      },
+      {
+        "start": 44.55,
+        "end": 45.55
+      },
+      {
+        "start": 65.4,
+        "end": 66.37
+      },
+      {
+        "start": 73.4,
+        "end": 74.87
+      },
+      {
+        "start": 98.3,
+        "end": 99.25
+      }
+    ],
+    "crashes": [
+      3.9,
+      8.8,
+      29.0,
+      45.55,
+      66.37,
+      74.87,
+      99.25,
+      102.92
+    ],
+    "endingElectricPiano": [
+      {
+        "start": 101.3,
+        "notes": [
+          62,
+          65,
+          69,
+          74,
+          77
+        ],
+        "spacing": 0.03
+      },
+      {
+        "start": 107.3,
+        "notes": [
+          62,
+          65,
+          69,
+          74,
+          77,
+          81
+        ],
+        "spacing": 0.04
+      }
+    ]
+  },
+  "gainEnvelopeDb": [
+    {
+      "at": 0,
+      "db": 7
+    },
+    {
+      "at": 3.5,
+      "db": 7
+    },
+    {
+      "at": 3.9,
+      "db": 3
+    },
+    {
+      "at": 5.0,
+      "db": -3
+    },
+    {
+      "at": 8.2,
+      "db": -3
+    },
+    {
+      "at": 8.45,
+      "db": 5
+    },
+    {
+      "at": 8.9,
+      "db": 3
+    },
+    {
+      "at": 9.6,
+      "db": -3
+    },
+    {
+      "at": 21.8,
+      "db": -3
+    },
+    {
+      "at": 23.5,
+      "db": 0
+    },
+    {
+      "at": 25.6,
+      "db": 1
+    },
+    {
+      "at": 25.95,
+      "db": 5
+    },
+    {
+      "at": 26.6,
+      "db": -2
+    },
+    {
+      "at": 28.3,
+      "db": -2
+    },
+    {
+      "at": 28.75,
+      "db": 6
+    },
+    {
+      "at": 29.1,
+      "db": 4
+    },
+    {
+      "at": 30.3,
+      "db": 5
+    },
+    {
+      "at": 31.3,
+      "db": -2
+    },
+    {
+      "at": 38.8,
+      "db": -2
+    },
+    {
+      "at": 39.2,
+      "db": 2
+    },
+    {
+      "at": 39.6,
+      "db": -2
+    },
+    {
+      "at": 40.2,
+      "db": 1
+    },
+    {
+      "at": 40.5,
+      "db": 4
+    },
+    {
+      "at": 41.2,
+      "db": -3
+    },
+    {
+      "at": 45.3,
+      "db": -1
+    },
+    {
+      "at": 45.6,
+      "db": 6
+    },
+    {
+      "at": 46.3,
+      "db": 6
+    },
+    {
+      "at": 46.7,
+      "db": 1
+    },
+    {
+      "at": 48.2,
+      "db": -2
+    },
+    {
+      "at": 48.4,
+      "db": 1
+    },
+    {
+      "at": 49.0,
+      "db": -3
+    },
+    {
+      "at": 52.3,
+      "db": -1
+    },
+    {
+      "at": 52.7,
+      "db": 2
+    },
+    {
+      "at": 53.3,
+      "db": 0
+    },
+    {
+      "at": 64.4,
+      "db": 0
+    },
+    {
+      "at": 64.9,
+      "db": 2
+    },
+    {
+      "at": 65.4,
+      "db": -1
+    },
+    {
+      "at": 66.1,
+      "db": -2
+    },
+    {
+      "at": 66.4,
+      "db": 5
+    },
+    {
+      "at": 67.2,
+      "db": 0
+    },
+    {
+      "at": 68.3,
+      "db": 3
+    },
+    {
+      "at": 69.0,
+      "db": 0
+    },
+    {
+      "at": 69.3,
+      "db": 4
+    },
+    {
+      "at": 70.0,
+      "db": -2
+    },
+    {
+      "at": 73.3,
+      "db": -1
+    },
+    {
+      "at": 74.9,
+      "db": 6
+    },
+    {
+      "at": 75.6,
+      "db": 0
+    },
+    {
+      "at": 77.7,
+      "db": 0
+    },
+    {
+      "at": 78.1,
+      "db": 4
+    },
+    {
+      "at": 78.8,
+      "db": -3
+    },
+    {
+      "at": 87.5,
+      "db": -3
+    },
+    {
+      "at": 89.4,
+      "db": 3
+    },
+    {
+      "at": 89.9,
+      "db": -5
+    },
+    {
+      "at": 93.0,
+      "db": -4
+    },
+    {
+      "at": 93.2,
+      "db": 0
+    },
+    {
+      "at": 96.3,
+      "db": 1
+    },
+    {
+      "at": 98.4,
+      "db": 1
+    },
+    {
+      "at": 99.25,
+      "db": 7
+    },
+    {
+      "at": 100.2,
+      "db": 2
+    },
+    {
+      "at": 101.2,
+      "db": 2
+    },
+    {
+      "at": 101.5,
+      "db": 6
+    },
+    {
+      "at": 102.9,
+      "db": 5
+    },
+    {
+      "at": 103.6,
+      "db": 2
+    },
+    {
+      "at": 106.6,
+      "db": 2
+    },
+    {
+      "at": 107.3,
+      "db": 5
+    },
+    {
+      "at": 108.4,
+      "db": 5
+    }
+  ],
+  "gainInterpolation": "cosine between keys",
+  "externalTrack": {
+    "optional": true,
+    "sourceTrackBundled": false,
+    "originalOffsetSeconds": 3.6,
+    "originalTrackDropSeconds": 7.5,
+    "wallDropSeconds": 3.9,
+    "condition": "This offset only suits the original music; re-detect the downbeat in each new supplied track",
+    "darkBand": {
+      "sourceStart": 52.7,
+      "sourceEnd": 66.37,
+      "cutoffHz": 900,
+      "fadeIn": 0.8,
+      "fadeOut": 0.35,
+      "gain": 1.15
+    },
+    "musicBlend": "replaces synth bed; keeps atonal risers/sub drops; original code normalizes supplied track to 0.9 peak"
+  },
+  "mix": {
+    "musicReverbSeconds": 1.1,
+    "musicWet": 0.12,
+    "sfxReverbSeconds": 0.9,
+    "sfxWet": 0.12,
+    "fadeOutSourceStart": 107.6,
+    "fadeOutSeconds": 0.8,
+    "outputPeakScaling": 0.9090909090909091
+  },
+  "sfxEvents": [
+    {
+      "t": 0,
+      "type": "hit",
+      "g": 0.9,
+      "p": 0
+    },
+    {
+      "t": 0,
+      "type": "whoosh",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 1.3,
+      "type": "hit",
+      "g": 1,
+      "p": 0
+    },
+    {
+      "t": 1.55,
+      "type": "levelup",
+      "g": 0.7,
+      "p": 0
+    },
+    {
+      "t": 2.3,
+      "type": "swoosh",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 2.5,
+      "type": "card",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 2.6,
+      "type": "clock",
+      "g": 0.5,
+      "p": 0,
+      "d": 1
+    },
+    {
+      "t": 3.05,
+      "type": "slash",
+      "g": 0.8,
+      "p": 0
+    },
+    {
+      "t": 3.28,
+      "type": "stamp",
+      "g": 0.9,
+      "p": 0
+    },
+    {
+      "t": 3.85,
+      "type": "whoosh",
+      "g": 0.7,
+      "p": 0
+    },
+    {
+      "t": 3.9,
+      "type": "sparkle",
+      "g": 0.45,
+      "p": 0
+    },
+    {
+      "t": 4,
+      "type": "alert",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 5.45,
+      "type": "tick",
+      "g": 0.4,
+      "p": 0
+    },
+    {
+      "t": 6.1,
+      "type": "tick",
+      "g": 0.4,
+      "p": 0
+    },
+    {
+      "t": 7.75,
+      "type": "hit",
+      "g": 1,
+      "p": 0
+    },
+    {
+      "t": 8.8,
+      "type": "whoosh",
+      "g": 0.7,
+      "p": 0
+    },
+    {
+      "t": 8.9,
+      "type": "tick",
+      "g": 0.3,
+      "p": -0.6
+    },
+    {
+      "t": 8.96,
+      "type": "tick",
+      "g": 0.3,
+      "p": -0.19999999999999996
+    },
+    {
+      "t": 9.02,
+      "type": "tick",
+      "g": 0.3,
+      "p": 0.20000000000000007
+    },
+    {
+      "t": 9.08,
+      "type": "tick",
+      "g": 0.3,
+      "p": -0.6
+    },
+    {
+      "t": 9.14,
+      "type": "tick",
+      "g": 0.3,
+      "p": -0.19999999999999996
+    },
+    {
+      "t": 9.2,
+      "type": "tick",
+      "g": 0.3,
+      "p": 0.20000000000000007
+    },
+    {
+      "t": 9.26,
+      "type": "tick",
+      "g": 0.3,
+      "p": -0.6
+    },
+    {
+      "t": 9.32,
+      "type": "tick",
+      "g": 0.3,
+      "p": -0.19999999999999996
+    },
+    {
+      "t": 9.38,
+      "type": "tick",
+      "g": 0.3,
+      "p": 0.20000000000000007
+    },
+    {
+      "t": 12.13,
+      "type": "pop",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 13.37,
+      "type": "pop",
+      "g": 0.6,
+      "p": 0.2
+    },
+    {
+      "t": 15.2,
+      "type": "pop",
+      "g": 0.7,
+      "p": 0.5
+    },
+    {
+      "t": 16.6,
+      "type": "pop",
+      "g": 0.7,
+      "p": 0.5
+    },
+    {
+      "t": 17.75,
+      "type": "pop",
+      "g": 0.7,
+      "p": 0.5
+    },
+    {
+      "t": 18.62,
+      "type": "pop",
+      "g": 0.7,
+      "p": 0.5
+    },
+    {
+      "t": 19.35,
+      "type": "check",
+      "g": 0.35,
+      "p": 0,
+      "n": 0
+    },
+    {
+      "t": 19.42,
+      "type": "check",
+      "g": 0.35,
+      "p": 0,
+      "n": 1
+    },
+    {
+      "t": 19.49,
+      "type": "check",
+      "g": 0.35,
+      "p": 0,
+      "n": 2
+    },
+    {
+      "t": 19.56,
+      "type": "check",
+      "g": 0.35,
+      "p": 0,
+      "n": 3
+    },
+    {
+      "t": 19.63,
+      "type": "check",
+      "g": 0.35,
+      "p": 0,
+      "n": 4
+    },
+    {
+      "t": 19.7,
+      "type": "check",
+      "g": 0.35,
+      "p": 0,
+      "n": 5
+    },
+    {
+      "t": 19.77,
+      "type": "check",
+      "g": 0.35,
+      "p": 0,
+      "n": 6
+    },
+    {
+      "t": 19.84,
+      "type": "check",
+      "g": 0.35,
+      "p": 0,
+      "n": 7
+    },
+    {
+      "t": 19.91,
+      "type": "check",
+      "g": 0.35,
+      "p": 0,
+      "n": 8
+    },
+    {
+      "t": 20.25,
+      "type": "tick",
+      "g": 0.4,
+      "p": 0
+    },
+    {
+      "t": 22,
+      "type": "card",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 22.7,
+      "type": "rise_s",
+      "g": 0.8,
+      "p": 0
+    },
+    {
+      "t": 23.6,
+      "type": "alert",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 23.8,
+      "type": "counter",
+      "g": 0.5,
+      "p": 0,
+      "d": 1.7
+    },
+    {
+      "t": 25.9,
+      "type": "whoosh",
+      "g": 0.8,
+      "p": 0
+    },
+    {
+      "t": 26.9,
+      "type": "shine",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 28.8,
+      "type": "powerdown",
+      "g": 0.35,
+      "p": 0
+    },
+    {
+      "t": 29,
+      "type": "hit",
+      "g": 1,
+      "p": 0
+    },
+    {
+      "t": 29.3,
+      "type": "stamp",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 30.3,
+      "type": "hit",
+      "g": 0.9,
+      "p": 0
+    },
+    {
+      "t": 31,
+      "type": "whoosh",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 31.4,
+      "type": "card",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 33.1,
+      "type": "pop",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 33.15,
+      "type": "fill",
+      "g": 0.4,
+      "p": 0,
+      "d": 1.1
+    },
+    {
+      "t": 34.3,
+      "type": "ding",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 33.75,
+      "type": "swipe",
+      "g": 0.35,
+      "p": 0
+    },
+    {
+      "t": 33.9,
+      "type": "check",
+      "g": 0.5,
+      "p": 0.5,
+      "n": 0
+    },
+    {
+      "t": 34.45,
+      "type": "swipe",
+      "g": 0.35,
+      "p": 0
+    },
+    {
+      "t": 34.6,
+      "type": "check",
+      "g": 0.5,
+      "p": 0.5,
+      "n": 1
+    },
+    {
+      "t": 35.55,
+      "type": "swipe",
+      "g": 0.35,
+      "p": 0
+    },
+    {
+      "t": 35.7,
+      "type": "check",
+      "g": 0.5,
+      "p": 0.5,
+      "n": 2
+    },
+    {
+      "t": 37.7,
+      "type": "hit",
+      "g": 0.8,
+      "p": 0
+    },
+    {
+      "t": 38.5,
+      "type": "swipe",
+      "g": 0.6,
+      "p": 0.6
+    },
+    {
+      "t": 40.4,
+      "type": "whoosh",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 41.55,
+      "type": "tick",
+      "g": 0.4,
+      "p": 0
+    },
+    {
+      "t": 43.17,
+      "type": "card",
+      "g": 0.55,
+      "p": -0.6
+    },
+    {
+      "t": 43.75,
+      "type": "card",
+      "g": 0.55,
+      "p": -0.19999999999999996
+    },
+    {
+      "t": 44.33,
+      "type": "card",
+      "g": 0.55,
+      "p": 0.20000000000000007
+    },
+    {
+      "t": 45.1,
+      "type": "card",
+      "g": 0.55,
+      "p": 0.6000000000000002
+    },
+    {
+      "t": 45.55,
+      "type": "whoosh",
+      "g": 0.9,
+      "p": 0
+    },
+    {
+      "t": 45.6,
+      "type": "sparkle",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 45.85,
+      "type": "counter",
+      "g": 0.45,
+      "p": 0,
+      "d": 1.3
+    },
+    {
+      "t": 47.3,
+      "type": "hit",
+      "g": 0.8,
+      "p": 0
+    },
+    {
+      "t": 48.3,
+      "type": "slide",
+      "g": 0.4,
+      "p": 0,
+      "d": 0.7
+    },
+    {
+      "t": 49,
+      "type": "slash",
+      "g": 0.8,
+      "p": 0
+    },
+    {
+      "t": 49.75,
+      "type": "card",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 50.35,
+      "type": "click",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 50.95,
+      "type": "click",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 51.05,
+      "type": "pop",
+      "g": 0.5,
+      "p": -0.4
+    },
+    {
+      "t": 51.41,
+      "type": "pop",
+      "g": 0.5,
+      "p": -0.15000000000000002
+    },
+    {
+      "t": 51.77,
+      "type": "pop",
+      "g": 0.5,
+      "p": 0.09999999999999998
+    },
+    {
+      "t": 52.13,
+      "type": "pop",
+      "g": 0.5,
+      "p": 0.35
+    },
+    {
+      "t": 52.7,
+      "type": "whoosh",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 54.1,
+      "type": "tick",
+      "g": 0.4,
+      "p": 0
+    },
+    {
+      "t": 54.87,
+      "type": "crack",
+      "g": 1,
+      "p": 0
+    },
+    {
+      "t": 54.87,
+      "type": "hit",
+      "g": 0.8,
+      "p": 0
+    },
+    {
+      "t": 55.4,
+      "type": "swipe",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 57.9,
+      "type": "card",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 58.3,
+      "type": "click",
+      "g": 0.6,
+      "p": 0.5
+    },
+    {
+      "t": 61.3,
+      "type": "click",
+      "g": 0.6,
+      "p": 0.5
+    },
+    {
+      "t": 58.35,
+      "type": "card",
+      "g": 0.4,
+      "p": 0.6
+    },
+    {
+      "t": 61.35,
+      "type": "card",
+      "g": 0.4,
+      "p": 0.6
+    },
+    {
+      "t": 61.27,
+      "type": "pop",
+      "g": 0.4,
+      "p": 0
+    },
+    {
+      "t": 61.45,
+      "type": "ff",
+      "g": 0.35,
+      "p": 0,
+      "d": 1.2
+    },
+    {
+      "t": 66.37,
+      "type": "whoosh",
+      "g": 0.9,
+      "p": 0
+    },
+    {
+      "t": 66.4,
+      "type": "shine",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 67.4,
+      "type": "slide",
+      "g": 0.4,
+      "p": 0,
+      "d": 0.6
+    },
+    {
+      "t": 67.6,
+      "type": "fill_up",
+      "g": 0.5,
+      "p": 0,
+      "d": 1
+    },
+    {
+      "t": 68.3,
+      "type": "hit",
+      "g": 0.9,
+      "p": 0
+    },
+    {
+      "t": 69.4,
+      "type": "whoosh",
+      "g": 0.7,
+      "p": 0
+    },
+    {
+      "t": 70.2,
+      "type": "tick",
+      "g": 0.25,
+      "p": -0.8
+    },
+    {
+      "t": 70.257,
+      "type": "tick",
+      "g": 0.25,
+      "p": -0.68
+    },
+    {
+      "t": 70.308,
+      "type": "tick",
+      "g": 0.25,
+      "p": -0.56
+    },
+    {
+      "t": 70.353,
+      "type": "tick",
+      "g": 0.25,
+      "p": -0.44000000000000006
+    },
+    {
+      "t": 70.392,
+      "type": "tick",
+      "g": 0.25,
+      "p": -0.32000000000000006
+    },
+    {
+      "t": 70.425,
+      "type": "tick",
+      "g": 0.25,
+      "p": -0.20000000000000007
+    },
+    {
+      "t": 70.452,
+      "type": "tick",
+      "g": 0.25,
+      "p": -0.08000000000000007
+    },
+    {
+      "t": 70.473,
+      "type": "tick",
+      "g": 0.25,
+      "p": 0.039999999999999925
+    },
+    {
+      "t": 70.488,
+      "type": "tick",
+      "g": 0.25,
+      "p": 0.15999999999999992
+    },
+    {
+      "t": 70.497,
+      "type": "tick",
+      "g": 0.25,
+      "p": 0.28
+    },
+    {
+      "t": 70.5,
+      "type": "tick",
+      "g": 0.25,
+      "p": 0.3999999999999999
+    },
+    {
+      "t": 70.497,
+      "type": "tick",
+      "g": 0.25,
+      "p": 0.5199999999999998
+    },
+    {
+      "t": 70.488,
+      "type": "tick",
+      "g": 0.25,
+      "p": 0.6399999999999999
+    },
+    {
+      "t": 70.473,
+      "type": "tick",
+      "g": 0.25,
+      "p": 0.76
+    },
+    {
+      "t": 70.95,
+      "type": "slide",
+      "g": 0.5,
+      "p": 0,
+      "d": 0.9
+    },
+    {
+      "t": 71,
+      "type": "whoosh",
+      "g": 0.5,
+      "p": 0.5
+    },
+    {
+      "t": 71.5,
+      "type": "whoosh",
+      "g": 0.4,
+      "p": -0.3
+    },
+    {
+      "t": 73.4,
+      "type": "rise_s",
+      "g": 0.8,
+      "p": 0
+    },
+    {
+      "t": 73.5,
+      "type": "ff",
+      "g": 0.5,
+      "p": 0,
+      "d": 1.4
+    },
+    {
+      "t": 74.87,
+      "type": "hit",
+      "g": 0.9,
+      "p": 0
+    },
+    {
+      "t": 75.85,
+      "type": "pop",
+      "g": 0.7,
+      "p": 0
+    },
+    {
+      "t": 76.4,
+      "type": "tick",
+      "g": 0.4,
+      "p": -0.5
+    },
+    {
+      "t": 76.58,
+      "type": "tick",
+      "g": 0.4,
+      "p": -0.16999999999999998
+    },
+    {
+      "t": 76.76,
+      "type": "tick",
+      "g": 0.4,
+      "p": 0.16000000000000003
+    },
+    {
+      "t": 76.94,
+      "type": "tick",
+      "g": 0.4,
+      "p": 0.49
+    },
+    {
+      "t": 76.8,
+      "type": "counter",
+      "g": 0.35,
+      "p": 0,
+      "d": 0.9
+    },
+    {
+      "t": 77,
+      "type": "click",
+      "g": 1,
+      "p": 0
+    },
+    {
+      "t": 77.05,
+      "type": "ding",
+      "g": 0.7,
+      "p": 0
+    },
+    {
+      "t": 78.1,
+      "type": "whoosh",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 80.3,
+      "type": "pop",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 80.75,
+      "type": "pop",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 81.15,
+      "type": "pop",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 81.43,
+      "type": "tick",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 82,
+      "type": "slash",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 82.15,
+      "type": "suck",
+      "g": 0.6,
+      "p": 0,
+      "d": 0.8
+    },
+    {
+      "t": 82.4,
+      "type": "hit",
+      "g": 0.9,
+      "p": 0
+    },
+    {
+      "t": 83.37,
+      "type": "pop",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 83.37,
+      "type": "card",
+      "g": 0.5,
+      "p": -0.2
+    },
+    {
+      "t": 83.45,
+      "type": "fill",
+      "g": 0.35,
+      "p": 0,
+      "d": 1.1
+    },
+    {
+      "t": 87.4,
+      "type": "swipe",
+      "g": 0.6,
+      "p": 0.5
+    },
+    {
+      "t": 85.1,
+      "type": "ding",
+      "g": 0.7,
+      "p": 0
+    },
+    {
+      "t": 86.27,
+      "type": "card",
+      "g": 0.5,
+      "p": -0.4
+    },
+    {
+      "t": 87.47,
+      "type": "card",
+      "g": 0.5,
+      "p": -0.4
+    },
+    {
+      "t": 89.7,
+      "type": "whoosh",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 90.4,
+      "type": "tick",
+      "g": 0.4,
+      "p": 0
+    },
+    {
+      "t": 91.85,
+      "type": "tick",
+      "g": 0.4,
+      "p": 0
+    },
+    {
+      "t": 93.15,
+      "type": "hit",
+      "g": 1,
+      "p": 0
+    },
+    {
+      "t": 93.6,
+      "type": "card",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 95.4,
+      "type": "rise_s",
+      "g": 0.8,
+      "p": 0
+    },
+    {
+      "t": 95.4,
+      "type": "counter",
+      "g": 0.45,
+      "p": 0,
+      "d": 1
+    },
+    {
+      "t": 96.4,
+      "type": "ding",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 96.5,
+      "type": "tick",
+      "g": 0.3,
+      "p": 0
+    },
+    {
+      "t": 96.833,
+      "type": "tick",
+      "g": 0.3,
+      "p": 0
+    },
+    {
+      "t": 97.167,
+      "type": "tick",
+      "g": 0.3,
+      "p": 0
+    },
+    {
+      "t": 97.5,
+      "type": "tick",
+      "g": 0.3,
+      "p": 0
+    },
+    {
+      "t": 97.833,
+      "type": "tick",
+      "g": 0.3,
+      "p": 0
+    },
+    {
+      "t": 98.167,
+      "type": "tick",
+      "g": 0.3,
+      "p": 0
+    },
+    {
+      "t": 98.5,
+      "type": "tick",
+      "g": 0.3,
+      "p": 0
+    },
+    {
+      "t": 98.833,
+      "type": "tick",
+      "g": 0.3,
+      "p": 0
+    },
+    {
+      "t": 99.167,
+      "type": "tick",
+      "g": 0.3,
+      "p": 0
+    },
+    {
+      "t": 98.6,
+      "type": "pop",
+      "g": 0.8,
+      "p": 0
+    },
+    {
+      "t": 99.2,
+      "type": "enter",
+      "g": 0.9,
+      "p": 0
+    },
+    {
+      "t": 99.25,
+      "type": "hit",
+      "g": 0.9,
+      "p": 0
+    },
+    {
+      "t": 100.1,
+      "type": "swoosh",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 100.4,
+      "type": "msg",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 101.4,
+      "type": "chime",
+      "g": 0.7,
+      "p": 0
+    },
+    {
+      "t": 102.92,
+      "type": "whoosh",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 103.15,
+      "type": "tick",
+      "g": 0.4,
+      "p": 0
+    },
+    {
+      "t": 103.45,
+      "type": "pop",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 103.95,
+      "type": "card",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 104.1,
+      "type": "card",
+      "g": 0.5,
+      "p": 0
+    },
+    {
+      "t": 104.35,
+      "type": "typing",
+      "g": 0.45,
+      "p": 0,
+      "d": 2.4000000000000057
+    },
+    {
+      "t": 106.8,
+      "type": "enter",
+      "g": 0.6,
+      "p": 0
+    },
+    {
+      "t": 107,
+      "type": "ding",
+      "g": 0.5,
+      "p": 0
+    }
+  ],
+  "sfxSource": "audio.py GEN mapping; 31 types actually used",
+  "retime": "Use manifest scene knots piecewise for every music event, gain-envelope key, dark-band boundary and SFX cue. Regenerate music for target length; do not stretch 108.4s original WAV.",
+  "dependencies": {
+    "synth": "numpy plus audio.py waveform functions; no external music required",
+    "externalMusic": "new licensed source track from user; do not reuse original track automatically",
+    "voice": "new talk audio, aligned separately at 48 kHz mix/export"
+  }
+}

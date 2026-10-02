@@ -2,7 +2,7 @@
 
 **03-A · 多屏展陈**：以深色舞台、立体卡片与窗口、镜头推进、作品墙和重点放大组织口播。适合产品演示、工具评测、作品集、成果发布与工作流比较。视觉分类固定为「深色 3D」，视频话题与产品名称由本期内容填写。
 
-调用版本：`anim4-showcase-macro@1.1.0-candidate`。新候选完整保留旧 `packs/anim4` 的九场编舞与声音规则，新增原生竖屏布局，旧 1.0.0 保持原字节。已用另一条真人口播制作横竖屏九场整片，并从冻结公开包冷安装重建。当前 **待作者连续声画确认**，不计入十七个稳定镜头组。
+调用版本：`anim4-showcase-macro@1.1.1-candidate`。新候选完整保留旧 `packs/anim4` 的九场编舞与声音规则，新增原生竖屏布局，旧 1.0.0 保持原字节。已用另一条真人口播制作横竖屏九场整片。1.1.1 补入 HDR 色彩转换并重新输出；此前 1.1.0 的公开包冷安装保留为历史记录。当前 **待作者连续声画确认**，不计入十七个稳定镜头组。
 
 ## 视觉与动作
 
@@ -32,7 +32,7 @@
 
 ## 可替换内容与素材
 
-当前接口包含 **222 个槽位、66 个语义动作节点、42 个动作保护窗**。其中 26 个节点需绑定本期台词落点。先生成配置再填所选场景，具体槽位、字符容量、媒体帧数与动态数值约束以 [manifest](../packs/dark-3d-showcase/1.1.0-candidate/manifest.json) 为准。
+当前接口包含 **222 个槽位、66 个语义动作节点、42 个动作保护窗**。其中 26 个节点需绑定本期台词落点。先生成配置再填所选场景，具体槽位、字符容量、媒体帧数与动态数值约束以 [manifest](../packs/dark-3d-showcase/1.1.1-candidate/manifest.json) 为准。
 
 需要剪好且长度确定的真人口播、对应文案、时间码字幕、账号名称，以及所选场景的真实录屏、作品视频、图像和配乐。九屏比较需要 9 路独立视频；作品墙至少 27 个独立作品，循环铺满的格子数不能当作独立作品数。媒体准备方法见[完整包说明](../packs/anim4/README.md#媒体准备)。
 
@@ -50,12 +50,12 @@
 
 ```bash
 bash scripts/pipeline.sh packs
-bash scripts/pipeline.sh macro-spec anim4-showcase-macro@1.1.0-candidate /已有目录/本期配置.json
+bash scripts/pipeline.sh macro-spec anim4-showcase-macro@1.1.1-candidate /已有目录/本期配置.json
 # 删除未使用的场景，填写本期 slots、cues 和素材；所选场景总帧数应等于剪好口播
-bash scripts/pipeline.sh macro-build anim4-showcase-macro@1.1.0-candidate /已有目录/本期配置.json /已有目录/剪好口播.mp4 /已有目录/新工程 --subs-js /已有目录/本期字幕.js
+bash scripts/pipeline.sh macro-build anim4-showcase-macro@1.1.1-candidate /已有目录/本期配置.json /已有目录/剪好口播.mp4 /已有目录/新工程 --subs-js /已有目录/本期字幕.js
 bash scripts/pipeline.sh audio /已有目录/新工程
 bash scripts/pipeline.sh mix /已有目录/新工程
-node packs/dark-3d-showcase/1.1.0-candidate/apply-layout.mjs /已有目录/新工程 /已有目录/竖屏工程 --layout portrait
+node packs/dark-3d-showcase/1.1.1-candidate/apply-layout.mjs /已有目录/新工程 /已有目录/竖屏工程 --layout portrait
 W=1080 H=1920 bash scripts/pipeline.sh render /已有目录/竖屏工程 /已有目录/竖屏.mp4
 bash scripts/pipeline.sh check /已有目录/竖屏.mp4
 ```
@@ -68,7 +68,7 @@ bash scripts/pipeline.sh check /已有目录/竖屏.mp4
 
 适配器绑定冻结源码的结构角色和节点数，拒绝旧版本、已适配工程或既有输出路径，不按演示文案猜位置。音效和音乐不因画幅变化重新变速。软件场景内部录像仍沿用约 0.88× 和 2.4× 的源配方，快进须如实标记；“保护动作原速”不代表每个素材视频都按 1× 播放。
 
-输入有真人结束后的信息卡片尾时，可显式传 `--presenter-end 真人结束秒数`，此后隐藏真人窗。输入尾段应为实际无人物画面。该样片先生成工程，再以公开 `face_track.sh` 为真实口播区间生成 402 个 Vision 跟踪样本，随后应用横竖布局；片尾不补假人脸或冻结真人帧。不同输入须重做跟踪与裁切检查。完整命令与版本约束见[候选包说明](../packs/dark-3d-showcase/1.1.0-candidate/README.md)。
+输入有真人结束后的信息卡片尾时，可显式传 `--presenter-end 真人结束秒数`，此后隐藏真人窗。输入尾段应为实际无人物画面。该样片先生成工程，再以公开 `face_track.sh` 为真实口播区间生成 402 个 Vision 跟踪样本，随后应用横竖布局；片尾不补假人脸或冻结真人帧。不同输入须重做跟踪与裁切检查。完整命令与版本约束见[候选包说明](../packs/dark-3d-showcase/1.1.1-candidate/README.md)。
 
 ## 预览与实际边界
 
@@ -79,3 +79,9 @@ bash scripts/pipeline.sh check /已有目录/竖屏.mp4
 当前私人来源另以冻结源码重新导出完整 108.4 秒参考片；旧 v7、开场修改后拼接的 v8、原竖屏包装及后来的草稿继续分别记录。候选九场源码仍以旧公开 1.0.0 为血缘，已知开场版本差异不抹去，也不把重新布局称为逐像素相同。冷安装由当前执行者使用本机 Chrome/FFmpeg/字体完成，不代表新的独立作者或空白操作系统。连续声画的作者确认与其它平台验证仍保留为待办。
 
 原口播、个人字幕、完整混音、作品墙和第三方作品不随公共模板提供；系统字体作为环境依赖。发布范围和已通过的检查见[能力矩阵](../docs/capability-matrix.md)。
+
+### 色彩处理
+
+使用 FFmpeg 9+。HLG / PQ 原视频在抽帧前执行感知色调与色域映射；普通 SDR 使用解析式色彩转换，浏览器图像统一为 sRGB。不能仅把 HDR 标记改成 BT.709。导入与素材准备报告保存输入色彩属性、实际转换配方和未标记视频的假设。已经抽成 JPEG 的旧资料不能从标签恢复 HDR，需要原视频重做。
+
+Chrome 固定 sRGB，导出通过无损 PNG 接入，转换为有限范围 yuv420p / BT.709；逐段和最终影片验证像素格式、范围、矩阵、传递函数与基色。1.1.0 的技术验证漏掉了色彩，保留为历史记录；1.1.1 重出本期整片。颜色技术核验仍不代替作者连续声画确认。

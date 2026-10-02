@@ -1,9 +1,6 @@
 {
   "schema": "adu-showcase-validation/1",
   "date": "2026-10-02",
-  "selection": "anim4-showcase-macro@1.1.0-candidate",
-  "qualityStatus": "candidate-awaiting-owner-av",
-  "candidateManifestSha256": "2afaca2914e256230bafe00f8f0da301dd48f80d375684a0e95594b3400cd555",
   "sourceRevision": "ccd3891e0e7abbc55afb0f793bcd95d056db9e6c241eed6d9d39119346ea5c0b",
   "scenes": 9,
   "slots": 222,
@@ -21,84 +18,6 @@
     "s08",
     "s09"
   ],
-  "outputs": [
-    {
-      "id": "new-nine-landscape",
-      "sha256": "af4cd987de6a65d0df260b142cbf6f6b45ed7ffe1c9adae0e77c09f059654b5c",
-      "width": 1920,
-      "height": 1080,
-      "fps": 60,
-      "frames": 6504,
-      "durationSeconds": 108.4,
-      "audio": true,
-      "completeDecode": "pass",
-      "frameClock": {
-        "frames": 6504,
-        "fps": 60,
-        "max_error_seconds": 3.333333467026023e-07,
-        "verification": "every decoded display timestamp matches frame / fps"
-      },
-      "integratedLufs": -15.2,
-      "truePeakDbtp": -1.1,
-      "sampledStateFrames": 295,
-      "reverseDifferences": 0,
-      "freshDifferences": 0,
-      "allFramePresenterClockMismatches": 0,
-      "captionBoundaryViolations": 0,
-      "browserScriptErrors": 0
-    },
-    {
-      "id": "new-nine-portrait",
-      "sha256": "91aa718166ec49c1c2fa4da2df7357bcab10cd0d3d14830425f75804a212c3e7",
-      "width": 1080,
-      "height": 1920,
-      "fps": 60,
-      "frames": 6504,
-      "durationSeconds": 108.4,
-      "audio": true,
-      "completeDecode": "pass",
-      "frameClock": {
-        "frames": 6504,
-        "fps": 60,
-        "max_error_seconds": 3.333333467026023e-07,
-        "verification": "every decoded display timestamp matches frame / fps"
-      },
-      "integratedLufs": -15.2,
-      "truePeakDbtp": -1.1,
-      "sampledStateFrames": 295,
-      "reverseDifferences": 0,
-      "freshDifferences": 0,
-      "allFramePresenterClockMismatches": 0,
-      "captionBoundaryViolations": 0,
-      "browserScriptErrors": 0
-    }
-  ],
-  "sourceReference": {
-    "id": "current-source-fresh-replay",
-    "sha256": "892c3a37fbe155e5e9e99cae109c0718536d7ddf252ed598e057e2f0e52e2af6",
-    "frames": 6504,
-    "fps": 60,
-    "durationSeconds": 108.4,
-    "completeDecode": "pass",
-    "scope": "Current privately frozen revision; retained historical v7/v8 are distinct. Legacy pack scene bytes remain the parameterized choreography baseline; no raster-equivalence claim."
-  },
-  "cleanInstall": {
-    "frozenTree": "e5f6b1be707265248a88d5c990a48a651e83b30c",
-    "freshNpmAndPythonDependencies": true,
-    "candidateFilesEqual": true,
-    "audioFilesEqual": {
-      "voice.wav": true,
-      "bgm.wav": true,
-      "sfx.wav": true,
-      "sfx.json": true,
-      "mix.wav": true
-    },
-    "faceTrackingEqual": true,
-    "legacyUnchanged": true,
-    "environment": "macOS, CPython 3.14.7, Node 23.11.0, Playwright 1.58.2; installed Chrome/FFmpeg 9.0.1 and system fonts",
-    "independentOperator": false,
-    "temporaryDependenciesCleaned": true
-  },
   "voice": {
     "method": "decode original audio and imported narration at 48kHz stereo s16; pad only after narration to 108.4 s",
     "bytes": 20812800,
@@ -106,15 +25,6 @@
     "originalPaddedPcmSha256": "7397005f575ad0952dd3cc487d54aa5e1cab8c21d358dfde9dc176cc36de721c",
     "importedPcmSha256": "7397005f575ad0952dd3cc487d54aa5e1cab8c21d358dfde9dc176cc36de721c",
     "retimed": false
-  },
-  "faceTracking": {
-    "mode": "macOS-Vision",
-    "samples": 402,
-    "maxGapFrames": 45,
-    "lastTrackedFrame": 6046,
-    "presenterVisibleEndFrame": 6046,
-    "trackScope": "live human frames only; black information-card tail is hidden by the frozen layout adapter",
-    "faceSha256": "42d65bfc6a86fdb781e045132b0994c6f74ba925b6dcf172dc89e46bd6492788"
   },
   "rejectionChecks": [
     {
@@ -148,5 +58,113 @@
     "No source/new pixel equivalence, automatic word-onset alignment, arbitrary new-content or cross-platform guarantee.",
     "Source software media playback rates about 0.88x and 2.4x are retained and fast-forward is labeled."
   ],
-  "temporaryExportDirectoriesCleaned": true
+  "selection": "anim4-showcase-macro@1.1.1-candidate",
+  "qualityStatus": "candidate-awaiting-owner-av",
+  "candidateManifestSha256": "d447e302b82610e72fcd9d5a5564afa2e44737865ac81539f3f4f31d04ef9122",
+  "outputs": [
+    {
+      "id": "new-nine-landscape",
+      "sha256": "ef654b77e13760eb21390773961565343367d2c08dd9e2d791ffb813bce8f8c5",
+      "width": 1920,
+      "height": 1080,
+      "fps": 60,
+      "frames": 6504,
+      "durationSeconds": 108.4,
+      "audio": true,
+      "completeDecode": "pass",
+      "frameClock": {
+        "frames": 6504,
+        "fps": 60,
+        "max_error_seconds": 3.333333467026023e-07,
+        "verification": "every decoded display timestamp matches frame / fps"
+      },
+      "color": {
+        "pix_fmt": "yuv420p",
+        "color_range": "tv",
+        "color_space": "bt709",
+        "color_transfer": "bt709",
+        "color_primaries": "bt709"
+      },
+      "integratedLufs": -15.2,
+      "truePeakDbtp": -1.1,
+      "aacPacketsEqualToPrevious": true,
+      "aacPacketMd5": "MD5=098a234ee49a1546050432851b92044f",
+      "sampledStateFrames": 295,
+      "reverseDifferences": 0,
+      "freshDifferences": 0,
+      "allFramePresenterClockMismatches": 0,
+      "captionBoundaryViolations": 0,
+      "browserScriptErrors": 0
+    },
+    {
+      "id": "new-nine-portrait",
+      "sha256": "d8563871b3d46ef1116f7fdc3e6e1a3cf781d9d5f79d97a1e3c52f7489e1fa07",
+      "width": 1080,
+      "height": 1920,
+      "fps": 60,
+      "frames": 6504,
+      "durationSeconds": 108.4,
+      "audio": true,
+      "completeDecode": "pass",
+      "frameClock": {
+        "frames": 6504,
+        "fps": 60,
+        "max_error_seconds": 3.333333467026023e-07,
+        "verification": "every decoded display timestamp matches frame / fps"
+      },
+      "color": {
+        "pix_fmt": "yuv420p",
+        "color_range": "tv",
+        "color_space": "bt709",
+        "color_transfer": "bt709",
+        "color_primaries": "bt709"
+      },
+      "integratedLufs": -15.2,
+      "truePeakDbtp": -1.1,
+      "aacPacketsEqualToPrevious": true,
+      "aacPacketMd5": "MD5=098a234ee49a1546050432851b92044f",
+      "sampledStateFrames": 295,
+      "reverseDifferences": 0,
+      "freshDifferences": 0,
+      "allFramePresenterClockMismatches": 0,
+      "captionBoundaryViolations": 0,
+      "browserScriptErrors": 0
+    }
+  ],
+  "colorPipeline": {
+    "policy": "adu-srgb-bt709/1",
+    "packManifestSha256": "d447e302b82610e72fcd9d5a5564afa2e44737865ac81539f3f4f31d04ef9122",
+    "rootRuntimeSha256": "b3ad7ad3a1f32d1be4ff223ca87a245b43387f3766bf3e1e71e7f4cfd54dc185",
+    "frozenPackRuntimeSha256": "b3ad7ad3a1f32d1be4ff223ca87a245b43387f3766bf3e1e71e7f4cfd54dc185",
+    "sameRuntime": true,
+    "checks": {
+      "syntheticHlgAndPqRamps": "pass: actual imported pixels changed, neutral channels and monotonic ramp retained",
+      "browserSrgbRoundTrip": "pass: black, white, grey, skin, blue and red patches; maximum accepted centre-patch error 4/255",
+      "wrongVideoRangeAndMatrix": "pass: rejected"
+    },
+    "environment": "macOS / FFmpeg 9.0.1 / Chrome / Playwright 1.58.2",
+    "independentOperator": false,
+    "newColdInstall": false,
+    "inputProfiles": {
+      "unknown/unknown/unknown/unknown": 35,
+      "bt470bg/unknown/unknown/pc": 8,
+      "bt709/bt709/bt709/tv": 3,
+      "bt2020nc/arib-std-b67/bt2020/tv": 2
+    },
+    "auditedVideoInputs": 48,
+    "hdrVideoInputs": 2,
+    "hdrDerivedAvatar": true
+  },
+  "faceTracking": {
+    "method": "macOS Vision rerun on tone-mapped sRGB frames",
+    "samples": 401,
+    "lastTrackedFrame": 6046,
+    "maximumGapFrames": 45,
+    "presenterVisibleEndFrame": 6046,
+    "faceSha256": "819b5fb05a972a8883ffc05fc254b5ca1b819cadc86bfaaef7155f6a1c776727"
+  },
+  "previousValidation": "03-A-validation-1.1.0.json",
+  "previousColorStatus": "incomplete: HLG rasterized without tone mapping; output full range / BT.601-like matrix / missing TRC and primaries",
+  "newColdInstall": false,
+  "cleanInstallScope": "Earlier 1.1.0 record only; this color revision uses existing dependencies on the same computer."
 }

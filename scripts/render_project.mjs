@@ -3,7 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import { pathToFileURL } from 'node:url';
+import { pathToFileURL, fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { spawn, spawnSync } from 'node:child_process';
 import { chrome } from './chrome.mjs';
@@ -95,12 +95,18 @@ function executable(chromium, explicit) {
 async function main() {
   const opt = parse(), chromium = await playwright(opt), browserPath = executable(chromium, opt.browser || process.env.CHROME);
   let browser, ff, ffDone, temporary, report;
+  let color;
   const errors = new Set();
   const check = () => { if (errors.size) throw Error([...errors].join('\n')); };
   try {
     if (opt.output && spawnSync('ffmpeg', ['-version'], { stdio: 'ignore' }).status !== 0) throw Error('ffmpeg executable not found');
+    if (opt.output) {
+      const plan = spawnSync(process.env.ADU_PYTHON || 'python3', [path.join(path.dirname(fileURLToPath(import.meta.url)), 'color_management.py'), '--export-plan'], { encoding: 'utf8' });
+      if (plan.status !== 0) throw Error(`Color preflight failed: ${plan.stderr || plan.error?.message}`);
+      color = JSON.parse(plan.stdout);
+    }
     temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'adu-video-render-'));
-    browser = await chromium.launch({ executablePath: browserPath, headless: true, args: ['--allow-file-access-from-files'] });
+    browser = await chromium.launch({ executablePath: browserPath, headless: true, args: ['--allow-file-access-from-files', '--force-color-profile=srgb'] });
     const context = await browser.newContext({ viewport: { width: opt.width, height: opt.height }, deviceScaleFactor: 1, serviceWorkers: 'block' });
     await context.route('**/*', route => {
       if (/^https?:/i.test(route.request().url())) { errors.add('Remote request blocked; local assets are required'); return route.abort(); }
@@ -192,9 +198,9 @@ async function main() {
       if (!track || !Number.isFinite(audioDuration) || audioDuration + 0.05 < last / opt.fps) throw Error('Audio does not cover the requested full-timeline range');
     }
     const output = path.join(temporary, 'render.mp4');
-    const args = ['-n', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(opt.fps), '-c:v', 'mjpeg', '-i', 'pipe:0'];
+    const args = ['-n', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(opt.fps), '-c:v', 'png', '-i', 'pipe:0'];
     if (opt.audio) args.push('-protocol_whitelist', 'file,pipe', '-ss', String(first / opt.fps), '-i', opt.audio);
-    args.push('-map', '0:v:0', '-c:v', 'libx264', '-preset', 'medium', '-crf', '15', '-pix_fmt', 'yuv420p', '-frames:v', String(count));
+    args.push('-map', '0:v:0', '-map_metadata', '-1', '-vf', color.filter, '-c:v', 'libx264', '-preset', 'medium', '-crf', '15', '-pix_fmt', 'yuv420p', '-color_range', 'tv', '-colorspace', 'bt709', '-color_trc', 'bt709', '-color_primaries', 'bt709', '-frames:v', String(count));
     if (opt.audio) args.push('-map', '1:a:0', '-c:a', 'aac', '-ar', '48000', '-b:a', '192k', '-af', 'apad');
     else args.push('-an');
     args.push('-t', String(duration), '-movflags', '+faststart', output);
@@ -206,7 +212,7 @@ async function main() {
     for (let i = first; i < last; i++) {
       if (pipeError || ff.exitCode !== null) throw Error(`FFmpeg stopped: ${diagnostic || pipeError?.message}`);
       await frame(i / opt.fps);
-      const buffer = await page.screenshot({ type: 'jpeg', quality: 95 }); check();
+      const buffer = await page.screenshot({ type: 'png' }); check();
       await new Promise((resolve, reject) => ff.stdin.write(buffer, e => e ? reject(e) : resolve()));
       if ((i - first) % (opt.fps * 5) === 0) console.error(`Rendered ${i - first + 1}/${count} frames`);
     }
@@ -217,10 +223,11 @@ async function main() {
     const actualDuration = Number(video?.duration);
     if (Number(video?.nb_read_frames) !== count || !Number.isFinite(actualDuration) || Math.abs(actualDuration - duration) > 1 / opt.fps + 0.001) throw Error('ffprobe frame count/duration verification failed');
     if (opt.audio && !metadata.streams.some(s => s.codec_type === 'audio')) throw Error('Expected audio track missing');
+    for (const [key, value] of Object.entries(color.output)) if (video[key] !== value) throw Error(`Export color mismatch: ${key}=${video[key]}`);
     check();
     fs.copyFileSync(output, opt.target, fs.constants.COPYFILE_EXCL);
     const imageDecodeRetries = await page.evaluate(() => window.ADU_DECODE_RETRIES || 0);
-    report = { output: opt.target, frames: count, fps: opt.fps, duration, start: first / opt.fps, end: last / opt.fps, audio: !!opt.audio, imageDecodeRetries, browser: browserPath };
+    report = { output: opt.target, frames: count, fps: opt.fps, duration, start: first / opt.fps, end: last / opt.fps, audio: !!opt.audio, imageDecodeRetries, browser: browserPath, color };
   } finally {
     if (ff && ff.exitCode === null) { ff.kill('SIGKILL'); await ffDone; }
     let shutdownForced = false, shutdownTimer;

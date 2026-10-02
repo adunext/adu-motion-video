@@ -6,6 +6,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+from color_management import engine
 
 ROOT = Path(__file__).resolve().parent.parent
 failures = []
@@ -38,6 +39,11 @@ for tool in ('node', 'npm', 'ffmpeg', 'ffprobe'):
 if shutil.which('ffmpeg'):
     okay, encoders = command(['ffmpeg', '-hide_banner', '-encoders'])
     report('H.264 encoder', okay and 'libx264' in encoders, 'libx264 available' if 'libx264' in encoders else 'libx264 unavailable', 'Install a FFmpeg build with libx264.')
+    try:
+        color = engine()
+        report('Color conversion', True, color['engine'] + ' / sRGB images / limited BT.709 video')
+    except (ValueError, OSError, subprocess.CalledProcessError) as exc:
+        report('Color conversion', False, str(exc), 'Install FFmpeg 9+ with libswscale color mapping and colorspace.')
 if shutil.which('node'):
     js = """import {createRequire} from 'node:module';
 import {chrome} from './scripts/chrome.mjs';

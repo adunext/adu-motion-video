@@ -12,6 +12,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+from color_management import image_plan
 
 
 def run(args):
@@ -73,9 +74,10 @@ def main():
     probe = json.loads(run(['ffprobe', '-v', 'error', '-show_streams', '-show_format', '-of', 'json', video]))
     timing = input_timing(probe, a.fps)
     count, duration = timing['frames'], timing['duration']
+    color = image_plan(video)
     if timing['videoStartSeconds'] > 1 / a.fps + 1e-5:
         ap.error('video starts more than one output frame after the input clock; provide an aligned clip rather than padding a frozen presenter')
-    report = dict(source=str(video), fps=a.fps, **timing,
+    report = dict(source=str(video), fps=a.fps, **timing, color=color,
                   frame_width=width, frame_height=height, subtitles='not generated',
                   next_step='Set CONFIG.demo=false, CONFIG.fps=fps, CONFIG.end=duration; author scenes/race/captions for this clip. No creative timeline was rewritten.')
     with tempfile.TemporaryDirectory(prefix='adu-talk-import-') as temporary:
@@ -83,7 +85,7 @@ def main():
         sequence = work / 'talk' / 'clip_000'
         sequence.mkdir(parents=True)
         vf = (f'fps={a.fps}:start_time=0,scale={width}:{height}:force_original_aspect_ratio=decrease:flags=lanczos,'
-              f'pad={width}:{height}:(ow-iw)/2:(oh-ih)/2,tpad=stop_mode=clone:stop_duration={1/a.fps}')
+              f'pad={width}:{height}:(ow-iw)/2:(oh-ih)/2,tpad=stop_mode=clone:stop_duration={1/a.fps},' + color['filter'])
         run(['ffmpeg', '-v', 'error', '-n', '-i', video, '-map', '0:v:0', '-vf', vf,
              '-frames:v', count, '-q:v', '3', sequence / 'f_%05d.jpg'])
         if len(list(sequence.glob('f_*.jpg'))) != count: raise RuntimeError('Extracted frame count mismatch')
