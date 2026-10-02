@@ -335,7 +335,10 @@ def scaffold(pack: dict, output: Path) -> None:
             elif kind in ('image', 'sequence', 'wall-sprites'): slots[slot['id']] = None
         data['scenes'].append({'id': scene['id'] + '-01', 'sceneId': scene['id'],
                                'durationFrames': round((end - start) * pack['fps']),
-                               'cues': {cue['id']: {'at': cue['at']} for cue in scene.get('cues', [])},
+                               # Source seconds are choreography references, not
+                               # verified timestamps in the new narration.
+                               'cues': {cue['id']: None for cue in scene.get('cues', [])
+                                        if cue.get('required', cue.get('kind') in {'word', 'semantic'})},
                                'slots': slots})
         if scene.get('inputExample'):
             data['scenes'][-1]['inputs'] = scene['inputExample']
@@ -343,6 +346,8 @@ def scaffold(pack: dict, output: Path) -> None:
                 if slot.get('inputPath') or slot.get('inputTemplate'):
                     data['scenes'][-1]['slots'].pop(slot['id'], None)
     output.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
+    print('Manual draft saved; required cue bindings are unset. Bind real episode times before building. '
+          'Example copy is not a semantic plan; prefer macro-plan for new narration.')
 
 
 def write_project_audio(stage: Path, music: dict) -> None:

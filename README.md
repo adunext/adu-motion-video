@@ -178,6 +178,8 @@ https://github.com/adunext/adu-motion-video
 
 以下内容供需要安装命令、接口调用、模板版本和开发细节的用户查阅。
 
+**3.6.1** 统一新口播先走语义规划的引导；人工配置草稿不再预填源演示 cue，补充台词、证据身份、重复演出和人物裁切核对。旧工程与冻结包保持原字节。
+
 **3.6.0** 增加当前分镜重配、未消费输入诊断、素材版本检查与通用视频色彩证据；04-A 新候选修正长文案裁切和遮挡。156 项 Python 与 11 项 Node 测试通过，四套新文案完成静音排版检查；完整声画与界面接入边界见[本次验证记录](docs/template-adaptation-3.6.md)。
 
 **3.3.1** 补齐素材导入的 HDR → SDR 转换与标准 SDR 导出色彩校验，03-A 采用 1.1.1 色彩修正候选。已有十七组和旧候选的冻结字节保持不变。
@@ -271,9 +273,9 @@ bash "$PL" setup
 
 ```bash
 bash "$PL" packs
-bash "$PL" macro-spec classic-performance@1.0.0 /已有目录/本期配置.json
-# 编辑配置：挑场景、填账号及每场文案/数字/素材路径、绑定关键台词时间
-bash "$PL" macro-build classic-performance@1.0.0 /已有目录/本期配置.json /已有目录/剪好口播.mp4 /已有目录/新工程
+bash "$PL" macro-plan classic-performance@1.0.0 /已有目录/本期brief.json /已有目录/新规划
+# 阅读 report.md，缺项补回 brief 后重新规划；ready 仍需核对实际台词与素材
+bash "$PL" macro-build classic-performance@1.0.0 /已有目录/新规划/spec.json /已有目录/剪好口播.mp4 /已有目录/新工程
 bash "$PL" stills /已有目录/新工程 0,4,12
 bash "$PL" audio /已有目录/新工程
 bash "$PL" mix /已有目录/新工程
@@ -281,7 +283,7 @@ bash "$PL" render /已有目录/新工程 /已有目录/新片_v1_16x9_60fps.mp4
 bash "$PL" check /已有目录/新片_v1_16x9_60fps.mp4
 ```
 
-以上路径只是格式示例，`macro-spec` 输出和新工程路径必须事先不存在。可传 `--subs-js /路径/新口播字幕.js` 给 `macro-build`；字幕必须与新口播对齐。`macro-spec` 列出所选包的全部组，使用前删去不需要的组，按新口播顺序排列，并补齐必填输入。配置还可指定本期音乐 `music:{mode:"track",path,offset}`，以及本期混音增益 `mix:{musicVolume:0.42}`；完成后会把实际选择、处理图和声音摘要保存为 `mix_recipe.json`，详见[声音与重现](references/audio.md)。`anim4` 和 `anim3/s06` 默认在 macOS 使用 Vision 跟踪新口播人脸，其他系统要显式提供审核过的固定裁切。构建器要求目标场景总帧数与剪好口播相符，按输出帧网格量化后必须完全一致。长短差异和动作锚点的处理见[完整工程复用与验收](references/full-project-templating.md)。
+以上路径只是格式示例，规划目录和新工程路径必须事先不存在。brief 结构见[适配机制](references/adaptive-composition.md)与[可运行示例](examples/adaptation/README.md)。可传 `--subs-js /路径/新口播字幕.js` 给 `macro-build`；字幕必须与新口播对齐。历史人工入口 `macro-spec` 列出全部组的接口；生成的 cue 留空，须绑定本期真实台词，示例文案与原片时长不代表已适配。配置还可指定本期音乐 `music:{mode:"track",path,offset}`，以及本期混音增益 `mix:{musicVolume:0.42}`；完成后会把实际选择、处理图和声音摘要保存为 `mix_recipe.json`，详见[声音与重现](references/audio.md)。`anim4` 和 `anim3/s06` 默认在 macOS 使用 Vision 跟踪新口播人脸，其他系统要显式提供审核过的固定裁切。构建器要求目标场景总帧数与剪好口播相符，按输出帧网格量化后必须完全一致。长短差异和动作锚点的处理见[完整工程复用与验收](references/full-project-templating.md)。
 
 可以直接对 Agent 说：
 

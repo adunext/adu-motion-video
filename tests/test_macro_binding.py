@@ -8,6 +8,32 @@ from build_macro_project import bind_authored_block
 from adapt_project import AdaptError
 
 class MacroBindingTests(unittest.TestCase):
+    def test_manual_scaffold_requires_episode_cues_before_compilation(self):
+        import json
+        from build_macro_project import scaffold
+        from adapt_project import compile_plan
+        # A structurally valid scene must not compile with demo seconds
+        # supplied by the scaffolder as if they were episode observations.
+        pack = {'id': 'cue-test', 'fps': 60, 'scenes': [{
+            'id': 'claim', 'source': {'start': 0, 'end': 4},
+            'cues': [{'id': 'proof', 'at': 1, 'kind': 'semantic', 'required': True},
+                     {'id': 'beat', 'at': 3, 'kind': 'beat', 'required': False}],
+            'slots': []}]}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'draft.json'
+            scaffold(pack, path)
+            spec = json.loads(path.read_text())
+            self.assertNotIn('beat', spec['scenes'][0]['cues'])
+            with self.assertRaisesRegex(AdaptError, 'proof cue needs'):
+                compile_plan(pack, spec)
+            spec['scenes'][0]['cues']['proof'] = {'at': 2}
+            plan = compile_plan(pack, spec)
+            self.assertEqual(plan['scenes'][0]['cues'][0]['outputFrame'], 120)
+            self.assertFalse(plan['scenes'][0]['cues'][1]['explicit'])
+            self.assertEqual(pack['scenes'][0]['cues'][0]['at'], 1)
+            with self.assertRaises(AdaptError):
+                scaffold(pack, path)
+
     def test_copied_media_bindings_are_relative_to_exported_project(self):
         from build_macro_project import copy_media
         with tempfile.TemporaryDirectory() as tmp:

@@ -12,7 +12,7 @@
 # vert <dir> <NEW.mp4> [K]    requires a separately authored vert.html layout
 # seg <dir> <i> <NEW.mp4> [K] safe full fresh render, no cache speedup
 # check <file.mp4>            frame count/rate, complete decode, loudness and peak
-# macro-spec <pack> <NEW.json>  full-pack binding and semantic timing scaffold
+# macro-spec <pack> <NEW.json>  manual scaffold with unbound episode cues
 # macro-plan <pack> <brief.json> <NEW dir>  semantic/continuity/variety plan (draft exits 2)
 # macro-rematch <pack> <spec> <change.json> <NEW dir>  local scene proposals
 # macro-apply-rematch <pack> <spec> <review.json> <candidate> <NEW dir>  revalidate and adopt
