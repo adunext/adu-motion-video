@@ -1,0 +1,1571 @@
+[
+  {
+    "scene": 1,
+    "text": [
+      {
+        "text": "// 01 — 下一个阶段",
+        "parent": "DIV",
+        "cls": "tag",
+        "index": 0
+      },
+      {
+        "text": "YOUR BRAND",
+        "parent": "DIV",
+        "cls": "tag tc",
+        "index": 1
+      },
+      {
+        "text": "00:00:01:00",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 2
+      },
+      {
+        "text": "●",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 3
+      },
+      {
+        "text": "// on air · 主讲人",
+        "parent": "DIV",
+        "cls": "lab",
+        "index": 4
+      },
+      {
+        "text": "视频内容创作",
+        "parent": "DIV",
+        "cls": "",
+        "index": 5
+      },
+      {
+        "text": "进入",
+        "parent": "DIV",
+        "cls": "",
+        "index": 6
+      },
+      {
+        "text": "下一阶段",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 7
+      },
+      {
+        "text": "AI · VIDEO · 2026",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 8
+      },
+      {
+        "text": "STAGE",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 9
+      },
+      {
+        "text": "01",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 10
+      },
+      {
+        "text": "02",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 11
+      },
+      {
+        "text": "// 手动剪辑 · timeline",
+        "parent": "DIV",
+        "cls": "lb",
+        "index": 12
+      },
+      {
+        "text": "frame 000000",
+        "parent": "DIV",
+        "cls": "ix fc",
+        "index": 13
+      },
+      {
+        "text": "别再死磕",
+        "parent": "DIV",
+        "cls": "",
+        "index": 14
+      },
+      {
+        "text": "REC · 示意",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 15
+      },
+      {
+        "text": "看完你就知道",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 16
+      },
+      {
+        "text": "现在的 AI 剪辑",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 17
+      },
+      {
+        "text": "有多",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 18
+      },
+      {
+        "text": "离谱。",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 19
+      }
+    ]
+  },
+  {
+    "scene": 2,
+    "text": [
+      {
+        "text": "// 02 — 示意 · 同一段口播 · 9 个展示卡片",
+        "parent": "DIV",
+        "cls": "tag",
+        "index": 0
+      },
+      {
+        "text": "YOUR BRAND",
+        "parent": "DIV",
+        "cls": "tag tc",
+        "index": 1
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "ok",
+        "index": 2
+      },
+      {
+        "text": "示例方案 A",
+        "parent": "DIV",
+        "cls": "nm",
+        "index": 3
+      },
+      {
+        "text": "详细提示词",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 4
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "ok",
+        "index": 5
+      },
+      {
+        "text": "示例方案 B",
+        "parent": "DIV",
+        "cls": "nm",
+        "index": 6
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "ok",
+        "index": 7
+      },
+      {
+        "text": "示例方案 C",
+        "parent": "DIV",
+        "cls": "nm",
+        "index": 8
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "ok",
+        "index": 9
+      },
+      {
+        "text": "示例方案 D",
+        "parent": "DIV",
+        "cls": "nm",
+        "index": 10
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "ok",
+        "index": 11
+      },
+      {
+        "text": "示例方案 A",
+        "parent": "DIV",
+        "cls": "nm",
+        "index": 12
+      },
+      {
+        "text": "一句话提示词",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 13
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "ok",
+        "index": 14
+      },
+      {
+        "text": "示例方案 E",
+        "parent": "DIV",
+        "cls": "nm",
+        "index": 15
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "ok",
+        "index": 16
+      },
+      {
+        "text": "示例方案 F",
+        "parent": "DIV",
+        "cls": "nm",
+        "index": 17
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "ok",
+        "index": 18
+      },
+      {
+        "text": "示例方案 G",
+        "parent": "DIV",
+        "cls": "nm",
+        "index": 19
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "ok",
+        "index": 20
+      },
+      {
+        "text": "示例方案 H",
+        "parent": "DIV",
+        "cls": "nm",
+        "index": 21
+      },
+      {
+        "text": "// 同一段口播 · 9 个模型",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 22
+      },
+      {
+        "text": "对比组 B",
+        "parent": "DIV",
+        "cls": "chip vg",
+        "index": 23
+      },
+      {
+        "text": "对比组 A",
+        "parent": "DIV",
+        "cls": "chip vc",
+        "index": 24
+      },
+      {
+        "text": "5.6",
+        "parent": "DIV",
+        "cls": "chip",
+        "index": 25
+      },
+      {
+        "text": "6",
+        "parent": "DIV",
+        "cls": "chip",
+        "index": 26
+      },
+      {
+        "text": "Pro",
+        "parent": "DIV",
+        "cls": "chip",
+        "index": 27
+      },
+      {
+        "text": "Ultra",
+        "parent": "DIV",
+        "cls": "chip",
+        "index": 28
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "check",
+        "index": 29
+      },
+      {
+        "text": "所有的，全部试了",
+        "parent": "DIV",
+        "cls": "",
+        "index": 30
+      },
+      {
+        "text": "总的来说 ·",
+        "parent": "DIV",
+        "cls": "",
+        "index": 31
+      },
+      {
+        "text": "还可以",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 32
+      },
+      {
+        "text": "// 推理程度",
+        "parent": "DIV",
+        "cls": "lb",
+        "index": 33
+      },
+      {
+        "text": "medium",
+        "parent": "DIV",
+        "cls": "mono rv",
+        "index": 34
+      },
+      {
+        "text": "low",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 35
+      },
+      {
+        "text": "// token 消耗",
+        "parent": "DIV",
+        "cls": "lb",
+        "index": 36
+      },
+      {
+        "text": "0",
+        "parent": "DIV",
+        "cls": "mono tv",
+        "index": 37
+      },
+      {
+        "text": "成本",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 38
+      },
+      {
+        "text": "$0.00",
+        "parent": "SPAN",
+        "cls": "cv",
+        "index": 39
+      }
+    ]
+  },
+  {
+    "scene": 3,
+    "text": [
+      {
+        "text": "// 03 — 示例方案 A",
+        "parent": "DIV",
+        "cls": "tag",
+        "index": 0
+      },
+      {
+        "text": "YOUR BRAND",
+        "parent": "DIV",
+        "cls": "tag tc",
+        "index": 1
+      },
+      {
+        "text": "示例方案 A · 一句话提示词 · 成片",
+        "parent": "DIV",
+        "cls": "tg mono",
+        "index": 2
+      },
+      {
+        "text": "终结",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 3
+      },
+      {
+        "text": "比赛。",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 4
+      },
+      {
+        "text": "DEMO · 示意比较",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 5
+      },
+      {
+        "text": "对比组 A",
+        "parent": "DIV",
+        "cls": "",
+        "index": 6
+      },
+      {
+        "text": "方案 A",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 7
+      },
+      {
+        "text": "No.1",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 8
+      },
+      {
+        "text": "// 多年专业剪辑师",
+        "parent": "DIV",
+        "cls": "lb",
+        "index": 9
+      },
+      {
+        "text": "人类 · 专业",
+        "parent": "DIV",
+        "cls": "",
+        "index": 10
+      },
+      {
+        "text": "完全不输",
+        "parent": "DIV",
+        "cls": "",
+        "index": 11
+      },
+      {
+        "text": "// AI",
+        "parent": "DIV",
+        "cls": "lb",
+        "index": 12
+      },
+      {
+        "text": "方案 A",
+        "parent": "DIV",
+        "cls": "",
+        "index": 13
+      },
+      {
+        "text": "00:00",
+        "parent": "DIV",
+        "cls": "mono rt",
+        "index": 14
+      },
+      {
+        "text": "分钟 · 出片",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 15
+      },
+      {
+        "text": "// 审片报告",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 16
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "check",
+        "index": 17
+      },
+      {
+        "text": "转场细节",
+        "parent": "DIV",
+        "cls": "",
+        "index": 18
+      },
+      {
+        "text": "PASS",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 19
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "check",
+        "index": 20
+      },
+      {
+        "text": "画面流畅度",
+        "parent": "DIV",
+        "cls": "",
+        "index": 21
+      },
+      {
+        "text": "PASS",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 22
+      },
+      {
+        "text": "✓",
+        "parent": "DIV",
+        "cls": "check",
+        "index": 23
+      },
+      {
+        "text": "文案 · 情绪逻辑",
+        "parent": "DIV",
+        "cls": "",
+        "index": 24
+      },
+      {
+        "text": "PASS",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 25
+      },
+      {
+        "text": "精准得",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 26
+      },
+      {
+        "text": "离谱。",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 27
+      },
+      {
+        "text": "// 上一条作品 · 感兴趣可以翻",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 28
+      }
+    ]
+  },
+  {
+    "scene": 4,
+    "text": [
+      {
+        "text": "// 04 — 全品类",
+        "parent": "DIV",
+        "cls": "tag",
+        "index": 0
+      },
+      {
+        "text": "YOUR BRAND",
+        "parent": "DIV",
+        "cls": "tag tc",
+        "index": 1
+      },
+      {
+        "text": "不止",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 2
+      },
+      {
+        "text": "口播。",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 3
+      },
+      {
+        "text": "全品类",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 4
+      },
+      {
+        "text": "测了个遍。",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 5
+      },
+      {
+        "text": "知识讲解",
+        "parent": "DIV",
+        "cls": "",
+        "index": 6
+      },
+      {
+        "text": "// explainer",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 7
+      },
+      {
+        "text": "趣味解说",
+        "parent": "DIV",
+        "cls": "",
+        "index": 8
+      },
+      {
+        "text": "// commentary",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 9
+      },
+      {
+        "text": "剧情短片",
+        "parent": "DIV",
+        "cls": "",
+        "index": 10
+      },
+      {
+        "text": "// short film",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 11
+      },
+      {
+        "text": "音乐 MV",
+        "parent": "DIV",
+        "cls": "",
+        "index": 12
+      },
+      {
+        "text": "// music video",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 13
+      },
+      {
+        "text": "// 网络优秀作品收集 · 非个人原创",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 14
+      },
+      {
+        "text": "0",
+        "parent": "SPAN",
+        "cls": "wn",
+        "index": 15
+      },
+      {
+        "text": "条 · 示例素材 · 请填写实际来源",
+        "parent": "DIV",
+        "cls": "",
+        "index": 16
+      },
+      {
+        "text": "全能靠 AI",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 17
+      },
+      {
+        "text": "共创出",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 18
+      },
+      {
+        "text": "高质量成片。",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 19
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 20
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 21
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 22
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 23
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 24
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 25
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 26
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 27
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 28
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 29
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 30
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 31
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 32
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 33
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 34
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 35
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 36
+      },
+      {
+        "text": "template_01",
+        "parent": "DIV",
+        "cls": "",
+        "index": 37
+      },
+      {
+        "text": "不是套模板的",
+        "parent": "DIV",
+        "cls": "",
+        "index": 38
+      },
+      {
+        "text": "流水线",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 39
+      },
+      {
+        "text": "远景 · WS",
+        "parent": "DIV",
+        "cls": "sh mono",
+        "index": 40
+      },
+      {
+        "text": "有",
+        "parent": "DIV",
+        "cls": "",
+        "index": 41
+      },
+      {
+        "text": "镜头语言",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 42
+      },
+      {
+        "text": "有",
+        "parent": "DIV",
+        "cls": "",
+        "index": 43
+      },
+      {
+        "text": "叙事节奏",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 44
+      },
+      {
+        "text": "起",
+        "parent": "DIV",
+        "cls": "an",
+        "index": 45
+      },
+      {
+        "text": "承",
+        "parent": "DIV",
+        "cls": "an",
+        "index": 46
+      },
+      {
+        "text": "转",
+        "parent": "DIV",
+        "cls": "an",
+        "index": 47
+      },
+      {
+        "text": "合",
+        "parent": "DIV",
+        "cls": "an",
+        "index": 48
+      }
+    ]
+  },
+  {
+    "scene": 5,
+    "text": [
+      {
+        "text": "// 05 — 震撼，也是打击",
+        "parent": "DIV",
+        "cls": "tag",
+        "index": 0
+      },
+      {
+        "text": "YOUR BRAND",
+        "parent": "DIV",
+        "cls": "tag tc",
+        "index": 1
+      },
+      {
+        "text": "●",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 2
+      },
+      {
+        "text": "// on air · 主讲人",
+        "parent": "DIV",
+        "cls": "lab",
+        "index": 3
+      },
+      {
+        "text": "不仅是",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 4
+      },
+      {
+        "text": "震撼，",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 5
+      },
+      {
+        "text": "也是打击。",
+        "parent": "DIV",
+        "cls": "h1",
+        "index": 6
+      },
+      {
+        "text": "// 示例身份标签",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 7
+      },
+      {
+        "text": "示例创作者",
+        "parent": "DIV",
+        "cls": "",
+        "index": 8
+      },
+      {
+        "text": "示例软件 · Example App",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 9
+      },
+      {
+        "text": "AI 匹配",
+        "parent": "DIV",
+        "cls": "",
+        "index": 10
+      },
+      {
+        "text": "镜头 · 动画 · 音效 · 素材 · 一键自动匹配",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 11
+      },
+      {
+        "text": "模板库",
+        "parent": "DIV",
+        "cls": "",
+        "index": 12
+      },
+      {
+        "text": "预设 / 素材模板 / Lottie 动效 / 定制动画",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 13
+      },
+      {
+        "text": "▶▶ 2.4×",
+        "parent": "DIV",
+        "cls": "chip",
+        "index": 14
+      },
+      {
+        "text": "// 今年年初 · 一直在死磕",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 15
+      },
+      {
+        "text": "AI 自动剪辑工具",
+        "parent": "DIV",
+        "cls": "",
+        "index": 16
+      },
+      {
+        "text": "示例痛点 · 制作",
+        "parent": "DIV",
+        "cls": "chip",
+        "index": 17
+      },
+      {
+        "text": "太费时间",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 18
+      },
+      {
+        "text": "对比组 A · 这波版本更新",
+        "parent": "DIV",
+        "cls": "chip",
+        "index": 19
+      },
+      {
+        "text": "示例方案 A",
+        "parent": "DIV",
+        "cls": "",
+        "index": 20
+      },
+      {
+        "text": "P1",
+        "parent": "DIV",
+        "cls": "mono lp",
+        "index": 21
+      },
+      {
+        "text": "示例软件",
+        "parent": "DIV",
+        "cls": "",
+        "index": 22
+      },
+      {
+        "text": "P2",
+        "parent": "DIV",
+        "cls": "mono lp",
+        "index": 23
+      },
+      {
+        "text": "传统剪辑",
+        "parent": "DIV",
+        "cls": "",
+        "index": 24
+      },
+      {
+        "text": "P3",
+        "parent": "DIV",
+        "cls": "mono lp",
+        "index": 25
+      },
+      {
+        "text": "赛道格局，",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 26
+      },
+      {
+        "text": "改写。",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 27
+      }
+    ]
+  },
+  {
+    "scene": 6,
+    "text": [
+      {
+        "text": "// 06 — 快车道",
+        "parent": "DIV",
+        "cls": "tag",
+        "index": 0
+      },
+      {
+        "text": "YOUR BRAND",
+        "parent": "DIV",
+        "cls": "tag tc",
+        "index": 1
+      },
+      {
+        "text": "大模型的",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 2
+      },
+      {
+        "text": "迭代速度",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 3
+      },
+      {
+        "text": "2023",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 4
+      },
+      {
+        "text": "NOW",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 5
+      },
+      {
+        "text": "▶▶",
+        "parent": "SPAN",
+        "cls": "mono",
+        "index": 6
+      },
+      {
+        "text": "示例方案 A",
+        "parent": "DIV",
+        "cls": "car",
+        "index": 7
+      },
+      {
+        "text": "▶",
+        "parent": "SPAN",
+        "cls": "mono",
+        "index": 8
+      },
+      {
+        "text": "对比组 B",
+        "parent": "DIV",
+        "cls": "car",
+        "index": 9
+      },
+      {
+        "text": "▶",
+        "parent": "SPAN",
+        "cls": "mono",
+        "index": 10
+      },
+      {
+        "text": "对比组 C",
+        "parent": "DIV",
+        "cls": "car",
+        "index": 11
+      },
+      {
+        "text": "AI + 内容创作，",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 12
+      },
+      {
+        "text": "驶入快车道。",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 13
+      },
+      {
+        "text": "// 第一时间 · 启动",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 14
+      },
+      {
+        "text": "示例",
+        "parent": "DIV",
+        "cls": "",
+        "index": 15
+      },
+      {
+        "text": "品牌",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 16
+      },
+      {
+        "text": "创作者简介 · 请按本期内容填写",
+        "parent": "DIV",
+        "cls": "",
+        "index": 17
+      },
+      {
+        "text": "// 开始时间",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 18
+      },
+      {
+        "text": "第",
+        "parent": "DIV",
+        "cls": "",
+        "index": 19
+      },
+      {
+        "text": "0",
+        "parent": "B",
+        "cls": "sv0",
+        "index": 20
+      },
+      {
+        "text": "天",
+        "parent": "DIV",
+        "cls": "",
+        "index": 21
+      },
+      {
+        "text": "// 消耗时间",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 22
+      },
+      {
+        "text": "0",
+        "parent": "B",
+        "cls": "sv1",
+        "index": 23
+      },
+      {
+        "text": "小时",
+        "parent": "DIV",
+        "cls": "",
+        "index": 24
+      },
+      {
+        "text": "// 粉丝数",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 25
+      },
+      {
+        "text": "0",
+        "parent": "B",
+        "cls": "sv2",
+        "index": 26
+      },
+      {
+        "text": "// 收入",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 27
+      },
+      {
+        "text": "¥",
+        "parent": "DIV",
+        "cls": "",
+        "index": 28
+      },
+      {
+        "text": "0",
+        "parent": "B",
+        "cls": "sv3",
+        "index": 29
+      }
+    ]
+  },
+  {
+    "scene": 7,
+    "text": [
+      {
+        "text": "// 07 — 一小时",
+        "parent": "DIV",
+        "cls": "tag",
+        "index": 0
+      },
+      {
+        "text": "YOUR BRAND",
+        "parent": "DIV",
+        "cls": "tag tc",
+        "index": 1
+      },
+      {
+        "text": "放在以前，",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 2
+      },
+      {
+        "text": "做一条视频",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 3
+      },
+      {
+        "text": "1h",
+        "parent": "DIV",
+        "cls": "one",
+        "index": 4
+      },
+      {
+        "text": "写稿",
+        "parent": "DIV",
+        "cls": "st",
+        "index": 5
+      },
+      {
+        "text": "拍摄",
+        "parent": "DIV",
+        "cls": "st",
+        "index": 6
+      },
+      {
+        "text": "剪辑",
+        "parent": "DIV",
+        "cls": "st",
+        "index": 7
+      },
+      {
+        "text": "≈ 1–2 天",
+        "parent": "DIV",
+        "cls": "bl mono",
+        "index": 8
+      },
+      {
+        "text": "现在 →",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 9
+      },
+      {
+        "text": "1 小时",
+        "parent": "DIV",
+        "cls": "",
+        "index": 10
+      },
+      {
+        "text": "// 每天 24h",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 11
+      },
+      {
+        "text": "AI 开发工作",
+        "parent": "DIV",
+        "cls": "",
+        "index": 12
+      },
+      {
+        "text": "+ 1h 示例创作者",
+        "parent": "DIV",
+        "cls": "",
+        "index": 13
+      },
+      {
+        "text": "// 日常 · AI 开发工作",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 14
+      },
+      {
+        "text": "// 工作的日常",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 15
+      },
+      {
+        "text": "每天一小时，输出：",
+        "parent": "DIV",
+        "cls": "",
+        "index": 16
+      },
+      {
+        "text": "// 01",
+        "parent": "DIV",
+        "cls": "lb",
+        "index": 17
+      },
+      {
+        "text": "前沿 AI 技术分享",
+        "parent": "DIV",
+        "cls": "",
+        "index": 18
+      },
+      {
+        "text": "// 02",
+        "parent": "DIV",
+        "cls": "lb",
+        "index": 19
+      },
+      {
+        "text": "工作的日常",
+        "parent": "DIV",
+        "cls": "",
+        "index": 20
+      }
+    ]
+  },
+  {
+    "scene": 8,
+    "text": [
+      {
+        "text": "// 08 — 行动",
+        "parent": "DIV",
+        "cls": "tag",
+        "index": 0
+      },
+      {
+        "text": "YOUR BRAND",
+        "parent": "DIV",
+        "cls": "tag tc",
+        "index": 1
+      },
+      {
+        "text": "●",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 2
+      },
+      {
+        "text": "// on air · 主讲人",
+        "parent": "DIV",
+        "cls": "lab",
+        "index": 3
+      },
+      {
+        "text": "// 最后，掏句心窝子",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 4
+      },
+      {
+        "text": "内容创作的",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 5
+      },
+      {
+        "text": "新时代，",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 6
+      },
+      {
+        "text": "真的",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 7
+      },
+      {
+        "text": "来了。",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 8
+      },
+      {
+        "text": "// 产能对比",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 9
+      },
+      {
+        "text": "你的对手",
+        "parent": "DIV",
+        "cls": "",
+        "index": 10
+      },
+      {
+        "text": "+ AI",
+        "parent": "SPAN",
+        "cls": "mono",
+        "index": 11
+      },
+      {
+        "text": "×1",
+        "parent": "DIV",
+        "cls": "rx mono",
+        "index": 12
+      },
+      {
+        "text": "你",
+        "parent": "DIV",
+        "cls": "",
+        "index": 13
+      },
+      {
+        "text": "frame 0001 · 还在一帧一帧地磕",
+        "parent": "DIV",
+        "cls": "fc mono",
+        "index": 14
+      },
+      {
+        "text": "▶",
+        "parent": "SPAN",
+        "cls": "mono",
+        "index": 15
+      },
+      {
+        "text": "和 AI 一起，行动起来",
+        "parent": "DIV",
+        "cls": "",
+        "index": 16
+      },
+      {
+        "text": "示例",
+        "parent": "DIV",
+        "cls": "",
+        "index": 17
+      },
+      {
+        "text": "品牌",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 18
+      },
+      {
+        "text": "创作与技术 · 示例品牌说明",
+        "parent": "DIV",
+        "cls": "",
+        "index": 19
+      },
+      {
+        "text": "💬",
+        "parent": "DIV",
+        "cls": "",
+        "index": 20
+      },
+      {
+        "text": "有问题，评论区留言",
+        "parent": "DIV",
+        "cls": "",
+        "index": 21
+      },
+      {
+        "text": "// 我会尽量解答",
+        "parent": "DIV",
+        "cls": "mono",
+        "index": 22
+      },
+      {
+        "text": "拜拜",
+        "parent": "DIV",
+        "cls": "",
+        "index": 23
+      },
+      {
+        "text": "👋",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 24
+      }
+    ]
+  },
+  {
+    "scene": 9,
+    "text": [
+      {
+        "text": "// 09 — 制作说明",
+        "parent": "DIV",
+        "cls": "tag",
+        "index": 0
+      },
+      {
+        "text": "YOUR BRAND",
+        "parent": "DIV",
+        "cls": "tag tc",
+        "index": 1
+      },
+      {
+        "text": "制作工具：",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 2
+      },
+      {
+        "text": "示例方案 A",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 3
+      },
+      {
+        "text": "制作",
+        "parent": "SPAN",
+        "cls": "w",
+        "index": 4
+      },
+      {
+        "text": "adu-motion-video",
+        "parent": "DIV",
+        "cls": "chip",
+        "index": 5
+      },
+      {
+        "text": "动画 · 配乐 · 音效 全部由代码生成",
+        "parent": "DIV",
+        "cls": "chip",
+        "index": 6
+      },
+      {
+        "text": "// 核心提示词 · prompt",
+        "parent": "SPAN",
+        "cls": "mono",
+        "index": 7
+      },
+      {
+        "text": "›",
+        "parent": "SPAN",
+        "cls": "mono",
+        "index": 8
+      },
+      {
+        "text": "示例",
+        "parent": "DIV",
+        "cls": "",
+        "index": 9
+      },
+      {
+        "text": "品牌",
+        "parent": "SPAN",
+        "cls": "",
+        "index": 10
+      },
+      {
+        "text": "// 提示词可以直接复制去试",
+        "parent": "SPAN",
+        "cls": "mono",
+        "index": 11
+      }
+    ]
+  }
+]

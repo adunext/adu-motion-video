@@ -1,41 +1,69 @@
 {
   "schema": "adu-demo-validation/1",
   "id": "03-A",
-  "kind": "silent-source-preview",
-  "selection": "anim4-showcase-macro@1.0.0",
-  "templateStatus": "experimental",
-  "source": {
-    "id": "owner-completed-showcase-v7",
-    "sha256": "0b78e5c9e5e032d350968121cd1c9a18438b7e8b34b3ecbcdda5c8ecef510ade",
-    "rangeSeconds": [
-      57.4,
-      65.4
-    ]
-  },
-  "content": "Owner presenter and owner software recording, no third-party wall or comparison videos in this excerpt.",
-  "outputs": {
-    "mp4": {
-      "sha256": "149136f48042b2b7e53a15b9701a540c31070ec53d04f947162c2a8bc571f205",
-      "width": 960,
-      "height": 540,
-      "fps": 24,
-      "frames": 192,
-      "durationSeconds": 8,
-      "audio": false,
-      "fullDecode": "pass"
+  "kind": "silent-different-content-preview",
+  "selection": "anim4-showcase-macro@1.1.0-candidate",
+  "templateStatus": "candidate-awaiting-owner-av",
+  "content": "Owner presenter plus actual recording of the owner old repository; source s05 58.1–66.1 s, before hero handoff. No third-party wall or comparison videos in the public excerpt.",
+  "outputs": [
+    {
+      "id": "03-A",
+      "layout": "landscape",
+      "sourceSha256": "af4cd987de6a65d0df260b142cbf6f6b45ed7ffe1c9adae0e77c09f059654b5c",
+      "rangeSeconds": [
+        45.8,
+        53.8
+      ],
+      "mp4": {
+        "sha256": "4c19ae4d6850c6d2cf57c2d2f86a47d6259c6c8bc2ffd4ac250b2f404e8dd0dc",
+        "width": 960,
+        "height": 540,
+        "fps": 24,
+        "frames": 192,
+        "durationSeconds": 8,
+        "audio": false,
+        "fullDecode": "pass"
+      },
+      "gif": {
+        "sha256": "f95cdcbae431ff3315931113d74b099d3c1dc5a2ea52a4784b000848f8fd8941",
+        "width": 400,
+        "height": 225,
+        "frames": 64,
+        "durationSeconds": 8.0,
+        "allFramesDecoded": true
+      }
     },
-    "gif": {
-      "sha256": "7b845c501c1b8eee98c0d78e4e1d366124a74dff706e41795901ab397160a391",
-      "width": 400,
-      "height": 225,
-      "fps": 8,
-      "frames": 64,
-      "durationSeconds": 8,
-      "allFramesDecoded": true
+    {
+      "id": "03-A-portrait",
+      "layout": "portrait",
+      "sourceSha256": "91aa718166ec49c1c2fa4da2df7357bcab10cd0d3d14830425f75804a212c3e7",
+      "rangeSeconds": [
+        45.8,
+        53.8
+      ],
+      "mp4": {
+        "sha256": "2030e6a6b21603baff1f5f488abdbf5a1f7e70f67866e7338300e34715f13216",
+        "width": 540,
+        "height": 960,
+        "fps": 24,
+        "frames": 192,
+        "durationSeconds": 8,
+        "audio": false,
+        "fullDecode": "pass"
+      },
+      "gif": {
+        "sha256": "6a585107da4f1d437f5c45b29080d8130d8855ab39c9bd81ff1bd44c9798a2ba",
+        "width": 225,
+        "height": 400,
+        "frames": 64,
+        "durationSeconds": 8.0,
+        "allFramesDecoded": true
+      }
     }
-  },
+  ],
+  "fullFilmEvidence": "../../docs/03-A-validation.json",
   "limits": [
-    "Source performance excerpt; not a different-content or independent-use validation.",
-    "Raw narration, recordings, personal subtitles and full mixes are not distributed as template inputs."
+    "Public previews are silent 8-second excerpts, not complete audiovisual review.",
+    "Full films and private input media are retained in the owner delivery; not distributed as template inputs."
   ]
 }

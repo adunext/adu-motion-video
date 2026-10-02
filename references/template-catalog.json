@@ -124,8 +124,8 @@
         {
           "id": "03-A",
           "title": "多屏展陈",
-          "status": "experimental",
-          "selection": "anim4-showcase-macro@1.0.0",
+          "status": "candidate",
+          "selection": "anim4-showcase-macro@1.1.0-candidate",
           "preview": "assets/demos/03-A.gif",
           "demo": "assets/demos/03-A.mp4",
           "requires": [
@@ -133,10 +133,17 @@
             "所选场景的真实作品、比较视频与软件录屏",
             "按场景提供头像、标识、作品清单与来源图标"
           ],
-          "scope": "九场既有完整宏场景；当前为试用，未作为新稳定路线发布",
+          "scope": "九场完整宏场景，横屏与原生竖屏；不同内容整片和冷安装已核验，待作者连续声画确认",
           "guide": "references/dark-3d-template.md",
-          "previewBasis": "源演出的深色软件窗口段；只展示所有者口播与本人软件录屏，不是新内容成片证据",
-          "demoAudio": "none; silent source performance preview"
+          "previewBasis": "不同内容九场样片的软件窗口段；仅包含所有者口播与本人实录",
+          "demoAudio": "none; silent different-content preview",
+          "portraitPreview": "assets/demos/03-A-portrait.gif",
+          "portraitDemo": "assets/demos/03-A-portrait.mp4",
+          "layouts": [
+            "1920×1080@60",
+            "1080×1920@60"
+          ],
+          "acceptance": "awaiting owner continuous audiovisual confirmation"
         }
       ]
     }

@@ -1,0 +1,152 @@
+{
+  "schema": "adu-showcase-validation/1",
+  "date": "2026-10-02",
+  "selection": "anim4-showcase-macro@1.1.0-candidate",
+  "qualityStatus": "candidate-awaiting-owner-av",
+  "candidateManifestSha256": "2afaca2914e256230bafe00f8f0da301dd48f80d375684a0e95594b3400cd555",
+  "sourceRevision": "ccd3891e0e7abbc55afb0f793bcd95d056db9e6c241eed6d9d39119346ea5c0b",
+  "scenes": 9,
+  "slots": 222,
+  "cues": 66,
+  "protectedWindows": 42,
+  "sfxEvents": 175,
+  "newSceneOrder": [
+    "s01",
+    "s03",
+    "s02",
+    "s05",
+    "s04",
+    "s06",
+    "s07",
+    "s08",
+    "s09"
+  ],
+  "outputs": [
+    {
+      "id": "new-nine-landscape",
+      "sha256": "af4cd987de6a65d0df260b142cbf6f6b45ed7ffe1c9adae0e77c09f059654b5c",
+      "width": 1920,
+      "height": 1080,
+      "fps": 60,
+      "frames": 6504,
+      "durationSeconds": 108.4,
+      "audio": true,
+      "completeDecode": "pass",
+      "frameClock": {
+        "frames": 6504,
+        "fps": 60,
+        "max_error_seconds": 3.333333467026023e-07,
+        "verification": "every decoded display timestamp matches frame / fps"
+      },
+      "integratedLufs": -15.2,
+      "truePeakDbtp": -1.1,
+      "sampledStateFrames": 295,
+      "reverseDifferences": 0,
+      "freshDifferences": 0,
+      "allFramePresenterClockMismatches": 0,
+      "captionBoundaryViolations": 0,
+      "browserScriptErrors": 0
+    },
+    {
+      "id": "new-nine-portrait",
+      "sha256": "91aa718166ec49c1c2fa4da2df7357bcab10cd0d3d14830425f75804a212c3e7",
+      "width": 1080,
+      "height": 1920,
+      "fps": 60,
+      "frames": 6504,
+      "durationSeconds": 108.4,
+      "audio": true,
+      "completeDecode": "pass",
+      "frameClock": {
+        "frames": 6504,
+        "fps": 60,
+        "max_error_seconds": 3.333333467026023e-07,
+        "verification": "every decoded display timestamp matches frame / fps"
+      },
+      "integratedLufs": -15.2,
+      "truePeakDbtp": -1.1,
+      "sampledStateFrames": 295,
+      "reverseDifferences": 0,
+      "freshDifferences": 0,
+      "allFramePresenterClockMismatches": 0,
+      "captionBoundaryViolations": 0,
+      "browserScriptErrors": 0
+    }
+  ],
+  "sourceReference": {
+    "id": "current-source-fresh-replay",
+    "sha256": "892c3a37fbe155e5e9e99cae109c0718536d7ddf252ed598e057e2f0e52e2af6",
+    "frames": 6504,
+    "fps": 60,
+    "durationSeconds": 108.4,
+    "completeDecode": "pass",
+    "scope": "Current privately frozen revision; retained historical v7/v8 are distinct. Legacy pack scene bytes remain the parameterized choreography baseline; no raster-equivalence claim."
+  },
+  "cleanInstall": {
+    "frozenTree": "e5f6b1be707265248a88d5c990a48a651e83b30c",
+    "freshNpmAndPythonDependencies": true,
+    "candidateFilesEqual": true,
+    "audioFilesEqual": {
+      "voice.wav": true,
+      "bgm.wav": true,
+      "sfx.wav": true,
+      "sfx.json": true,
+      "mix.wav": true
+    },
+    "faceTrackingEqual": true,
+    "legacyUnchanged": true,
+    "environment": "macOS, CPython 3.14.7, Node 23.11.0, Playwright 1.58.2; installed Chrome/FFmpeg 9.0.1 and system fonts",
+    "independentOperator": false,
+    "temporaryDependenciesCleaned": true
+  },
+  "voice": {
+    "method": "decode original audio and imported narration at 48kHz stereo s16; pad only after narration to 108.4 s",
+    "bytes": 20812800,
+    "sameSamples": true,
+    "originalPaddedPcmSha256": "7397005f575ad0952dd3cc487d54aa5e1cab8c21d358dfde9dc176cc36de721c",
+    "importedPcmSha256": "7397005f575ad0952dd3cc487d54aa5e1cab8c21d358dfde9dc176cc36de721c",
+    "retimed": false
+  },
+  "faceTracking": {
+    "mode": "macOS-Vision",
+    "samples": 402,
+    "maxGapFrames": 45,
+    "lastTrackedFrame": 6046,
+    "presenterVisibleEndFrame": 6046,
+    "trackScope": "live human frames only; black information-card tail is hidden by the frozen layout adapter",
+    "faceSha256": "42d65bfc6a86fdb781e045132b0994c6f74ba925b6dcf172dc89e46bd6492788"
+  },
+  "rejectionChecks": [
+    {
+      "case": "existing-output",
+      "rejected": true,
+      "outputCreated": "existing directory preserved"
+    },
+    {
+      "case": "version-mismatch",
+      "rejected": true,
+      "outputCreated": false
+    },
+    {
+      "case": "invalid-layout",
+      "rejected": true,
+      "outputCreated": false
+    },
+    {
+      "case": "invalid-cutoff",
+      "rejected": true,
+      "outputCreated": false
+    }
+  ],
+  "distribution": {
+    "public": "Frozen code/contracts/sound recipe plus owner-only silent software-window previews",
+    "private": "Full narration, raw recordings, subtitles, third-party wall/comparison media and full new films"
+  },
+  "limits": [
+    "Owner normal-speed continuous source/new audiovisual confirmation remains pending.",
+    "Fresh dependencies on the same computer; no independent operator or blank-OS validation.",
+    "No source/new pixel equivalence, automatic word-onset alignment, arbitrary new-content or cross-platform guarantee.",
+    "Source software media playback rates about 0.88x and 2.4x are retained and fast-forward is labeled."
+  ],
+  "temporaryExportDirectoriesCleaned": true
+}
