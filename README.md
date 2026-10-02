@@ -6,50 +6,75 @@
 
 **阿杜开源的高质量动画动效模板 Skill。选好模板和风格，把口播与素材交给 AI，就能开始剪辑。**
 
-## 一、Adu-motion-video 是什么？
+Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选、制作的完整动画模板。场景、动作、转场和音效已经做好，AI 按你的口播、文案和素材制作新视频，交付 **MP4 与可编辑工程**。
 
-Adu-motion-video（简称 **adumotion**）是阿杜开源的一个**模板级 Skill**。它不是一段提示词，也不只是参考视频，而是经过**阿杜与 Opus 5.5 细致筛选、精心制作的完整动画动效模板**。
+**支持：Codex · Claude Code**　｜　豆包、WorkBuddy 的支持在后续计划中。
 
-场景、动作、转场和音效已经做好。Codex、Claude Code 可以在这些模板上，按你的口播、文案和素材制作新视频，交付 **MP4 和可继续修改的工程**。
+[浏览模板](#模板库)　·　[开始使用](#开始使用)　·　[适用场景](#适用场景)　·　[模板特点](#模板特点)　·　[技术资料](#技术资料)
 
-### 先看模板，再选风格
+---
 
-**先选一级模板，再挑喜欢的画面风格。** 已发布 2 类模板、7 种风格、17 个镜头组；新增「深色 3D」横竖屏候选模板，待声画确认。点击下方动图下载 MP4；详细编号与素材要求见[模板与风格目录](references/template-catalog.md)。
+## 模板库
 
-#### 模板 01 · 现代图文口播
+先选一级模板，再从一行预览中选择风格。**已发布 2 类模板 · 7 种风格 · 17 个镜头组**；深色 3D 为新增候选，待声画确认。
 
-适合真人讲解、知识拆解、工具演示。**5 种风格 · 14 个镜头组**。准备口播与文案，演示和证据画面使用自己的录屏或视频。
+点击动图查看 MP4，使用时告诉 AI 图下的完整编号，例如 **01-B**。[查看完整目录与素材要求 →](references/template-catalog.md)
 
-<p>
-  <a href="assets/demos/01-A.mp4?raw=true"><img src="assets/demos/01-A.gif" alt="01-A · 原片节奏" width="142" height="80"></a>
-  <a href="assets/demos/01-B.mp4?raw=true"><img src="assets/demos/01-B.gif" alt="01-B · 连续形变" width="142" height="80"></a>
-  <a href="assets/demos/01-C.mp4?raw=true"><img src="assets/demos/01-C.gif" alt="01-C · 纵深舞台" width="142" height="80"></a>
-  <a href="assets/demos/01-D.mp4?raw=true"><img src="assets/demos/01-D.gif" alt="01-D · 杂志分屏" width="142" height="80"></a>
-  <a href="assets/demos/01-E.mp4?raw=true"><img src="assets/demos/01-E.gif" alt="01-E · 节拍字效" width="142" height="80"></a>
-</p>
+### 模板 01 · 现代图文口播
 
-#### 模板 02 · 纸面透视讲解
+> **已发布**　｜　5 种风格 · 14 个镜头组
 
-适合解释两难选择、抽象观点、资料聚合和行动交付。**2 种风格 · 3 个镜头组**。准备口播与文案，并按所选风格补充插图或指定字体。
+**适用：** 真人讲解、知识拆解、工具演示。<br>
+**准备：** 口播、文案，以及自己的演示录屏或证据视频。
 
-<p>
-  <a href="assets/demos/02-A.mp4?raw=true"><img src="assets/demos/02-A.gif" alt="02-A · 纸面天平" width="142" height="80"></a>
-  <a href="assets/demos/02-B.mp4?raw=true"><img src="assets/demos/02-B.gif" alt="02-B · 纸面聚合，局部静音预览" width="115" height="80"></a>
-</p>
+<table>
+  <tr>
+    <td align="center" width="144"><a href="assets/demos/01-A.mp4?raw=true"><img src="assets/demos/01-A.gif" alt="01-A · 原片节奏" width="128" height="72"><br><strong>01-A</strong><br><sub>原片节奏</sub></a></td>
+    <td align="center" width="144"><a href="assets/demos/01-B.mp4?raw=true"><img src="assets/demos/01-B.gif" alt="01-B · 连续形变" width="128" height="72"><br><strong>01-B</strong><br><sub>连续形变</sub></a></td>
+    <td align="center" width="144"><a href="assets/demos/01-C.mp4?raw=true"><img src="assets/demos/01-C.gif" alt="01-C · 纵深舞台" width="128" height="72"><br><strong>01-C</strong><br><sub>纵深舞台</sub></a></td>
+    <td align="center" width="144"><a href="assets/demos/01-D.mp4?raw=true"><img src="assets/demos/01-D.gif" alt="01-D · 杂志分屏" width="128" height="72"><br><strong>01-D</strong><br><sub>杂志分屏</sub></a></td>
+    <td align="center" width="144"><a href="assets/demos/01-E.mp4?raw=true"><img src="assets/demos/01-E.gif" alt="01-E · 节拍字效" width="128" height="72"><br><strong>01-E</strong><br><sub>节拍字效</sub></a></td>
+  </tr>
+</table>
 
-#### 模板 03 · 深色 3D
+---
 
-暗色舞台、立体窗口、镜头推进与多屏展陈。适合产品演示、工具评测和作品集。**9 场完整编舞 · 横竖屏**。已制作不同内容的完整九场样片，新增 HDR 转 SDR 色彩处理，当前待声画确认。按所选场景准备口播、作品、比较视频或软件录屏。[查看模板说明](references/dark-3d-template.md)。
+### 模板 02 · 纸面透视讲解
 
-<p>
-  <a href="assets/demos/03-A.mp4?raw=true"><img src="assets/demos/03-A.gif" alt="03-A · 多屏展陈，新内容横屏窗口预览" width="142" height="80"></a>
-  <a href="assets/demos/03-A-portrait.mp4?raw=true"><img src="assets/demos/03-A-portrait.gif" alt="03-A · 多屏展陈，新内容原生竖屏窗口预览" width="45" height="80"></a>
-</p>
+> **已发布**　｜　2 种风格 · 3 个镜头组
 
-使用时直接告诉 AI 完整编号，例如 **01-B**。动图均为 8 秒静音预览，样片说明与具体发布范围可在下方展开。
+**适用：** 两难选择、抽象观点、资料聚合与行动交付。<br>
+**准备：** 口播、文案，以及所选风格需要的插图或指定字体。
+
+<table>
+  <tr>
+    <td align="center" width="144"><a href="assets/demos/02-A.mp4?raw=true"><img src="assets/demos/02-A.gif" alt="02-A · 纸面天平" width="128" height="72"><br><strong>02-A</strong><br><sub>纸面天平</sub></a></td>
+    <td align="center" width="144"><a href="assets/demos/02-B.mp4?raw=true"><img src="assets/demos/02-B.gif" alt="02-B · 纸面聚合，局部静音预览" width="104" height="72"><br><strong>02-B</strong><br><sub>纸面聚合</sub></a></td>
+  </tr>
+</table>
+
+---
+
+### 模板 03 · 深色 3D
+
+> **待声画确认**　｜　9 场完整编舞 · 横屏 / 原生竖屏
+
+暗色舞台、立体窗口、镜头推进与多屏展陈。已制作不同内容的完整九场样片，并补齐 HDR 转 SDR 色彩处理。
+
+**适用：** 产品演示、工具评测、作品集。<br>
+**准备：** 口播，以及所选场景需要的作品、比较视频或软件录屏。[查看模板说明 →](references/dark-3d-template.md)
+
+<table>
+  <tr>
+    <td align="center" width="144"><a href="assets/demos/03-A.mp4?raw=true"><img src="assets/demos/03-A.gif" alt="03-A · 多屏展陈，新内容横屏窗口预览" width="128" height="72"><br><strong>03-A · 横屏</strong><br><sub>多屏展陈</sub></a></td>
+    <td align="center" width="144"><a href="assets/demos/03-A-portrait.mp4?raw=true"><img src="assets/demos/03-A-portrait.gif" alt="03-A · 多屏展陈，新内容原生竖屏窗口预览" width="40" height="72"><br><strong>03-A · 竖屏</strong><br><sub>多屏展陈</sub></a></td>
+  </tr>
+</table>
+
+动图均为 **8 秒静音预览**。样片来源、声音与具体发布范围见下方说明。
 
 <details>
-<summary>预览说明与已发布范围</summary>
+<summary>展开预览说明与已发布范围</summary>
 
 02-B 为排除人物、字幕、账号角标和声音的开箱交付局部，其它已有 MP4 demo 含声音。01-A、01-B、02-A 展示的是已发布模板制作的新内容；01-C、01-D、01-E 展示原工程的风格短段，其三个组已完成各自新内容整片与独立使用验收，并随 3.2.0 发布；预览不代表来源的所有演出已进入稳定库。
 
@@ -59,23 +84,19 @@ Adu-motion-video（简称 **adumotion**）是阿杜开源的一个**模板级 Sk
 
 </details>
 
-## 二、主要用在哪些场景？
+---
 
-| 场景 | 可以怎么用 |
+## 开始使用
+
+| 步骤 | 要做什么 |
 | --- | --- |
-| **口播视频** | 为真人讲解加重点、图解、动画和字幕 |
-| **知识讲解 / 科普** | 把抽象概念、关系和步骤讲清楚 |
-| **AI 工具 / 软件教程** | 用录屏配合动画，突出操作与实际效果 |
-| **产品介绍 / 功能演示** | 展示卖点、使用流程和前后变化 |
-| **观点解读 / 方法分享** | 用对比、拆解、归纳和行动步骤组织内容 |
+| **1 · 添加 Skill** | 在 Codex 或 Claude Code 中安装本仓库，也可以让 AI 帮你添加 |
+| **2 · 准备素材** | 提供剪好的口播、文案和对应录屏、图片；有字幕文件也一起提供 |
+| **3 · 选择模板** | 报出完整编号，并说明素材位置和输出目录 |
 
-## 三、怎么使用？
+### 添加 Skill
 
-1. **添加 Skill。** 在 Codex 或 Claude Code 中安装本仓库，也可以让 AI 帮你添加。
-2. **准备素材。** 录好并剪好口播，准备对应文案，以及所选风格需要的录屏、图片等；有字幕文件也一起提供。
-3. **报编号，让 AI 剪辑。** 说清喜欢的模板风格、素材位置和输出目录即可。
-
-安装时，可以把这句话发给 AI：
+把这段话发给 AI：
 
 ```text
 请添加 adu-motion-video Skill：
@@ -83,7 +104,9 @@ https://github.com/adunext/adu-motion-video
 安装后确认能找到这个 Skill，并检查制作视频需要的环境。
 ```
 
-制作时，可以这样说：
+### 制作视频
+
+把编号和素材目录换成自己的：
 
 ```text
 使用 adu-motion-video，选模板 01 的 B 风格（01-B · 连续形变），
@@ -95,21 +118,35 @@ https://github.com/adunext/adu-motion-video
 
 需要小图标或动画素材时，也可以加一句：**“从阿杜导演的动画素材 API 中挑选合适的素材。”** 真人、产品画面和实际操作录屏仍由你提供。
 
-目前支持 **Codex、Claude Code**；**豆包、WorkBuddy** 的支持在后续计划中。
+---
 
-## 四、有什么优点？
+## 适用场景
 
-- **模板级开源，Token 消耗低。** 完整动画已经做好，AI 主要处理文案、素材和时间安排，减少从零编写动画与反复试错的消耗。
-- **输出更稳定。** 复用精心制作并检查过的动作与转场，让同一系列视频更容易保持一致的质量。
-- **阿杜逐个精选，持续更新。** 阿杜每天逐个筛选新的高质量动画，和 Opus 5.5 一起精心制作更多模板与风格。
-- **自带动画素材来源。** 接入阿杜导演的公开素材 API，可按需获取阿杜精选整理的 **11,028 个 Lottie 动画**，用于图标、点缀和辅助讲解，无需 API Key。[查看动画目录](https://adudir.com/api/lottie-catalog/manifest)。
-- **成片与工程都交给你。** 导出 MP4 后仍能修改文字、素材和动画，继续做下一版。
-
-**未来，素材 API 也计划支持按需生成图片、动画等所需素材。** 当前开放的是现有动画的查询与下载。
+| 场景 | 可以怎么用 |
+| --- | --- |
+| **口播视频** | 为真人讲解加重点、图解、动画和字幕 |
+| **知识讲解 / 科普** | 把抽象概念、关系和步骤讲清楚 |
+| **AI 工具 / 软件教程** | 用录屏配合动画，突出操作与实际效果 |
+| **产品介绍 / 功能演示** | 展示卖点、使用流程和前后变化 |
+| **观点解读 / 方法分享** | 用对比、拆解、归纳和行动步骤组织内容 |
 
 ---
 
-## 技术说明
+## 模板特点
+
+| 特点 | 说明 |
+| --- | --- |
+| **模板级开源，Token 消耗低** | 完整动画已经做好，AI 主要处理文案、素材和时间安排，减少从零编写动画与反复试错的消耗 |
+| **输出更稳定** | 复用检查过的动作与转场，便于同一系列保持一致的质量 |
+| **阿杜逐个精选，持续更新** | 阿杜每天筛选新的高质量动画，和 Opus 5.5 一起制作更多模板与风格 |
+| **自带动画素材来源** | 阿杜导演公开素材 API 提供精选整理的 **11,028 个 Lottie 动画**，无需 API Key，可用于图标、点缀与辅助讲解。[查看动画目录 →](https://adudir.com/api/lottie-catalog/manifest) |
+| **成片与工程都交给你** | 导出 MP4 后仍能修改文字、素材和动画，继续做下一版 |
+
+素材 API 后续计划支持按需生成图片、动画等素材；当前开放的是现有动画的查询与下载。
+
+---
+
+## 技术资料
 
 <details>
 <summary><strong>展开模板版本、素材 API 与安装制作说明</strong></summary>
