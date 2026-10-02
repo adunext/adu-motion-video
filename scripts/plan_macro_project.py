@@ -22,6 +22,8 @@ def resolve_project_paths(brief: dict, directory: Path) -> dict:
         return str((directory / value).resolve()) if isinstance(value, str) and value.strip() else value
     if 'monoFontFile' in result:
         result['monoFontFile'] = absolute(result['monoFontFile'])
+    if 'colorReviewFile' in result:
+        result['colorReviewFile'] = absolute(result['colorReviewFile'])
     if isinstance(result.get('externalFontFiles'), dict):
         result['externalFontFiles'] = {key: absolute(value) for key, value in result['externalFontFiles'].items()}
     if isinstance(result.get('music'), dict) and 'path' in result['music']:

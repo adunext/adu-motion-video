@@ -1,0 +1,81 @@
+@font-face{font-family:'Geist';font-style:normal;font-weight:400;src:url(fonts/geist-400.woff2) format('woff2')}
+@font-face{font-family:'Geist';font-style:normal;font-weight:500;src:url(fonts/geist-500.woff2) format('woff2')}
+@font-face{font-family:'Geist';font-style:normal;font-weight:600;src:url(fonts/geist-600.woff2) format('woff2')}
+@font-face{font-family:'Geist';font-style:normal;font-weight:700;src:url(fonts/geist-700.woff2) format('woff2')}
+@font-face{font-family:'Geist';font-style:normal;font-weight:800;src:url(fonts/geist-800.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:400;src:url(fonts/geist-mono-400.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:500;src:url(fonts/geist-mono-500.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:600;src:url(fonts/geist-mono-600.woff2) format('woff2')}
+html,body{margin:0;padding:0;width:1920px;height:1080px;overflow:hidden;background:#000}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:#06070A}
+#world,#fx{position:absolute;inset:0;transform-origin:960px 540px}
+.sc{position:absolute;inset:0;overflow:hidden;display:none}
+.doubao-host{--paper:#F7F7F5;--ink:#0A0A0A;--blue:#2462EA;--blue2:#5B8CFF;--g1:#8C8C8C;--g2:#6B6B6B;--line:#E7E7E4}
+.doubao-host *{box-sizing:border-box;margin:0;padding:0}
+.doubao-host{width:1920px;height:1080px;overflow:hidden;background:#000}
+.doubao-host{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink)}
+.doubao-host{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--paper)}
+.doubao-host [data-doubao-node="world"]{position:absolute;inset:0;transform-origin:960px 540px}
+.doubao-host [data-doubao-node="fx"]{position:absolute;inset:0;pointer-events:none}
+.doubao-host .sc{position:absolute;inset:0;overflow:hidden;display:none}
+.doubao-host .e{position:absolute;left:0;top:0;white-space:nowrap}
+.doubao-host .mono{font-family:ui-monospace,'PingFang SC',monospace}
+.doubao-host .tag{font:400 22px ui-monospace,'PingFang SC',monospace;color:var(--g1);letter-spacing:.5px}
+.doubao-host .acc{color:var(--blue)}
+.doubao-host .h1{font-size:108px;font-weight:600;letter-spacing:-1.5px;line-height:1.12}
+.doubao-host .h2{font-size:88px;font-weight:600;letter-spacing:-1px;line-height:1.15}
+.doubao-host .h3{font-size:56px;font-weight:600;letter-spacing:-.5px}
+.doubao-host .grid{position:absolute;inset:-240px;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:240px 240px;opacity:.6}
+.doubao-host .gridD{position:absolute;inset:-240px;background-image:linear-gradient(#1a1a1a 1px,transparent 1px),linear-gradient(90deg,#1a1a1a 1px,transparent 1px);background-size:240px 240px}
+.doubao-host .gridB{position:absolute;inset:-240px;background-image:linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);background-size:240px 240px}
+.doubao-host .card{background:#fff;border:1.5px solid var(--line);border-radius:22px;position:relative}
+.doubao-host .card .lb{position:absolute;left:24px;top:20px;font:400 19px ui-monospace,'PingFang SC',monospace;color:var(--g1)}
+.doubao-host .card .ix{position:absolute;right:24px;top:20px;font:400 19px ui-monospace,monospace;color:var(--g1)}
+.doubao-host .dcard{background:#161616;border:1.5px solid #262626;border-radius:22px;position:relative;color:#fff}
+.doubao-host .dcard .lb{position:absolute;left:24px;top:20px;font:400 19px ui-monospace,'PingFang SC',monospace;color:#777}
+.doubao-host .ch{filter:drop-shadow(0 26px 30px rgba(0,0,0,.16))}
+.doubao-host .chD{filter:drop-shadow(0 26px 34px rgba(0,0,0,.55))}
+.doubao-host .bubble{background:#fff;border:2px solid var(--ink);border-radius:40px;padding:10px 28px;font:500 32px -apple-system,'PingFang SC',sans-serif}
+.doubao-host .pill{display:inline-block;padding:8px 22px;border-radius:40px;font:500 26px -apple-system,'PingFang SC',sans-serif}
+.doubao-host .term{background:#0E0E0E;border-radius:16px;padding:26px 30px;font:400 26px ui-monospace,'PingFang SC',monospace;color:#bbb;line-height:1.7}
+.doubao-host .hl{background:var(--blue);color:#fff;border-radius:18px;padding:0 18px}
+.doubao-host{background:#06070A}
+.doubao-host [data-doubao-node="tk"],.doubao-host [data-doubao-node="front"],.doubao-host [data-doubao-node="hud"]{position:absolute;inset:0;pointer-events:none;transform-origin:960px 540px}
+.doubao-host .vt{position:relative;overflow:hidden;background:#0b0c10}
+.doubao-host .vt img{width:100%;height:100%;object-fit:cover;display:block}
+.doubao-host .tkc{position:absolute;overflow:hidden;background:#0b0c10;transform-origin:50% 50%}
+.doubao-host .tkc img{position:absolute;max-width:none;display:block}
+.doubao-host .tkc .tsh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,7,10,.0) 60%,rgba(6,7,10,.35));pointer-events:none}
+.doubao-host .tkc .tlab{position:absolute;left:16px;top:14px;font:500 16px 'Geist Mono',ui-monospace,monospace;color:#fff;background:rgba(6,7,10,.55);padding:6px 13px;border-radius:30px;display:flex;align-items:center;gap:8px;white-space:nowrap;letter-spacing:1.5px;border:1px solid rgba(255,255,255,.12)}
+.doubao-host .tkc .tlab i{width:9px;height:9px;border-radius:50%;display:block}
+.doubao-host .tkc .tcor b{position:absolute;width:26px;height:26px;border-color:rgba(124,200,255,.85);border-style:solid;border-width:0}
+.doubao-host .tkc .tcor b:nth-child(1){left:12px;bottom:12px;border-left-width:2px;border-bottom-width:2px}
+.doubao-host .tkc .tcor b:nth-child(2){right:12px;bottom:12px;border-right-width:2px;border-bottom-width:2px}
+.doubao-host .tkc .tcor b:nth-child(3){right:12px;top:12px;border-right-width:2px;border-top-width:2px}
+.doubao-host .tkc .tcor b:nth-child(4){display:none}
+.doubao-host .gl{background:linear-gradient(180deg,rgba(26,29,36,.78),rgba(14,16,21,.82));border:1px solid rgba(255,255,255,.09);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);position:relative;overflow:hidden;color:#EDEEF2}
+.doubao-host .gl .gh{display:flex;justify-content:space-between;padding:20px 24px 0;font:500 15px 'Geist Mono',ui-monospace,monospace;letter-spacing:3px;color:#c9ccd4;text-transform:uppercase}
+.doubao-host .gl .gb{padding:16px 24px 20px}
+.doubao-host .st{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px 18px}
+.doubao-host .st .k{font:500 13px 'Geist Mono',ui-monospace,'PingFang SC',monospace;letter-spacing:2.5px;color:#7d818c;text-transform:uppercase}
+.doubao-host .st .v{font:500 30px 'Geist Mono',ui-monospace,'PingFang SC',monospace;margin-top:6px;letter-spacing:.5px;white-space:nowrap}
+.doubao-host .seg{display:flex;gap:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:6px}
+.doubao-host .seg span{flex:1;text-align:center;padding:12px 8px;border-radius:10px;font:500 19px -apple-system,'PingFang SC',sans-serif;color:#aab0bb;white-space:nowrap}
+.doubao-host .seg span.on{background:#F3F4F6;color:#0A0B0E;box-shadow:0 0 24px rgba(255,255,255,.25)}
+.doubao-host .sl{margin-top:16px}
+.doubao-host .sl .slh{display:flex;justify-content:space-between;font:500 14px 'Geist Mono',ui-monospace,'PingFang SC',monospace;letter-spacing:2.5px;color:#c9ccd4}
+.doubao-host .sl .slh b{font-weight:500;color:#EDEEF2;letter-spacing:1px}
+.doubao-host .sl .slt{position:relative;height:4px;background:rgba(255,255,255,.12);border-radius:2px;margin:14px 0 8px}
+.doubao-host .sl .slt i{position:absolute;left:0;top:0;height:4px;border-radius:2px;background:linear-gradient(90deg,#2462EA,#7CC8FF)}
+.doubao-host .sl .slt u{position:absolute;top:50%;width:22px;height:22px;border-radius:50%;background:#F3F4F6;transform:translate(-50%,-50%);box-shadow:0 0 16px rgba(124,200,255,.8)}
+.doubao-host .sl .sll{display:flex;justify-content:space-between;font:400 13px 'Geist Mono',ui-monospace,'PingFang SC',monospace;color:#6c707b;letter-spacing:1px}
+.doubao-host .chipA{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:12px;background:rgba(14,16,21,.86);border:1px solid rgba(255,255,255,.14);font:500 17px 'Geist Mono',ui-monospace,'PingFang SC',monospace;color:#EDEEF2;white-space:nowrap;letter-spacing:.5px}
+.doubao-host .chipA i{width:8px;height:8px;border-radius:50%;background:#FFB648;display:block;box-shadow:0 0 10px #FFB648}
+.doubao-host .macwin{border-radius:14px;overflow:hidden;background:#15171c;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08)}
+.doubao-host .macwin .tb{height:38px;display:flex;align-items:center;gap:9px;padding:0 16px;background:#1d2027;color:#c8cbd2;font:500 16px -apple-system,'PingFang SC'}
+.doubao-host .macwin .tb i{width:12px;height:12px;border-radius:50%;display:block}
+.doubao-host .macwin .body{position:relative;overflow:hidden}
+.doubao-host .macwin .body img{width:100%;height:100%;display:block;object-fit:cover}
+.doubao-host .tile{position:absolute;border-radius:12px;overflow:hidden;background:#111 center/cover;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 20px 50px rgba(0,0,0,.55)}
+.doubao-host .bub{display:inline-flex;align-items:center;gap:12px;padding:14px 26px 14px 14px;border-radius:24px;background:rgba(30,34,44,.96);border:1px solid rgba(124,200,255,.35);box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 24px rgba(124,200,255,.15);font:600 32px -apple-system,'PingFang SC',sans-serif;color:#EDEEF2;white-space:nowrap}
+.doubao-host .bub i{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#3a3f4b,#22252d);display:block}

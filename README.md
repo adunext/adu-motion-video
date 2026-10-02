@@ -18,7 +18,7 @@ Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选�
 
 ## 模板库
 
-先选一级模板，再从一行预览中选择风格。**已发布 2 类模板 · 7 种风格 · 17 个镜头组**；深色 3D 为新增候选，待声画确认。
+先选一级模板，再从一行预览中选择风格。**已发布 2 类模板 · 7 种风格 · 17 个镜头组**；深色 3D 与深色科技控制台为候选，实际核验范围见各板块。
 
 点击动图查看 MP4，使用时告诉 AI 图下的完整编号，例如 **01-B**。[查看完整目录与素材要求 →](references/template-catalog.md)
 
@@ -73,7 +73,24 @@ Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选�
   </tr>
 </table>
 
-动图均为 **8 秒静音预览**。样片来源、声音与具体发布范围见下方说明。
+---
+
+### 模板 04 · 深色科技控制台
+
+> **候选 · 已完成同内容技术重放**　｜　3 个完整镜头组 · 横屏
+
+粒子仪器台、玻璃面板、双输入融合、对话步骤与手册交付。从豆包工程提炼，三组分别保留自己的编舞与动作音效。
+
+**适用：** 工具实测、流程讲解、自动化成果演示。<br>
+**准备：** 本期口播、文案、图片、纹理和指定字体。[查看范围与核验记录 →](references/doubao-console-template.md)
+
+<table>
+  <tr>
+    <td align="center" width="144"><a href="assets/demos/04-A.mp4?raw=true"><img src="assets/demos/04-A.gif" alt="04-A · 仪器台演示，同内容重放局部" width="118" height="72"></a><br><strong>04-A</strong><br><sub>仪器台演示</sub></td>
+  </tr>
+</table>
+
+动图为静音预览：01–03 各 8 秒，04-A 为 3.9 秒开场局部。04-A 尚待不同内容与独立复用验收。样片来源、声音与具体发布范围见下方说明。
 
 <details>
 <summary>展开预览说明与已发布范围</summary>
@@ -152,6 +169,8 @@ https://github.com/adunext/adu-motion-video
 
 新增[文案适配机制](references/adaptive-composition.md)：按表达关系选择完整镜头组，检查数量、动作时间、相邻衔接与声音尾音，并在合格组合内减少效果重复。已覆盖 8 个风格包、26 个完整组的规划规则；[两种文案与诊断示例](examples/adaptation/README.md)可查看选场差异。适配能力仍需本期声画验收，原模板发布等级保持不变。
 
+04-A 的三个候选组另带同样的适配合同。新制作增加[色彩证据与版本预览](references/color-and-preview.md)：探测 HDR/DV 和真实位深，绑定输入及输出 SHA，旧标签页会提示新版，避免把旧影片误当作当前交付。
+
 <details>
 <summary><strong>展开模板版本、素材 API 与安装制作说明</strong></summary>
 
@@ -175,6 +194,7 @@ https://github.com/adunext/adu-motion-video
 | 02-A | `paper-balance@1.0.0` | 已发布；一个段落镜头组 |
 | 02-B | `paper-ball-performance@1.0.0` | 3.3.0；两个完整镜头组 |
 | 03-A | `anim4-showcase-macro@1.1.1-candidate` | 待声画确认；九场，横屏与原生竖屏 |
+| 04-A | `doubao-console-performance@0.1.1-candidate` | 三组同内容技术重放已检查；待不同内容与独立复用验收 |
 
 3.3.0 共七个风格中的十七个稳定完整镜头组。02-B 的源/重放对照与 18.2667 秒新内容已获作者确认，严格栅格审计的 1 issue/2 warning 和复查结果仍保留；此增量不声称完整新路线或新独立作者验证。完整实测范围为 macOS、横屏 1920×1080、60fps。竖屏需重新布局，其它系统与字体组合需另行验证。新稿要留足动作与读字时间；实际 Token 消耗随素材处理、片长和修改量变化，尚无统一量化基准。
 

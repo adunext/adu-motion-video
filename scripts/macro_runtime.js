@@ -65,6 +65,13 @@
     circle.style.opacity = '0'; circle.style.transform = 'translate(-50%,-50%) scale(0)';
     flash.style.opacity = '0'; $('world').style.filter = '';
     if (!current) return;
+    const currentScene = SCENES[current.index];
+    if (typeof currentScene.macroTransition === 'function') {
+      currentScene.macroTransition({frame, fps, item: plan.scenes[current.index],
+        nextItem: plan.scenes[current.index + 1] || null,
+        nextScene: SCENES[current.index + 1] || null});
+      return;
+    }
     let transitionIndex = current.index;
     const nextIndex = transitionIndex + 1;
     if (nextIndex < SCENES.length) {

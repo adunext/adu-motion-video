@@ -2,7 +2,7 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。需要可读写本地文件并运行命令的 Agent。
 metadata:
-  version: "3.4.0"
+  version: "3.5.0"
 ---
 
 # adu-motion-video
@@ -26,6 +26,8 @@ metadata:
 
 ## 完整工程包流程
 
+3.5.0 增加 **04-A · 仪器台演示** 候选 `doubao-console-performance@0.1.1-candidate`，包含三个完整组及内置适配合同。已核对同内容重放、字体、34 条 SFX 和输出时钟；不同内容与独立复用验收尚未完成，详见[模板说明](references/doubao-console-template.md)。新预览统一使用带导出证据与版本检查的 `preview` 命令。
+
 新文案先按[系统适配机制](references/adaptive-composition.md)形成 `brief.json`，运行 `bash "$PL" macro-plan 包ID@版本 brief.json 新规划目录`。该入口按语义阶段、数量、原速动作窗和前后场依赖筛选，再在合法组合内减少效果重复。8 个风格包的 26 个完整组已有代码核对的适配 profile，能力仍为 adaptation-experimental。输出 `spec.json/report.json/report.md/profile.json`；退出码 0 为绑定检查通过，2 为已保存待补或受阻草稿，1 为无效输入。媒体或真实关键词时码缺失时修改 brief 并重新规划，不填源演示时码。`macro-spec` 保留为历史/人工配方入口，它不提供这层语义与邻接诊断；新制作优先沿用带 `adaptation` 的计划，构建会重新验证。
 
 1. `bash "$PL" doctor` 检查 Node、Python、FFmpeg 和 Chrome；缺依赖且允许安装时再 `bash "$PL" setup`。保持源工程和原成片只读，输出到不存在的新路径。
@@ -33,7 +35,7 @@ metadata:
 3. `bash "$PL" macro-spec 包ID@版本 /路径/本期配置.json` 生成配置草稿。删去不选的场景，调整顺序和每场 `durationFrames`；有 `inputs` 的组填写命名语义字段，必填事件 `cues` 另绑定真实台词落点。`brand` 填本期账号。本期音乐可用 `music:{mode:"track",path,offset}` 指定；未指定时按原编曲结构重合成。人物窗默认在 macOS 使用 Vision 跟踪新口播人脸；不能自动跟踪时须显式配置审核过的 `faceTracking:{mode:"fixed",cx,cy,h}`。任何来源演示数据与示例文字都须替换或明确标“示意”。素材的空路径代表缺项；媒体准备与容量限制看包目录中的 `README.md`。
 4. `bash "$PL" macro-build 包ID@版本 /路径/本期配置.json /路径/剪好口播.mp4 /路径/新工程 [--subs-js /路径/字幕.js]`。新口播长度应与计划总帧数相符。适配器把关键动作窗口锁在原速，较长段落只伸展可停留区；如果时间不够，会报错，改分镜或片段长度，不靠全片线性拉伸。缺文字、数字、媒体或关键 cue 也会报错。
 5. `bash "$PL" stills /路径/新工程 0,4,12,...` 抽查首帧、每个 cue 前中后、最长文字、场景接缝和片尾；再播放所有复杂运动区间，与原工程对照。检查字体、媒体比例/裁切、真实口型、字幕、SFX 与音乐。修订配置或工程并重新验证。
-6. `bash "$PL" audio /路径/新工程` → `bash "$PL" mix /路径/新工程` → `bash "$PL" render /路径/新工程 /路径/新片_v1.mp4` → `bash "$PL" check /路径/新片_v1.mp4`。完整观看并听取最终编码文件；`check` 的帧数、解码和响度不能替代视觉与内容验收。
+6. `bash "$PL" audio /路径/新工程` → `bash "$PL" mix /路径/新工程` → `bash "$PL" render /路径/新工程 /路径/新片_v1.mp4` → `bash "$PL" check /路径/新片_v1.mp4`。完整观看并听取最终编码文件；`check` 的帧数、解码和响度不能替代视觉与内容验收。新预览统一通过 `bash "$PL" preview /路径/新工程 /路径/新片_v1.mp4 /已有父目录/新预览目录` 发布，绑定真实成片 SHA，显示播放版本并提示旧标签页更新。HDR/DV、源位深和元数据风险须按[素材色彩与预览](references/color-and-preview.md)留下实际对照证据，不只检查标签。
 
 快速体验基础模板可用 `bash "$PL" demo /不存在的新目录`。为真实口播从零组合 `TPL` 时，按[模板目录](references/templates.md)和[字幕方案](references/subtitle-options.md)制作，仍须完整验收。
 

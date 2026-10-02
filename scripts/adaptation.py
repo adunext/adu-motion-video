@@ -440,7 +440,7 @@ def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
                            "segments": clean_segments, "ready": ready,
                            "validationStage": "pre-import" if deferred else "bound-media"}}
     for key in ("brand", "transcript", "narrationDuration", "faceTracking", "presenterLabel", "subtitlePreset",
-                "music", "monoFontFile", "externalFontFiles", "progressRail", "fadeEndSeconds", "mix"):
+                "music", "monoFontFile", "externalFontFiles", "progressRail", "fadeEndSeconds", "mix", "colorReviewFile"):
         if key in brief:
             spec[key] = deepcopy(brief[key])
     if isinstance(spec.get("transcript"), str):

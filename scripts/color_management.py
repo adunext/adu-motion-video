@@ -5,6 +5,7 @@ Uses FFmpeg 9's libswscale perceptual color mapper (HLG/PQ EOTF, tone and
 gamut mapping). Older builds fail before extraction, never silently relabel HDR.
 """
 import argparse
+from datetime import datetime
 from functools import lru_cache
 import hashlib
 import json
@@ -16,6 +17,77 @@ POLICY = 'adu-srgb-bt709/1'
 COLOR_KEYS = ('color_range', 'color_space', 'color_transfer', 'color_primaries')
 EXPORT_COLOR = dict(pix_fmt='yuv420p', color_range='tv', color_space='bt709',
                     color_transfer='bt709', color_primaries='bt709')
+SOURCE_SCHEMA = 'adu-source-color/v1'
+
+
+def fingerprint_file(source):
+    """Hash the exact supplied bytes, without retaining a private absolute path."""
+    source = Path(source)
+    before = source.stat()
+    digest = hashlib.sha256()
+    with source.open('rb') as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+            digest.update(chunk)
+    after = source.stat()
+    if (before.st_size, before.st_mtime_ns) != (after.st_size, after.st_mtime_ns):
+        raise ValueError('Media changed while computing its fingerprint')
+    return dict(sha256=digest.hexdigest(), sizeBytes=after.st_size)
+
+
+@lru_cache(maxsize=1)
+def pixel_depths():
+    data = json.loads(subprocess.check_output(
+        ['ffprobe', '-v', 'error', '-show_pixel_formats', '-of', 'json'], text=True))
+    return {p['name']: [c['bit_depth'] for c in p.get('components', [])]
+            for p in data.get('pixel_formats', [])}
+
+
+def source_evidence(stream, *, still=False):
+    """Record observable tags; never infer a lost HDR/DV history from skin colour."""
+    depths = pixel_depths().get(stream.get('pix_fmt'), [])
+    depth = min(depths) if depths else None
+    hdr = stream.get('color_transfer') in ('arib-std-b67', 'smpte2084')
+    dovi = [{k: x[k] for k in ('dv_profile', 'dv_level', 'rpu_present_flag',
+             'el_present_flag', 'bl_present_flag', 'dv_bl_signal_compatibility_id') if k in x}
+            for x in stream.get('side_data_list', []) if 'DOVI' in x.get('side_data_type', '')]
+    signals = []
+    if hdr and depth is None:
+        signals.append(dict(code='hdr-bit-depth-unknown', message='HDR component depth is unknown; inspect the source and a native SDR reference.'))
+    elif hdr and depth < 10:
+        signals.append(dict(code='low-bit-depth-hdr', message='HDR is stored below 10 bits per component; verify the supplied derivative against its original/native SDR reference. Lost precision or earlier conversions cannot be recovered by tagging.'))
+    if dovi:
+        signals.append(dict(code='dolby-vision-base-layer-only', message='This converter uses the HDR base layer, not Dolby Vision dynamic metadata; compare skin, neutral and highlight regions with a native SDR reference.'))
+    if not still and not hdr and any(stream.get(k) in (None, 'unknown', 'unspecified', 'reserved') for k in COLOR_KEYS):
+        signals.append(dict(code='assumed-sdr-metadata', message='Some video colour tags are missing; SDR defaults are assumptions. Verify the supplied media rather than treating missing HDR tags as proof of SDR.'))
+    return dict(schema=SOURCE_SCHEMA, codec=stream.get('codec_name', 'unknown'),
+                pixelFormat=stream.get('pix_fmt', 'unknown'), bitDepth=depth,
+                componentDepths=depths, dolbyVisionRecords=dovi,
+                metadataLimit='Describes supplied bytes only; cannot detect upstream tone mapping, discarded Dolby Vision metadata, or lost precision.'), signals
+
+
+def validate_review_evidence(color, review):
+    """An explicit comparison record is required for each source risk signal."""
+    codes = {s['code'] for s in color.get('reviewSignals', [])}
+    if not codes:
+        return
+    if not isinstance(review, dict):
+        raise ValueError('Color reviewEvidence is required for: ' + ', '.join(sorted(codes)))
+    if review.get('sourceSha256') != color.get('source_sha256'):
+        raise ValueError('Color reviewEvidence.sourceSha256 does not match the imported input')
+    if review.get('decision') != 'accepted':
+        raise ValueError('Color reviewEvidence.decision must explicitly be accepted after comparison')
+    for key in ('reviewer', 'reference', 'notes', 'reviewedAt'):
+        if not isinstance(review.get(key), str) or not review[key].strip():
+            raise ValueError('Color reviewEvidence.' + key + ' is required')
+    try:
+        timestamp = datetime.fromisoformat(review['reviewedAt'].replace('Z', '+00:00'))
+        if timestamp.tzinfo is None:
+            raise ValueError('timezone missing')
+    except ValueError as exc:
+        raise ValueError('Color reviewEvidence.reviewedAt needs an ISO timestamp with timezone') from exc
+    accepted = review.get('acceptedSignals')
+    if not isinstance(accepted, list) or not all(isinstance(x, str) for x in accepted) or set(accepted) != codes:
+        raise ValueError('Color reviewEvidence.acceptedSignals must cover exactly the source reviewSignals')
 
 
 @lru_cache(maxsize=1)
@@ -70,7 +142,11 @@ def image_plan(source):
               'scale=in_color_matrix=bt709:out_color_matrix=bt709:in_range=full:out_range=full:'
               'in_transfer=iec61966-2-1:out_transfer=iec61966-2-1:in_primaries=bt709:out_primaries=bt709,'
               'format=rgb24,sidedata=mode=delete')
+    evidence, signals = source_evidence(s, still=still)
+    identity = fingerprint_file(source)
     return dict(**engine(), sourceColor={k: s.get(k, 'unknown') for k in COLOR_KEYS},
+                sourceEvidence=evidence, source_sha256=identity['sha256'], source_size_bytes=identity['sizeBytes'],
+                reviewSignals=signals,
                 assumptions=assumptions, hdr=hdr, toneMapped=hdr,
                 target='sRGB / Rec.709 primaries / full-range RGB', filter=vf,
                 dolbyVision='base-layer only' if any('DOVI' in x.get('side_data_type', '') for x in s.get('side_data_list', [])) else 'absent')

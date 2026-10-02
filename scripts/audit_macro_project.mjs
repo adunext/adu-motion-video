@@ -216,7 +216,8 @@ async function sample(page, frame, fps, screenshot = false) {
     }
     const images = [...document.images].filter(im => im.getAttribute('src') && im.complete && im.naturalWidth > 0);
     const visibleImages = images.filter(visible);
-    const presenter = [...active[0].querySelectorAll('.cam img')].filter(visible);
+    // The source-host adapter retains the original .tkc presenter container.
+    const presenter = [...active[0].querySelectorAll('.cam img, .tkc img')].filter(visible);
     return { frame, activeScene: [...document.querySelectorAll('#world > .sc')].indexOf(active[0]),
              nodes, decodedImages: images.length, visibleImages: visibleImages.length,
              visiblePresenter: presenter.length };

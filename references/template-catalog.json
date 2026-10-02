@@ -1,6 +1,6 @@
 {
   "schema": "adu-template-catalog/1",
-  "updated": "2026-10-02",
+  "updated": "2026-10-03",
   "numbering": "template-style",
   "templates": [
     {
@@ -144,6 +144,33 @@
             "1080×1920@60"
           ],
           "acceptance": "awaiting owner continuous audiovisual confirmation"
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "title": "深色科技控制台",
+      "styles": [
+        {
+          "id": "04-A",
+          "title": "仪器台演示",
+          "status": "candidate",
+          "selection": "doubao-console-performance@0.1.1-candidate",
+          "preview": "assets/demos/04-A.gif",
+          "demo": "assets/demos/04-A.mp4",
+          "guide": "references/doubao-console-template.md",
+          "requires": [
+            "本期已剪辑口播与文案、实际动作锚点",
+            "所选组的图片与显式grainTexture",
+            "固定SHA的Geist/GeistMono字体文件"
+          ],
+          "scope": "三个完整镜头组；同内容技术重放已检查，尚未完成不同内容与独立复用声画验收",
+          "previewBasis": "同内容技术重放开场的3.9秒局部，排除人物、字幕和声音",
+          "demoAudio": "none; silent detail preview",
+          "layouts": [
+            "1920×1080@60"
+          ],
+          "qualityLimits": "需要真实字体和本期VOX；严格栅格审计保留4 warning，needs-raster-review；没有原生竖屏声明"
         }
       ]
     }

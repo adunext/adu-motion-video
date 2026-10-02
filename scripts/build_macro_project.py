@@ -331,6 +331,26 @@ render(project, project / music["path"] if music["mode"] == "track" else None, m
 ''')
 
 
+def prepare_episode_runtime(pack: dict, stage: Path) -> tuple[list[str], dict]:
+    """Run only a named, version-locked local adapter on this episode's audio."""
+    contract = pack.get('episodePreparation')
+    generated = pack.get('generatedRuntimeFiles', [])
+    if contract is None:
+        if generated: fail('generatedRuntimeFiles require a supported episodePreparation')
+        return [], {}
+    if not isinstance(contract, dict) or contract.get('kind') != 'doubao-voice-rms/1':
+        fail('Unsupported episodePreparation kind')
+    script = ROOT / 'adapters/doubao-console/prepare_episode.py'
+    if not script.is_file() or hashlib.sha256(script.read_bytes()).hexdigest() != contract.get('implementationSha256'):
+        fail('Episode preparer differs from the reviewed pack implementation; review a new pack version')
+    if generated != ['doubao_episode.js'] or set(generated) & set(pack.get('runtimeFiles', [])):
+        fail('Episode preparation must declare only its generated doubao_episode.js without a frozen replacement')
+    subprocess.run([sys.executable, str(script), str(stage)], check=True)
+    if not (stage / 'doubao_episode.js').is_file(): fail('Episode preparer did not produce its declared runtime')
+    report = read_json(stage / 'doubao_episode.json')
+    return generated, report
+
+
 def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Path | None) -> None:
     if output.exists() or output.is_symlink(): fail(f'Refusing existing project: {output}')
     if not output.parent.is_dir(): fail(f'Project parent does not exist: {output.parent}')
@@ -361,8 +381,13 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
         (stage / 'sc').mkdir(); (stage / 'talk').mkdir()
         for data in ('talkmap.js', 'face.js', 'subs.js'):
             (stage / data).write_text('// Optional data absent. Generated data may replace this stub.\n')
-        subprocess.run([sys.executable, str(ROOT / 'scripts' / 'import_talk.py'), str(stage), str(talk),
-                        '--fps', str(spec.get('fps', pack['fps']))], check=True)
+        import_command = [sys.executable, str(ROOT / 'scripts' / 'import_talk.py'), str(stage), str(talk),
+                          '--fps', str(spec.get('fps', pack['fps']))]
+        if 'colorReviewFile' in spec:
+            if not isinstance(spec['colorReviewFile'], str) or not spec['colorReviewFile'].strip():
+                fail('colorReviewFile must name an actual source comparison record')
+            import_command.extend(['--color-review', str((spec_path.parent / spec['colorReviewFile']).resolve())])
+        subprocess.run(import_command, check=True)
         audio_timeline_path = pack_dir / 'audio_timeline.json'
         audio_timeline = read_json(audio_timeline_path) if audio_timeline_path.is_file() else None
         plan = compile_plan(pack, spec, spec_dir=spec_path.parent, project=stage,
@@ -374,6 +399,7 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
         imported.update(narrationAssets={'frames': 'talk/clip_000', 'audio': 'voice.wav'},
                         sourceEmbedded=False)
         (stage / 'import.json').write_text(json.dumps(imported, ensure_ascii=False, indent=2) + '\n')
+        generated_runtime, episode_report = prepare_episode_runtime(pack, stage)
         face_report = prepare_face(stage, spec, needs_face_tracking(pack, plan, prelude), plan['fps'], imported['frames'])
         if subs_js:
             if not subs_js.is_file(): fail(f'Missing generated subtitle data: {subs_js}')
@@ -529,6 +555,7 @@ function raceAt(e, sourceTime, opacity=1) {
             (stage / 'adaptation_report.json').write_text(json.dumps(plan['adaptation'], ensure_ascii=False, indent=2) + '\n')
         (stage / 'macro_main.js').write_text((ROOT / 'scripts' / 'macro_runtime.js').read_text())
         runtime_scripts = []
+        runtime_scripts.extend('<script src=' + json.dumps(relative) + '></script>' for relative in generated_runtime)
         for relative in pack.get('runtimeFiles', []):
             if not isinstance(relative, str) or Path(relative).is_absolute() or '..' in Path(relative).parts or not relative.endswith('.js'):
                 fail('runtimeFiles must contain local JavaScript paths')
@@ -592,6 +619,7 @@ function raceAt(e, sourceTime, opacity=1) {
             (stage / 'mix_recipe.json').write_text(json.dumps(mix_settings, indent=2) + '\n')
         (stage / 'macro_build_report.json').write_text(json.dumps({'face': face_report, 'font': font_report,
              'narrationFrames': imported['frames'], 'outputFrames': plan['end_frame'], 'subtitlePreset': subtitle_preset,
+             'episodePreparation': episode_report,
              'status': 'built-not-visually-accepted'}, ensure_ascii=False, indent=2) + '\n')
         provenance = {'pack': pack['id'], 'version': pack.get('version'), 'manifestSha256': hashlib.sha256((pack_dir / 'manifest.json').read_bytes()).hexdigest(),
                       'scenes': [{ 'instance': item['id'], 'sceneId': item['sceneId'],
@@ -601,7 +629,7 @@ function raceAt(e, sourceTime, opacity=1) {
                       'frozenRuntime': {name: hashlib.sha256((stage / name).read_bytes()).hexdigest()
                                         for name in ['lib.js', 'macro_main.js', 'style.css', 'audio_runtime/mix_recipe.py',
                                                      'audio_runtime/macro_audio.py', 'audio_runtime/audiolib.py',
-                                                     'audio_runtime/adaptation_audio.py', *pack.get('runtimeFiles', [])]},
+                                                     'audio_runtime/adaptation_audio.py', *pack.get('runtimeFiles', []), *generated_runtime]},
                       'qualityStatus': 'built-not-visually-accepted'}
         if adaptation['applicable']:
             provenance['adaptation'] = {key: spec['adaptation'][key]

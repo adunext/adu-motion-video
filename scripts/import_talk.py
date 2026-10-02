@@ -12,7 +12,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
-from color_management import image_plan
+from color_management import image_plan, fingerprint_file, validate_review_evidence
 
 
 def run(args):
@@ -53,6 +53,7 @@ def main():
     ap.add_argument('video', type=Path)
     ap.add_argument('--fps', type=int, default=60, help='project frame clock; default 60')
     ap.add_argument('--size', default='720x1280', help='frame box; preserves aspect ratio with padding')
+    ap.add_argument('--color-review', type=Path, help='explicit source colour comparison record; never generated automatically')
     a = ap.parse_args()
     project, video = a.project.expanduser().resolve(), a.video.expanduser().resolve()
     if not project.is_dir() or not video.is_file(): ap.error('project folder and input video must exist')
@@ -75,6 +76,10 @@ def main():
     timing = input_timing(probe, a.fps)
     count, duration = timing['frames'], timing['duration']
     color = image_plan(video)
+    if a.color_review:
+        review = json.loads(a.color_review.read_text())
+        validate_review_evidence(color, review)
+        color['reviewEvidence'] = review
     if timing['videoStartSeconds'] > 1 / a.fps + 1e-5:
         ap.error('video starts more than one output frame after the input clock; provide an aligned clip rather than padding a frozen presenter')
     report = dict(source=str(video), fps=a.fps, **timing, color=color,
@@ -92,6 +97,9 @@ def main():
         run(['ffmpeg', '-v', 'error', '-n', '-i', video, '-map', '0:a:0', '-vn',
              '-af', f'aresample=48000:first_pts=0,apad,atrim=duration={duration}', '-ar', '48000', '-ac', '2', '-c:a', 'pcm_s16le', work / 'voice.wav'])
         data = 'const TALKF=["clip_000"];const TALKMAP=' + json.dumps([[0, i+1] for i in range(count)], separators=(',', ':')) + ';\n'
+        identity = fingerprint_file(video)
+        if identity != dict(sha256=color['source_sha256'], sizeBytes=color['source_size_bytes']):
+            raise ValueError('Input media changed during import; discard this extraction and import a stable source')
         (work / 'talkmap.js').write_text(data)
         (work / 'import.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
         # Preflight again before publishing; old media are never replaced.

@@ -15,6 +15,7 @@
 # macro-spec <pack> <NEW.json>  full-pack binding and semantic timing scaffold
 # macro-plan <pack> <brief.json> <NEW dir>  semantic/continuity/variety plan (draft exits 2)
 # macro-build <pack> <spec> <talk.mp4> <NEW dir> [--subs-js file]
+# preview <project> <video.mp4> <NEW dir> [--update] verified versioned player
 # Overrides: HTML=index.html W=1920 H=1080 FPS=60 END=seconds CHROME=/path/to/chrome
 set -euo pipefail
 SK="$(cd "$(dirname "$0")/.." && pwd)"
@@ -38,6 +39,11 @@ PY
   fi
 }
 case "$cmd" in
+preview)
+  [ "$#" -ge 4 ] || { echo 'Usage: pipeline.sh preview <project> <video.mp4> <NEW preview directory> [--update]' >&2; exit 2; }
+  shift
+  python3 "$SC/preview_delivery.py" "$@"
+  ;;
 macro-plan)
   [ "$#" -eq 4 ] || { echo 'Usage: pipeline.sh macro-plan <pack-id@version|pack-directory> <brief.json> <NEW directory>' >&2; exit 2; }
   python3 "$SC/plan_macro_project.py" "$2" "$3" "$4"

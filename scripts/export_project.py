@@ -17,7 +17,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from color_management import verify_color, export_plan
+from color_management import verify_color, export_plan, fingerprint_file
 
 
 SCRIPT = Path(__file__).resolve().parent
@@ -246,7 +246,9 @@ def main():
         verify_color(next(s for s in metadata['streams'] if s['codec_type'] == 'video'))
         frame_clock = verify_frame_clock(completed, count, args.fps)
         run(['ffmpeg', '-v', 'error', '-xerror', '-i', completed, '-map', '0:v:0', '-map', '0:a?', '-f', 'null', '-'])
+        identity = fingerprint_file(completed)
         report = {'schema': 'adu-motion-video-export/v1', 'created_utc': datetime.now(timezone.utc).isoformat(),
+                  'output_sha256': identity['sha256'], 'output_size_bytes': identity['sizeBytes'],
                   'project': str(project), 'entry': str(entry), 'output': str(output), 'fps': args.fps,
                   'width': args.width, 'height': args.height, 'frames': count, 'duration': duration,
                   'audio': str(audio) if audio else None, 'segments': sorted(segments, key=lambda s: s['index']),
@@ -262,6 +264,8 @@ def main():
             with output.open('xb') as dst, completed.open('rb') as src:
                 created.append(output)
                 shutil.copyfileobj(src, dst)
+            if fingerprint_file(output) != identity:
+                raise RuntimeError('Output bytes changed while publishing the export')
             with manifest.open('x', encoding='utf-8') as dst:
                 created.append(manifest)
                 json.dump(report, dst, ensure_ascii=False, indent=2)

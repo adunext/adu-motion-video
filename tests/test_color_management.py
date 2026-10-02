@@ -7,7 +7,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from color_management import image_plan, verify_color
+from color_management import image_plan, verify_color, source_evidence, validate_review_evidence
 from PIL import Image, ImageStat
 
 
@@ -40,6 +40,11 @@ class ColorPipelineTests(unittest.TestCase):
                 run([sys.executable, ROOT/'scripts/import_talk.py', project, clip, '--fps', '30', '--size', '256x64'])
                 receipt = json.loads((project/'import.json').read_text())
                 self.assertTrue(receipt['color']['toneMapped'])
+                self.assertEqual(receipt['color']['sourceEvidence']['bitDepth'], 8)
+                self.assertIn('low-bit-depth-hdr', [x['code'] for x in receipt['color']['reviewSignals']])
+                self.assertEqual(receipt['color']['source_size_bytes'], clip.stat().st_size)
+                import hashlib
+                self.assertEqual(receipt['color']['source_sha256'], hashlib.sha256(clip.read_bytes()).hexdigest())
                 mapped = Image.open(project/'talk/clip_000/f_00001.jpg').convert('RGB')
                 samples = [mapped.getpixel((x, 32)) for x in (32, 64, 96, 128, 160, 192, 224)]
                 self.assertTrue(all(max(c)-min(c) <= 2 for c in samples), samples)
@@ -71,6 +76,29 @@ class ColorPipelineTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'color mismatch'):
             verify_color(dict(pix_fmt='yuvj420p',color_range='pc',color_space='bt470bg',
                               color_primaries='bt709',color_transfer='bt709'))
+
+    def test_dolby_vision_base_layer_and_real_component_depth_are_explicit(self):
+        stream = dict(codec_name='hevc', pix_fmt='yuv420p10le', color_transfer='arib-std-b67',
+                      side_data_list=[{'side_data_type':'DOVI configuration record','dv_profile':8,
+                                       'dv_bl_signal_compatibility_id':4}])
+        evidence, signals = source_evidence(stream)
+        self.assertEqual(evidence['bitDepth'], 10)  # not 15 bits/pixel for 4:2:0
+        self.assertEqual(evidence['dolbyVisionRecords'][0]['dv_profile'], 8)
+        self.assertEqual([s['code'] for s in signals], ['dolby-vision-base-layer-only'])
+        stream['pix_fmt'] = 'unknown-format'
+        self.assertIn('hdr-bit-depth-unknown', [s['code'] for s in source_evidence(stream)[1]])
+
+    def test_risky_source_needs_explicit_matching_comparison_record(self):
+        color = dict(source_sha256='a'*64, reviewSignals=[{'code':'low-bit-depth-hdr'}])
+        with self.assertRaisesRegex(ValueError, 'reviewEvidence is required'):
+            validate_review_evidence(color, None)
+        review = dict(sourceSha256='a'*64, decision='accepted', reviewer='human reviewer',
+                      reviewedAt='2026-10-03T12:00:00+08:00', reference='native SDR comparison at 1s and 3s',
+                      notes='Skin, gray and highlights compared', acceptedSignals=['low-bit-depth-hdr'])
+        validate_review_evidence(color, review)
+        review['sourceSha256'] = 'b'*64
+        with self.assertRaisesRegex(ValueError, 'does not match'):
+            validate_review_evidence(color, review)
 
 
 if __name__ == '__main__':
