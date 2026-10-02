@@ -1,4 +1,6 @@
-![Adu-motion-video 动画模板库](assets/cover.jpg)
+<p align="center">
+  <img src="assets/cover.jpg" alt="Adu-motion-video 动画模板库" width="640">
+</p>
 
 # Adu-motion-video
 
@@ -12,32 +14,39 @@ Adu-motion-video（简称 **adumotion**）是阿杜开源的一个**模板级 Sk
 
 ### 先看模板，再选风格
 
-**一级选模板，二级选风格。** 同一个模板的不同风格放在一起；使用时直接告诉 AI 完整编号，例如 **01-B**。
+**先选一级模板，再挑喜欢的画面风格。** 当前共 2 类模板、7 种风格、17 个已发布镜头组。点击下方动图下载 MP4；详细编号与素材要求见[模板与风格目录](references/template-catalog.md)。
 
-**模板 01 · 现代图文口播**
+#### 模板 01 · 现代图文口播
 
-适合真人讲解、知识拆解、工具演示。同一套讲解内容，可以选择不同的画面表现。
+适合真人讲解、知识拆解、工具演示。**5 种风格 · 14 个镜头组**。准备口播与文案，演示和证据画面使用自己的录屏或视频。
 
-| 编号 · 二级风格 | 动画预览 · 点击下载有声 demo | 需要准备的素材 |
-| --- | --- | --- |
-| **01-A · 原片节奏**<br>已发布 · 错峰入场、人物回应、三项拆解 | [![01-A 原片节奏动画预览](assets/demos/01-A.gif)](assets/demos/01-A.mp4?raw=true) | 口播、文案；证据镜头另备三段录屏或视频 |
-| **01-B · 连续形变**<br>已发布 · 同一物件变形、拆开、收拢 | [![01-B 连续形变动画预览](assets/demos/01-B.gif)](assets/demos/01-B.mp4?raw=true) | 口播、文案；演示镜头另备一段录屏或视频 |
-| **01-C · 纵深舞台**<br>已发布 · 前后层次、主体聚焦 | [![01-C 纵深舞台风格预览](assets/demos/01-C.gif)](assets/demos/01-C.mp4?raw=true) | 口播、文案；演示或证据画面需要自己的录屏、视频 |
-| **01-D · 杂志分屏**<br>已发布 · 人物与资料并排、编辑版式 | [![01-D 杂志分屏风格预览](assets/demos/01-D.gif)](assets/demos/01-D.mp4?raw=true) | 口播、文案；资料窗口需要自己的录屏、视频 |
-| **01-E · 节拍字效**<br>已发布 · 关键词重音、字块接力 | [![01-E 节拍字效风格预览](assets/demos/01-E.gif)](assets/demos/01-E.mp4?raw=true) | 口播、文案；演示或证据画面需要自己的录屏、视频 |
+<p>
+  <a href="assets/demos/01-A.mp4?raw=true"><img src="assets/demos/01-A.gif" alt="01-A · 原片节奏" width="142" height="80"></a>
+  <a href="assets/demos/01-B.mp4?raw=true"><img src="assets/demos/01-B.gif" alt="01-B · 连续形变" width="142" height="80"></a>
+  <a href="assets/demos/01-C.mp4?raw=true"><img src="assets/demos/01-C.gif" alt="01-C · 纵深舞台" width="142" height="80"></a>
+  <a href="assets/demos/01-D.mp4?raw=true"><img src="assets/demos/01-D.gif" alt="01-D · 杂志分屏" width="142" height="80"></a>
+  <a href="assets/demos/01-E.mp4?raw=true"><img src="assets/demos/01-E.gif" alt="01-E · 节拍字效" width="142" height="80"></a>
+</p>
 
-**模板 02 · 纸面透视讲解**
+#### 模板 02 · 纸面透视讲解
 
-适合解释两难选择、抽象观点、资料聚合和行动交付。
+适合解释两难选择、抽象观点、资料聚合和行动交付。**2 种风格 · 3 个镜头组**。准备口播与文案，并按所选风格补充插图或指定字体。
 
-| 编号 · 二级风格 | 动画预览 · 点击下载有声 demo | 需要准备的素材 |
-| --- | --- | --- |
-| **02-A · 纸面天平**<br>已发布 · 天平回稳、手写批注、三步确认 | [![02-A 纸面天平动画预览](assets/demos/02-A.gif)](assets/demos/02-A.mp4?raw=true) | 口播、文案，以及一张用于说明观点的透明插图 |
-| **02-B · 纸面聚合**<br>3.3.0 · 资料吸入成网络，计划展开、开箱与交付 | [![02-B 纸面聚合局部静音预览](assets/demos/02-B.gif)](assets/demos/02-B.mp4?raw=true)<br>8 秒局部静音预览 | 口播、文案，以及固定 SHA 的优设标题黑字体文件 |
+<p>
+  <a href="assets/demos/02-A.mp4?raw=true"><img src="assets/demos/02-A.gif" alt="02-A · 纸面天平" width="142" height="80"></a>
+  <a href="assets/demos/02-B.mp4?raw=true"><img src="assets/demos/02-B.gif" alt="02-B · 纸面聚合，局部静音预览" width="115" height="80"></a>
+</p>
 
-动图为压缩后的 8 秒静音预览，点击可下载 MP4。02-B 为排除人物、字幕、账号角标和声音的开箱交付局部，其它已有 demo 含声音。01-A、01-B、02-A 展示的是已发布模板制作的新内容；01-C、01-D、01-E 展示原工程的风格短段，其三个组已完成各自新内容整片与独立使用验收，并随 3.2.0 发布；预览不代表来源的所有演出已进入稳定库。更多模板与风格持续更新。
+使用时直接告诉 AI 完整编号，例如 **01-B**。动图均为 8 秒静音预览，样片说明与具体发布范围可在下方展开。
 
-3.3.0 新增的 [02-B · 纸面聚合](packs/paper-ball-performance/1.0.0/README.md) 只覆盖两个已验收镜头组；完整源工程的其它 32 场保持原状态。新稿的六卡、七页与十卡属于固定示意编舞，须按本期意义填写。
+<details>
+<summary>预览说明与已发布范围</summary>
+
+02-B 为排除人物、字幕、账号角标和声音的开箱交付局部，其它已有 MP4 demo 含声音。01-A、01-B、02-A 展示的是已发布模板制作的新内容；01-C、01-D、01-E 展示原工程的风格短段，其三个组已完成各自新内容整片与独立使用验收，并随 3.2.0 发布；预览不代表来源的所有演出已进入稳定库。
+
+3.3.0 新增的 [02-B · 纸面聚合](packs/paper-ball-performance/1.0.0/README.md) 只覆盖两个已验收镜头组；完整源工程的其它 32 场保持原状态。新稿的六卡、七页与十卡属于固定示意编舞，须按本期意义填写。更多模板与风格持续更新。
+
+</details>
 
 ## 二、主要用在哪些场景？
 
@@ -90,6 +99,9 @@ https://github.com/adunext/adu-motion-video
 ---
 
 ## 技术说明
+
+<details>
+<summary><strong>展开模板版本、素材 API 与安装制作说明</strong></summary>
 
 以下内容供需要安装命令、接口调用、模板版本和开发细节的用户查阅。
 
@@ -205,6 +217,8 @@ Agent 缺少 Skill 机制时，先读 [AGENTS.md](AGENTS.md)。基础模板只�
 已完成的新 Opus 工程可按[持续模板接入](references/template-intake.md)登记与冻结。按新增价值区分案例、预设、变体、镜头组、路线与引擎；接收、候选和稳定发布各有证据状态。包 ID/版本和运行代码固定在新工程，后续升级不会自动改变旧片。候选提炼保留完整因果、人物、进退与声音，经过新内容及独立使用再扩大稳定库。仓库结构与贡献要求见[完整工程复用与验收](references/full-project-templating.md)。
 
 MIT License · 第三方说明见 [THIRD_PARTY.md](THIRD_PARTY.md)。
+
+</details>
 
 </details>
 
