@@ -90,12 +90,10 @@
               },
               {
                 "label": "土壤",
-                "sample": "湿度",
                 "record": "记录湿度"
               },
               {
                 "label": "变化",
-                "sample": "日期",
                 "record": "对照日期"
               }
             ],

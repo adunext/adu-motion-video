@@ -169,12 +169,16 @@ https://github.com/adunext/adu-motion-video
 
 新增[文案适配机制](references/adaptive-composition.md)：按表达关系选择完整镜头组，检查数量、动作时间、相邻衔接与声音尾音，并在合格组合内减少效果重复。已覆盖 8 个风格包、26 个完整组的规划规则；[两种文案与诊断示例](examples/adaptation/README.md)可查看选场差异。适配能力仍需本期声画验收，原模板发布等级保持不变。
 
+新增图片或视频后，可[只重新匹配当前分镜](references/local-rematch.md)：保留其它分镜、文案和声音设置，检查素材与前后衔接，再保存新方案。配置或素材发生变化后，旧建议不能直接覆盖当前工作。
+
 04-A 的三个候选组另带同样的适配合同。新制作增加[色彩证据与版本预览](references/color-and-preview.md)：探测 HDR/DV 和真实位深，绑定输入及输出 SHA，旧标签页会提示新版，避免把旧影片误当作当前交付。
 
 <details>
 <summary><strong>展开模板版本、素材 API 与安装制作说明</strong></summary>
 
 以下内容供需要安装命令、接口调用、模板版本和开发细节的用户查阅。
+
+**3.6.0** 增加当前分镜重配、未消费输入诊断、素材版本检查与通用视频色彩证据；04-A 新候选修正长文案裁切和遮挡。156 项 Python 与 11 项 Node 测试通过，四套新文案完成静音排版检查；完整声画与界面接入边界见[本次验证记录](docs/template-adaptation-3.6.md)。
 
 **3.3.1** 补齐素材导入的 HDR → SDR 转换与标准 SDR 导出色彩校验，03-A 采用 1.1.1 色彩修正候选。已有十七组和旧候选的冻结字节保持不变。
 
@@ -194,7 +198,7 @@ https://github.com/adunext/adu-motion-video
 | 02-A | `paper-balance@1.0.0` | 已发布；一个段落镜头组 |
 | 02-B | `paper-ball-performance@1.0.0` | 3.3.0；两个完整镜头组 |
 | 03-A | `anim4-showcase-macro@1.1.1-candidate` | 待声画确认；九场，横屏与原生竖屏 |
-| 04-A | `doubao-console-performance@0.1.1-candidate` | 三组同内容技术重放已检查；待不同内容与独立复用验收 |
+| 04-A | `doubao-console-performance@0.1.2-candidate` | 三组候选；长短文案布局修正，待新口播完整声画与独立复用验收 |
 
 3.3.0 共七个风格中的十七个稳定完整镜头组。02-B 的源/重放对照与 18.2667 秒新内容已获作者确认，严格栅格审计的 1 issue/2 warning 和复查结果仍保留；此增量不声称完整新路线或新独立作者验证。完整实测范围为 macOS、横屏 1920×1080、60fps。竖屏需重新布局，其它系统与字体组合需另行验证。新稿要留足动作与读字时间；实际 Token 消耗随素材处理、片长和修改量变化，尚无统一量化基准。
 

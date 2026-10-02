@@ -14,6 +14,8 @@
 # check <file.mp4>            frame count/rate, complete decode, loudness and peak
 # macro-spec <pack> <NEW.json>  full-pack binding and semantic timing scaffold
 # macro-plan <pack> <brief.json> <NEW dir>  semantic/continuity/variety plan (draft exits 2)
+# macro-rematch <pack> <spec> <change.json> <NEW dir>  local scene proposals
+# macro-apply-rematch <pack> <spec> <review.json> <candidate> <NEW dir>  revalidate and adopt
 # macro-build <pack> <spec> <talk.mp4> <NEW dir> [--subs-js file]
 # preview <project> <video.mp4> <NEW dir> [--update] verified versioned player
 # Overrides: HTML=index.html W=1920 H=1080 FPS=60 END=seconds CHROME=/path/to/chrome
@@ -47,6 +49,16 @@ preview)
 macro-plan)
   [ "$#" -eq 4 ] || { echo 'Usage: pipeline.sh macro-plan <pack-id@version|pack-directory> <brief.json> <NEW directory>' >&2; exit 2; }
   python3 "$SC/plan_macro_project.py" "$2" "$3" "$4"
+  ;;
+macro-rematch)
+  [ "$#" -ge 5 ] || { echo 'Usage: pipeline.sh macro-rematch <pack> <spec.json> <change.json> <NEW directory> [--project directory]' >&2; exit 2; }
+  shift
+  python3 "$SC/rematch_macro_project.py" propose "$@"
+  ;;
+macro-apply-rematch)
+  [ "$#" -ge 6 ] || { echo 'Usage: pipeline.sh macro-apply-rematch <pack> <spec.json> <review.json> <candidate-id> <NEW directory> [--project directory]' >&2; exit 2; }
+  shift
+  python3 "$SC/rematch_macro_project.py" apply "$@"
   ;;
 macro-spec)
   [ "$#" -eq 3 ] || { echo 'Usage: pipeline.sh macro-spec <pack-id@version|pack-directory> <NEW.json>' >&2; exit 2; }
@@ -194,5 +206,5 @@ check)
     echo 'Audio: none (silent video)'
   fi
   ;;
-*) sed -n '2,16p' "$0" ;;
+*) sed -n '2,21p' "$0" ;;
 esac

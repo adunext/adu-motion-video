@@ -23,12 +23,38 @@ def field(data, path):
     return value
 
 
+def unused_inputs(scene, inputs):
+    """Do not silently discard extra list items or misspelled semantic fields."""
+    consumed = []
+    for slot in scene.get('slots', []):
+        if slot.get('inputPath'):
+            consumed.append(slot['inputPath'])
+        if slot.get('inputTemplate'):
+            consumed.extend(name for _, name, _, _ in Formatter().parse(slot['inputTemplate']) if name is not None)
+
+    def leaves(value, prefix=''):
+        if isinstance(value, dict) and value:
+            for key, child in value.items():
+                yield from leaves(child, f'{prefix}.{key}' if prefix else str(key))
+        elif isinstance(value, list) and value:
+            for index, child in enumerate(value):
+                yield from leaves(child, f'{prefix}.{index}')
+        else:
+            yield prefix
+
+    return [name for name in leaves(inputs) if name and
+            not any(name == path or name.startswith(path + '.') for path in consumed)]
+
+
 def expand_inputs(scene, target):
     inputs = target.get('inputs')
     if inputs is None:
         return target
     if not isinstance(inputs, dict):
         raise SemanticInputError('Scene inputs must be an object')
+    unused = unused_inputs(scene, inputs)
+    if unused:
+        raise SemanticInputError('Unconsumed semantic inputs: ' + ', '.join(unused))
     slots = dict(target.get('slots', {}))
     for slot in scene.get('slots', []):
         path, template = slot.get('inputPath'), slot.get('inputTemplate')

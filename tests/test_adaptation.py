@@ -101,6 +101,20 @@ class AdaptationTests(unittest.TestCase):
             self.assertEqual(result["spec"]["scenes"], [])
             self.assertTrue(all(c["status"] == "rejected" for c in result["report"]["segments"][0]["candidates"]))
 
+    def test_declared_counts_cannot_hide_unconsumed_content(self):
+        for source in self.manifest['scenes']:
+            source['slots'][0]['inputPath'] = 'facts.0.title'
+        self.refresh()
+        brief = self.brief()
+        # A declared count of one must not let the second supplied fact disappear.
+        brief['segments'][0]['candidates'] = {
+            sid: {'inputs': {'facts': [{'title': '第一项'}, {'title': '不能静默丢弃'}]}}
+            for sid in ('a', 'b')}
+        result = self.plan(brief)
+        self.assertEqual(result['report']['status'], 'blocked')
+        self.assertFalse(result['report']['ready'])
+        self.assertIn('facts.1.title', str(result['report']['segments']))
+
     def test_missing_candidate_binding_does_not_change_semantic_eligibility(self):
         segment = self.segment()
         segment["candidates"] = {"b": {"slots": {"headline": "误选标题"}}}

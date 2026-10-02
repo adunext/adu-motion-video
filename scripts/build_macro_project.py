@@ -240,6 +240,7 @@ def copy_media(stage: Path, pack: dict, item: dict, source_scene: dict, block: s
             block = block.replace(original, target.name)
             exported_value = target.relative_to(stage).as_posix()
         elif kind == 'video':
+            from color_management import image_plan, fingerprint_file, validate_review_evidence
             clocks = [clock for clock in item.get('mediaClocks', []) if clock['slot'] == slot_id]
             if len(clocks) != 1: fail(f'{item["id"]}.{slot_id}: video needs one reviewed playback contract')
             clock = clocks[0]
@@ -247,19 +248,49 @@ def copy_media(stage: Path, pack: dict, item: dict, source_scene: dict, block: s
             if f"'{original_dir}'" not in block and f'"{original_dir}"' not in block:
                 fail(f'{item["id"]}.{slot_id}: source video directory is absent from its scene')
             source = Path(value['path'])
+            source_identity = fingerprint_file(source)
+            color = image_plan(source)
+            if source_identity != dict(sha256=color['source_sha256'], sizeBytes=color['source_size_bytes']):
+                fail(f'{item["id"]}.{slot_id}: source changed during colour probing')
+            if value.get('colorReviewFile'):
+                review = read_json(Path(value['colorReviewFile']))
+                if review.get('sourceSha256') != color['source_sha256']:
+                    fail(f'{item["id"]}.{slot_id}: colorReviewFile.sourceSha256 does not match this media')
+                validate_review_evidence(color, review)
+                color['reviewEvidence'] = review
             target = stage / 'sc' / name; target.mkdir()
+            # Convert while source HDR precision still exists, before JPEG's
+            # 8-bit encoding. Resize only the resulting browser sRGB pixels.
+            video_filter = (f'fps={clock["fps"]},' + color['filter'] +
+                            ',scale=1280:720:force_original_aspect_ratio=decrease:flags=lanczos:reset_sar=1,'
+                            'pad=1280:720:(ow-iw)/2:(oh-ih)/2,setsar=1')
             subprocess.run(['ffmpeg', '-v', 'error', '-n', '-ss', str(clock['offset']),
-                            '-i', str(source), '-an', '-vf',
-                            f'fps={clock["fps"]},scale=1280:720:force_original_aspect_ratio=decrease:flags=lanczos,pad=1280:720:(ow-iw)/2:(oh-ih)/2',
+                            '-i', str(source), '-an', '-vf', video_filter,
                             '-frames:v', str(clock['preparedFrames']), '-q:v', '3',
                             str(target / 'f_%04d.jpg')], check=True)
             frames = sorted(target.glob('f_*.jpg'))
             if len(frames) != clock['preparedFrames']:
                 fail(f'{item["id"]}.{slot_id}: media decoder produced {len(frames)} of {clock["preparedFrames"]} frames')
+            if fingerprint_file(source) != dict(sha256=color['source_sha256'], sizeBytes=color['source_size_bytes']):
+                fail(f'{item["id"]}.{slot_id}: source changed during media preparation')
+            receipt_path = stage / 'media_color.json'
+            receipt = read_json(receipt_path) if receipt_path.exists() else {'schema': 'adu-macro-media-color/1', 'entries': []}
+            if receipt.get('schema') != 'adu-macro-media-color/1' or not isinstance(receipt.get('entries'), list):
+                fail('Unsupported media_color.json receipt')
+            if any(x.get('instanceId') == item['id'] and x.get('slotId') == slot_id for x in receipt['entries']):
+                fail(f'{item["id"]}.{slot_id}: duplicate colour receipt')
+            receipt['entries'].append({'instanceId': item['id'], 'slotId': slot_id, 'color': color,
+                'preparation': {'filter': video_filter, 'fps': clock['fps'], 'offset': clock['offset'],
+                                'frames': len(frames), 'directory': target.relative_to(stage).as_posix()},
+                'files': {frame.relative_to(stage).as_posix(): fingerprint_file(frame) for frame in frames}})
+            receipt_path.write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + '\n')
             alias[original_dir] = name
             clock['directory'] = name
+            clock['colorReceipt'] = 'media_color.json'
+            clock['sourceSha256'] = color['source_sha256']
             exported_value = {**value, 'path': target.relative_to(stage).as_posix(),
                               'preparedFrames': len(frames), 'clock': 'output'}
+            exported_value.pop('colorReviewFile', None)
         elif kind == 'sequence':
             original_dir = Path(authored).parent.name
             definition = definitions.get(slot_id, {})

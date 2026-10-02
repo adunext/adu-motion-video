@@ -12,7 +12,7 @@
 | 02 · 纸面透视讲解 | 02-A · 纸面天平 | `paper-balance@1.0.0` | 已发布，一个续接镜头组 | 本期真人口播、文案，以及透明插图 |
 | 02 · 纸面透视讲解 | 02-B · 纸面聚合 | `paper-ball-performance@1.0.0` | 3.3.0；两个稳定镜头组 | 本期真人口播、文案、固定 SHA 的优设标题黑字体文件 |
 | 03 · 深色 3D | 03-A · 多屏展陈 | `anim4-showcase-macro@1.1.1-candidate` | 待声画确认；九场，横屏与原生竖屏 | 本期真人口播、文案；按场景提供作品、比较视频、录屏、头像与标识 |
-| 04 · 深色科技控制台 | 04-A · 仪器台演示 | `doubao-console-performance@0.1.1-candidate` | 三组候选；同内容技术重放已检查 | 本期口播、文案、图片、纹理与固定 SHA 的 Geist / GeistMono 字体 |
+| 04 · 深色科技控制台 | 04-A · 仪器台演示 | `doubao-console-performance@0.1.2-candidate` | 三组候选；增加有界文字适配 | 本期口播、文案、图片、纹理与固定 SHA 的 Geist / GeistMono 字体 |
 
 每个编号的动图和 MP4 见 [README](../README.md#模板库)。可读的结构化目录见 [template-catalog.json](template-catalog.json)。JSON 的发布状态描述当前目录；执行时仍以本机实际包清单与审查状态为准。
 

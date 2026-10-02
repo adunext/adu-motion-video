@@ -121,7 +121,7 @@ def concat_video(work, boundaries, fps):
 
 
 def sources(project):
-    """Audit fingerprint of source files, not a claim that all media were hashed."""
+    """Bind source files and the video frames covered by explicit colour receipts."""
     result = {}
     for root, dirs, names in os.walk(project, followlinks=False):
         dirs[:] = sorted(d for d in dirs if not d.startswith('.') and d not in
@@ -130,6 +130,24 @@ def sources(project):
             p = Path(root) / name
             if p.suffix.lower() in {'.html', '.js', '.mjs', '.css', '.json', '.py'} and p.is_file():
                 result[str(p.relative_to(project))] = hashlib.sha256(p.read_bytes()).hexdigest()
+    receipt_path = project / 'media_color.json'
+    if receipt_path.exists():
+        receipt = json.loads(receipt_path.read_text())
+        if not isinstance(receipt, dict) or receipt.get('schema') != 'adu-macro-media-color/1' or not isinstance(receipt.get('entries'), list):
+            raise ValueError('Unsupported media_color.json receipt')
+        for item in receipt['entries']:
+            if not isinstance(item, dict) or not isinstance(item.get('files'), dict) or not item['files']:
+                raise ValueError('Media colour receipt needs prepared file identities')
+            for relative, expected in item['files'].items():
+                if not isinstance(relative, str) or Path(relative).is_absolute() or '..' in Path(relative).parts:
+                    raise ValueError('Invalid prepared media receipt path')
+                media = (project / relative).resolve()
+                if not media.is_relative_to(project.resolve()) or not media.is_file():
+                    raise ValueError('Prepared media is missing or outside project: ' + relative)
+                actual = fingerprint_file(media)
+                if actual != expected:
+                    raise ValueError('Prepared media changed since colour conversion: ' + relative)
+                result[relative] = actual['sha256']
     return result
 
 
@@ -256,7 +274,7 @@ def main():
                   'verification': 'all segment exits + frame counts; concat/mux metadata; every display timestamp; complete media decode',
                   'frame_clock': frame_clock,
                   'visual_review': 'not performed by this command',
-                  'media_fingerprints': 'not included; source hashes are not a media dependency manifest',
+                  'media_fingerprints': 'prepared video frames in media_color.json are bound by source_sha256; other media are outside this receipt scope',
                   'streams': metadata['streams']}
         created = []
         try:

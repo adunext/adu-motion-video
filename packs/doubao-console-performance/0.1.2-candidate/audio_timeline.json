@@ -1,0 +1,209 @@
+{
+  "schema": "adu-authored-score/1",
+  "sourceSha256": "b0a99b6ddfd5d5d7425dcf4de311b847835b4ab76235b74377ef212358f8df43",
+  "SEC": [
+    {
+      "id": "fusion-success",
+      "start": 0,
+      "end": 3.9,
+      "mode": "synth",
+      "energy": 0.25,
+      "options": {
+        "kick_on": false,
+        "clapon": false
+      }
+    },
+    {
+      "id": "three-step-chat",
+      "start": 17.75,
+      "end": 26.81,
+      "mode": "synth",
+      "energy": 0.25,
+      "options": {
+        "kick_on": false,
+        "clapon": false
+      }
+    },
+    {
+      "id": "manual-agents-delivery",
+      "start": 50.54,
+      "end": 62.01,
+      "mode": "synth",
+      "energy": 0.25,
+      "options": {
+        "kick_on": false,
+        "clapon": false
+      }
+    }
+  ],
+  "ENV": [
+    {
+      "at": 0,
+      "db": 2
+    },
+    {
+      "at": 2.6,
+      "db": 2
+    },
+    {
+      "at": 2.95,
+      "db": 5
+    },
+    {
+      "at": 3.6,
+      "db": 1
+    },
+    {
+      "at": 4.2,
+      "db": -2
+    },
+    {
+      "at": 27.6,
+      "db": -2
+    },
+    {
+      "at": 28.2,
+      "db": 4
+    },
+    {
+      "at": 29.0,
+      "db": 0
+    },
+    {
+      "at": 29.6,
+      "db": -2
+    },
+    {
+      "at": 46.8,
+      "db": -2
+    },
+    {
+      "at": 47.45,
+      "db": 2
+    },
+    {
+      "at": 48.5,
+      "db": 6
+    },
+    {
+      "at": 49.3,
+      "db": 1
+    },
+    {
+      "at": 50.5,
+      "db": -2
+    },
+    {
+      "at": 63.6,
+      "db": -2
+    },
+    {
+      "at": 64.0,
+      "db": 3
+    },
+    {
+      "at": 64.8,
+      "db": -2
+    },
+    {
+      "at": 78.3,
+      "db": -2
+    },
+    {
+      "at": 78.6,
+      "db": 3
+    },
+    {
+      "at": 79.3,
+      "db": -2
+    },
+    {
+      "at": 108.9,
+      "db": -2
+    },
+    {
+      "at": 109.52,
+      "db": 6
+    },
+    {
+      "at": 110.6,
+      "db": 1
+    },
+    {
+      "at": 111.4,
+      "db": -2
+    },
+    {
+      "at": 116.3,
+      "db": -2
+    },
+    {
+      "at": 116.6,
+      "db": 2
+    },
+    {
+      "at": 117.6,
+      "db": -2
+    },
+    {
+      "at": 125.8,
+      "db": -2
+    },
+    {
+      "at": 126.0,
+      "db": 2
+    },
+    {
+      "at": 126.8,
+      "db": -1
+    },
+    {
+      "at": 129.9,
+      "db": -1
+    },
+    {
+      "at": 130.4,
+      "db": 5
+    },
+    {
+      "at": 134.5,
+      "db": 5
+    }
+  ],
+  "HITS": {
+    "crash": [
+      2.95,
+      28.2,
+      48.5,
+      64.0,
+      109.52
+    ],
+    "drop": [
+      48.5,
+      109.52
+    ],
+    "riser": [
+      [
+        1.9,
+        2.95
+      ],
+      [
+        47.45,
+        48.5
+      ],
+      [
+        108.4,
+        109.52
+      ]
+    ]
+  },
+  "DARK": [],
+  "sfxEvents": [],
+  "mix": {
+    "profile": "opus-five-v1"
+  },
+  "limits": [
+    "Source uses an external music recording; it is not bundled or claimed reproduced.",
+    "Default synth bed is a disclosed replacement. Source ENV/HITS and runtime S() are remapped per selected group."
+  ]
+}

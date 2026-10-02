@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import bisect
+from copy import deepcopy
 from functools import lru_cache
 import json
 import math
@@ -175,10 +176,23 @@ def phrase_time(binding: dict, transcript: list[dict], start: float, end: float)
     return candidates[0]
 
 
-@lru_cache(maxsize=8192)
 def probe_media(path: Path, expected: str) -> dict:
+    """Cache only the same on-disk revision; callers never receive cache objects."""
+    require(expected in {'image', 'video', 'audio'}, f'Unknown media type {expected!r}')
+    path = Path(path).expanduser().resolve()
     require(path.is_file(), f"Missing {expected} file: {path}")
-    require(path.stat().st_size > 0, f"Empty {expected} file: {path}")
+    def identity():
+        stat = path.stat()
+        return stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns
+    before = identity()
+    require(before[2] > 0, f"Empty {expected} file: {path}")
+    result = _probe_media_cached(path, expected, before)
+    require(identity() == before, f"Media changed while probing: {path}; retry against the current file")
+    return deepcopy(result)
+
+
+@lru_cache(maxsize=8192)
+def _probe_media_cached(path: Path, expected: str, file_identity: tuple) -> dict:
     suffix = path.suffix.lower()
     allowed = {"image": IMAGE_EXT, "video": VIDEO_EXT, "audio": AUDIO_EXT}[expected]
     require(suffix in allowed, f"{expected} slot needs {sorted(allowed)}, got: {path}")
@@ -189,7 +203,8 @@ def probe_media(path: Path, expected: str) -> dict:
             width, height = (float(vb[2]), float(vb[3])) if len(vb) == 4 else (0, 0)
         except (ET.ParseError, OSError, ValueError) as exc:
             raise AdaptError(f"Invalid SVG image {path}: {exc}") from exc
-        require(width > 0 and height > 0, f"SVG must have a positive viewBox: {path}")
+        require(math.isfinite(width) and math.isfinite(height) and width > 0 and height > 0,
+                f"SVG must have a positive finite viewBox: {path}")
         return {"width": width, "height": height}
     require(bool(shutil.which("ffprobe")), "ffprobe is required to validate media slots; run doctor")
     proc = subprocess.run(["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(path)],
@@ -200,16 +215,59 @@ def probe_media(path: Path, expected: str) -> dict:
     except json.JSONDecodeError as exc:
         raise AdaptError(f"ffprobe returned invalid metadata for {path}") from exc
     want = "audio" if expected == "audio" else "video"
-    streams = [s for s in meta.get("streams", []) if s.get("codec_type") == want]
+    require(isinstance(meta, dict) and isinstance(meta.get("streams"), list), f"Invalid stream metadata: {path}")
+    streams = [s for s in meta["streams"] if isinstance(s, dict) and s.get("codec_type") == want]
     require(bool(streams), f"{path} has no {want} stream")
     stream = streams[0]
-    result = {"width": stream.get("width"), "height": stream.get("height")}
-    duration = stream.get("duration") or meta.get("format", {}).get("duration")
+    result = {"width": None, "height": None}
+    if want == "video":
+        width = integer(stream.get("width"), f"{path}.width", minimum=1)
+        height = integer(stream.get("height"), f"{path}.height", minimum=1)
+        sar = stream.get("sample_aspect_ratio")
+        assumptions = []
+        if sar in (None, "N/A", "0:1"):
+            sar = "1:1"
+            assumptions.append("unspecified sample aspect ratio treated as square pixels")
+        require(isinstance(sar, str) and re.fullmatch(r"[0-9]+:[0-9]+", sar) is not None,
+                f"Invalid sample aspect ratio for {path}: {sar!r}")
+        numerator, denominator = map(int, sar.split(":"))
+        require(numerator > 0 and denominator > 0, f"Invalid sample aspect ratio for {path}: {sar!r}")
+        side_data, tags = stream.get("side_data_list", []), stream.get("tags", {})
+        require(isinstance(side_data, list) and isinstance(tags, dict), f"Invalid display metadata for {path}")
+        rotation_values = [d["rotation"] for d in side_data
+                           if isinstance(d, dict) and "rotation" in d]
+        tagged = tags.get("rotate")
+        if tagged is not None:
+            rotation_values.append(tagged)
+        rotations = []
+        for value in rotation_values:
+            try:
+                angle = float(value)
+            except (TypeError, ValueError) as exc:
+                raise AdaptError(f"Invalid display rotation for {path}: {value!r}") from exc
+            require(math.isfinite(angle) and abs(angle / 90 - round(angle / 90)) < 1e-5,
+                    f"Unsupported non-orthogonal display rotation for {path}: {value!r}")
+            rotations.append(round(angle / 90) * 90 % 360)
+        require(len(set(rotations)) <= 1, f"Conflicting display rotations for {path}")
+        rotation = rotations[0] if rotations else 0
+        displayed = (width * numerator / denominator, float(height))
+        if rotation in (90, 270):
+            displayed = displayed[::-1]
+        result.update(width=displayed[0], height=displayed[1], codedWidth=width, codedHeight=height,
+                      sampleAspectRatio=sar, rotation=rotation, aspectAssumptions=assumptions)
+    format_meta = meta.get("format", {})
+    require(isinstance(format_meta, dict), f"Invalid container metadata for {path}")
+    duration = stream.get("duration")
+    if duration in (None, "N/A"):
+        duration = format_meta.get("duration")
     if duration is not None:
         try:
             result["duration"] = float(duration)
-        except (TypeError, ValueError):
-            pass
+        except (TypeError, ValueError) as exc:
+            raise AdaptError(f"Invalid media duration for {path}: {duration!r}") from exc
+        require(math.isfinite(result["duration"]) and result["duration"] > 0,
+                f"Media duration must be positive and finite: {path}")
+    require(expected != "video" or "duration" in result, f"Video duration is missing: {path}")
     return result
 
 
@@ -226,7 +284,8 @@ def check_aspect(meta: dict, slot: dict, label: str) -> None:
     else:
         expected = number(aspect, f"{label}.aspect", positive=True)
     width, height = meta.get("width"), meta.get("height")
-    require(width and height, f"Cannot determine media aspect for {label}")
+    width = number(width, f"{label}.displayWidth", positive=True)
+    height = number(height, f"{label}.displayHeight", positive=True)
     tolerance = number(slot.get("aspectTolerance", 0.12), f"{label}.aspectTolerance")
     require(tolerance >= 0, f"{label}.aspectTolerance must be nonnegative")
     require(abs(width / height / expected - 1) <= tolerance,
@@ -372,6 +431,11 @@ def slot_bindings(scene: dict, target: dict, spec_dir: Path, project: Path | Non
                 offset = number(settings.get("offset", 0), f"{label}.offset")
                 require(offset >= 0, f"{label}.offset must be nonnegative")
                 value = {"path": value, "offset": offset, "duration": meta.get("duration")}
+                if "colorReviewFile" in settings:
+                    review_path = settings["colorReviewFile"]
+                    require(isinstance(review_path, str) and bool(review_path.strip()),
+                            f"{label}.colorReviewFile must name a source comparison record")
+                    value["colorReviewFile"] = str(resolve_path(review_path, spec_dir))
         if slot.get("mustChange"):
             baselines = [slot[key] for key in ("sourceText", "demoFallback", "placeholder")
                          if key in slot and slot[key] is not None]

@@ -217,6 +217,11 @@ def _evaluate(manifest, source, source_index, contract, segment, target, start, 
                 path = Path(raw).expanduser()
                 path = (path if path.is_absolute() else spec_dir / path).resolve()
                 target["slots"][slot["id"]] = {**value, "path": str(path)} if isinstance(value, dict) else str(path)
+                review = value.get("colorReviewFile") if isinstance(value, dict) else None
+                if isinstance(review, str) and review.strip():
+                    review_path = Path(review).expanduser()
+                    target["slots"][slot["id"]]["colorReviewFile"] = str(
+                        (review_path if review_path.is_absolute() else spec_dir / review_path).resolve())
         expanded = target
     values, details, deferred = {}, [], []
     declared = source.get("slots", [])

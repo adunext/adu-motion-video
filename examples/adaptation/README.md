@@ -12,6 +12,8 @@
 
 第一份主张分发与第二份证据聚焦具有不同动画家族，归纳段复用同组是因为表达关系相同。规划器不为凑足效果数量而把证据演成无根据的主张，也不随机打乱方法顺序。
 
+`decompose-and-consolidate` 只有第一项声明 `sample` 展示位，第二、第三项用各自的 `label` / `record` 表达。示例严格按这些真实字段填写；新增未被槽位消费的字段或数组项现在会受阻，不能假定写进 JSON 就一定出现在视频里。
+
 ```bash
 bash scripts/pipeline.sh macro-plan classic-performance@1.0.0 \
   examples/adaptation/01-method-introduction.brief.json \

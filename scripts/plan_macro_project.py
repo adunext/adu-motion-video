@@ -19,7 +19,7 @@ def resolve_project_paths(brief: dict, directory: Path) -> dict:
     from copy import deepcopy
     result = deepcopy(brief)
     def absolute(value):
-        return str((directory / value).resolve()) if isinstance(value, str) and value.strip() else value
+        return str((directory / Path(value).expanduser()).resolve()) if isinstance(value, str) and value.strip() else value
     if 'monoFontFile' in result:
         result['monoFontFile'] = absolute(result['monoFontFile'])
     if 'colorReviewFile' in result:

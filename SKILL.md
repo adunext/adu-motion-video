@@ -2,7 +2,7 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。需要可读写本地文件并运行命令的 Agent。
 metadata:
-  version: "3.5.0"
+  version: "3.6.0"
 ---
 
 # adu-motion-video
@@ -26,9 +26,11 @@ metadata:
 
 ## 完整工程包流程
 
-3.5.0 增加 **04-A · 仪器台演示** 候选 `doubao-console-performance@0.1.1-candidate`，包含三个完整组及内置适配合同。已核对同内容重放、字体、34 条 SFX 和输出时钟；不同内容与独立复用验收尚未完成，详见[模板说明](references/doubao-console-template.md)。新预览统一使用带导出证据与版本检查的 `preview` 命令。
+3.6.0 新增当前分镜局部重配和素材版本检查，并为通用视频抽帧接入共享色彩处理。**04-A · 仪器台演示** 当前候选 `doubao-console-performance@0.1.2-candidate` 增加有界文字布局，原 0.1.1 三组的同内容技术重放仍保留；静音新文案检查不代替新口播完整声画或独立复用验收，详见[模板说明](references/doubao-console-template.md)。新预览统一使用带导出证据与版本检查的 `preview` 命令。
 
 新文案先按[系统适配机制](references/adaptive-composition.md)形成 `brief.json`，运行 `bash "$PL" macro-plan 包ID@版本 brief.json 新规划目录`。该入口按语义阶段、数量、原速动作窗和前后场依赖筛选，再在合法组合内减少效果重复。8 个风格包的 26 个完整组已有代码核对的适配 profile，能力仍为 adaptation-experimental。输出 `spec.json/report.json/report.md/profile.json`；退出码 0 为绑定检查通过，2 为已保存待补或受阻草稿，1 为无效输入。媒体或真实关键词时码缺失时修改 brief 并重新规划，不填源演示时码。`macro-spec` 保留为历史/人工配方入口，它不提供这层语义与邻接诊断；新制作优先沿用带 `adaptation` 的计划，构建会重新验证。
+
+已有计划新增素材时，按[局部分镜重配](references/local-rematch.md)运行 `macro-rematch`，检查建议后通过 `macro-apply-rematch` 保存到新目录。固定原段语义、时间和其它分镜，重验媒体与双侧接缝；基线或素材已改变则拒绝应用。没有兼容新组时保留原组，不随机换效果、不猜其它模板的文案映射。此接口供制作工具调用，尚不等于已接入 ADuDir 拖放界面。
 
 1. `bash "$PL" doctor` 检查 Node、Python、FFmpeg 和 Chrome；缺依赖且允许安装时再 `bash "$PL" setup`。保持源工程和原成片只读，输出到不存在的新路径。
 2. 先锁定用户指定的模板来源。素材目录里的其他 `anim`、新工程或旧成片不自动成为动画底稿；不能只插入少数模板片段就称整片使用了指定模板。逐场记录来源包与场景 ID，混用完整包见[来源与多包编排](references/full-project-templating.md#来源与多包编排)。对齐新口播和文案，取得关键台词的准确时间。SRT 只有整句时间时，不可臆测句内某个词的时间；用逐词对齐数据或人工标注。读包的 `role`、`cues`、`motionWindows`、`slots`，按意义挑选、重排或重复完整场景。先列出分镜和缺少的素材。

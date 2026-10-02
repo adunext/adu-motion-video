@@ -88,12 +88,10 @@
               },
               {
                 "label": "决定",
-                "sample": "共识",
                 "record": "写清决定"
               },
               {
                 "label": "行动",
-                "sample": "日期",
                 "record": "明确日期"
               }
             ],
