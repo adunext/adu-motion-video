@@ -39,6 +39,8 @@ Agent 在制作前列出“新台词区间 → 选用宏场景 → 要触发的�
 
 ## 制作步骤
 
+未指定风格、希望比较全部模板时，优先使用[全库选型与构建](automatic-selection.md)的 `auto-plan → auto-build`。单风格仍走原构建器；混合工程保存逐包来源，只有完整独立入场的镜头能跨风格接入，全片口播、字幕、音效保持总时钟。
+
 新制作先走[系统适配规划](adaptive-composition.md)：`macro-plan 显式包@版本 本期brief.json 新规划目录` 生成经过语义、容量、动作窗、接缝和效果变化检查的 spec。brief 的 `anchors.at/frame` 默认是段内相对时刻，生成 spec.cues.at 才是全片绝对秒数。下述 `macro-spec` 为低层人工入口；它不会自动进行语义/接缝规划，不应通过删除 `adaptation` 元数据绕过新计划的错误。已有不含该字段的工程继续兼容。
 
 1. 用 `bash "$PL" doctor` 检查工具，必要时运行 `setup`。阅读所选包的 `README.md`、`manifest.json`，再看源码了解场景的实际进出场。

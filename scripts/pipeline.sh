@@ -12,6 +12,9 @@
 # vert <dir> <NEW.mp4> [K]    requires a separately authored vert.html layout
 # seg <dir> <i> <NEW.mp4> [K] safe full fresh render, no cache speedup
 # check <file.mp4>            frame count/rate, complete decode, loudness and peak
+# auto-capabilities          full catalog semantic fields, capacity and dependencies
+# auto-plan <brief> <NEW dir> compare coherent styles and legal mixed routes
+# auto-build <plan> <talk> <NEW dir> [--subs-js file] one narration master
 # macro-spec <pack> <NEW.json>  manual scaffold with unbound episode cues
 # macro-plan <pack> <brief.json> <NEW dir>  semantic/continuity/variety plan (draft exits 2)
 # macro-rematch <pack> <spec> <change.json> <NEW dir>  local scene proposals
@@ -41,6 +44,19 @@ PY
   fi
 }
 case "$cmd" in
+auto-capabilities)
+  [ "$#" -eq 1 ] || { echo 'Usage: pipeline.sh auto-capabilities' >&2; exit 2; }
+  python3 "$SC/auto_templates.py" capabilities
+  ;;
+auto-plan)
+  [ "$#" -eq 3 ] || { echo 'Usage: pipeline.sh auto-plan <brief.json> <NEW directory>' >&2; exit 2; }
+  python3 "$SC/auto_templates.py" plan "$2" "$3"
+  ;;
+auto-build)
+  [ "$#" -ge 4 ] || { echo 'Usage: pipeline.sh auto-build <auto_plan.json> <talk.mp4> <NEW project> [--subs-js file]' >&2; exit 2; }
+  shift
+  python3 "$SC/build_auto_project.py" "$@"
+  ;;
 preview)
   [ "$#" -ge 4 ] || { echo 'Usage: pipeline.sh preview <project> <video.mp4> <NEW preview directory> [--update]' >&2; exit 2; }
   shift
@@ -216,5 +232,5 @@ check)
     echo 'Audio: none (silent video)'
   fi
   ;;
-*) sed -n '2,21p' "$0" ;;
+*) sed -n '/^# /p' "$0" ;;
 esac

@@ -422,5 +422,37 @@ class AdaptationTests(unittest.TestCase):
         self.assertTrue(report["denseWindows"])
 
 
+    def test_candidate_interpretations_are_selected_and_revalidated(self):
+        segment=self.segment()
+        segment['intent']='whole-narration'
+        segment['candidateInterpretations']={
+            sid:dict(intent='evidence',phases=['claim','proof'],counts=dict(facts=1),
+                     anchors=dict(evidence=dict(frame=60))) for sid in ('a','b')}
+        result=self.plan(self.brief(segment))
+        self.assertTrue(result['report']['ready'])
+        self.assertEqual(result['report']['selection'][0]['intent'],'evidence')
+        self.assertTrue(self.validate(result['spec'])['ready'])
+        sid=result['spec']['scenes'][0]['sceneId']
+        changed=deepcopy(result['spec'])
+        changed['adaptation']['segments'][0]['candidateInterpretations'][sid]['anchors']['evidence']['frame']=61
+        with self.assertRaisesRegex(AdaptError,'cue bindings differ'):
+            self.validate(changed)
+        segment['candidateInterpretations']['a']['durationFrames']=600
+        with self.assertRaisesRegex(AdaptError,'only change'):
+            self.plan(self.brief(segment))
+
+    def test_cross_style_dependent_entry_cannot_become_arbitrary_cut(self):
+        self.profile['scenes'][0]['styleId']='A'
+        self.profile['scenes'][1]['styleId']='B'
+        self.profile['scenes'][1]['entry']['mode']='native-transition'
+        self.refresh()
+        one=self.segment('one');two=self.segment('two')
+        one['candidates'].pop('b');two['candidates'].pop('a')
+        result=self.plan(self.brief(one,two))
+        self.assertFalse(result['report']['ready'])
+        self.assertNotEqual(result['report']['selectedScenes'],['a','b'])
+        self.assertIn('independently reviewed',str(result['report']['seamRejections']))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,46 @@
+{
+  "schema": "adu-auto-test-evidence/1",
+  "source": "tests/test_auto_templates.py",
+  "styles": 10,
+  "groups": 32,
+  "composition": {
+    "frames": 1652,
+    "fps": 60,
+    "parts": 2,
+    "width": 1080,
+    "height": 1920,
+    "seeks": 58,
+    "repeatRoundTrips": 16,
+    "softwareRaster": true,
+    "deterministicPixels": true,
+    "subtitleGlobalClock": true,
+    "voicePCMRejoinIdentical": true,
+    "preparedMedia": [
+      {
+        "slot": "overview",
+        "frames": 90
+      },
+      {
+        "slot": "detail",
+        "frames": 200
+      },
+      {
+        "slot": "result",
+        "frames": 280
+      }
+    ],
+    "seamEncodedFrames": 30,
+    "seamDecodePassed": true
+  },
+  "audio": {
+    "mode": "per-pack-source-scores",
+    "duration": 27.533333333333335,
+    "parts": 2,
+    "sfx": 22,
+    "sampleRate": 44100,
+    "voiceRetimed": false,
+    "boundaryPolicy": "independent visual cut; source music 120ms gain ramps; global SFX tails",
+    "review": "experimental; continuous viewing/listening still required"
+  },
+  "scope": "synthetic source, truthful test annotations, source score synthesis and half-second seam encoding; no human whole-film AV acceptance"
+}

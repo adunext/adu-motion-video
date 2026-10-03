@@ -59,3 +59,43 @@ test('an extended reading gap shifts an SFX onset without stretching its generat
   await ctx.READY;
   assert.deepEqual(Array.from(ctx.SFX,e=>[e.t,e.d]),[[.9,.5],[8.2,.2]]);
 });
+
+
+test('composite parts preserve negative lead-ins and later onsets on the master clock', async () => {
+  const element=()=>({style:{},appendChild(){}});
+  const ctx={console,Math,Number,Promise};ctx.window=ctx;
+  ctx.document={createElement:element,fonts:{ready:Promise.resolve()},images:[]};
+  const els=new Map();ctx.$=id=>{if(!els.has(id))els.set(id,element());return els.get(id);};
+  ctx.clamp=x=>Math.min(1,Math.max(0,x));ctx.lerp=(a,b,p)=>a+(b-a)*p;
+  ctx.CONFIG={};ctx.SFX=[];
+  ctx.MACRO_GLOBAL_START_FRAME=300;ctx.MACRO_GLOBAL_END_FRAME=1200;
+  ctx.SCENES=[{el:element(),opt:{},update(){},cam(){return null;}}];
+  ctx.MACRO_PLAN={fps:60,end_frame:300,scenes:[{output_start_frame:0,output_end_frame:300,
+    time_map:[{source:10,output_frame:0},{source:15,output_frame:300}]}]};
+  ctx.MACRO_SOURCE_SFX=[[{t:9.95,type:'whoosh',d:.5},{t:15.05,type:'chime',d:2.2}]];
+  vm.runInNewContext(fs.readFileSync(new URL('../scripts/macro_runtime.js',import.meta.url),'utf8'),ctx);
+  await ctx.READY;
+  assert.deepEqual(Array.from(ctx.SFX,e=>[e.t+5,e.d]),[[4.95,.5],[10.05,2.2]]);
+});
+
+
+test('hidden legacy helpers cannot accumulate trailing zero scales across seeks', async () => {
+  const element=()=>({style:{},appendChild(){}});
+  const ball={style:{display:'none',transform:'translate(4px, 8px)'}};
+  const ctx={console,Math,Number,Promise};ctx.window=ctx;
+  ctx.document={createElement:element,fonts:{ready:Promise.resolve()},images:[]};
+  const els=new Map();ctx.$=id=>{if(!els.has(id))els.set(id,element());return els.get(id);};
+  ctx.clamp=x=>Math.min(1,Math.max(0,x));ctx.lerp=(a,b,p)=>a+(b-a)*p;
+  ctx.CONFIG={};ctx.SFX=[];
+  const scene={el:{style:{},querySelectorAll:()=>[ball]},opt:{},
+    update(t){if(t<2)ball.style.transform+=' scale(0, 0)';else ball.style.transform='translate(4px, 8px) scale(1.2)';},cam(){return null;}};
+  ctx.SCENES=[scene];ctx.MACRO_SOURCE_SFX=[[]];
+  ctx.MACRO_PLAN={fps:60,end_frame:240,scenes:[{output_start_frame:0,output_end_frame:240,
+    time_map:[{source:0,output_frame:0},{source:4,output_frame:240}]}]};
+  vm.runInNewContext(fs.readFileSync(new URL('../scripts/macro_runtime.js',import.meta.url),'utf8'),ctx);
+  await ctx.READY;
+  for(let i=0;i<100;i++)await ctx.renderAt(1);
+  assert.equal(ball.style.transform,'translate(4px, 8px) scale(0, 0)');
+  await ctx.renderAt(3);
+  assert.equal(ball.style.transform,'translate(4px, 8px) scale(1.2)','nonzero authored transforms stay untouched');
+});

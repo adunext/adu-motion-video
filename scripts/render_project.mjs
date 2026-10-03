@@ -40,7 +40,7 @@ function parse() {
     const file=path.join(directory,name);if(!fs.existsSync(file))continue;
     const data=JSON.parse(fs.readFileSync(file,'utf8'));
     if(![data.width,data.height].every(v=>Number.isInteger(v)&&v>0))throw Error(name+' needs positive integer dimensions');
-    dimensions=[data.width,data.height];break;
+    dimensions=[data.width,data.height];opt.composite=data.schema==='adu-auto-composition/1';break;
   }
   if(dimensions&&((opt.width!==undefined&&+opt.width!==dimensions[0])||(opt.height!==undefined&&+opt.height!==dimensions[1])))throw Error('Viewport differs from project layout; rebuild the native layout first');
   opt.width??=dimensions?.[0]??1920;opt.height??=dimensions?.[1]??1080;
@@ -115,7 +115,7 @@ async function main() {
       color = JSON.parse(plan.stdout);
     }
     temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'adu-video-render-'));
-    browser = await chromium.launch({ executablePath: browserPath, headless: true, args: ['--allow-file-access-from-files', '--force-color-profile=srgb'] });
+    browser = await chromium.launch({ executablePath: browserPath, headless: true, args: ['--allow-file-access-from-files', '--force-color-profile=srgb', ...(opt.composite ? ['--disable-gpu','--disable-accelerated-2d-canvas'] : [])] });
     const context = await browser.newContext({ viewport: { width: opt.width, height: opt.height }, deviceScaleFactor: 1, serviceWorkers: 'block' });
     await context.route('**/*', route => {
       if (/^https?:/i.test(route.request().url())) { errors.add('Remote request blocked; local assets are required'); return route.abort(); }

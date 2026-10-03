@@ -415,7 +415,7 @@ def preflight_narration(pack: dict, spec: dict, talk: Path) -> dict:
     return {'fps': fps, 'expectedFrames': end, **timing, 'stage': 'metadata-before-frame-extraction'}
 
 
-def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Path | None) -> None:
+def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Path | None, *, _narration_slice: tuple | None = None) -> None:
     if output.exists() or output.is_symlink(): fail(f'Refusing existing project: {output}')
     if not output.parent.is_dir(): fail(f'Project parent does not exist: {output.parent}')
     pack = read_json(pack_dir / 'manifest.json'); spec = read_json(spec_path)
@@ -435,7 +435,12 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
     subtitle_preset = spec.get('subtitlePreset', 'large-en')
     if subtitle_preset not in ('standard', 'large-en'):
         fail('subtitlePreset must be standard or large-en')
-    narration_preflight = preflight_narration(pack, spec, talk)
+    if _narration_slice is None:
+        narration_preflight = preflight_narration(pack, spec, talk)
+    else:
+        from narration_slice import preflight
+        master, first, last = _narration_slice
+        narration_preflight = preflight(master, talk, first, last, spec.get('fps', pack['fps']))
     prelude, authored_scenes = pack_scene_parts(pack_dir, pack)
     if len(authored_scenes) != len(pack['scenes']):
         fail(f'Pack scene count mismatch: manifest={len(pack["scenes"])} source={len(authored_scenes)}')
@@ -452,7 +457,11 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
             if not isinstance(spec['colorReviewFile'], str) or not spec['colorReviewFile'].strip():
                 fail('colorReviewFile must name an actual source comparison record')
             import_command.extend(['--color-review', str((spec_path.parent / spec['colorReviewFile']).resolve())])
-        subprocess.run(import_command, check=True)
+        if _narration_slice is None:
+            subprocess.run(import_command, check=True)
+        else:
+            from narration_slice import install
+            install(master, stage, first, last, spec.get('fps', pack['fps']))
         audio_timeline_path = pack_dir / 'audio_timeline.json'
         audio_timeline = read_json(audio_timeline_path) if audio_timeline_path.is_file() else None
         plan = compile_plan(pack, spec, spec_dir=spec_path.parent, project=stage,

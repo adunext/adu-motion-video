@@ -50,8 +50,10 @@
       const authoredFrame = outputAt(item, cue.t);
       // A reused opening scene has no preceding shot for its transition
       // lead-in. Keep that sound at frame zero instead of silently dropping it.
-      const frame = i === 0 ? Math.max(0, authoredFrame) : authoredFrame;
-      if (frame < 0 || frame >= plan.end_frame) continue;
+      const globalStart = window.MACRO_GLOBAL_START_FRAME || 0;
+      const globalEnd = window.MACRO_GLOBAL_END_FRAME ?? plan.end_frame;
+      const frame = i === 0 && globalStart === 0 ? Math.max(0, authoredFrame) : authoredFrame;
+      if (frame + globalStart < 0 || frame + globalStart >= globalEnd) continue;
       const mapped = {...cue, t: frame / fps};
       // d is generator time, not a second choreography anchor. A sound may
       // cross a retimed reading gap; preserve its original duration/timbre.
@@ -116,6 +118,17 @@
     window.MACRO_VIDEO_CLOCKS = item.mediaClocks || [];
     for (let i = 0; i < SCENES.length; i++) SCENES[i].el.style.display = i === index ? 'block' : 'none';
     sc.update(source);
+    // A few legacy hidden helpers return before resetting their transform and
+    // then append scale(0,0). Identical trailing zero scales are algebraically
+    // idempotent; canonicalize them so reverse seeks cannot grow CSS history.
+    // Keep every nonzero transform and the source choreography unchanged.
+    for (const element of sc.el.querySelectorAll?.('[style]') || []) {
+      const transform = element.style.transform;
+      if (transform) {
+        const normalized = transform.replace(/(?:\s+scale\(0(?:,\s*0)?\)){2,}$/, ' scale(0, 0)');
+        if (normalized !== transform) element.style.transform = normalized;
+      }
+    }
     const cam = sc.cam(source), world = $('world');
     if (cam) world.style.transform = `translate(${(cam.sx || 0).toFixed(2)}px,${(cam.sy || 0).toFixed(2)}px) scale(${(cam.z || 1).toFixed(4)}) translate(${(960 - (cam.x || 960)).toFixed(2)}px,${(540 - (cam.y || 540)).toFixed(2)}px)`;
     else world.style.transform = '';

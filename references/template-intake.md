@@ -91,3 +91,7 @@ Review 固定 `packId`、`sourceVersion`、`sourceRevision`、`manifestSha256`�
 新提案应显式声明 `layouts.landscape` 和经过实现的 `layouts.portrait`，包括 width/height、runtime/stylesheet。布局 JS/CSS 与源运行时分开保存，把它们的 SHA256 一并放进 `sourceFiles`；提炼器核验并冻结这些文件，构建器在原运行时之后加载布局。未提供布局的历史提案保持仅横屏，不自动获得竖屏资格。
 
 先定义标题、人物、演示、结论、字幕的原生坐标与可读字号；连接线、轨迹、吸入终点和转场圆心随物件一起重排。Canvas 的空间拓扑变化需要原生重绘，保留原激活时间并走同一 source→output 时间映射；不要压扁球体、伸长人物或重新采样声音。提供横竖两种短/长文案及重新寻帧检查，记录真实素材裁切与字号下限。
+
+## 隐藏状态与往返跳转
+
+新组的 transform、opacity、clip 和 Canvas 状态都应由当前时间独立计算；隐藏分支也要复位，不能早返回后继续用 `+=` 累积变换。验收包含跨场多轮往返，并核对隐藏节点的状态增长。可见图片须解码、字体和子工程布局须准备完成；DOM/Canvas 确定性与受控软件绘制的像素对照分别记录。

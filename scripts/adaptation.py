@@ -143,6 +143,22 @@ def _segment(segment: dict) -> None:
                 f"{segment['id']}.energy must be 1..3")
 
 
+def candidate_segment(segment: dict, sid: str) -> dict:
+    """An Agent may supply a different truthful expression for a different group.
+
+    Timing, identity and original narration stay fixed. The selected annotation
+    is persisted and revalidated; this is not automatic keyword classification.
+    """
+    interpretations = segment.get("candidateInterpretations", {})
+    require(isinstance(interpretations, dict), "candidateInterpretations must be an object")
+    override = interpretations.get(sid, {})
+    require(isinstance(override, dict) and set(override) <= {"intent", "phases", "counts", "anchors", "energy"},
+            f"{sid}: interpretation may only change intent/phases/counts/anchors/energy")
+    result = {**segment, **deepcopy(override)}
+    _segment(result)
+    return result
+
+
 def _semantic_rejections(contract: dict, segment: dict) -> list[str]:
     reasons = []
     if segment["intent"] not in contract["intents"]:
@@ -185,6 +201,7 @@ def _cues(source: dict, contract: dict, segment: dict, start: int, fps: int) -> 
 def _evaluate(manifest, source, source_index, contract, segment, target, start, end,
               fps, transcript, spec_dir, project, allow_pending_talk=False):
     """Keep timing and slot validation independent so a draft explains both."""
+    segment = candidate_segment(segment, source["id"])
     rejected, missing = _semantic_rejections(contract, segment), []
     if rejected:
         # minFrames is an authored hard bound, not a reading-time estimate.
@@ -193,6 +210,7 @@ def _evaluate(manifest, source, source_index, contract, segment, target, start, 
         return {"sceneId": source["id"], "status": "rejected", "reasons": rejected}
     cues, missing_cues = _cues(source, contract, segment, start, fps)
     missing.extend(missing_cues)
+    missing.extend(contract.get("unmetRequirements", []))
     target = {**deepcopy(target), "id": segment["id"], "sceneId": source["id"],
               "startFrame": start, "endFrame": end, "cues": cues}
     require(isinstance(target.get("slots", {}), dict), f"{segment['id']}.slots must be an object")
@@ -297,6 +315,9 @@ def _seam(previous, current) -> tuple[list[str], list[str]]:
     if required and previous_id not in required:
         rejected.append(f"{sid} requiresPrevious {required}; found {previous_id or 'video start'}")
     if previous:
+        if (current["contract"].get("styleId") and previous["contract"].get("styleId") != current["contract"]["styleId"]
+                and entry["mode"] != "independent"):
+            rejected.append(f"{sid}: cross-style entry needs an independently reviewed opening")
         required_next = previous["contract"].get("exit", {}).get("requiresNext", [])
         if required_next and sid not in required_next:
             rejected.append(f"{previous_id} requiresNext {required_next}; found {sid}")
@@ -316,6 +337,7 @@ def _seam(previous, current) -> tuple[list[str], list[str]]:
 
 
 def _sequence_cost(path: list[dict], candidate: dict, segment: dict) -> float:
+    segment = candidate_segment(segment, candidate["sceneId"])
     cost = len(candidate.get("missing", [])) * 1000.0
     sid, contract = candidate["sceneId"], candidate["contract"]
     prior = [c["sceneId"] for c in path]
@@ -323,6 +345,8 @@ def _sequence_cost(path: list[dict], candidate: dict, segment: dict) -> float:
     if path:
         cost += 12 if prior[-1] == sid else 0
         cost += 4 * len(set(path[-1]["contract"]["effects"]) & set(contract["effects"]))
+        if contract.get("styleId") and path[-1]["contract"].get("styleId") != contract["styleId"]:
+            cost += 30  # prefer a coherent film after hard constraints pass
     if len(path) >= 2 and all(c["contract"]["energy"] == 3 for c in path[-2:]) and contract["energy"] == 3:
         cost += 10
     if segment.get("preferredScenes") and sid not in segment["preferredScenes"]:
@@ -520,7 +544,7 @@ def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
         seam_cost = len(seam_missing) * 1000
         cost = _sequence_cost(path[:index], candidate, segments[index]) + seam_cost
         selection.append({"segmentId": segments[index]["id"], "sceneId": candidate["sceneId"],
-                          "intent": segments[index]["intent"], "effects": candidate["contract"]["effects"],
+                          "intent": candidate_segment(segments[index], candidate["sceneId"])["intent"], "effects": candidate["contract"]["effects"],
                           "energy": candidate["contract"]["energy"], "incrementalCost": cost,
                           "missingBindingCost": len(candidate.get("missing", [])) * 1000,
                           "missingSeamCost": seam_cost})
@@ -621,7 +645,7 @@ def validate_adapted_spec(manifest: dict, spec: dict, spec_dir: Path, profiles_r
         start, end = target_span(target, offset, fps, index)
         require(end - start == segment["durationFrames"], f"{segment['id']}: changed scene duration differs from segment; replan")
         source_index, source = sources[sid]
-        expected_cues, _ = _cues(source, contracts[sid], segment, start, fps)
+        expected_cues, _ = _cues(source, contracts[sid], candidate_segment(segment, sid), start, fps)
         require(target.get("cues", {}) == expected_cues,
                 f"{segment['id']}: changed cue bindings differ from semantic anchors; replan")
         evaluated = _evaluate(manifest, source, source_index, contracts[sid], segment, target,

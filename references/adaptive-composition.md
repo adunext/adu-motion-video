@@ -4,6 +4,10 @@
 
 这些 profile 是 `adaptation-experimental`，依据当前源码和清单做过代码核对。它们不改变原包的验收等级：七个已发布风格仍是十七个已验收完整组，03-A 仍是九场候选；新文案、重排接缝和新成片都需要本期声画验收。
 
+## 全部风格自动比较
+
+未锁定风格时，使用[全库选型入口](automatic-selection.md)：`auto-capabilities → auto-plan → auto-build`。当前助手负责阅读真实台词并自动整理适配输入，代码比较全库合法组合；不同显示表达可以有候选自己的阶段和落点，但原口播、时间和事实保持。用户选择单一风格时保留下述 `macro-plan` 流程或锁定 `allowedStyles`。
+
 ## 先组织表达关系，再分段
 
 目标画幅也是本期 brief 的输入。竖屏使用目录 portraitSelection 版本并声明 `"layout":"portrait"`；规划器传递到 spec，构建器冻结布局运行层。语义、固定数量和 cue 不因画幅改变而放宽。标题、证据窗、人物、卡片与连接线的规则见[原生竖屏](portrait.md)，新文案仍须在选定字体和画幅下检查可读性。
