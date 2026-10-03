@@ -953,6 +953,11 @@ def compile_plan(manifest: dict, spec: dict, *, spec_dir: Path | None = None,
     adaptation = validate_adapted_spec(manifest, spec, spec_dir,
                                       Path(__file__).resolve().parents[1] / 'adaptation-profiles',
                                       project=project)
+    from pack_layout import resolve_layout
+    try:
+        layout = resolve_layout(manifest, spec)
+    except ValueError as exc:
+        raise AdaptError(str(exc)) from exc
     pack_id = manifest.get("id")
     require(isinstance(pack_id, str) and pack_id, "Pack manifest needs id")
     require(spec.get("pack", pack_id) == pack_id, f"Target pack {spec.get('pack')} differs from manifest {pack_id}")
@@ -1002,7 +1007,7 @@ def compile_plan(manifest: dict, spec: dict, *, spec_dir: Path | None = None,
         narr = number(narration, "narrationDuration", positive=True)
         require(duration >= narr - 1 / fps, f"Last scene ends at {duration:.3f}s before narration ends at {narr:.3f}s")
     plan = {"schemaVersion": 1, "pack": pack_id, "pack_id": pack_id, "sourceFps": src_fps, "fps": fps,
-            "width": manifest.get("width", 1920), "height": manifest.get("height", 1080),
+            "width": layout["width"], "height": layout["height"], "layout": layout,
             "durationFrames": previous_end, "durationSeconds": round(duration, 6), "end_frame": previous_end,
             "voiceClock": "output", "subtitleClock": "output", "sfxClock": "source-mapped-to-output",
             "sfx": [{"scene_instance_id": scene["id"], **event} for scene in result_scenes for event in scene["sfx"]],

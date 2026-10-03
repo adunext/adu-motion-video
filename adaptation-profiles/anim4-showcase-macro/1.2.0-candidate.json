@@ -1,0 +1,572 @@
+{
+  "schema": "adu-adaptation-profile/1",
+  "id": "anim4-showcase-macro-adaptation",
+  "version": "0.1.0",
+  "quality": "adaptation-experimental",
+  "pack": {
+    "id": "anim4-showcase-macro",
+    "version": "1.2.0-candidate",
+    "manifestDigest": "3af769d71fb8013f836883a7ddc656e3c41e87ecbf3bb200f40e8b2476121401"
+  },
+  "review": {
+    "basis": "source-code-and-manifest",
+    "status": "code-reviewed",
+    "scope": "只覆盖完整现有场景的规划能力；不代表新文案、新接缝或新音视频通过作者验收。"
+  },
+  "scenes": [
+    {
+      "intents": [
+        "problem-showcase"
+      ],
+      "requiredPhases": [
+        "hook",
+        "burden",
+        "reversal",
+        "portfolio",
+        "payoff"
+      ],
+      "effects": [
+        "title-impact",
+        "timeline-crossout",
+        "presenter-reframe",
+        "portfolio-wall"
+      ],
+      "energy": 3,
+      "cardinality": {},
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "真人缩窗与作品墙是同一次交接；保留完整钩子、负担、反转和结论，尚无可独立调用的作品墙子场。"
+      },
+      "sceneId": "s01",
+      "sourceBlockSha256": "1142e829a0e5d5e9b83571b4097f55426ae47982b3786a70f461039c034a019c",
+      "entry": {
+        "mode": "independent"
+      },
+      "exit": {},
+      "cueRoles": {
+        "opening": "opening",
+        "title_slam": "title_slam",
+        "timeline": "timeline",
+        "strike": "strike",
+        "wall_handoff": "wall_handoff",
+        "statement_1": "statement_1",
+        "statement_2": "statement_2",
+        "payoff": "payoff"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "动作音效随真实关键词锚点与受保护动作映射，保留持续时间及尾音；新相邻组的重叠、音乐起伏与最终编码声画需逐段审核。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "scenes.js",
+        "role": "开场钩子→剪辑负担→作品墙与人像缩窗",
+        "boundaryBasis": {},
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。",
+        "nativeEntry": "none"
+      }
+    },
+    {
+      "intents": [
+        "multi-item-comparison"
+      ],
+      "requiredPhases": [
+        "comparison",
+        "groups",
+        "versions",
+        "coverage",
+        "quality",
+        "metrics"
+      ],
+      "effects": [
+        "nine-grid-cascade",
+        "group-highlight",
+        "check-cascade",
+        "metric-slider",
+        "counter-roll"
+      ],
+      "energy": 2,
+      "cardinality": {
+        "comparison": {
+          "min": 9,
+          "max": 9
+        },
+        "groups": {
+          "min": 2,
+          "max": 2
+        },
+        "versions": {
+          "min": 4,
+          "max": 4
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "九格素材全场源时钟播放，末尾中央格放大交接 s03，必须全程1x、连续相邻并绑定同一真实媒体实体。"
+      },
+      "sceneId": "s02",
+      "sourceBlockSha256": "ede8ed118d0a3d5af212ae73f3331a4d1d411d0a1d8a493cc09fd427ad3ccaa5",
+      "entry": {
+        "mode": "native-transition"
+      },
+      "exit": {
+        "requiresNext": [
+          "s03"
+        ]
+      },
+      "cueRoles": {
+        "grid": "grid",
+        "group_b": "group_b",
+        "group_a": "group_a",
+        "version_chips": "version_chips",
+        "all_checked": "all_checked",
+        "quality": "quality",
+        "reasoning": "reasoning",
+        "cost": "cost"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "保留24.9→25.9的音乐riser并接到s03入场，不能在比较组结束时截断上升气氛；九格媒体全程1x。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "scenes.js",
+        "role": "九宫格对比→分组高亮→全选→指标滚动",
+        "boundaryBasis": {},
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。",
+        "nativeEntry": "flash"
+      }
+    },
+    {
+      "intents": [
+        "focused-evaluation"
+      ],
+      "requiredPhases": [
+        "focus",
+        "conclusion",
+        "comparison",
+        "review",
+        "precision",
+        "previous-work"
+      ],
+      "effects": [
+        "grid-to-hero",
+        "keyword-impact",
+        "comparison-board",
+        "review-scan"
+      ],
+      "energy": 3,
+      "cardinality": {
+        "review": {
+          "min": 3,
+          "max": 3
+        },
+        "comparison": {
+          "min": 2,
+          "max": 2
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "首帧继承 s02 中央格的画面与位置；不能脱离 s02 独立选择，hero素材全场1x，审片到作品卡仍为完整组。"
+      },
+      "sceneId": "s03",
+      "sourceBlockSha256": "8878f3de6e3fc995ca0a88eaaf89a6ea51a63e7ba863bd56a252951e76aa26fb",
+      "entry": {
+        "mode": "match-cut",
+        "requiresPrevious": [
+          "s02"
+        ],
+        "continuityBindings": [
+          {
+            "previousSceneId": "s02",
+            "previousSlot": "grid_opus55",
+            "slot": "opus_hero",
+            "requireEntityId": true
+          }
+        ]
+      },
+      "exit": {},
+      "cueRoles": {
+        "hero_from_grid": "hero_from_grid",
+        "slam_word_a": "slam_word_a",
+        "slam_word_b": "slam_word_b",
+        "comparison_board": "comparison_board",
+        "review_start": "review_start",
+        "review_note_1": "review_note_1",
+        "review_note_2": "review_note_2",
+        "review_note_3": "review_note_3",
+        "precision": "precision",
+        "previous_work": "previous_work"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "接住s02末音乐riser与25.9入场whoosh，hero与九格中心须来自同一真实素材身份；全程1x，原出场尾音继续交付。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "scenes.js",
+        "role": "重点成果由九宫格放大→结论砸字→审片报告",
+        "boundaryBasis": {},
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。",
+        "nativeEntry": "inherited-center-grid"
+      }
+    },
+    {
+      "intents": [
+        "category-showcase"
+      ],
+      "requiredPhases": [
+        "categories",
+        "portfolio",
+        "quality",
+        "rejection",
+        "camera-language",
+        "narrative"
+      ],
+      "effects": [
+        "four-card-cascade",
+        "portfolio-wall",
+        "crossout",
+        "camera-demo",
+        "narrative-arc"
+      ],
+      "energy": 3,
+      "cardinality": {
+        "categories": {
+          "min": 4,
+          "max": 4
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "四类作品→作品墙→质量结论→反命题→镜头语言共用一次主张展开；未提供数量或子段初始化变体。"
+      },
+      "sceneId": "s04",
+      "sourceBlockSha256": "bec628dc5e899c2b01ab4775ab131218b4526de2ac23079d7b90514116842760",
+      "entry": {
+        "mode": "native-transition"
+      },
+      "exit": {},
+      "cueRoles": {
+        "category_title": "category_title",
+        "category_1": "category_1",
+        "category_2": "category_2",
+        "category_3": "category_3",
+        "category_4": "category_4",
+        "wall_expand": "wall_expand",
+        "quality": "quality",
+        "cross_out": "cross_out",
+        "camera_demo": "camera_demo",
+        "narrative_arc": "narrative_arc"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "动作音效随真实关键词锚点与受保护动作映射，保留持续时间及尾音；新相邻组的重叠、音乐起伏与最终编码声画需逐段审核。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "scenes.js",
+        "role": "跨品类四卡→大作品墙→反模板→镜头语言",
+        "boundaryBasis": {},
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。",
+        "nativeEntry": "circle"
+      }
+    },
+    {
+      "intents": [
+        "demonstration-to-competition"
+      ],
+      "requiredPhases": [
+        "emotional-reversal",
+        "identity",
+        "software",
+        "features",
+        "competition",
+        "result"
+      ],
+      "effects": [
+        "crack-impact",
+        "identity-card",
+        "presenter-reframe",
+        "software-window",
+        "competitive-lanes"
+      ],
+      "energy": 3,
+      "cardinality": {
+        "features": {
+          "min": 2,
+          "max": 2
+        },
+        "competitors": {
+          "min": 3,
+          "max": 3
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "57.4–66.3软件子段包含真人缩窗、两段录屏和结果接管；人物、窗口及输出接力不可剪开，2.4倍细节展示须保留披露。"
+      },
+      "sceneId": "s05",
+      "sourceBlockSha256": "a2837ae80687ba1d27ef4961bedfbc6039d7e373ea67c11524ee1c50872f6fe7",
+      "entry": {
+        "mode": "native-transition"
+      },
+      "exit": {},
+      "cueRoles": {
+        "shock": "shock",
+        "crack": "crack",
+        "identity": "identity",
+        "software_window": "software_window",
+        "software_detail": "software_detail",
+        "competition": "competition",
+        "lane_result": "lane_result"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "保留54.87裂纹打击、录屏功能切换、65.4→66.37riser及66.37结果接管音效；软件子段和人物接力不能剪开。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "scenes.js",
+        "role": "情绪反转→身份卡→软件录屏→竞赛道",
+        "boundaryBasis": {},
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。",
+        "nativeEntry": "blur"
+      }
+    },
+    {
+      "intents": [
+        "iteration-roadmap"
+      ],
+      "requiredPhases": [
+        "iteration",
+        "timeline",
+        "competitors",
+        "acceleration",
+        "account"
+      ],
+      "effects": [
+        "timeline-acceleration",
+        "competitive-lanes",
+        "account-switch",
+        "counter-roll"
+      ],
+      "energy": 3,
+      "cardinality": {
+        "competitors": {
+          "min": 3,
+          "max": 3
+        },
+        "accountMetrics": {
+          "min": 4,
+          "max": 4
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "时间线加密、三车道与账号切换组成因果链，不能只为效果数量摘掉中间阶段；原刻度是示意，不能伪称14次实测。"
+      },
+      "sceneId": "s06",
+      "sourceBlockSha256": "7b3edf2c4ea16c375c905bb912d1043c220a5c1fb1f91bcd7784d4056d7c0672",
+      "entry": {
+        "mode": "native-transition"
+      },
+      "exit": {},
+      "cueRoles": {
+        "iteration": "iteration",
+        "timeline": "timeline",
+        "competitors": "competitors",
+        "fast_lane": "fast_lane",
+        "account": "account",
+        "account_commit": "account_commit"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "动作音效随真实关键词锚点与受保护动作映射，保留持续时间及尾音；新相邻组的重叠、音乐起伏与最终编码声画需逐段审核。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "scenes.js",
+        "role": "时间轴迭代→竞争者进场→账号卡",
+        "boundaryBasis": {},
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。",
+        "nativeEntry": "wipe"
+      }
+    },
+    {
+      "intents": [
+        "before-after-workflow"
+      ],
+      "requiredPhases": [
+        "before",
+        "steps",
+        "compression",
+        "work",
+        "output",
+        "code"
+      ],
+      "effects": [
+        "workflow-build",
+        "same-object-compression",
+        "time-ring",
+        "video-relay"
+      ],
+      "energy": 2,
+      "cardinality": {
+        "steps": {
+          "min": 3,
+          "max": 3
+        },
+        "outputs": {
+          "min": 2,
+          "max": 2
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "旧流程条与时间压缩是同一物体；工作与代码录屏接续解释产出，不能把压缩动作切作无前因的独立动画。"
+      },
+      "sceneId": "s07",
+      "sourceBlockSha256": "c21c9829b13257fa40305a4fcbd7b48c54d490208498abed098077ab49e2f942",
+      "entry": {
+        "mode": "native-transition"
+      },
+      "exit": {},
+      "cueRoles": {
+        "before": "before",
+        "process": "process",
+        "time_shift": "time_shift",
+        "work_video": "work_video",
+        "output": "output",
+        "code_video": "code_video"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "动作音效随真实关键词锚点与受保护动作映射，保留持续时间及尾音；新相邻组的重叠、音乐起伏与最终编码声画需逐段审核。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "scenes.js",
+        "role": "旧工作流→时间压缩→工作/代码录屏",
+        "boundaryBasis": {},
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。",
+        "nativeEntry": "circle"
+      }
+    },
+    {
+      "intents": [
+        "warning-to-action"
+      ],
+      "requiredPhases": [
+        "closing",
+        "change",
+        "warning",
+        "growth",
+        "friction",
+        "action",
+        "comments"
+      ],
+      "effects": [
+        "presenter-reframe",
+        "growth-comparison",
+        "frame-strip",
+        "action-button",
+        "closing-card"
+      ],
+      "energy": 3,
+      "cardinality": {
+        "comparison": {
+          "min": 2,
+          "max": 2
+        }
+      },
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "真人持续在场并随反思、产能对比和号召移动；chime尾音越过102.92场界，不能按画面场界截短声音。"
+      },
+      "sceneId": "s08",
+      "sourceBlockSha256": "f21b24c36dfabef5ce509cc9f8f91c7a127bab61070e34e6b7b37715bc3c8276",
+      "entry": {
+        "mode": "native-transition"
+      },
+      "exit": {},
+      "cueRoles": {
+        "closing": "closing",
+        "era": "era",
+        "warning": "warning",
+        "growth": "growth",
+        "frame_work": "frame_work",
+        "call_to_action": "call_to_action",
+        "comments": "comments"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "101.4的chime持续至场界之后，并叠加混响尾音；102.92画面切场不能截音。与下一场的重叠或片尾延伸必须实听。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "scenes.js",
+        "role": "情绪收束→产能对比→逐帧焦虑→行动号召",
+        "boundaryBasis": {},
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。",
+        "nativeEntry": "flash"
+      }
+    },
+    {
+      "intents": [
+        "production-credits"
+      ],
+      "requiredPhases": [
+        "production",
+        "tool",
+        "prompt",
+        "signature"
+      ],
+      "effects": [
+        "production-card",
+        "typewriter",
+        "signature-reveal"
+      ],
+      "energy": 1,
+      "cardinality": {},
+      "splitPolicy": {
+        "mode": "atomic",
+        "reason": "制作信息、提示词打字和签名共同收束；不能截断打字音或把工具来源文字留作本期事实。"
+      },
+      "sceneId": "s09",
+      "sourceBlockSha256": "b8f81294b875c5b7bc5d5fe8fdf6a3526de28dff85722d880c26debfdd9c8371",
+      "entry": {
+        "mode": "native-transition"
+      },
+      "exit": {},
+      "cueRoles": {
+        "production": "production",
+        "tool": "tool",
+        "prompt": "prompt",
+        "signature": "signature"
+      },
+      "audio": {
+        "mode": "source-remap",
+        "tailPolicy": "preserve",
+        "notes": "动作音效随真实关键词锚点与受保护动作映射，保留持续时间及尾音；新相邻组的重叠、音乐起伏与最终编码声画需逐段审核。"
+      },
+      "reviewStatus": "code-reviewed",
+      "sourceEvidence": {
+        "code": "scenes.js",
+        "role": "制作说明→逐字提示词→签名",
+        "boundaryBasis": {},
+        "adjacencyValidation": "原已记录演出范围以包review为准；本profile不增加任意重排接缝或新文案验收。",
+        "nativeEntry": "flash"
+      }
+    }
+  ]
+}

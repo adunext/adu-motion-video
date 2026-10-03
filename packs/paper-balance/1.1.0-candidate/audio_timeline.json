@@ -1,0 +1,54 @@
+{
+  "schema": "adu-authored-score/1",
+  "SEC": [
+    {
+      "id": "tension",
+      "start": 13.73,
+      "end": 23.43,
+      "mode": "synth",
+      "energy": 0.3,
+      "options": {
+        "kick_on": false,
+        "clapon": false
+      }
+    },
+    {
+      "id": "steps",
+      "start": 23.43,
+      "end": 25.57,
+      "mode": "synth",
+      "energy": 0.65,
+      "options": {}
+    }
+  ],
+  "ENV": [
+    {
+      "at": 13.73,
+      "db": -4
+    },
+    {
+      "at": 23.43,
+      "db": -4
+    },
+    {
+      "at": 23.5,
+      "db": -1
+    },
+    {
+      "at": 25.57,
+      "db": -1
+    }
+  ],
+  "HITS": {},
+  "DARK": [],
+  "sfxEvents": [],
+  "mix": {
+    "profile": "opus-five-v1",
+    "fadeOutSourceStart": 25.3,
+    "fadeOutSeconds": 0.27
+  },
+  "limits": [
+    "Synth is a disclosed new-score alternative. The original external track is not bundled.",
+    "Provide music.mode=track with an explicit full-length owner track for source-like music."
+  ]
+}

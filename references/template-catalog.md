@@ -14,6 +14,24 @@
 | 03 · 深色 3D | 03-A · 多屏展陈 | `anim4-showcase-macro@1.1.1-candidate` | 待声画确认；九场，横屏与原生竖屏 | 本期真人口播、文案；按场景提供作品、比较视频、录屏、头像与标识 |
 | 04 · 深色科技控制台 | 04-A · 仪器台演示 | `doubao-console-performance@0.1.2-candidate` | 三组候选；增加有界文字适配 | 本期口播、文案、图片、纹理与固定 SHA 的 Geist / GeistMono 字体 |
 
+## 横竖屏版本
+
+现有 **9 种风格、29 个完整组**均有竖屏候选版本。上表保留横屏基线；需要竖屏时选择下列版本，在 brief 顶层设置 `"layout": "portrait"`。同一个候选版本省略 layout 或设置 landscape 仍使用原横屏几何。
+
+| 风格 | 支持横竖屏的包版本 | 完整组数 |
+| --- | --- | --- |
+| 01-A | `classic-performance@1.1.0-candidate` | 3 |
+| 01-B | `continuous-performance@1.1.0-candidate` | 2 |
+| 01-C | `stage-performance@1.1.0-candidate` | 3 |
+| 01-D | `editorial-performance@1.1.0-candidate` | 3 |
+| 01-E | `kinetic-performance@1.1.0-candidate` | 3 |
+| 02-A | `paper-balance@1.1.0-candidate` | 1 |
+| 02-B | `paper-ball-performance@1.1.0-candidate` | 2 |
+| 03-A | `anim4-showcase-macro@1.2.0-candidate` | 9 |
+| 04-A | `doubao-console-performance@0.2.0-candidate` | 3 |
+
+竖屏以新版本发布，旧稳定包和已交付工程保持原字节。新候选沿用原动作窗、绑定与音效，重排标题、人物、演示层、连接线和字幕；几何回归不替代本期真实素材的连续声画验收。使用和验证见[竖屏说明](portrait.md)。基础 TPL 与历史 experimental 源包不计入这 29 个完整组。
+
 每个编号的动图和 MP4 见 [README](../README.md#模板库)。可读的结构化目录见 [template-catalog.json](template-catalog.json)。JSON 的发布状态描述当前目录；执行时仍以本机实际包清单与审查状态为准。
 
 02-B 的 8 秒动图和 MP4 是开箱交付舞台的局部静音预览，排除人物、字幕、账号角标和声音。两组的源/重放与不同内容声画证据摘要在包 review.json；源 35 场的其它 32 场未随此增量发布。标题字体必须按清单显式提供，不静默换字形。

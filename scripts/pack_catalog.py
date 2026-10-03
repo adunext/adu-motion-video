@@ -19,7 +19,9 @@ def catalog(root):
                         'directory':path.parent.relative_to(root).as_posix(),'title':data.get('title',''),
                         'roles':[s.get('role','') for s in data['scenes']],
                         'units':len(data['scenes']),'environment':data.get('environment',{}),
-                        'sourceRevision':data.get('sourceRevision')})
+                        'sourceRevision':data.get('sourceRevision'),
+                        'layouts':{name:{key:value for key,value in item.items() if key in ('width','height','status')}
+                                   for name,item in data.get('layouts',{'landscape':{'width':data.get('width',1920),'height':data.get('height',1080)}}).items()}})
     return entries
 
 

@@ -25,7 +25,7 @@ Local renderAt(t), READY Promise or document.title='done', and optional imgWait(
 are supported. HTTP/WebSocket assets are blocked. No dependencies are installed.`;
 
 function parse() {
-  const argv = process.argv.slice(2), opt = { fps: 60, width: 1920, height: 1080, start: 0 };
+  const argv = process.argv.slice(2), opt = { fps: 60, start: 0 };
   if (argv.includes('--help') || !argv.length) { console.log(help); process.exit(0); }
   opt.entry = path.resolve(argv.shift());
   const allowed = ['probe', 'query', 'optional-data', 'output', 'stills-dir', 'times', 'start', 'end', 'fps', 'width', 'height', 'audio', 'playwright-module', 'browser'];
@@ -35,6 +35,15 @@ function parse() {
     if (!allowed.includes(key) || !argv.length) throw Error(`Unknown or incomplete option: ${key}`);
     opt[key] = argv.shift();
   }
+  const directory=path.dirname(opt.entry);let dimensions;
+  for(const name of ['showcase-layout.json','macro_plan.json']){
+    const file=path.join(directory,name);if(!fs.existsSync(file))continue;
+    const data=JSON.parse(fs.readFileSync(file,'utf8'));
+    if(![data.width,data.height].every(v=>Number.isInteger(v)&&v>0))throw Error(name+' needs positive integer dimensions');
+    dimensions=[data.width,data.height];break;
+  }
+  if(dimensions&&((opt.width!==undefined&&+opt.width!==dimensions[0])||(opt.height!==undefined&&+opt.height!==dimensions[1])))throw Error('Viewport differs from project layout; rebuild the native layout first');
+  opt.width??=dimensions?.[0]??1920;opt.height??=dimensions?.[1]??1080;
   for (const key of ['start', 'end', 'fps', 'width', 'height']) {
     if (opt[key] !== undefined && (!Number.isFinite(opt[key] = Number(opt[key])) || opt[key] < 0)) throw Error(`Invalid --${key}`);
   }

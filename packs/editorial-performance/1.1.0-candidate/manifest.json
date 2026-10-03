@@ -1,0 +1,1446 @@
+{
+  "id": "editorial-performance",
+  "version": "1.1.0-candidate",
+  "sourceFormat": "authored-unit/1",
+  "status": "candidate",
+  "title": "杂志分屏：分栏交接与遮罩",
+  "sourceRevision": "3893b09d772f05d555c417c1a1d2d88727c0fca49326a790cad9ff4f75232830",
+  "source": {
+    "engine": "DOM/CSS/JavaScript",
+    "assetPolicy": "Owner media are not bundled; bind new assets.",
+    "styleFiles": {
+      "style.css": "2141eb9c0ce58128f6d465a88071108b1725e3650014b63fe687cf6132f50dea"
+    }
+  },
+  "fps": 60,
+  "width": 1920,
+  "height": 1080,
+  "requireMotionWindows": true,
+  "runtimeFiles": [
+    "motion.js"
+  ],
+  "scenes": [
+    {
+      "title": "主张 → 方法与对象 → 本期实践 → 回应",
+      "role": "主张 → 方法与对象 → 本期实践 → 回应",
+      "requiresFaceTracking": true,
+      "hasProgressRail": false,
+      "boundaries": {
+        "mode": "complete-original-scene",
+        "entry": "Independent source initial state, output-clock presenter, original layer relationships",
+        "exit": "Original response/read/fold retained; next scene establishes its own state",
+        "review": "Source closure retained; continuous source/new AV still requires owner review"
+      },
+      "motionWindows": [
+        {
+          "id": "action-01",
+          "start": 0,
+          "end": 2.85
+        },
+        {
+          "id": "action-02",
+          "start": 3.1,
+          "end": 7.2
+        },
+        {
+          "id": "action-03",
+          "start": 8.45,
+          "end": 10.98
+        },
+        {
+          "id": "action-04",
+          "start": 11.1,
+          "end": 14.65
+        }
+      ],
+      "minFrames": 794,
+      "maxHoldFrames": 360,
+      "slots": [
+        {
+          "id": "text-claim-line1",
+          "type": "text",
+          "sourceText": "公开蒸馏",
+          "sourceSpans": [
+            {
+              "start": 2156,
+              "end": 2160,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "claim.line1"
+        },
+        {
+          "id": "text-claim-line2",
+          "type": "text",
+          "sourceText": "剪辑能力",
+          "sourceSpans": [
+            {
+              "start": 2192,
+              "end": 2196,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "claim.line2"
+        },
+        {
+          "id": "text-claim-context",
+          "type": "text",
+          "sourceText": "从一支成片，到一套制作方法",
+          "sourceSpans": [
+            {
+              "start": 2251,
+              "end": 2264,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "claim.context"
+        },
+        {
+          "id": "text-method-heading",
+          "type": "text",
+          "sourceText": "方法索引",
+          "sourceSpans": [
+            {
+              "start": 2336,
+              "end": 2340,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 7,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "method.heading"
+        },
+        {
+          "id": "text-method-name",
+          "type": "text",
+          "sourceText": "adu-motion-video",
+          "sourceSpans": [
+            {
+              "start": 2371,
+              "end": 2387,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "method.name"
+        },
+        {
+          "id": "text-steps-0",
+          "type": "text",
+          "sourceText": "01　场景与动画",
+          "sourceSpans": [
+            {
+              "start": 2423,
+              "end": 2431,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 16,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "steps.0"
+        },
+        {
+          "id": "text-steps-1",
+          "type": "text",
+          "sourceText": "02　声音与节奏",
+          "sourceSpans": [
+            {
+              "start": 2434,
+              "end": 2442,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 16,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "steps.1"
+        },
+        {
+          "id": "text-steps-2",
+          "type": "text",
+          "sourceText": "03　导出与复用",
+          "sourceSpans": [
+            {
+              "start": 2445,
+              "end": 2453,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 16,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "steps.2"
+        },
+        {
+          "id": "text-audience",
+          "type": "text",
+          "sourceText": "Codex　／　豆包　／　更多助手",
+          "sourceSpans": [
+            {
+              "start": 2596,
+              "end": 2613,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 28,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "audience"
+        },
+        {
+          "id": "text-proof-line1",
+          "type": "text",
+          "sourceText": "这条视频",
+          "sourceSpans": [
+            {
+              "start": 2691,
+              "end": 2695,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "proof.line1"
+        },
+        {
+          "id": "text-proof-line2",
+          "type": "text",
+          "sourceText": "就在使用它",
+          "sourceSpans": [
+            {
+              "start": 2697,
+              "end": 2702,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "proof.line2"
+        },
+        {
+          "id": "text-proof-note",
+          "type": "text",
+          "sourceText": "把方法，落实到这支成片",
+          "sourceSpans": [
+            {
+              "start": 2775,
+              "end": 2786,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 22,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "proof.note"
+        },
+        {
+          "id": "text-response-context",
+          "type": "text",
+          "sourceText": "个人吐槽 · 不是平台通知",
+          "sourceSpans": [
+            {
+              "start": 2861,
+              "end": 2874,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 22,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "response.context"
+        },
+        {
+          "id": "text-response-line1",
+          "type": "text",
+          "sourceText": "永久",
+          "sourceSpans": [
+            {
+              "start": 2911,
+              "end": 2913,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "response.line1"
+        },
+        {
+          "id": "text-response-line2",
+          "type": "text",
+          "sourceText": "黑名单？",
+          "sourceSpans": [
+            {
+              "start": 2917,
+              "end": 2921,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "response.line2"
+        },
+        {
+          "id": "text-response-conclusion",
+          "type": "text",
+          "sourceText": "方法，照样公开。",
+          "sourceSpans": [
+            {
+              "start": 2966,
+              "end": 2974,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 14,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "response.conclusion"
+        },
+        {
+          "id": "text-presenterLabel",
+          "type": "text",
+          "sourceText": "// on air · 阿杜Next",
+          "sourceSpans": [
+            {
+              "start": 859,
+              "end": 877,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 32,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "presenterLabel"
+        },
+        {
+          "id": "text-brandLabel",
+          "type": "text",
+          "sourceText": "阿杜Next　／　",
+          "sourceSpans": [
+            {
+              "start": 1279,
+              "end": 1288,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 30,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputTemplate": "{brand}　／　"
+        },
+        {
+          "id": "text-chapterCount",
+          "type": "text",
+          "sourceText": "10",
+          "sourceSpans": [
+            {
+              "start": 1345,
+              "end": 1347,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 3,
+          "required": true,
+          "mustChange": false,
+          "renderContext": "html",
+          "inputPath": "chapterCount"
+        },
+        {
+          "id": "text-label",
+          "type": "text",
+          "sourceText": "公开方法",
+          "sourceSpans": [
+            {
+              "start": 2019,
+              "end": 2023,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "label"
+        },
+        {
+          "id": "text-chapter",
+          "type": "text",
+          "sourceText": "01",
+          "sourceSpans": [
+            {
+              "start": 2014,
+              "end": 2016
+            }
+          ],
+          "maxChars": 3,
+          "required": true,
+          "mustChange": false,
+          "inputPath": "chapter",
+          "renderContext": "html"
+        },
+        {
+          "id": "presenter",
+          "type": "talk"
+        }
+      ],
+      "cues": [
+        {
+          "id": "method",
+          "at": 3.5,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "distribution",
+          "at": 4.95,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "proof",
+          "at": 8.55,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "response",
+          "at": 11.13,
+          "kind": "semantic",
+          "required": true
+        }
+      ],
+      "inputExample": {
+        "chapter": "01",
+        "label": "从尝试到方法",
+        "claim": {
+          "line1": "把观察",
+          "line2": "变成方法",
+          "context": "从一次尝试，整理出自己的步骤"
+        },
+        "method": {
+          "heading": "实践索引",
+          "name": "我的练习手册"
+        },
+        "steps": [
+          "01　观察具体过程",
+          "02　尝试可行步骤",
+          "03　回顾与再使用"
+        ],
+        "audience": "新手　／　同行　／　创作者",
+        "proof": {
+          "line1": "这次实践",
+          "line2": "就在验证",
+          "note": "从自己的步骤里，检验方法"
+        },
+        "response": {
+          "context": "个人体验 · 过程示意",
+          "line1": "继续",
+          "line2": "实践",
+          "conclusion": "让方法逐渐完善。"
+        },
+        "brand": "本期实践",
+        "presenterLabel": "// on air · 主讲人",
+        "chapterCount": "03"
+      },
+      "limits": [
+        "Different new narration and final encoded AV required before promotion",
+        "Candidate text capacities are conservative director bounds, not proof that every maximum fits",
+        "Original source transitions retained; new neighboring scenes still need continuous review"
+      ],
+      "id": "claim-and-response",
+      "source": {
+        "start": 0,
+        "end": 15.466
+      },
+      "sourceCodeFile": "units/claim-and-response.js",
+      "sourceBlockSha256": "cb72a352e9a63073178b3bb6acbdbb4f355d5a6dc2e01dc34281a0bb36e71cb4",
+      "provenance": {
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 19,
+          "end": 38
+        },
+        "sourceStatementSha256": "89367ea36a9a0adeef83ec45b620274347356f2740afa06c2930e054dd97da35",
+        "helperSha256": "65deef4c915c2399eb70d16a69df5002301d53fbd9f50b638d04ff10cbf9d5c7"
+      },
+      "sourceRevision": "3893b09d772f05d555c417c1a1d2d88727c0fca49326a790cad9ff4f75232830"
+    },
+    {
+      "title": "实际材料 → 本期结果 → 三处观察 → 归纳",
+      "role": "实际材料 → 本期结果 → 三处观察 → 归纳",
+      "requiresFaceTracking": true,
+      "hasProgressRail": false,
+      "boundaries": {
+        "mode": "complete-original-scene",
+        "entry": "Independent source initial state, output-clock presenter, original layer relationships",
+        "exit": "Original response/read/fold retained; next scene establishes its own state",
+        "review": "Source closure retained; continuous source/new AV still requires owner review"
+      },
+      "motionWindows": [
+        {
+          "id": "action-01",
+          "start": 68.6,
+          "end": 70.0
+        },
+        {
+          "id": "action-02",
+          "start": 72.2,
+          "end": 75.6
+        },
+        {
+          "id": "action-03",
+          "start": 77.84,
+          "end": 81.4
+        },
+        {
+          "id": "action-04",
+          "start": 82.65,
+          "end": 84.0
+        }
+      ],
+      "minFrames": 595,
+      "maxHoldFrames": 360,
+      "slots": [
+        {
+          "id": "text-claim",
+          "type": "text",
+          "sourceText": "创作能力，毋庸置疑",
+          "sourceSpans": [
+            {
+              "start": 2110,
+              "end": 2119,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 15,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "claim"
+        },
+        {
+          "id": "text-evidence-title",
+          "type": "text",
+          "sourceText": "真实素材 · 阿杜导演软件演示",
+          "sourceSpans": [
+            {
+              "start": 2160,
+              "end": 2175,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 25,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "evidence.title"
+        },
+        {
+          "id": "text-evidence-overviewNote",
+          "type": "text",
+          "sourceText": "真实软件录屏 · 原速",
+          "sourceSpans": [
+            {
+              "start": 2194,
+              "end": 2205,
+              "renderContext": "html"
+            },
+            {
+              "start": 2943,
+              "end": 2954,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "evidence.overviewNote"
+        },
+        {
+          "id": "text-observations-0",
+          "type": "text",
+          "sourceText": "画面排版",
+          "sourceSpans": [
+            {
+              "start": 2243,
+              "end": 2247,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "observations.0"
+        },
+        {
+          "id": "text-observations-1",
+          "type": "text",
+          "sourceText": "动效路径",
+          "sourceSpans": [
+            {
+              "start": 2250,
+              "end": 2254,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "observations.1"
+        },
+        {
+          "id": "text-observations-2",
+          "type": "text",
+          "sourceText": "声音节拍",
+          "sourceSpans": [
+            {
+              "start": 2257,
+              "end": 2261,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "observations.2"
+        },
+        {
+          "id": "text-conclusion",
+          "type": "text",
+          "sourceText": "细节，会改变观感",
+          "sourceSpans": [
+            {
+              "start": 2402,
+              "end": 2410,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 14,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "conclusion"
+        },
+        {
+          "id": "text-result",
+          "type": "text",
+          "sourceText": "排版　／　动效　／　动画　／　音效",
+          "sourceSpans": [
+            {
+              "start": 2450,
+              "end": 2467,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 28,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "result"
+        },
+        {
+          "id": "text-evidence-overviewTitle",
+          "type": "text",
+          "sourceText": "真实软件录屏 · 阿杜导演",
+          "sourceSpans": [
+            {
+              "start": 2899,
+              "end": 2912,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "evidence.overviewTitle"
+        },
+        {
+          "id": "text-evidence-detailTitle",
+          "type": "text",
+          "sourceText": "真实软件录屏 · 模板选择",
+          "sourceSpans": [
+            {
+              "start": 3048,
+              "end": 3061,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "evidence.detailTitle"
+        },
+        {
+          "id": "text-evidence-detailNote",
+          "type": "text",
+          "sourceText": "真实软件录屏 · ▶▶ 2.4×",
+          "sourceSpans": [
+            {
+              "start": 3092,
+              "end": 3108,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "evidence.detailNote"
+        },
+        {
+          "id": "text-evidence-resultTitle",
+          "type": "text",
+          "sourceText": "上期成片 · 细节观察",
+          "sourceSpans": [
+            {
+              "start": 3187,
+              "end": 3198,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "evidence.resultTitle"
+        },
+        {
+          "id": "text-evidence-resultNote",
+          "type": "text",
+          "sourceText": "原成片回顾 · 非本次软件操作",
+          "sourceSpans": [
+            {
+              "start": 3229,
+              "end": 3244,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 28,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "evidence.resultNote"
+        },
+        {
+          "id": "text-presenterLabel",
+          "type": "text",
+          "sourceText": "// on air · 阿杜Next",
+          "sourceSpans": [
+            {
+              "start": 859,
+              "end": 877,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 32,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "presenterLabel"
+        },
+        {
+          "id": "text-brandLabel",
+          "type": "text",
+          "sourceText": "阿杜Next　／　",
+          "sourceSpans": [
+            {
+              "start": 1279,
+              "end": 1288,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 30,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputTemplate": "{brand}　／　"
+        },
+        {
+          "id": "text-chapterCount",
+          "type": "text",
+          "sourceText": "10",
+          "sourceSpans": [
+            {
+              "start": 1345,
+              "end": 1347,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 3,
+          "required": true,
+          "mustChange": false,
+          "renderContext": "html",
+          "inputPath": "chapterCount"
+        },
+        {
+          "id": "text-label",
+          "type": "text",
+          "sourceText": "从开发者视角",
+          "sourceSpans": [
+            {
+              "start": 2047,
+              "end": 2053,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "label"
+        },
+        {
+          "id": "text-chapter",
+          "type": "text",
+          "sourceText": "05",
+          "sourceSpans": [
+            {
+              "start": 2042,
+              "end": 2044
+            }
+          ],
+          "maxChars": 3,
+          "required": true,
+          "mustChange": false,
+          "inputPath": "chapter",
+          "renderContext": "html"
+        },
+        {
+          "id": "video-overview",
+          "type": "video",
+          "sourceAsset": "soft_match",
+          "inputPath": "evidence.overview",
+          "aspect": "16:9",
+          "playback": {
+            "start": 69.2,
+            "end": 72.2,
+            "fps": 30,
+            "rate": 1,
+            "terminalHoldSeconds": 0
+          }
+        },
+        {
+          "id": "video-detail",
+          "type": "video",
+          "sourceAsset": "soft_tpl",
+          "inputPath": "evidence.detail",
+          "aspect": "16:9",
+          "playback": {
+            "start": 72.2,
+            "end": 74.966,
+            "fps": 30,
+            "rate": 2.4,
+            "terminalHoldSeconds": 0
+          }
+        },
+        {
+          "id": "video-result",
+          "type": "video",
+          "sourceAsset": "prev",
+          "inputPath": "evidence.result",
+          "aspect": "16:9",
+          "playback": {
+            "start": 74.966,
+            "end": 84.3,
+            "fps": 30,
+            "rate": 1,
+            "terminalHoldSeconds": 1.34
+          }
+        },
+        {
+          "id": "presenter",
+          "type": "talk"
+        }
+      ],
+      "cues": [
+        {
+          "id": "overview",
+          "at": 69.2,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "detail",
+          "at": 72.2,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "result",
+          "at": 74.966,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "focus",
+          "at": 78.42,
+          "kind": "semantic",
+          "required": true
+        }
+      ],
+      "inputExample": {
+        "chapter": "01",
+        "label": "从尝试到方法",
+        "claim": "看看这次实际过程",
+        "evidence": {
+          "title": "本期实践 · 实际记录",
+          "overviewNote": "本人素材 · 原速",
+          "overviewTitle": "本期准备 · 真实记录",
+          "detailTitle": "本期尝试 · 真实记录",
+          "detailNote": "本人素材 · ▶▶ 2.4×",
+          "resultTitle": "本期结果 · 真实记录",
+          "resultNote": "本期结果记录 · 非独立实验",
+          "overview": null,
+          "detail": null,
+          "result": null
+        },
+        "observations": [
+          "准备",
+          "尝试",
+          "回顾"
+        ],
+        "conclusion": "留下过程，再谈方法",
+        "result": "准备　／　尝试　／　回顾",
+        "brand": "本期实践",
+        "presenterLabel": "// on air · 主讲人",
+        "chapterCount": "03"
+      },
+      "limits": [
+        "Different new narration and final encoded AV required before promotion",
+        "Candidate text capacities are conservative director bounds, not proof that every maximum fits",
+        "Original source transitions retained; new neighboring scenes still need continuous review"
+      ],
+      "id": "evidence-and-focus",
+      "source": {
+        "start": 68.6,
+        "end": 84.3
+      },
+      "sourceCodeFile": "units/evidence-and-focus.js",
+      "sourceBlockSha256": "a2eda0c4dda30ad44e9718e1a965a44340345926244f795fd1164b6ea80f3157",
+      "provenance": {
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 93,
+          "end": 104
+        },
+        "sourceStatementSha256": "1a4705d0c9dffafbf26b86b457390e9d3e2dd9bfaf70213a3048e59ccd9a6a55",
+        "helperSha256": "65deef4c915c2399eb70d16a69df5002301d53fbd9f50b638d04ff10cbf9d5c7"
+      },
+      "sourceRevision": "3893b09d772f05d555c417c1a1d2d88727c0fca49326a790cad9ff4f75232830"
+    },
+    {
+      "title": "概念 → 分解为步骤 → 收拢 → 本期方法",
+      "role": "概念 → 分解为步骤 → 收拢 → 本期方法",
+      "requiresFaceTracking": true,
+      "hasProgressRail": false,
+      "boundaries": {
+        "mode": "complete-original-scene",
+        "entry": "Independent source initial state, output-clock presenter, original layer relationships",
+        "exit": "Original response/read/fold retained; next scene establishes its own state",
+        "review": "Source closure retained; continuous source/new AV still requires owner review"
+      },
+      "motionWindows": [
+        {
+          "id": "action-01",
+          "start": 84.3,
+          "end": 84.95
+        },
+        {
+          "id": "action-02",
+          "start": 86.5,
+          "end": 87.2
+        },
+        {
+          "id": "action-03",
+          "start": 89.8,
+          "end": 93.2
+        },
+        {
+          "id": "action-04",
+          "start": 94.8,
+          "end": 99.9
+        }
+      ],
+      "minFrames": 604,
+      "maxHoldFrames": 360,
+      "slots": [
+        {
+          "id": "text-entry",
+          "type": "text",
+          "sourceText": "实现逻辑",
+          "sourceSpans": [
+            {
+              "start": 2186,
+              "end": 2190,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 7,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "entry"
+        },
+        {
+          "id": "text-concept",
+          "type": "text",
+          "sourceText": "蒸馏",
+          "sourceSpans": [
+            {
+              "start": 2220,
+              "end": 2222,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "concept"
+        },
+        {
+          "id": "text-context",
+          "type": "text",
+          "sourceText": "个人观察 · 方法类比",
+          "sourceSpans": [
+            {
+              "start": 2260,
+              "end": 2271,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 22,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "context"
+        },
+        {
+          "id": "text-decomposeHeading",
+          "type": "text",
+          "sourceText": "拆开看，留下方法",
+          "sourceSpans": [
+            {
+              "start": 2295,
+              "end": 2303,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 14,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "decomposeHeading"
+        },
+        {
+          "id": "text-parts-0-label",
+          "type": "text",
+          "sourceText": "排版",
+          "sourceSpans": [
+            {
+              "start": 2335,
+              "end": 2337,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "parts.0.label"
+        },
+        {
+          "id": "text-parts-1-label",
+          "type": "text",
+          "sourceText": "动作",
+          "sourceSpans": [
+            {
+              "start": 2340,
+              "end": 2342,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "parts.1.label"
+        },
+        {
+          "id": "text-parts-2-label",
+          "type": "text",
+          "sourceText": "声音",
+          "sourceSpans": [
+            {
+              "start": 2345,
+              "end": 2347,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "parts.2.label"
+        },
+        {
+          "id": "text-parts-0-sample",
+          "type": "text",
+          "sourceText": "标题",
+          "sourceSpans": [
+            {
+              "start": 2563,
+              "end": 2565,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "parts.0.sample"
+        },
+        {
+          "id": "text-consolidateHeading",
+          "type": "text",
+          "sourceText": "编成一页，反复使用",
+          "sourceSpans": [
+            {
+              "start": 3032,
+              "end": 3041,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 14,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "consolidateHeading"
+        },
+        {
+          "id": "text-result-file",
+          "type": "text",
+          "sourceText": "SKILL.md",
+          "sourceSpans": [
+            {
+              "start": 3117,
+              "end": 3125,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 16,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "result.file"
+        },
+        {
+          "id": "text-result-contents",
+          "type": "text",
+          "sourceText": "规则 · 配方 · 工具",
+          "sourceSpans": [
+            {
+              "start": 3175,
+              "end": 3187,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 22,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "result.contents"
+        },
+        {
+          "id": "text-result-conclusion",
+          "type": "text",
+          "sourceText": "从观察，到可复用的制作步骤",
+          "sourceSpans": [
+            {
+              "start": 3239,
+              "end": 3252,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "result.conclusion"
+        },
+        {
+          "id": "text-presenterLabel",
+          "type": "text",
+          "sourceText": "// on air · 阿杜Next",
+          "sourceSpans": [
+            {
+              "start": 859,
+              "end": 877,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 32,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "presenterLabel"
+        },
+        {
+          "id": "text-brandLabel",
+          "type": "text",
+          "sourceText": "阿杜Next　／　",
+          "sourceSpans": [
+            {
+              "start": 1279,
+              "end": 1288,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 30,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputTemplate": "{brand}　／　"
+        },
+        {
+          "id": "text-chapterCount",
+          "type": "text",
+          "sourceText": "10",
+          "sourceSpans": [
+            {
+              "start": 1345,
+              "end": 1347,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 3,
+          "required": true,
+          "mustChange": false,
+          "renderContext": "html",
+          "inputPath": "chapterCount"
+        },
+        {
+          "id": "text-label",
+          "type": "text",
+          "sourceText": "观察与类比",
+          "sourceSpans": [
+            {
+              "start": 2049,
+              "end": 2054,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "inputPath": "label"
+        },
+        {
+          "id": "text-chapter",
+          "type": "text",
+          "sourceText": "06",
+          "sourceSpans": [
+            {
+              "start": 2044,
+              "end": 2046
+            }
+          ],
+          "maxChars": 3,
+          "required": true,
+          "mustChange": false,
+          "inputPath": "chapter",
+          "renderContext": "html"
+        },
+        {
+          "id": "presenter",
+          "type": "talk"
+        }
+      ],
+      "cues": [
+        {
+          "id": "concept",
+          "at": 86.533,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "decompose",
+          "at": 90.15,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "consolidate",
+          "at": 97.25,
+          "kind": "semantic",
+          "required": true
+        }
+      ],
+      "inputExample": {
+        "chapter": "01",
+        "label": "从尝试到方法",
+        "entry": "拆开过程",
+        "concept": "练习",
+        "context": "个人方法 · 实践示意",
+        "decomposeHeading": "拆成步骤，再来一次",
+        "parts": [
+          {
+            "label": "观察",
+            "sample": "过程"
+          },
+          {
+            "label": "尝试"
+          },
+          {
+            "label": "回顾"
+          }
+        ],
+        "consolidateHeading": "整理成页，留给下次",
+        "result": {
+          "file": "我的练习.md",
+          "contents": "观察 · 尝试 · 回顾",
+          "conclusion": "把一次实践，留成可执行步骤"
+        },
+        "brand": "本期实践",
+        "presenterLabel": "// on air · 主讲人",
+        "chapterCount": "03"
+      },
+      "limits": [
+        "Different new narration and final encoded AV required before promotion",
+        "Candidate text capacities are conservative director bounds, not proof that every maximum fits",
+        "Original source transitions retained; new neighboring scenes still need continuous review"
+      ],
+      "id": "decompose-and-consolidate",
+      "source": {
+        "start": 84.3,
+        "end": 101.666
+      },
+      "sourceCodeFile": "units/decompose-and-consolidate.js",
+      "sourceBlockSha256": "f9e544b0dd615ea038ccacc518cad80ad5b30e32c3175cee239b517515b40964",
+      "provenance": {
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 107,
+          "end": 122
+        },
+        "sourceStatementSha256": "afc5bb42b3963431e7c2d1a7b37380ea3c5c5b97cf350e2d4232e058526a7aad",
+        "helperSha256": "65deef4c915c2399eb70d16a69df5002301d53fbd9f50b638d04ff10cbf9d5c7"
+      },
+      "sourceRevision": "3893b09d772f05d555c417c1a1d2d88727c0fca49326a790cad9ff4f75232830"
+    }
+  ],
+  "assetDefinitions": {},
+  "environment": {
+    "platform": "macOS",
+    "profile": "1920x1080@60fps",
+    "systemFonts": [
+      "PingFang SC",
+      "SFNSMono.ttf"
+    ],
+    "status": "candidate; landscape baseline retained, portrait episode acceptance pending"
+  },
+  "validation": {
+    "status": "candidate",
+    "review": "review.json",
+    "scope": "portrait geometry and inherited source timing; no new episode audiovisual acceptance",
+    "portrait": "passed-synthetic-visible-geometry-565-catalog-seeks",
+    "episodeAudiovisual": "not-performed"
+  },
+  "files": {
+    "README.md": "2359ae40a760971ce08e6347993a2c8ada2ef9c58a3311fa86a909fbb94dca57",
+    "audio_timeline.json": "918da5e4cf57d2d417c0e27b289c4201d28378e8b164a60453a11674863c9467",
+    "config.js": "03695c9ebeea6897245f792d67ed44345ac4caaca8bed8b3ab7a6f005d7d7d64",
+    "lib.js": "feced1178a494b7b7bd7f1632f5c25652d6e06e304bcd99dcd085a0f4b5bcd33",
+    "motion.js": "0618fac74ae393dda4745f6b71c151678ef3a465a8399740faa1ee67decfb3d9",
+    "review.json": "c443fded3f220c51838bc815c220705013a52abad46ec4eb8479c9a14acaad06",
+    "style.css": "57d47273749b079df15412f7b07fcbb85da1f087611eae2a3949cae3907a5af9",
+    "units/claim-and-response.js": "cb72a352e9a63073178b3bb6acbdbb4f355d5a6dc2e01dc34281a0bb36e71cb4",
+    "units/decompose-and-consolidate.js": "f9e544b0dd615ea038ccacc518cad80ad5b30e32c3175cee239b517515b40964",
+    "units/evidence-and-focus.js": "a2eda0c4dda30ad44e9718e1a965a44340345926244f795fd1164b6ea80f3157",
+    "portrait.js": "5057d37dda49dce275e012da3051bddd3189ffff3d4528bccf6c3528dcbbea90",
+    "portrait.css": "9e030169becf590a62d69caa90bddff19c3e6153e017f9783dcef4347e882b63"
+  },
+  "distribution": {
+    "status": "candidate; landscape baseline retained, portrait episode acceptance pending"
+  },
+  "portraitBase": {
+    "version": "1.0.0",
+    "sourceUnits": "byte-identical",
+    "timing": "unchanged",
+    "audio": "unchanged",
+    "historicalPromotion": {
+      "version": "0.2.2-candidate",
+      "manifestSha256": "2248e3248d02e81c55b4ea307b3d7a1769429ef7c98254c271d2463447f3f0ab"
+    }
+  },
+  "layouts": {
+    "landscape": {
+      "width": 1920,
+      "height": 1080
+    },
+    "portrait": {
+      "width": 1080,
+      "height": 1920,
+      "runtime": "portrait.js",
+      "stylesheet": "portrait.css",
+      "status": "candidate",
+      "acceptance": "native geometry; episode continuous audiovisual review required"
+    }
+  },
+  "landscapeValidation": {
+    "review": "review.json",
+    "scope": "route-subset",
+    "sourceAndNewContent": "owner-accepted",
+    "independentUse": "recorded in review checks",
+    "limits": [
+      "Only three selected groups; the other source intervals have not been generalized or validated with new content.",
+      "macOS, installed PingFang/SF Mono, CPython 3.14.7, Node 23.11.0, Chrome/FFmpeg, 1920x1080 at 60fps.",
+      "One full 99.5-second new-content film made from fresh dependencies by a maker not involved in extraction; this is not an arbitrary-topic or cross-platform guarantee.",
+      "Public unit/runtime bytes preserved; episode-specific local bridges are excluded from this stable pack.",
+      "Original strict raster results remain unchanged; no pixel-perfect rendering claim and no audit threshold relaxed.",
+      "Original strict browser audit failed at frame 1411 despite identical DOM; bounded repeat found identical source image hashes and output clocks, but fresh raster differences remain.",
+      "This owner-approved D film uses musicVolume 0 with voice and SFX retained; the original public score is not removed or globally disabled."
+    ]
+  }
+}

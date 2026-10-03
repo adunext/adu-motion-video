@@ -1,0 +1,22 @@
+{
+  "status": "candidate",
+  "baseVersion": "1.0.0",
+  "sourceUnits": "byte-identical",
+  "landscape": "source contract inherited; original acceptance remains attached to base version",
+  "portrait": {
+    "scope": "native geometry with real macro runtime, synthetic media and system fonts",
+    "allCatalogStyles": 9,
+    "allCatalogGroups": 29,
+    "allCatalogSeeks": 565,
+    "groupsInPack": 2,
+    "checks": [
+      "source units/audio recipe bytes unchanged",
+      "visible DOM and fixed software Canvas forward/reverse state",
+      "cue neighbourhoods",
+      "landscape/portrait sound event equality",
+      "gallery playback/scrub with zero JS/resource failures"
+    ],
+    "episodeAudiovisualAcceptance": "not-performed",
+    "record": "../../../docs/portrait-3.7-validation.json"
+  }
+}

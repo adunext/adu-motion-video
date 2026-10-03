@@ -368,6 +368,11 @@ def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
     validate_profile(profile, manifest)
     require(isinstance(brief, dict) and brief.get("schema") == BRIEF_SCHEMA,
             f"Brief schema must be {BRIEF_SCHEMA}")
+    from pack_layout import resolve_layout
+    try:
+        resolve_layout(manifest, brief)
+    except ValueError as exc:
+        raise AdaptError(str(exc)) from exc
     fps = integer(brief.get("fps", manifest.get("fps", 60)), "brief.fps", minimum=1)
     require(fps <= 240, "Frame rate above 240 is unsupported")
     segments = brief.get("segments")
@@ -444,7 +449,7 @@ def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
                            "profileVersion": profile["version"], "profileDigest": profile_digest(profile),
                            "segments": clean_segments, "ready": ready,
                            "validationStage": "pre-import" if deferred else "bound-media"}}
-    for key in ("brand", "transcript", "narrationDuration", "faceTracking", "presenterLabel", "subtitlePreset",
+    for key in ("layout", "brand", "transcript", "narrationDuration", "faceTracking", "presenterLabel", "subtitlePreset",
                 "music", "monoFontFile", "externalFontFiles", "progressRail", "fadeEndSeconds", "mix", "colorReviewFile"):
         if key in brief:
             spec[key] = deepcopy(brief[key])

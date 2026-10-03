@@ -321,7 +321,7 @@ def copy_media(stage: Path, pack: dict, item: dict, source_scene: dict, block: s
 
 def scaffold(pack: dict, output: Path) -> None:
     if output.exists(): fail(f'Refusing existing file: {output}')
-    data: dict = {'pack': pack['id'], 'fps': pack['fps'], 'brand': '',
+    data: dict = {'pack': pack['id'], 'version': pack.get('version'), 'layout': 'landscape', 'fps': pack['fps'], 'brand': '',
                   'presenterLabel': '// on air · 主讲人', 'scenes': []}
     if pack.get('externalFonts'):
         data['externalFontFiles'] = {item['id']: '' for item in pack['externalFonts']}
@@ -627,15 +627,17 @@ function raceAt(e, sourceTime, opacity=1) {
         if not isinstance(fade_seconds, (int, float)) or isinstance(fade_seconds, bool) or not 0 <= fade_seconds <= 2:
             fail('fadeEndSeconds must be between 0 and 2; use only for a deliberate silent tail')
         with (stage / 'config.js').open('a') as stream: stream.write(f'CONFIG.fadeEndSeconds={fade_seconds};\n')
+        from pack_layout import install_layout
+        layout_css, layout_script, layout_files = install_layout(pack_dir, pack, plan, stage)
         # Build a clean load order. The source subtitle IIFE is deliberately
         # omitted: its absolute source clock would desync new narration.
         (stage / 'index.html').write_text('''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
-<link rel="stylesheet" href="style.css"></head><body>
+<link rel="stylesheet" href="style.css">''' + layout_css + '''</head><body>
 <div id="stage"><div id="world"></div><div id="fx"></div><div id="ov" style="position:absolute;inset:0;pointer-events:none"></div></div>
 <script src="config.js"></script><script src="talkmap.js"></script><script src="face.js"></script>
 <script src="subs.js"></script><script src="wall.js"></script><script src="macro_plan.js"></script>
 <script src="lib.js"></script>''' + ''.join(runtime_scripts) + '''<script src="scenes.js"></script><script src="subtitles.js"></script>
-<script src="macro_main.js"></script></body></html>\n''')
+<script src="macro_main.js"></script>''' + layout_script + '''</body></html>\n''')
         # Recompose the complete mapped score, never the generic starter score.
         music = spec.get('music', {'mode': 'synth'})
         if not isinstance(music, dict) or music.get('mode') not in ('synth', 'track'):
@@ -665,7 +667,8 @@ function raceAt(e, sourceTime, opacity=1) {
                       'frozenRuntime': {name: hashlib.sha256((stage / name).read_bytes()).hexdigest()
                                         for name in ['lib.js', 'macro_main.js', 'style.css', 'audio_runtime/mix_recipe.py',
                                                      'audio_runtime/macro_audio.py', 'audio_runtime/audiolib.py',
-                                                     'audio_runtime/adaptation_audio.py', *pack.get('runtimeFiles', []), *generated_runtime]},
+                                                     'audio_runtime/adaptation_audio.py', *pack.get('runtimeFiles', []), *generated_runtime, *layout_files]},
+                      'layout': plan['layout'],
                       'qualityStatus': 'built-not-visually-accepted'}
         if adaptation['applicable']:
             provenance['adaptation'] = {key: spec['adaptation'][key]

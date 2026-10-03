@@ -1,0 +1,245 @@
+{
+  "schema": "adu-authored-score/1",
+  "sourceSha256": "54398be4f0d662970e89b6fe86b573115fb95f69fba4408eb61908a01a3a59ae",
+  "SEC": [
+    {
+      "id": "score-00",
+      "start": 0.0,
+      "end": 15.466,
+      "energy": 0.66,
+      "options": {
+        "arp": true,
+        "hats": true
+      },
+      "mode": "synth"
+    },
+    {
+      "id": "score-01",
+      "start": 15.466,
+      "end": 19.68,
+      "energy": 0.58,
+      "options": {},
+      "mode": "synth"
+    },
+    {
+      "id": "score-02",
+      "start": 19.68,
+      "end": 25.6,
+      "energy": 0.85,
+      "options": {
+        "arp": true,
+        "hats": true
+      },
+      "mode": "synth"
+    },
+    {
+      "id": "score-03",
+      "start": 25.6,
+      "end": 41.1,
+      "mode": "reflective-piano"
+    },
+    {
+      "id": "score-04",
+      "start": 41.1,
+      "end": 68.6,
+      "energy": 0.6,
+      "options": {
+        "arp": false
+      },
+      "mode": "synth"
+    },
+    {
+      "id": "score-05",
+      "start": 68.6,
+      "end": 84.3,
+      "energy": 0.8,
+      "options": {},
+      "mode": "synth"
+    },
+    {
+      "id": "score-06",
+      "start": 84.3,
+      "end": 101.666,
+      "energy": 0.7,
+      "options": {},
+      "mode": "synth"
+    },
+    {
+      "id": "score-07",
+      "start": 101.666,
+      "end": 118.2,
+      "energy": 0.55,
+      "options": {
+        "kick_on": true,
+        "clapon": false
+      },
+      "mode": "synth"
+    },
+    {
+      "id": "score-08",
+      "start": 118.2,
+      "end": 142.4,
+      "energy": 0.74,
+      "options": {},
+      "mode": "synth"
+    },
+    {
+      "id": "score-09",
+      "start": 142.4,
+      "end": 163.233333333,
+      "energy": 0.82,
+      "options": {},
+      "mode": "synth"
+    },
+    {
+      "id": "score-10",
+      "start": 163.233333333,
+      "end": 168.73333333333332,
+      "energy": 0.68,
+      "options": {
+        "arp": true
+      },
+      "mode": "synth"
+    }
+  ],
+  "ENV": [
+    {
+      "at": 0,
+      "db": 1
+    },
+    {
+      "at": 3.4,
+      "db": -2
+    },
+    {
+      "at": 8.56,
+      "db": 1
+    },
+    {
+      "at": 11.1,
+      "db": -4
+    },
+    {
+      "at": 15.466,
+      "db": 0
+    },
+    {
+      "at": 19.68,
+      "db": 2
+    },
+    {
+      "at": 23.9,
+      "db": 1
+    },
+    {
+      "at": 25.6,
+      "db": -4
+    },
+    {
+      "at": 33.066,
+      "db": -3
+    },
+    {
+      "at": 41.1,
+      "db": -2
+    },
+    {
+      "at": 48.233,
+      "db": -1
+    },
+    {
+      "at": 68.6,
+      "db": 2
+    },
+    {
+      "at": 84.3,
+      "db": -2
+    },
+    {
+      "at": 86.53,
+      "db": 2
+    },
+    {
+      "at": 90,
+      "db": -2
+    },
+    {
+      "at": 101.666,
+      "db": -3
+    },
+    {
+      "at": 118.2,
+      "db": 2
+    },
+    {
+      "at": 121.4,
+      "db": -2
+    },
+    {
+      "at": 142.4,
+      "db": 1
+    },
+    {
+      "at": 149.4,
+      "db": 3
+    },
+    {
+      "at": 160.433,
+      "db": 1
+    },
+    {
+      "at": 163.233333333,
+      "db": 5
+    },
+    {
+      "at": 168.73333333333332,
+      "db": 0
+    }
+  ],
+  "HITS": {
+    "crash": [
+      3.4,
+      15.466,
+      68.6,
+      86.53,
+      118.2,
+      149.4
+    ],
+    "drop": [
+      25.6,
+      86.53
+    ],
+    "riser": [
+      [
+        19.2,
+        19.68
+      ],
+      [
+        14.8,
+        15.466
+      ],
+      [
+        67.8,
+        68.6
+      ],
+      [
+        117.3,
+        118.2
+      ],
+      [
+        148.5,
+        149.4
+      ]
+    ]
+  },
+  "DARK": [],
+  "mix": {
+    "profile": "opus-five-v1",
+    "fadeOutSourceStart": 167.9333333333333,
+    "fadeOutSeconds": 0.8
+  },
+  "sfxEvents": [],
+  "limits": [
+    "Runtime S() owns action cues; do not mix reference SFX twice."
+  ]
+}

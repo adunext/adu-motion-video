@@ -131,7 +131,9 @@ stills)
   [ "$#" -eq 3 ] || { echo 'Usage: pipeline.sh stills <project> t1,t2,...' >&2; exit 2; }
   mkdir -p "$D/stills"
   STILL_OUT="$D/stills/run-$(date -u +%Y%m%dT%H%M%S)-$$"
-  EXTRA=(--stills-dir "$STILL_OUT" --times "$3" --width "${W:-1920}" --height "${H:-1080}")
+  EXTRA=(--stills-dir "$STILL_OUT" --times "$3")
+  [ -z "${W:-}" ] || EXTRA+=(--width "$W")
+  [ -z "${H:-}" ] || EXTRA+=(--height "$H")
   [ -z "${END:-}" ] || EXTRA+=(--end "$END")
   node "$SC/render_project.mjs" "$D/${HTML:-index.html}" "${EXTRA[@]}"
   ;;
@@ -179,8 +181,16 @@ mix)
 render|vert)
   [ "$#" -ge 3 ] && [ "$#" -le 4 ] || { echo 'Usage: pipeline.sh render|vert <project> <NEW.mp4> [segments]' >&2; exit 2; }
   ENTRY=index.html; WIDTH=1920; HEIGHT=1080
-  if [ "$cmd" = vert ]; then ENTRY=vert.html; WIDTH=1080; HEIGHT=1920; fi
-  EXTRA=(--html "${HTML:-$ENTRY}" --width "${W:-$WIDTH}" --height "${H:-$HEIGHT}" --fps "${FPS:-60}" --segments "${4:-${K:-5}}")
+  if [ "$cmd" = vert ] && [ ! -f "$D/macro_plan.json" ]; then ENTRY=vert.html; WIDTH=1080; HEIGHT=1920; fi
+  if [ "$cmd" = vert ] && [ -f "$D/macro_plan.json" ]; then
+    python3 -c 'import sys; from pathlib import Path; sys.path.insert(0,sys.argv[1]); from pack_layout import project_dimensions; w,h=project_dimensions(Path(sys.argv[2])); h>w or sys.exit("vert requires a portrait project layout; rebuild with layout=portrait first")' "$SC" "$D"
+  fi
+  EXTRA=(--html "${HTML:-$ENTRY}" --fps "${FPS:-60}" --segments "${4:-${K:-5}}")
+  if [ ! -f "$D/macro_plan.json" ]; then EXTRA+=(--width "${W:-$WIDTH}" --height "${H:-$HEIGHT}");
+  else
+    [ -z "${W:-}" ] || EXTRA+=(--width "$W")
+    [ -z "${H:-}" ] || EXTRA+=(--height "$H")
+  fi
   [ -z "${END:-}" ] || EXTRA+=(--end "$END")
   case "${SILENT:-0}" in
     1) EXTRA+=(--no-audio) ;;

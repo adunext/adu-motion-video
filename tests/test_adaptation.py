@@ -62,6 +62,13 @@ class AdaptationTests(unittest.TestCase):
         return validate_adapted_spec(self.manifest, spec, self.directory, self.directory)
 
     def test_unknown_profile_hash_scene_drift_and_legacy(self):
+        # The selected output layout travels through planning into the build spec.
+        self.manifest['layouts'] = {'landscape': {'width':1920,'height':1080},
+                                    'portrait': {'width':1080,'height':1920}}
+        self.refresh()
+        portrait = self.plan({**self.brief(), 'layout':'portrait'})['spec']
+        self.assertEqual(portrait['layout'], 'portrait')
+        self.assertTrue(self.validate(portrait)['ready'])
         spec = self.plan()["spec"]
         self.assertTrue(self.validate(spec)["ready"])
         bad = deepcopy(spec)

@@ -165,8 +165,8 @@ def main():
     parser.add_argument('--html', default='index.html', help='entry relative to project')
     parser.add_argument('--end', type=float, help='override runtime window.END / CONFIG.end')
     parser.add_argument('--fps', type=positive_int, default=60)
-    parser.add_argument('--width', type=positive_int, default=1920)
-    parser.add_argument('--height', type=positive_int, default=1080)
+    parser.add_argument('--width', type=positive_int)
+    parser.add_argument('--height', type=positive_int)
     parser.add_argument('--segments', type=positive_int, default=5)
     sound = parser.add_mutually_exclusive_group()
     sound.add_argument('--audio', type=Path, help='full-timeline audio; default: project/mix.wav')
@@ -177,6 +177,16 @@ def main():
     parser.add_argument('--optional-data', help='explicit missing .js allow-list, comma-separated')
     args = parser.parse_args()
     project = args.project.expanduser().resolve()
+    from pack_layout import project_dimensions
+    try:
+        expected = project_dimensions(project)
+    except ValueError as exc:
+        parser.error(str(exc))
+    if expected and ((args.width is not None and args.width != expected[0]) or
+                     (args.height is not None and args.height != expected[1])):
+        parser.error('Export dimensions differ from the project layout; rebuild the layout before changing the viewport')
+    args.width = args.width or (expected[0] if expected else 1920)
+    args.height = args.height or (expected[1] if expected else 1080)
     output = args.output.expanduser().absolute()
     manifest = Path(str(output) + '.manifest.json')
     entry = (project / args.html).resolve()

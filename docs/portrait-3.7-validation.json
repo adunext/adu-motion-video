@@ -1,0 +1,181 @@
+{
+  "schema": "adu-portrait-validation/1",
+  "skillVersion": "3.7.0",
+  "date": "2026-10-03",
+  "status": "candidate-geometry-tested",
+  "styles": 9,
+  "groups": 29,
+  "browser": {
+    "passed": true,
+    "styles": 9,
+    "groups": 29,
+    "seeks": 565,
+    "checks": [
+      "real macro runtime",
+      "native output dimensions",
+      "cue neighbourhoods",
+      "forward/reverse deterministic DOM and Canvas",
+      "same landscape/portrait sound events"
+    ],
+    "limits": "Synthetic images; system-font geometry, no real presenter or narration/music listening acceptance"
+  },
+  "gallery": {
+    "report": [
+      {
+        "family": "classic-performance",
+        "groups": 3,
+        "error": "",
+        "size": [
+          1080,
+          1920
+        ]
+      },
+      {
+        "family": "continuous-performance",
+        "groups": 2,
+        "error": "",
+        "size": [
+          1080,
+          1920
+        ]
+      },
+      {
+        "family": "stage-performance",
+        "groups": 3,
+        "error": "",
+        "size": [
+          1080,
+          1920
+        ]
+      },
+      {
+        "family": "editorial-performance",
+        "groups": 3,
+        "error": "",
+        "size": [
+          1080,
+          1920
+        ]
+      },
+      {
+        "family": "kinetic-performance",
+        "groups": 3,
+        "error": "",
+        "size": [
+          1080,
+          1920
+        ]
+      },
+      {
+        "family": "paper-balance",
+        "groups": 1,
+        "error": "",
+        "size": [
+          1080,
+          1920
+        ]
+      },
+      {
+        "family": "paper-ball-performance",
+        "groups": 2,
+        "error": "",
+        "size": [
+          1080,
+          1920
+        ]
+      },
+      {
+        "family": "dark-3d-showcase",
+        "groups": 9,
+        "error": "",
+        "size": [
+          1080,
+          1920
+        ]
+      },
+      {
+        "family": "doubao-console-performance",
+        "groups": 3,
+        "error": "",
+        "size": [
+          1080,
+          1920
+        ]
+      }
+    ],
+    "errors": [],
+    "failed": []
+  },
+  "contractTests": {
+    "passed": 55,
+    "scope": "planning, binding, layout assets, extraction, catalog and export clock"
+  },
+  "actualBuildExport": {
+    "style": "01-A",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "frames": 928,
+    "fps": 60,
+    "seconds": 15.466666666666667,
+    "sourceSfxEvents": 13,
+    "media": "synthetic nonhuman stand-in; silent narration, source recipe music and SFX",
+    "verification": "frame count, every display timestamp, full decode and audio stream",
+    "finalAdapterSha256": "5057d37dda49dce275e012da3051bddd3189ffff3d4528bccf6c3528dcbbea90",
+    "outputSha256": "d45789db01bd53eb5e9cedbdd0edad55ff754231ed74912454e07d0bf73af113"
+  },
+  "limits": [
+    "No real presenter/new-narration audiovisual or independent-author acceptance",
+    "Synthetic media and local system-font geometry, not external-font or HDR-person acceptance",
+    "Invisible source nodes may retain lazy state; visible output compared",
+    "Software Canvas raster fixed for pixel regression; no cross-platform raster equivalence"
+  ],
+  "versions": [
+    {
+      "selection": "editorial-performance@1.1.0-candidate",
+      "groups": 3,
+      "baseVersion": "1.0.0"
+    },
+    {
+      "selection": "paper-balance@1.1.0-candidate",
+      "groups": 1,
+      "baseVersion": "1.0.0"
+    },
+    {
+      "selection": "continuous-performance@1.1.0-candidate",
+      "groups": 2,
+      "baseVersion": "1.0.0"
+    },
+    {
+      "selection": "anim4-showcase-macro@1.2.0-candidate",
+      "groups": 9,
+      "baseVersion": "1.1.1-candidate"
+    },
+    {
+      "selection": "classic-performance@1.1.0-candidate",
+      "groups": 3,
+      "baseVersion": "1.0.0"
+    },
+    {
+      "selection": "kinetic-performance@1.1.0-candidate",
+      "groups": 3,
+      "baseVersion": "1.0.0"
+    },
+    {
+      "selection": "doubao-console-performance@0.2.0-candidate",
+      "groups": 3,
+      "baseVersion": "0.1.2-candidate"
+    },
+    {
+      "selection": "stage-performance@1.1.0-candidate",
+      "groups": 3,
+      "baseVersion": "1.0.0"
+    },
+    {
+      "selection": "paper-ball-performance@1.1.0-candidate",
+      "groups": 2,
+      "baseVersion": "1.0.0"
+    }
+  ]
+}

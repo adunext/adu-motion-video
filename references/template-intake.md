@@ -85,3 +85,9 @@ Review 固定 `packId`、`sourceVersion`、`sourceRevision`、`manifestSha256`�
 `paper-ball-performance@0.1.3-candidate` 来自另一个完成修订，保留 `cards-to-network` 与 `calendar-to-delivery` 两组。专用 [adapter](../adapters/paper-ball/README.md) 锁定四个源码文件与三个原回调的 AST 跨度、元素编号种子和空边界 carry；其余 32 场不实例化，也不随组验证晋级。字体提前加载，私有人物图片请求加入宿主等待队列，保持源动作函数。
 
 优设标题黑为显式所有者输入；公共包只有其 SHA 和字体族契约，没有该字体二进制。`macro-spec` 草稿包含 `externalFontFiles.title`；构建器在导入口播前验证字体摘要，保存到新工程并记录。不能静默换字形或据免费商用声明推定再分发条款。其它 OFL 通知保留。源同内容控制与新内容编排分别保存，作者已对两组源/重放对照与 18.2667 秒新内容回复“正确”，冷安装重建通过。`paper-ball-performance@1.0.0` 只冻结这两个组，旧 0.1.3-candidate 保持原字节；来源整体仍为 received。严格栅格核验的 1 issue/2 warning 保留，认可不修改自动检查结果，也不构成新整片路线或独立作者验收。
+
+## 在提炼时准备画幅
+
+新提案应显式声明 `layouts.landscape` 和经过实现的 `layouts.portrait`，包括 width/height、runtime/stylesheet。布局 JS/CSS 与源运行时分开保存，把它们的 SHA256 一并放进 `sourceFiles`；提炼器核验并冻结这些文件，构建器在原运行时之后加载布局。未提供布局的历史提案保持仅横屏，不自动获得竖屏资格。
+
+先定义标题、人物、演示、结论、字幕的原生坐标与可读字号；连接线、轨迹、吸入终点和转场圆心随物件一起重排。Canvas 的空间拓扑变化需要原生重绘，保留原激活时间并走同一 source→output 时间映射；不要压扁球体、伸长人物或重新采样声音。提供横竖两种短/长文案及重新寻帧检查，记录真实素材裁切与字号下限。

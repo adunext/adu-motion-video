@@ -18,7 +18,20 @@
             "本期真人口播",
             "对应文案",
             "证据组：三段本期真实视频"
-          ]
+          ],
+          "portraitSelection": "classic-performance@1.1.0-candidate",
+          "layouts": {
+            "landscape": {
+              "width": 1920,
+              "height": 1080
+            },
+            "portrait": {
+              "width": 1080,
+              "height": 1920,
+              "status": "candidate",
+              "selection": "classic-performance@1.1.0-candidate"
+            }
+          }
         },
         {
           "id": "01-B",
@@ -31,7 +44,20 @@
             "本期真人口播",
             "对应文案",
             "演示或证据组：本期真实视频"
-          ]
+          ],
+          "portraitSelection": "continuous-performance@1.1.0-candidate",
+          "layouts": {
+            "landscape": {
+              "width": 1920,
+              "height": 1080
+            },
+            "portrait": {
+              "width": 1080,
+              "height": 1920,
+              "status": "candidate",
+              "selection": "continuous-performance@1.1.0-candidate"
+            }
+          }
         },
         {
           "id": "01-C",
@@ -46,7 +72,20 @@
             "演示或证据组：本期真实视频"
           ],
           "scope": "三个完整镜头组；新内容整片与独立使用已验收",
-          "previewBasis": "已保留的源演出短段；新内容验收摘要见实际包 review.json"
+          "previewBasis": "已保留的源演出短段；新内容验收摘要见实际包 review.json",
+          "portraitSelection": "stage-performance@1.1.0-candidate",
+          "layouts": {
+            "landscape": {
+              "width": 1920,
+              "height": 1080
+            },
+            "portrait": {
+              "width": 1080,
+              "height": 1920,
+              "status": "candidate",
+              "selection": "stage-performance@1.1.0-candidate"
+            }
+          }
         },
         {
           "id": "01-D",
@@ -61,7 +100,20 @@
             "演示或证据组：本期真实视频"
           ],
           "scope": "三个完整镜头组；新内容整片与独立使用已验收",
-          "previewBasis": "已保留的源演出短段；新内容验收摘要见实际包 review.json"
+          "previewBasis": "已保留的源演出短段；新内容验收摘要见实际包 review.json",
+          "portraitSelection": "editorial-performance@1.1.0-candidate",
+          "layouts": {
+            "landscape": {
+              "width": 1920,
+              "height": 1080
+            },
+            "portrait": {
+              "width": 1080,
+              "height": 1920,
+              "status": "candidate",
+              "selection": "editorial-performance@1.1.0-candidate"
+            }
+          }
         },
         {
           "id": "01-E",
@@ -76,7 +128,20 @@
             "演示或证据组：本期真实视频"
           ],
           "scope": "三个完整镜头组；新内容整片与独立使用已验收",
-          "previewBasis": "已保留的源演出短段；新内容验收摘要见实际包 review.json"
+          "previewBasis": "已保留的源演出短段；新内容验收摘要见实际包 review.json",
+          "portraitSelection": "kinetic-performance@1.1.0-candidate",
+          "layouts": {
+            "landscape": {
+              "width": 1920,
+              "height": 1080
+            },
+            "portrait": {
+              "width": 1080,
+              "height": 1920,
+              "status": "candidate",
+              "selection": "kinetic-performance@1.1.0-candidate"
+            }
+          }
         }
       ]
     },
@@ -96,7 +161,20 @@
             "对应文案",
             "透明插图"
           ],
-          "scope": "一个续接镜头组"
+          "scope": "一个续接镜头组",
+          "portraitSelection": "paper-balance@1.1.0-candidate",
+          "layouts": {
+            "landscape": {
+              "width": 1920,
+              "height": 1080
+            },
+            "portrait": {
+              "width": 1080,
+              "height": 1920,
+              "status": "candidate",
+              "selection": "paper-balance@1.1.0-candidate"
+            }
+          }
         },
         {
           "id": "02-B",
@@ -113,7 +191,20 @@
           "scope": "两个完整镜头组；源/重放对照与 18.2667 秒不同内容样片已验收，非完整新路线",
           "previewBasis": "作者已认可的新内容样片的 8 秒开箱交付舞台局部；排除人物、字幕、账号角标和声音",
           "demoAudio": "none; silent detail preview",
-          "qualityLimits": "严格栅格审计仍保留 1 issue/2 warning；实际限制见包 review.json"
+          "qualityLimits": "严格栅格审计仍保留 1 issue/2 warning；实际限制见包 review.json",
+          "portraitSelection": "paper-ball-performance@1.1.0-candidate",
+          "layouts": {
+            "landscape": {
+              "width": 1920,
+              "height": 1080
+            },
+            "portrait": {
+              "width": 1080,
+              "height": 1920,
+              "status": "candidate",
+              "selection": "paper-ball-performance@1.1.0-candidate"
+            }
+          }
         }
       ]
     },
@@ -139,11 +230,20 @@
           "demoAudio": "none; silent different-content preview",
           "portraitPreview": "assets/demos/03-A-portrait.gif",
           "portraitDemo": "assets/demos/03-A-portrait.mp4",
-          "layouts": [
-            "1920×1080@60",
-            "1080×1920@60"
-          ],
-          "acceptance": "awaiting owner continuous audiovisual confirmation"
+          "layouts": {
+            "landscape": {
+              "width": 1920,
+              "height": 1080
+            },
+            "portrait": {
+              "width": 1080,
+              "height": 1920,
+              "status": "candidate",
+              "selection": "anim4-showcase-macro@1.2.0-candidate"
+            }
+          },
+          "acceptance": "awaiting owner continuous audiovisual confirmation",
+          "portraitSelection": "anim4-showcase-macro@1.2.0-candidate"
         }
       ]
     },
@@ -167,10 +267,20 @@
           "scope": "三个完整镜头组；同内容技术重放已检查，尚未完成不同内容与独立复用声画验收",
           "previewBasis": "同内容技术重放开场的3.9秒局部，排除人物、字幕和声音",
           "demoAudio": "none; silent detail preview",
-          "layouts": [
-            "1920×1080@60"
-          ],
-          "qualityLimits": "需要真实字体和本期VOX；严格栅格审计保留4 warning，needs-raster-review；没有原生竖屏声明"
+          "layouts": {
+            "landscape": {
+              "width": 1920,
+              "height": 1080
+            },
+            "portrait": {
+              "width": 1080,
+              "height": 1920,
+              "status": "candidate",
+              "selection": "doubao-console-performance@0.2.0-candidate"
+            }
+          },
+          "qualityLimits": "需要真实字体和本期VOX；严格栅格审计保留4 warning，needs-raster-review；没有原生竖屏声明",
+          "portraitSelection": "doubao-console-performance@0.2.0-candidate"
         }
       ]
     }

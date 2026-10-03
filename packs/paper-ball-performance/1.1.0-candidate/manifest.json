@@ -1,0 +1,1051 @@
+{
+  "id": "paper-ball-performance",
+  "version": "1.1.0-candidate",
+  "status": "candidate",
+  "title": "纸面聚合 · 小球与内容交付",
+  "sourceFormat": "authored-unit/1",
+  "sourceRevision": "1d9087a4b3eb01c18a2e7960dfa2a2eaaa047257e03d5aebb6ca882fd063f753",
+  "fps": 60,
+  "width": 1920,
+  "height": 1080,
+  "requireMotionWindows": true,
+  "runtimeFiles": [
+    "fonts_ready.js"
+  ],
+  "scenes": [
+    {
+      "id": "cards-to-network",
+      "role": "六类资料 → 吸入聚合 → 网络 → 一句结论",
+      "source": {
+        "start": 40.483333333333334,
+        "end": 45.43333333333333
+      },
+      "sourceRevision": "1d9087a4b3eb01c18a2e7960dfa2a2eaaa047257e03d5aebb6ca882fd063f753",
+      "sourceCodeFile": "units/cards-to-network.js",
+      "sourceBlockSha256": "6219b1f0be48211bd920993bd9fec7c09bbcd69fc71dd91e73a56d0f37aab0b7",
+      "requiresFaceTracking": true,
+      "minFrames": 297,
+      "maxHoldFrames": 180,
+      "motionWindows": [
+        {
+          "start": 40.483333333333334,
+          "end": 44.9
+        }
+      ],
+      "cues": [
+        {
+          "id": "network",
+          "at": 42.6,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "conclusion",
+          "at": 43.45,
+          "kind": "semantic",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "presenter",
+          "type": "text",
+          "sourceText": "on air · 阿杜Next",
+          "sourceSpans": [
+            {
+              "start": 669,
+              "end": 684,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "presenterLabel"
+        },
+        {
+          "id": "chapter",
+          "type": "text",
+          "sourceText": "// 05 — 你的数据去哪了",
+          "sourceSpans": [
+            {
+              "start": 22782,
+              "end": 22797,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 28,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "chapter"
+        },
+        {
+          "id": "card-0",
+          "type": "text",
+          "sourceText": "聊天记录",
+          "sourceSpans": [
+            {
+              "start": 22848,
+              "end": 22852,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "cards.0.label"
+        },
+        {
+          "id": "icon-0",
+          "type": "text",
+          "sourceText": "💬",
+          "sourceSpans": [
+            {
+              "start": 22856,
+              "end": 22857,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "cards.0.icon"
+        },
+        {
+          "id": "card-1",
+          "type": "text",
+          "sourceText": "上传的文件",
+          "sourceSpans": [
+            {
+              "start": 22863,
+              "end": 22868,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "cards.1.label"
+        },
+        {
+          "id": "icon-1",
+          "type": "text",
+          "sourceText": "PDF",
+          "sourceSpans": [
+            {
+              "start": 22872,
+              "end": 22875,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "cards.1.icon"
+        },
+        {
+          "id": "card-2",
+          "type": "text",
+          "sourceText": "代码仓库",
+          "sourceSpans": [
+            {
+              "start": 22881,
+              "end": 22885,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "cards.2.label"
+        },
+        {
+          "id": "icon-2",
+          "type": "text",
+          "sourceText": "</>",
+          "sourceSpans": [
+            {
+              "start": 22889,
+              "end": 22892,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "cards.2.icon"
+        },
+        {
+          "id": "card-3",
+          "type": "text",
+          "sourceText": "照片",
+          "sourceSpans": [
+            {
+              "start": 22898,
+              "end": 22900,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "cards.3.label"
+        },
+        {
+          "id": "icon-3",
+          "type": "text",
+          "sourceText": "IMG",
+          "sourceSpans": [
+            {
+              "start": 22904,
+              "end": 22907,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "cards.3.icon"
+        },
+        {
+          "id": "card-4",
+          "type": "text",
+          "sourceText": "语音",
+          "sourceSpans": [
+            {
+              "start": 22913,
+              "end": 22915,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "cards.4.label"
+        },
+        {
+          "id": "icon-4",
+          "type": "text",
+          "sourceText": "•ılı•",
+          "sourceSpans": [
+            {
+              "start": 22919,
+              "end": 22924,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "cards.4.icon"
+        },
+        {
+          "id": "card-5",
+          "type": "text",
+          "sourceText": "工作文档",
+          "sourceSpans": [
+            {
+              "start": 22930,
+              "end": 22934,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "cards.5.label"
+        },
+        {
+          "id": "icon-5",
+          "type": "text",
+          "sourceText": "DOC",
+          "sourceSpans": [
+            {
+              "start": 22938,
+              "end": 22941,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "cards.5.icon"
+        },
+        {
+          "id": "input-label",
+          "type": "text",
+          "sourceText": "你的数据 →",
+          "sourceSpans": [
+            {
+              "start": 23464,
+              "end": 23470,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 12,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "inputLabel"
+        },
+        {
+          "id": "output-label",
+          "type": "text",
+          "sourceText": "→ 训练模型",
+          "sourceSpans": [
+            {
+              "start": 23519,
+              "end": 23525,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 12,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "outputLabel"
+        },
+        {
+          "id": "conclusion",
+          "type": "text",
+          "sourceText": "根本不用怀疑",
+          "sourceSpans": [
+            {
+              "start": 24047,
+              "end": 24053,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "conclusion"
+        }
+      ],
+      "inputExample": {
+        "presenterLabel": "on air · 本期讲述者",
+        "chapter": "01 — 从素材到方法",
+        "cards": [
+          {
+            "label": "原始记录",
+            "icon": "RAW"
+          },
+          {
+            "label": "成片画面",
+            "icon": "VID"
+          },
+          {
+            "label": "镜头代码",
+            "icon": "JS"
+          },
+          {
+            "label": "对白字幕",
+            "icon": "TXT"
+          },
+          {
+            "label": "动作音效",
+            "icon": "SFX"
+          },
+          {
+            "label": "时序配方",
+            "icon": "MAP"
+          }
+        ],
+        "inputLabel": "六类输入 →",
+        "outputLabel": "→ 完整编舞",
+        "conclusion": "把素材变方法"
+      },
+      "boundaries": {
+        "entry": "source cut and presenter pose continuation retained; no preceding scene is instantiated",
+        "exit": "includes complete ball/particle/ink release within reviewed source range",
+        "connection": "standalone source groups; new cross-group connection requires review"
+      },
+      "limits": [
+        "macOS 1920x1080/60; six cards and eleven network nodes are fixed symbolic choreography",
+        "Conclusion allows at most six glyphs; shorter underline tracks the complete replacement phrase"
+      ],
+      "provenance": {
+        "adapter": "adapters/paper-ball/extract.py",
+        "adapterSha256": "30233bf27c69c3b397c9d62d69e63b0c22e790d76dcb8ad87cdf31ad05774717",
+        "sourceFiles": {
+          "index.html": "5782e0ba5628abf393703a1ff90be75ae93d29cfdb1b12e4f921e67443a3b4fa",
+          "lib.js": "2f2012656793c7ae4e3710ddec2f9cfc52101603723f08703fe003ccb7c2f6f9",
+          "scenes.js": "43d2ad3f706c5f867f9930be25386d946d160ce4fe6311e4219d582695064772",
+          "main.js": "36f79194c1f202a204c0229b92a14eb3ce6472662991cdb74bbddb580f6cf09e"
+        },
+        "statements": [
+          {
+            "index": 13,
+            "start": 40.47,
+            "end": 45.43,
+            "mode": "D",
+            "label": "// 05 — 你的数据去哪了",
+            "startCodepoint": 29942,
+            "endCodepoint": 33140,
+            "sourceLines": [
+              327,
+              358
+            ],
+            "sha256": "4174d9e57840b5a9d9a93a88b73dde00f22e8ee9d49392874d3da01ae06a66b2"
+          }
+        ],
+        "originalElementIdSeed": 116,
+        "boundaryCarry": "reviewed-empty",
+        "ports": [
+          "scoped host and nodes",
+          "presenter/captions/timecode use output clock",
+          "source image requests join the host imgWait queue",
+          "source SFX forwarded to macro timeline",
+          "kinetic phrase underline follows replacement glyph count",
+          "escape visible kinetic glyphs without changing motion"
+        ]
+      }
+    },
+    {
+      "id": "calendar-to-delivery",
+      "role": "七步日历 → 六类能力 → 开箱三项 → 内容交付堆叠",
+      "source": {
+        "start": 115.83333333333333,
+        "end": 127.1
+      },
+      "sourceRevision": "1d9087a4b3eb01c18a2e7960dfa2a2eaaa047257e03d5aebb6ca882fd063f753",
+      "sourceCodeFile": "units/calendar-to-delivery.js",
+      "sourceBlockSha256": "271e15c7d397e793d8f33bc5d4c9b1eaef6b178b624446155063a42f9610f894",
+      "requiresFaceTracking": true,
+      "minFrames": 676,
+      "maxHoldFrames": 180,
+      "motionWindows": [
+        {
+          "start": 115.83333333333333,
+          "end": 118.45
+        },
+        {
+          "start": 118.6,
+          "end": 121.2
+        },
+        {
+          "start": 121.9,
+          "end": 126.6
+        }
+      ],
+      "cues": [
+        {
+          "id": "capabilities",
+          "at": 118.85,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "unbox",
+          "at": 122.35,
+          "kind": "semantic",
+          "required": true
+        },
+        {
+          "id": "deliveries",
+          "at": 124.82,
+          "kind": "semantic",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "presenter",
+          "type": "text",
+          "sourceText": "on air · 阿杜Next",
+          "sourceSpans": [
+            {
+              "start": 657,
+              "end": 672,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "presenterLabel"
+        },
+        {
+          "id": "chapter-plan",
+          "type": "text",
+          "sourceText": "// 19 — 这几天全盘托出",
+          "sourceSpans": [
+            {
+              "start": 22772,
+              "end": 22787,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 28,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "chapters.plan"
+        },
+        {
+          "id": "chapter-delivery",
+          "type": "text",
+          "sourceText": "// 20 — 更新会比较多",
+          "sourceSpans": [
+            {
+              "start": 27694,
+              "end": 27708,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 28,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "chapters.delivery"
+        },
+        {
+          "id": "calendar-month",
+          "type": "text",
+          "sourceText": "OCT",
+          "sourceSpans": [
+            {
+              "start": 23016,
+              "end": 23019,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 3,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "calendar.heading"
+        },
+        {
+          "id": "calendar-label",
+          "type": "text",
+          "sourceText": "国庆假期",
+          "sourceSpans": [
+            {
+              "start": 23066,
+              "end": 23070,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "calendar.label"
+        },
+        {
+          "id": "calendar-unit",
+          "type": "text",
+          "sourceText": "DAY ",
+          "sourceSpans": [
+            {
+              "start": 23436,
+              "end": 23440,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "calendar.unit"
+        },
+        {
+          "id": "calendar-note",
+          "type": "text",
+          "sourceText": "这几天 →",
+          "sourceSpans": [
+            {
+              "start": 23513,
+              "end": 23518,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "calendar.note"
+        },
+        {
+          "id": "timeframe",
+          "type": "text",
+          "sourceText": "最近一两年 · 2025 → 2026",
+          "sourceSpans": [
+            {
+              "start": 23637,
+              "end": 23656,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 28,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "timeframe"
+        },
+        {
+          "id": "topic-left",
+          "type": "text",
+          "sourceText": "AI",
+          "sourceSpans": [
+            {
+              "start": 23707,
+              "end": 23709,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 2,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "topic.lead"
+        },
+        {
+          "id": "topic-right",
+          "type": "text",
+          "sourceText": "内容制作",
+          "sourceSpans": [
+            {
+              "start": 23742,
+              "end": 23746,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "topic.label"
+        },
+        {
+          "id": "capability-0",
+          "type": "text",
+          "sourceText": "口播剪辑",
+          "sourceSpans": [
+            {
+              "start": 23791,
+              "end": 23795,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "capabilities.0"
+        },
+        {
+          "id": "capability-1",
+          "type": "text",
+          "sourceText": "动效",
+          "sourceSpans": [
+            {
+              "start": 23799,
+              "end": 23801,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "capabilities.1"
+        },
+        {
+          "id": "capability-2",
+          "type": "text",
+          "sourceText": "字幕",
+          "sourceSpans": [
+            {
+              "start": 23805,
+              "end": 23807,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "capabilities.2"
+        },
+        {
+          "id": "capability-3",
+          "type": "text",
+          "sourceText": "配乐音效",
+          "sourceSpans": [
+            {
+              "start": 23811,
+              "end": 23815,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "capabilities.3"
+        },
+        {
+          "id": "capability-4",
+          "type": "text",
+          "sourceText": "工作流",
+          "sourceSpans": [
+            {
+              "start": 23819,
+              "end": 23822,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "capabilities.4"
+        },
+        {
+          "id": "capability-5",
+          "type": "text",
+          "sourceText": "Skill",
+          "sourceSpans": [
+            {
+              "start": 23826,
+              "end": 23831,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "capabilities.5"
+        },
+        {
+          "id": "deliverable-0",
+          "type": "text",
+          "sourceText": "经验",
+          "sourceSpans": [
+            {
+              "start": 24749,
+              "end": 24751,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 2,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "deliverables.0"
+        },
+        {
+          "id": "deliverable-1",
+          "type": "text",
+          "sourceText": "观点",
+          "sourceSpans": [
+            {
+              "start": 24779,
+              "end": 24781,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 2,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "deliverables.1"
+        },
+        {
+          "id": "deliverable-2",
+          "type": "text",
+          "sourceText": "干货",
+          "sourceSpans": [
+            {
+              "start": 24808,
+              "end": 24810,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 2,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "deliverables.2"
+        },
+        {
+          "id": "unbox-conclusion",
+          "type": "text",
+          "sourceText": "全盘托出",
+          "sourceSpans": [
+            {
+              "start": 25307,
+              "end": 25311,
+              "renderContext": "text"
+            }
+          ],
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "conclusion"
+        },
+        {
+          "id": "stack-heading",
+          "type": "text",
+          "sourceText": "更新会比较多！",
+          "sourceSpans": [
+            {
+              "start": 28521,
+              "end": 28528,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 9,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "stack.heading"
+        },
+        {
+          "id": "stack-disclosure",
+          "type": "text",
+          "sourceText": "集数为示意",
+          "sourceSpans": [
+            {
+              "start": 28627,
+              "end": 28632,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 16,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "stack.disclosure"
+        },
+        {
+          "id": "stack-prefix",
+          "type": "text",
+          "sourceText": "EP ",
+          "sourceSpans": [
+            {
+              "start": 28205,
+              "end": 28208,
+              "renderContext": "html"
+            }
+          ],
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "inputPath": "stack.prefix"
+        },
+        {
+          "id": "first-index",
+          "type": "number",
+          "sourceCode": "11 + i",
+          "valueTemplate": "{value} + i",
+          "min": 1,
+          "max": 90,
+          "required": true,
+          "inputPath": "stack.firstIndex"
+        }
+      ],
+      "inputExample": {
+        "presenterLabel": "on air · 本期讲述者",
+        "chapters": {
+          "plan": "02 — 七步制作计划",
+          "delivery": "03 — 本期交付示意"
+        },
+        "calendar": {
+          "heading": "RUN",
+          "label": "制作计划",
+          "unit": "STEP ",
+          "note": "七步推进 →"
+        },
+        "timeframe": "从试片 · 走向持续制作",
+        "topic": {
+          "lead": "MP",
+          "label": "动效制作"
+        },
+        "capabilities": [
+          "编排",
+          "人物",
+          "节奏",
+          "声音",
+          "核验",
+          "导出"
+        ],
+        "deliverables": [
+          "源码",
+          "配方",
+          "成片"
+        ],
+        "conclusion": "一起交付",
+        "stack": {
+          "heading": "按批次持续交付",
+          "disclosure": "卡片数量与编号为示意",
+          "prefix": "NO ",
+          "firstIndex": 1
+        }
+      },
+      "boundaries": {
+        "entry": "source cut and presenter pose continuation retained; no preceding scene is instantiated",
+        "exit": "includes complete ball/particle/ink release within reviewed source range",
+        "connection": "standalone source groups; new cross-group connection requires review"
+      },
+      "limits": [
+        "macOS 1920x1080/60; source camera pose may continue from its preceding chapter at entry",
+        "Source narration/media and original music are not bundled",
+        "Seven calendar pages and ten illustrative delivery cards are fixed choreography, not factual quantities"
+      ],
+      "provenance": {
+        "adapter": "adapters/paper-ball/extract.py",
+        "adapterSha256": "30233bf27c69c3b397c9d62d69e63b0c22e790d76dcb8ad87cdf31ad05774717",
+        "sourceFiles": {
+          "index.html": "5782e0ba5628abf393703a1ff90be75ae93d29cfdb1b12e4f921e67443a3b4fa",
+          "lib.js": "2f2012656793c7ae4e3710ddec2f9cfc52101603723f08703fe003ccb7c2f6f9",
+          "scenes.js": "43d2ad3f706c5f867f9930be25386d946d160ce4fe6311e4219d582695064772",
+          "main.js": "36f79194c1f202a204c0229b92a14eb3ce6472662991cdb74bbddb580f6cf09e"
+        },
+        "statements": [
+          {
+            "index": 30,
+            "start": 115.83,
+            "end": 124.77,
+            "mode": "P",
+            "label": "// 19 — 这几天全盘托出",
+            "startCodepoint": 64970,
+            "endCodepoint": 69892,
+            "sourceLines": [
+              683,
+              712
+            ],
+            "sha256": "e60f7b988d35ba741f9517a8160e6354e47fe91835ac90541230f9496c319213"
+          },
+          {
+            "index": 31,
+            "start": 124.77,
+            "end": 127.1,
+            "mode": "P",
+            "label": "// 20 — 更新会比较多",
+            "startCodepoint": 70086,
+            "endCodepoint": 71537,
+            "sourceLines": [
+              717,
+              727
+            ],
+            "sha256": "ea8e60ef39661abb94dbb2aa62db8325dc0438fb25856878ab4366ef474848a1"
+          }
+        ],
+        "originalElementIdSeed": 281,
+        "boundaryCarry": "reviewed-empty",
+        "ports": [
+          "scoped host and nodes",
+          "presenter/captions/timecode use output clock",
+          "source image requests join the host imgWait queue",
+          "source SFX forwarded to macro timeline",
+          "kinetic phrase underline follows replacement glyph count",
+          "escape visible kinetic glyphs without changing motion"
+        ]
+      }
+    }
+  ],
+  "assetDefinitions": {},
+  "externalFonts": [
+    {
+      "id": "title",
+      "family": "YSBT",
+      "sha256": "dab883d69fb713233ea5d9aff8d1f27ccc2b71e249143edf6ea08367784c5dba",
+      "format": "truetype",
+      "extension": ".ttf",
+      "required": true,
+      "licenseSource": "https://www.uisdc.com/uisdc-first-free-font",
+      "distribution": "user-supplied; binary not bundled"
+    }
+  ],
+  "environment": {
+    "platform": "macOS",
+    "fonts": [
+      {
+        "sourceFile": "Anton.woff2",
+        "sha256": "fbe5c43983d4a583cd9c760a5c124451505dad21d9a74cd2ae957fd3f7358ac4",
+        "license": "SIL-OFL-1.1",
+        "storage": "embedded-unmodified"
+      },
+      {
+        "sourceFile": "Caveat.woff2",
+        "sha256": "594b089a80408340296b9ef2f5b589c8c752d1021994ab4707b202462a42249b",
+        "license": "SIL-OFL-1.1",
+        "storage": "embedded-unmodified"
+      },
+      {
+        "sourceFile": "Geist-normal-500.woff2",
+        "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+        "license": "SIL-OFL-1.1",
+        "storage": "embedded-unmodified"
+      },
+      {
+        "sourceFile": "Geist-normal-700.woff2",
+        "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+        "license": "SIL-OFL-1.1",
+        "storage": "embedded-unmodified"
+      },
+      {
+        "sourceFile": "GeistMono-normal-500.woff2",
+        "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b",
+        "license": "SIL-OFL-1.1",
+        "storage": "embedded-unmodified"
+      }
+    ],
+    "systemFonts": [
+      "PingFang SC",
+      "Hannotate SC"
+    ],
+    "runtimeBase": "classic-performance@1.0.0 Scene host only; source custom physics remain private per instance",
+    "status": "candidate; landscape baseline retained, portrait episode acceptance pending"
+  },
+  "validation": {
+    "status": "candidate",
+    "review": "review.json",
+    "scope": "portrait geometry and inherited source timing; no new episode audiovisual acceptance",
+    "portrait": "passed-synthetic-visible-geometry-565-catalog-seeks",
+    "episodeAudiovisual": "not-performed"
+  },
+  "files": {
+    "LICENSE": "0f1d5e25e1035cf4fb24809d66dff30642a2d4c5a33837ba7e0e8af4ff66fdfc",
+    "README.md": "522d94e7e645c13e9c0c90929a0e3d08f948a16435e2a8afb3d3cf29158ff5b3",
+    "audio_timeline.json": "675ccfb5e3befdaafb4a4cc05d9640d446b8e8d60589cc773391f085d12f3ba2",
+    "config.js": "03695c9ebeea6897245f792d67ed44345ac4caaca8bed8b3ab7a6f005d7d7d64",
+    "fonts_ready.js": "b7da66995346e87a07807af816ea3c0215e7eff1d300bac7f124db882acfd5d0",
+    "lib.js": "feced1178a494b7b7bd7f1632f5c25652d6e06e304bcd99dcd085a0f4b5bcd33",
+    "licenses/OFL-anton.txt": "ee67e6ee22790b7929f1a3769ca2801d565c64b5a9096942c1adf5596de9c9e4",
+    "licenses/OFL-caveat.txt": "1f9d81d094273d82f3898a1ee8b598a717d050ecbf5ff7bede105b704880157b",
+    "licenses/OFL-geist.txt": "1781d2806a07d91c4edf4740b88449fab7d0eadad53f7c351b94cd4d4eb8c00f",
+    "licenses/OFL-geistmono.txt": "1781d2806a07d91c4edf4740b88449fab7d0eadad53f7c351b94cd4d4eb8c00f",
+    "review.json": "9c7a68d32b4efc6eebb6fa75324445767932e16fadeff4f9d22d17fbfa46c878",
+    "style.css": "df83cb93f0a0351e7835422763a21746f858ee9b66bd5b9b09f46c0c96458868",
+    "units/calendar-to-delivery.js": "271e15c7d397e793d8f33bc5d4c9b1eaef6b178b624446155063a42f9610f894",
+    "units/cards-to-network.js": "6219b1f0be48211bd920993bd9fec7c09bbcd69fc71dd91e73a56d0f37aab0b7",
+    "portrait.js": "5057d37dda49dce275e012da3051bddd3189ffff3d4528bccf6c3528dcbbea90",
+    "portrait.css": "9e030169becf590a62d69caa90bddff19c3e6153e017f9783dcef4347e882b63"
+  },
+  "distribution": {
+    "status": "candidate; landscape baseline retained, portrait episode acceptance pending"
+  },
+  "portraitBase": {
+    "version": "1.0.0",
+    "sourceUnits": "byte-identical",
+    "timing": "unchanged",
+    "audio": "unchanged",
+    "historicalPromotion": {
+      "version": "0.1.3-candidate",
+      "manifestSha256": "ba1aea5d24d49b4ed1de3171723303e1cc769f3c6c488844acb1e9a7e24f66b6"
+    }
+  },
+  "layouts": {
+    "landscape": {
+      "width": 1920,
+      "height": 1080
+    },
+    "portrait": {
+      "width": 1080,
+      "height": 1920,
+      "runtime": "portrait.js",
+      "stylesheet": "portrait.css",
+      "status": "candidate",
+      "acceptance": "native geometry; episode continuous audiovisual review required"
+    }
+  },
+  "landscapeValidation": {
+    "review": "review.json",
+    "scope": "group",
+    "sourceAndNewContent": "owner-accepted",
+    "independentUse": "not required for this group-level increment; no full-route claim",
+    "limits": [
+      "Two complete groups only; source callbacks 13 and 30/31. The other 32 source scenes and the complete 35-scene source retain their prior state.",
+      "Owner accepted the two source/replay pairs and the 18.2667 second new sample with feedback 正确; this is group-level acceptance, not a full new route or an independent-author film.",
+      "Verified macOS, 1920x1080 at 60fps, existing Chrome/FFmpeg, installed PingFang SC/Hannotate SC, and explicit source-hash YouSheBiaoTiHei font input. No Windows/Linux/vertical or alternate-font acceptance.",
+      "973 forward frame states and 20 reverse seeks match; source raster sample differences remain recorded (maximum 23). No pixel-perfect claim.",
+      "New-content strict audit remains FAILED with 1 issue and 2 warnings; bounded probe DOM states match while browser raster/seek output varies. Human audiovisual acceptance does not override the audit.",
+      "Candidate archive cold install rebuilt both groups with fresh Python/npm; 16 runtime/data/font files and 4 WAV files matched. Existing OS tools and supplied owner inputs remain required; no blank-OS or independent-author claim.",
+      "Six input cards, eleven network nodes, seven calendar pages and ten delivery cards are fixed symbolic choreography; new labels do not prove actual counts or outcomes.",
+      "Required YSBT font binary and owner media/music are not publicly bundled; preserve explicit user input and licensing boundaries. Default new synth score does not reproduce the source song."
+    ]
+  }
+}

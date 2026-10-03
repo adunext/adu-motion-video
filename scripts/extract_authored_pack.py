@@ -109,6 +109,39 @@ def source_styles(source, entry, reviewed_files=None):
     return re.sub(r'@font-face\s*\{[^}]*\}', '', css, flags=re.I)
 
 
+def copy_layout_contract(proposal, source, stage):
+    """Keep reviewed portrait assets in the pack instead of dropping them."""
+    from copy import deepcopy
+    from pack_layout import resolve_layout
+    layouts = proposal.get('layouts')
+    if layouts is None:
+        return None
+    require(isinstance(layouts, dict) and 'landscape' in layouts,
+            'layouts must declare the landscape baseline')
+    require(not set(layouts) - {'landscape', 'portrait'}, 'Unknown layout name')
+    for name, item in layouts.items():
+        require(isinstance(item, dict), 'Layout descriptor must be an object')
+        try:
+            resolve_layout({'layouts': layouts}, {'layout': name})
+        except ValueError as exc:
+            raise ValueError(str(exc)) from exc
+        if name == 'portrait':
+            require(item.get('runtime') and item.get('stylesheet'),
+                    'Portrait extraction needs reviewed runtime and stylesheet')
+        for key, extension in [('runtime', '.js'), ('stylesheet', '.css')]:
+            file = item.get(key)
+            if file is None:
+                continue
+            require(isinstance(file, str) and '/' not in file and file.endswith(extension),
+                    'Layout files must be explicit top-level ' + extension)
+            require(file not in {'lib.js', 'config.js', 'style.css'} and file not in proposal.get('runtimeFiles', []),
+                    'Layout assets must be separate from the source runtime')
+            require(file in proposal.get('sourceFiles', {}) and sha((source/file).read_bytes()) == proposal['sourceFiles'][file],
+                    'Layout asset needs a reviewed sourceFiles fingerprint: ' + file)
+            shutil.copy2(source/file, stage/file)
+    return deepcopy(layouts)
+
+
 def attach_adaptation_profile(manifest, descriptor, *, legacy=False):
     """Freeze semantic/port requirements with new extraction, before publication."""
     from copy import deepcopy
@@ -192,6 +225,7 @@ def extract(source, proposal_path, output, *, legacy=False):
             stream.write('\nCONFIG.brand="";CONFIG.account="";CONFIG.repoUrl="";\n')
         audio=audio_recipe(source/'audio.py',proposal['sourceDuration'])
         (stage/'audio_timeline.json').write_text(json.dumps(audio,ensure_ascii=False,indent=2)+'\n')
+        layouts=copy_layout_contract(proposal,source,stage)
         manifest={'id':proposal['id'],'version':proposal['version'],'sourceFormat':'authored-unit/1',
                   'status':'candidate','title':proposal['title'],'sourceRevision':proposal['sourceRevision'],
                   'source':{'engine':'DOM/CSS/JavaScript','assetPolicy':'Owner media are not bundled; bind new assets.'},
@@ -200,6 +234,7 @@ def extract(source, proposal_path, output, *, legacy=False):
                   'assetDefinitions':proposal.get('assetDefinitions',{}),'environment':proposal.get('environment',{}),
                   'validation':{'sourceReplay':'pending','newContent':'pending','independentUse':'pending'},
                   'files':{p.relative_to(stage).as_posix():sha(p.read_bytes()) for p in sorted(stage.rglob('*')) if p.is_file()}}
+        if layouts is not None: manifest['layouts']=layouts
         attach_adaptation_profile(manifest, proposal.get('adaptationProfile'), legacy=legacy)
         (stage/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
         shutil.copytree(stage,output)
