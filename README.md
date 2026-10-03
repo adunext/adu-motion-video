@@ -6,7 +6,7 @@
 
 **阿杜开源的高质量动画动效模板 Skill。选好模板和风格，把口播与素材交给 AI，就能开始剪辑。**
 
-**阿杜实验室** · [www.adunext.com](https://www.adunext.com)
+**阿杜实验室**
 
 Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选、制作的完整动画模板。场景、动作、转场和音效已经做好，AI 按你的口播、文案和素材制作新视频，交付 **MP4 与可编辑工程**。
 
@@ -330,4 +330,4 @@ MIT License · 第三方说明见 [THIRD_PARTY.md](THIRD_PARTY.md)。
 
 </details>
 
-[阿杜实验室](https://www.adunext.com) · [AI 执行入口](SKILL.md) · [模板与风格目录](references/template-catalog.md) · [动画素材 API](references/lottie-assets.md) · [更新与下载](https://github.com/adunext/adu-motion-video/releases) · [MIT License](LICENSE) · [第三方说明](THIRD_PARTY.md)
+阿杜实验室 · [AI 执行入口](SKILL.md) · [模板与风格目录](references/template-catalog.md) · [动画素材 API](references/lottie-assets.md) · [更新与下载](https://github.com/adunext/adu-motion-video/releases) · [MIT License](LICENSE) · [第三方说明](THIRD_PARTY.md)
