@@ -2,7 +2,31 @@
 
 ## 同一份 skill
 
-安装在当前工具的 skills 目录即可，详见 README。Claude 与 Codex 可分别安装，也可显式创建符号链接共享同一目录；不要覆盖现有安装。依赖和媒体不会由符号链接自动搬运。
+同一份 Skill 可在 Windows、macOS、Linux 使用，支持 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等助手。接入方式取决于当前助手环境提供的文件与命令能力。
+
+## 平台与助手接入
+
+| 助手 | 接入方式 |
+| --- | --- |
+| Codex / Claude Code | 安装到对应的 skills 目录，加载 `SKILL.md`；也可显式读取仓库 |
+| 豆包 / DeepSeek / WorkBuddy | 有 Skill 机制时加载本仓库；否则将仓库放入可读取的工作区，让助手先读 `SKILL.md` 和 `AGENTS.md` |
+| 其他助手 | 能读取说明、读写素材并执行命令，即可沿用通用 Agent 入口 |
+
+助手名称不等于执行能力：仅能对话的客户端可协助规划，自动生成工程和导出需要连接可访问素材的命令执行环境。不要编造未确认的安装目录、插件接口或本地权限。
+
+| 平台 | 当前命令接入方式 |
+| --- | --- |
+| Windows | 通过 WSL 使用 Bash；在 WSL 内安装和运行 Node、Python、FFmpeg、Chrome/Chromium 与 Skill 依赖 |
+| macOS | 使用 Bash 和本机依赖；可选 Vision 人脸跟踪需要 Swift |
+| Linux | 使用 Bash 和本机依赖；人物窗可配置经审核的固定裁切 |
+
+Windows 的 `C:\素材` 在 WSL 中通常为 `/mnt/c/素材`；仓库、素材和输出都使用命令执行环境可访问的路径。WSL 流程不直接套用 Windows 原生命令、Python 虚拟环境或浏览器路径。原生 PowerShell/CMD 的完整命令链尚未验收。所有含空格的路径都加引号。
+
+更换平台先运行 `doctor`，再核对浏览器、字体、素材裁切、HDR/SDR 色彩和最终声音。Vision 自动跟踪只适用于 macOS；需要人物窗的包在其他平台显式配置审核过的 `faceTracking:{mode:"fixed",cx,cy,h}`，不可把缺少 Vision 当作整个 Skill 不支持该平台。包使用 macOS 系统字体时，其他平台按该包说明提供有使用权的替代字体。
+
+既有 macOS 验收记录保留为实际证据；平台支持与特定系统上的声画验收分别记录，不将历史环境写成使用资格限制，也不把接入说明当作 Windows/Linux 已完成整片验收。
+
+Codex 与 Claude Code 可分别安装，也可显式创建符号链接共享同一目录；不要覆盖现有安装。依赖和媒体不会由符号链接自动搬运。
 
 旧 `adu-video-studio` 保留为兼容入口。其最小无声 starter 是此前的独立验证样例，不是本口播模板的第二套默认实现。
 

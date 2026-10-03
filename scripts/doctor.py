@@ -63,6 +63,6 @@ if python.is_file():
     report('Audio/alignment Python packages', okay and not missing, ', '.join(missing) + ' missing' if missing else 'ready', 'bash scripts/pipeline.sh setup')
 else:
     report('Audio/alignment Python packages', False, 'skill .venv not created', 'bash scripts/pipeline.sh setup (silent rendering does not require this environment)')
-print('Face tracking: optional; macOS Vision + Swift only. Rendering/audio: macOS or Linux with Bash. Windows: use WSL; native Windows shell is not tested.')
+print('Platforms: Windows (via WSL), macOS, Linux; Bash workflow. Optional automatic face tracking: macOS Vision + Swift; use reviewed fixed crops elsewhere. Native Windows shell workflow is not tested.')
 print('This checks installed tools only. It does not validate fonts, media, animation quality or GPU behavior; run the demo next.')
 sys.exit(1 if failures else 0)

@@ -10,7 +10,11 @@
 
 Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选、制作的完整动画模板。场景、动作、转场和音效已经做好，AI 按你的口播、文案和素材制作新视频，交付 **MP4 与可编辑工程**。
 
-**支持：Codex · Claude Code**　｜　豆包、WorkBuddy 的支持在后续计划中。
+**多平台：Windows · macOS · Linux**
+
+**多助手：Codex · Claude Code · 豆包 · DeepSeek · WorkBuddy**
+
+可通过助手的 Skill 机制加载，也可让助手读取本仓库的 `SKILL.md` 和 `AGENTS.md`。自动制作需要助手所在环境能读写素材并执行本地命令；Windows 的现有命令流程通过 WSL 运行。详见[平台与助手接入说明](references/compatibility.md#平台与助手接入)。
 
 [浏览模板](#模板库)　·　[开始使用](#开始使用)　·　[适用场景](#适用场景)　·　[模板特点](#模板特点)　·　[技术资料](#技术资料)
 
@@ -129,7 +133,7 @@ Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选�
 
 | 步骤 | 要做什么 |
 | --- | --- |
-| **1 · 添加 Skill** | 在 Codex 或 Claude Code 中安装本仓库，也可以让 AI 帮你添加 |
+| **1 · 添加 Skill** | 在 Codex、Claude Code、豆包、DeepSeek 或 WorkBuddy 中加载 Skill，或让助手读取仓库说明 |
 | **2 · 准备素材** | 提供剪好的口播、文案和对应录屏、图片；有字幕文件也一起提供 |
 | **3 · 选择模板** | 报出完整编号，并说明素材位置和输出目录 |
 
@@ -140,7 +144,8 @@ Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选�
 ```text
 请添加 adu-motion-video Skill：
 https://github.com/adunext/adu-motion-video
-安装后确认能找到这个 Skill，并检查制作视频需要的环境。
+请根据当前 Windows、macOS 或 Linux 环境接入；没有 Skill 加载机制时，先阅读 SKILL.md 和 AGENTS.md。
+确认能读取素材、执行命令，并检查制作视频需要的环境。
 ```
 
 ### 制作视频
@@ -204,7 +209,7 @@ https://github.com/adunext/adu-motion-video
 
 **3.3.1** 补齐素材导入的 HDR → SDR 转换与标准 SDR 导出色彩校验，03-A 采用 1.1.1 色彩修正候选。已有十七组和旧候选的冻结字节保持不变。
 
-**3.3.0** 保留 3.2.0 的十五组，并增加纸面聚合两个组。此前稳定范围为 A「原片节奏」三个组、B「连续形变」两个组、C「舞台镜头」/D「杂志分屏」/E「节拍字效」各三个组，以及试点外来源的纸面透视续接组，限 macOS、横屏 1080p60。五条路线的源演出与对应新内容已经作者确认；B/C/D/E 的完整新片由未参与提炼的执行者从冻结公开包和本期输入独立制作。每条路线保留自己的运动、人物与声音，通过命名语义字段绑定新内容。逐组范围与限制见[能力与验收矩阵](docs/capability-matrix.md)。B 的计划干扰组与旧候选原字节保留；旧 `anim3/anim4` 的 21 个宏场景仍为 experimental，9 个基础 `TPL` 为 quick-start。
+**3.3.0** 保留 3.2.0 的十五组，并增加纸面聚合两个组。此前稳定范围为 A「原片节奏」三个组、B「连续形变」两个组、C「舞台镜头」/D「杂志分屏」/E「节拍字效」各三个组，以及试点外来源的纸面透视续接组，当时验收环境为 macOS、横屏 1080p60。五条路线的源演出与对应新内容已经作者确认；B/C/D/E 的完整新片由未参与提炼的执行者从冻结公开包和本期输入独立制作。每条路线保留自己的运动、人物与声音，通过命名语义字段绑定新内容。逐组范围与限制见[能力与验收矩阵](docs/capability-matrix.md)。B 的计划干扰组与旧候选原字节保留；旧 `anim3/anim4` 的 21 个宏场景仍为 experimental，9 个基础 `TPL` 为 quick-start。
 
 ### 模板编号与实际版本
 
@@ -252,8 +257,8 @@ curl -fsS https://adudir.com/api/lottie-catalog/file/insider_loading.json -o ins
 
 - 一条已经剪好、长度确定的口播视频，以及对应文案；带时间码的字幕（SRT）有助于绑定动作，关键字最好有逐词时间。
 - 本期要展示的录屏、图片、头像、标识、作品视频和可用配乐。公开 demo 仅供观看，不提供可复用的原始真人或第三方素材。选用需要这些素材的场景时，必须提供本期有权使用的素材。
-- 期望的画幅、账号名、字幕语言和交付目录。稳定组按 **1920×1080、60fps** 制作；03-A 候选另提供 **1080×1920、60fps** 原生布局。其它组的竖屏需另做布局，不能直接裁切。
-- 本机 Node.js 18+、FFmpeg 9+ / ffprobe、Chrome，以及可运行本地命令的 Agent。当前稳定组合在 macOS / CPython 3.14.7 / 1080p60 验证，Python 包固定在 requirements-runtime.txt；其它平台、字体与 Python 组合需单独验证。
+- 期望的画幅、账号名、字幕语言和交付目录。横屏使用 **1920×1080、60fps**，竖屏使用 **1080×1920、60fps**。当前十种风格、32 个完整组均有竖屏候选版本，按[模板目录](references/template-catalog.md)选择对应版本并声明画幅，不能直接裁切横屏。
+- 可执行制作命令的 Windows、macOS 或 Linux 环境，以及 Node.js 18+、Python、FFmpeg 9+ / ffprobe 和 Chrome/Chromium。Windows 使用 WSL，并在 WSL 内准备依赖；macOS/Linux 使用 Bash。Python 包固定在 requirements-runtime.txt，先运行 doctor。既有稳定组的验收记录使用 macOS / CPython 3.14.7 / 1080p60；更换系统、字体或 Python 组合后应检查本期成片。
 
 最终可得到一个可再编辑的项目目录、带音乐与音效的 MP4，以及帧数、解码和响度检查结果。画面质量仍须观看完整成片并与原工程关键动作对照；命令通过不等于视觉验收通过。
 
@@ -277,10 +282,11 @@ curl -fsS https://adudir.com/api/lottie-catalog/file/insider_loading.json -o ins
 
 ![视觉家族与场景选择示意](assets/tutorials/02-style-map.png)
 
-### 用 Codex 或 Claude Code 开始
+### 用你选择的助手开始
 
 ```bash
-# 任选与你的 Agent 对应的位置；也可以克隆到其他路径并让 Agent 读取 SKILL.md
+# 以下在 macOS/Linux 的 Bash 或 Windows 的 WSL 中执行
+# Codex / Claude Code 可安装到对应 skills 目录；其他助手可读取任意安装位置的 SKILL.md
 git clone https://github.com/adunext/adu-motion-video.git ~/.claude/skills/adu-motion-video
 # Codex 可用：git clone https://github.com/adunext/adu-motion-video.git ~/.codex/skills/adu-motion-video
 
@@ -290,7 +296,7 @@ bash "$PL" doctor
 bash "$PL" setup
 ```
 
-让 Agent 先阅读 [SKILL.md](SKILL.md)、[制作约定](references/rules.md) 和所选包说明。先发现包，选显式版本；以下以稳定的 A 包为例：
+豆包、DeepSeek、WorkBuddy 等助手可将仓库添加到其可读取的工作区，按 [平台与助手接入说明](references/compatibility.md#平台与助手接入)加载；无需使用 Codex 或 Claude Code 的目录。让 Agent 先阅读 [SKILL.md](SKILL.md)、[制作约定](references/rules.md) 和所选包说明。先发现包，选显式版本；以下以稳定的 A 包为例：
 
 ```bash
 bash "$PL" packs

@@ -1,6 +1,6 @@
 # 本地导出与检查工具
 
-下列路径相对本 skill 根目录；在其他目录执行时加上安装目录前缀，或沿用 README 的 `SKILL_DIR` / `PL` 变量。所有带空格的路径加引号，Shell 入口使用 Bash。常规导出不会联网安装工具。
+下列路径相对本 skill 根目录；在其他目录执行时加上安装目录前缀，或沿用 README 的 `SKILL_DIR` / `PL` 变量。所有带空格的路径加引号，Shell 入口使用 Bash。常规导出不会联网安装工具。Windows 当前通过 WSL 执行同一套命令，并在 WSL 内准备 Node、Python、FFmpeg 和浏览器；macOS/Linux 使用 Bash。多助手加载与平台差异见[兼容说明](compatibility.md#平台与助手接入)。
 
 ## 第一次使用
 

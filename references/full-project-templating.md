@@ -2,9 +2,9 @@
 
 ## 这套功能的范围
 
-目录中的九种当前风格、29 个完整组已新增原生竖屏候选版本。需要竖屏时按目录的 portraitSelection 选版本，在 brief / spec 顶层设置 `"layout":"portrait"`，其余媒体、动作与音频流程相同；导出自动读取工程画幅。详见[竖屏契约与实际检查范围](portrait.md)。下文的旧源包说明不自动获得此能力。
+目录中的十种当前风格、32 个完整组已新增原生竖屏候选版本。需要竖屏时按目录的 portraitSelection 选版本，在 brief / spec 顶层设置 `"layout":"portrait"`，其余媒体、动作与音频流程相同；导出自动读取工程画幅。详见[竖屏契约与实际检查范围](portrait.md)。下文的旧源包说明不自动获得此能力。
 
-先运行 `bash "$PL" packs` 动态发现包，按语义和显式版本读取各包清单。目前稳定的 `classic-performance@1.0.0` 有三个完整叙事镜头组，`continuous-performance@1.0.0` 有两个，`paper-balance@1.0.0` 有一个试点外来源续接组；B 的计划干扰组仍只在候选中。它们没有提炼原工程的全部场景，稳定范围限于清单内的组与已验收 macOS 1080p60。精确的新内容证据、环境和限制见[能力矩阵](../docs/capability-matrix.md)。下述 `anim3/anim4` 说明仍适用于旧完整宏场景包。
+先运行 `bash "$PL" packs` 动态发现包，按语义和显式版本读取各包清单。目前稳定的 `classic-performance@1.0.0` 有三个完整叙事镜头组，`continuous-performance@1.0.0` 有两个，`paper-balance@1.0.0` 有一个试点外来源续接组；B 的计划干扰组仍只在候选中。它们没有提炼原工程的全部场景，稳定范围限于清单内的组，既有验收记录使用 macOS 1080p60；跨平台接入见[兼容说明](compatibility.md#平台与助手接入)。精确的新内容证据、环境和限制见[能力矩阵](../docs/capability-matrix.md)。下述 `anim3/anim4` 说明仍适用于旧完整宏场景包。
 
 `packs/anim3` 与 `packs/anim4` 保存的是两份 HTML/CSS/JavaScript 原工程的**完整宏场景**，分别有 12 场和 9 场。场景内的对象运动、镜头、转场、多阶段状态与 `S()` 音效编舞仍在源代码里。`manifest.json` 把场景语义、源时间、动作节点、受保护的动作窗口、可替换的文字/数字/媒体槽列成接口。`audio_timeline.json` 记录原配乐结构，供新时间轴重排。
 

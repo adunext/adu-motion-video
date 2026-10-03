@@ -1,6 +1,6 @@
 ---
 name: adu-motion-video
-description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。需要可读写本地文件并运行命令的 Agent。
+description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。支持 Windows、macOS、Linux，以及 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等可读写文件并运行命令的助手。
 metadata:
   version: "3.8.0"
 ---
@@ -8,6 +8,12 @@ metadata:
 # adu-motion-video
 
 用户提供剪好的口播视频、文案，最好还有新口播的时间码字幕；选用含录屏、作品墙、头像、标识或配乐的场景时，还须提供本期有权使用的素材。你负责把**完整场景编舞**适配到新台词与片长，生成可编辑工程，核查后导出新 MP4。先读 [制作约定](references/rules.md)。`SKILL_DIR` 是本文件目录，`PL="$SKILL_DIR/scripts/pipeline.sh"`。 制作记录保存实际 Skill 路径、版本和所用入口；同名旧安装、仓库版本与已生成工程的冻结运行代码可能不同，不能用最新版说明追认旧工程。
+
+## 平台与助手
+
+同一份 Skill 面向 Windows、macOS、Linux，可由 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等助手使用。先确认助手执行环境能读写素材并运行命令；有 Skill 机制就加载本文件，否则先读取本文件和 [AGENTS.md](AGENTS.md)。不凭助手名称推定当前客户端具备本地执行能力。
+
+命令入口使用 Bash：Windows 当前通过 WSL 运行，并在 WSL 内安装依赖、使用该环境的素材路径；macOS/Linux 直接使用 Bash。按 [兼容说明](references/compatibility.md#平台与助手接入)检查路径、字体、浏览器及可选人脸跟踪。已有 macOS 验收记录描述的是实测环境，不能据此拒绝其他平台的制作请求。
 
 ## 选择入口
 
@@ -19,7 +25,7 @@ metadata:
 
 用户指定 **03 · 深色 3D / 03-A · 多屏展陈** 时，读[深色 3D 模板](references/dark-3d-template.md)，横屏基线选择 `anim4-showcase-macro@1.1.1-candidate`；新竖屏按目录选 `anim4-showcase-macro@1.2.0-candidate` 并声明 layout。它保留九场作品墙、多屏比较、重点放大与软件窗口编舞，新增 1080×1920 原生竖屏布局。1.1.1 补齐 HDR 抽帧和 SDR 导出色彩核验；此前冷安装记录属于 1.1.0，当前仍待作者连续声画确认；按本期材料选择完整场景，不计入十七个稳定组。旧 1.0.0 保持原字节。
 
-1. 默认运行 `bash "$PL" packs`，按表达目的选择显式版本，读取相关包的 `README.md` 与 `manifest.json`，并查看[完整工程复用说明](references/full-project-templating.md)。`classic-performance@1.0.0` 保留错峰、人物回应与回稳，共三个已验证组；`continuous-performance@1.0.0` 保留同物件变形、拆解与闭合，共两个已验证组。`paper-balance@1.0.0` 是一个纸面透视续接组。稳定范围限于已验收的 macOS 1080p60，不代表整份来源或任意文案已模板化；逐组边界见[能力矩阵](docs/capability-matrix.md)。旧候选版本保留，B 的计划干扰组仍在候选中。旧 `anim3/anim4` 分别有 12/9 个完整场景，仍为 experimental。包 ID 与原片标题、品牌无关。
+1. 默认运行 `bash "$PL" packs`，按表达目的选择显式版本，读取相关包的 `README.md` 与 `manifest.json`，并查看[完整工程复用说明](references/full-project-templating.md)。`classic-performance@1.0.0` 保留错峰、人物回应与回稳，共三个已验证组；`continuous-performance@1.0.0` 保留同物件变形、拆解与闭合，共两个已验证组。`paper-balance@1.0.0` 是一个纸面透视续接组。既有稳定验收记录使用 macOS 1080p60，不代表整份来源或任意文案已模板化；逐组边界见[能力矩阵](docs/capability-matrix.md)。旧候选版本保留，B 的计划干扰组仍在候选中。旧 `anim3/anim4` 分别有 12/9 个完整场景，仍为 experimental。包 ID 与原片标题、品牌无关。
    C/D/E 的 `stage-performance@1.0.0`、`editorial-performance@1.0.0` 与 `kinetic-performance@1.0.0` 各有三个稳定组，分别保留前后层与人物让位、分栏与跨栏交接、整词与实体回应。每条路线都由未参与提炼的执行者从冻结公开包和本期输入独立制作一部 99.5 秒新片，作者确认成立。旧候选原字节保留；本期桥接不计作公开稳定组。
 2. 只需轻量短片、探索版式时，使用 9 个基础 [`TPL`](references/templates.md)；它们是 quick-start，不包含完整工程包里的全部动作。
 3. 手绘角色、补录同镜头续接，读[手绘动画方法](references/handdrawn-animation.md)。目前没有对应完整工程包，不要把方法文档称为已自动模板化。
