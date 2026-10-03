@@ -42,3 +42,20 @@ test('square presenter crop follows the new narration clock and contains the fac
   assert.ok(Math.abs(value('width')/value('height')-720/1280)<.001);
   assert.equal(e._img.src,'new-frame.jpg');
 });
+
+test('an extended reading gap shifts an SFX onset without stretching its generator', async () => {
+  const element=()=>({style:{},appendChild(){}});
+  const ctx={console,Math,Number,Promise};ctx.window=ctx;
+  ctx.document={createElement:element,fonts:{ready:Promise.resolve()},images:[]};
+  const els=new Map();ctx.$=id=>{if(!els.has(id))els.set(id,element());return els.get(id);};
+  ctx.clamp=x=>Math.min(1,Math.max(0,x));ctx.lerp=(a,b,p)=>a+(b-a)*p;
+  ctx.CONFIG={};ctx.SFX=[];
+  ctx.SCENES=[{el:element(),opt:{},update(){},cam(){return null;}}];
+  ctx.MACRO_PLAN={fps:60,end_frame:600,scenes:[{output_start_frame:0,output_end_frame:600,
+    time_map:[{source:0,output_frame:0},{source:1,output_frame:60},
+              {source:2,output_frame:480},{source:4,output_frame:600}]}]};
+  ctx.MACRO_SOURCE_SFX=[[{t:.9,type:'typing',d:.5},{t:2.2,type:'hit',d:.2}]];
+  vm.runInNewContext(fs.readFileSync(new URL('../scripts/macro_runtime.js',import.meta.url),'utf8'),ctx);
+  await ctx.READY;
+  assert.deepEqual(Array.from(ctx.SFX,e=>[e.t,e.d]),[[.9,.5],[8.2,.2]]);
+});

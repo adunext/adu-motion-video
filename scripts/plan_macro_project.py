@@ -44,10 +44,20 @@ def markdown_report(report: dict, spec: dict) -> str:
         scene = selected.get(segment['id'], {})
         lines.append(f"| {cell(segment['id'])} | {cell(segment['text'])} | {cell(scene.get('sceneId', '待调整'))} | {segment['durationFrames'] / spec['fps']:.2f}s |")
     lines += ['', '## 待解决项', '']
-    for reason in report.get('missing', []):
+    for reason in report.get('blocking', []) + report.get('missing', []):
         lines.append('- ' + cell(reason))
-    if not report.get('missing'):
+    if not report.get('missing') and not report.get('blocking'):
         lines.append('具体候选和接缝诊断如下。完整机器报告见 `report.json`。')
+    rhythm = report.get('rhythm', {})
+    if rhythm.get('sceneUsage'):
+        lines += ['', '## 全片重复与停留检查', '',
+                  f"{rhythm['segmentCount']} 段使用 {rhythm['uniqueSceneCount']} 种镜头组；以下是节奏复核提示，不会为减少重复而更改语义、动作或声音。", '',
+                  '| 镜头组 | 次数 | 总时长 |', '| --- | --- | --- |']
+        for row in rhythm['sceneUsage']:
+            lines.append(f"| {cell(row['sceneId'])} | {row['count']} | {row['durationFrames'] / spec['fps']:.2f}s |")
+        for finding in rhythm.get('findings', []):
+            location = ', '.join(finding.get('segmentIds', [])) or finding.get('sceneId', '')
+            lines.append(f"- **{cell(finding['code'])} {cell(location)}**：{cell(finding['suggestion'])}")
     if report.get('selection'):
         lines += ['', '## 动作与强弱', '', '| 段落 | 动作家族 | 强度（1–3） |', '| --- | --- | --- |']
         for item in report['selection']:

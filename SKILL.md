@@ -2,7 +2,7 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。支持 Windows、macOS、Linux，以及 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等可读写文件并运行命令的助手。
 metadata:
-  version: "3.8.0"
+  version: "3.9.0"
 ---
 
 # adu-motion-video
@@ -50,6 +50,14 @@ metadata:
 6. `bash "$PL" audio /路径/新工程` → `bash "$PL" mix /路径/新工程` → `bash "$PL" render /路径/新工程 /路径/新片_v1.mp4` → `bash "$PL" check /路径/新片_v1.mp4`。完整观看并听取最终编码文件；`check` 的帧数、解码和响度不能替代视觉与内容验收。新预览统一通过 `bash "$PL" preview /路径/新工程 /路径/新片_v1.mp4 /已有父目录/新预览目录` 发布，绑定真实成片 SHA，显示播放版本并提示旧标签页更新。HDR/DV、源位深和元数据风险须按[素材色彩与预览](references/color-and-preview.md)留下实际对照证据，不只检查标签。
 
 快速体验基础模板可用 `bash "$PL" demo /不存在的新目录`。为真实口播从零组合 `TPL` 时，按[模板目录](references/templates.md)和[字幕方案](references/subtitle-options.md)制作，仍须完整验收。
+
+## 长短素材与重复检查
+
+先用本期剪好口播的实际视频时钟填写 `brief.narrationDuration`，让分镜总帧数与口播一致；这个时长不提供关键词落点。构建还会读取实际音视频元数据，在不匹配时先停止，不抽完整条长口播。长录屏按所需片段及明确 offset 使用，不受整条素材长度限制；剩余素材不够时调整区间、补录或换组，不能偷偷循环。
+
+规划后读取 `report.rhythm` 及报告的“全片重复与停留检查”：连续同组、两三组固定循环、同类动作连续使用和新增超过四秒的停留都要核对本期表达。`ready` 仍只代表绑定检查通过；同一合法组反复出现时，补充语义成立的候选、调整表达分段或另做并验收变体，不为换效果选缺素材的组。动作不足时拒绝硬塞，长段在允许的 hold 容量内延长；镜头数不是随机动画数。
+
+共享运行时只移动 SFX 起音点，保留原生成器的 `d` 和音色；片尾后的尾音支持在规划及构建都复核。本轮范围见[长短素材压力测试](docs/template-stress-3.9.md)。
 
 ## 不可省略的检查
 

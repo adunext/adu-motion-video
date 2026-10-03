@@ -249,6 +249,81 @@ class AdaptationTests(unittest.TestCase):
         self.assertEqual(result["report"]["selectedScenes"], ["a", "a", "a"])
         self.assertTrue(result["report"]["ready"])
 
+    def test_long_only_one_eligible_group_reports_repetition_without_inventing_content(self):
+        self.profile['scenes'][1]['intents'] = ['unrelated']
+        self.refresh()
+        result = self.plan(self.brief(*[self.segment(f'part-{i}') for i in range(150)]))
+        self.assertTrue(result['report']['ready'])
+        self.assertEqual(result['report']['durationSeconds'], 600)
+        rhythm = result['report']['rhythm']
+        self.assertEqual(rhythm['sceneUsage'][0]['count'], 150)
+        self.assertTrue(rhythm['reviewRequired'])
+        self.assertIn('dominant-scene', {f['code'] for f in rhythm['findings']})
+        self.assertIn('adjacent-scene-repeat', {f['code'] for f in rhythm['findings']})
+        self.assertTrue(self.validate(result['spec'])['rhythm']['reviewRequired'])
+
+    def test_alternating_two_groups_is_still_reported_as_a_mechanical_cycle(self):
+        self.profile['scenes'][1]['intents'] = ['second']
+        self.refresh()
+        segments = [self.segment(str(i)) for i in range(8)]
+        for i, segment in enumerate(segments):
+            segment['intent'] = 'evidence' if i % 2 == 0 else 'second'
+        result = self.plan(self.brief(*segments))
+        self.assertTrue(result['report']['ready'])
+        self.assertEqual(result['report']['selectedScenes'], ['a', 'b'] * 4)
+        findings = result['report']['rhythm']['findings']
+        self.assertEqual([f['pattern'] for f in findings if f['code'] == 'repeated-scene-cycle'], [['a', 'b']])
+
+    def test_long_film_never_prefers_an_unbound_variant_for_diversity(self):
+        segments = [self.segment(str(i)) for i in range(350)]
+        for segment in segments:
+            segment['candidates'].pop('b')
+        result = self.plan(self.brief(*segments))
+        self.assertTrue(result['report']['ready'])
+        self.assertEqual(result['report']['selectedScenes'], ['a'] * 350)
+        self.assertTrue(result['report']['rhythm']['reviewRequired'])
+
+    def test_long_reading_hold_is_reported_without_replaying_protected_motion(self):
+        for source in self.manifest['scenes']:
+            source['maxHoldFrames'] = 360
+        self.refresh()
+        segment = self.segment()
+        segment['durationFrames'] = 600
+        result = self.plan(self.brief(segment))
+        self.assertTrue(result['report']['ready'])
+        holds = [f for f in result['report']['rhythm']['findings'] if f['code'] == 'extended-reading-hold']
+        self.assertEqual(holds[0]['addedSeconds'], 6)
+        self.assertTrue(self.validate(result['spec'])['rhythm']['reviewRequired'])
+
+    def test_long_narration_and_short_plan_are_blocked_before_import(self):
+        for duration in (3, 5, 1200):
+            brief = {**self.brief(), 'narrationDuration': duration}
+            result = self.plan(brief)
+            self.assertEqual(result['report']['status'], 'blocked')
+            self.assertIn('match the edited narration exactly', str(result['report']['blocking']))
+            result['spec']['adaptation']['ready'] = True
+            with self.assertRaisesRegex(AdaptError, 'narrationDuration'):
+                self.validate(result['spec'])
+        result = self.plan({**self.brief(), 'narrationDuration': 4.001})
+        self.assertTrue(result['report']['ready'])  # same output frame after quantization
+
+    def test_planner_and_revalidation_share_following_sound_tail_requirements(self):
+        self.manifest['scenes'][0]['minFollowingFrames'] = 400
+        self.profile['scenes'][0]['exit'] = {'requiresNext': ['b']}
+        self.profile['scenes'][1]['intents'] = ['outro']
+        self.refresh()
+        first, second, third = [self.segment(str(i)) for i in range(3)]
+        second['intent'] = third['intent'] = 'outro'
+        blocked = self.plan(self.brief(first, second))
+        self.assertEqual(blocked['report']['status'], 'blocked')
+        self.assertIn('400 following output frames', str(blocked['report']['segments']))
+        spec = self.plan(self.brief(first, second, third))['spec']
+        self.assertTrue(self.validate(spec)['ready'])
+        spec['scenes'].pop()
+        spec['adaptation']['segments'].pop()
+        with self.assertRaisesRegex(AdaptError, '400 following output frames'):
+            self.validate(spec)
+
     def test_unsafe_entry_exit_and_entity_handoff(self):
         self.profile["scenes"][0]["intents"] = ["setup"]
         self.profile["scenes"][0]["exit"] = {"requiresNext": ["b"]}

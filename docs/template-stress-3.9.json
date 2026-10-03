@@ -1,0 +1,5342 @@
+{
+  "schema": "adu-template-stress/1",
+  "skillVersion": "3.9.0",
+  "date": "2026-10-03",
+  "sourceBaselineCommit": "4941ca3",
+  "environment": {
+    "platform": "darwin",
+    "python": "3.14.7",
+    "scope": "local macOS; no new Windows/Linux media acceptance"
+  },
+  "packs": [
+    {
+      "style": "01-A",
+      "id": "classic-performance",
+      "version": "1.1.0-candidate",
+      "manifestSha256": "e6884cf04b099d2b9ae64c612a9849fab7dfc7500f07b513e49fb2431e9a331c",
+      "groups": 3
+    },
+    {
+      "style": "01-B",
+      "id": "continuous-performance",
+      "version": "1.1.0-candidate",
+      "manifestSha256": "4b1f45b09374d0c78d62f2952fc804b1cd51a4e8b13b1da3a45b5482055ecfac",
+      "groups": 2
+    },
+    {
+      "style": "01-C",
+      "id": "stage-performance",
+      "version": "1.1.0-candidate",
+      "manifestSha256": "6530f8c7e0f38140f8c7ee01b3a4528c5622bed16d300ebace32e9c232f0f4ed",
+      "groups": 3
+    },
+    {
+      "style": "01-D",
+      "id": "editorial-performance",
+      "version": "1.1.0-candidate",
+      "manifestSha256": "d4cc5b88d745ab9df80f3862fd73eeeac7cf03f859078db5d7d3ba10d52a59f7",
+      "groups": 3
+    },
+    {
+      "style": "01-E",
+      "id": "kinetic-performance",
+      "version": "1.1.0-candidate",
+      "manifestSha256": "eb323b38dfa91773a881d4e6bd8dd4d2feedf55f90a8c9f98ed4efda4d83aba2",
+      "groups": 3
+    },
+    {
+      "style": "02-A",
+      "id": "paper-balance",
+      "version": "1.1.0-candidate",
+      "manifestSha256": "8ae85d457e6b3ea5c88f71407aed62114c1af1aeeaea46efd56464a714a84858",
+      "groups": 1
+    },
+    {
+      "style": "02-B",
+      "id": "paper-ball-performance",
+      "version": "1.1.0-candidate",
+      "manifestSha256": "1b1ee001ee3045399ac7bd89128c64854eda952f2fc8504c2a24768f42d4ffbb",
+      "groups": 2
+    },
+    {
+      "style": "03-A",
+      "id": "anim4-showcase-macro",
+      "version": "1.2.0-candidate",
+      "manifestSha256": "19c1efc7f552e5317c75bae503b7eab429dfef7c3f8ce54f3183ce82b77f04d8",
+      "groups": 9
+    },
+    {
+      "style": "04-A",
+      "id": "doubao-console-performance",
+      "version": "0.2.0-candidate",
+      "manifestSha256": "4ab6caacbbf876fbc018b49b0f30874bc095674404e948f633568ddd44743e39",
+      "groups": 3
+    },
+    {
+      "style": "05-A",
+      "id": "vivid-sticker-performance",
+      "version": "0.1.1-candidate",
+      "manifestSha256": "d89da9b55eb135738a98081f06d1099736dc1a7ac573ecb17d39c1021b0d207f",
+      "groups": 3
+    }
+  ],
+  "caseSummary": {
+    "total": 567,
+    "accepted": 230,
+    "refused": 337,
+    "scenarios": {
+      "real-narration-preflight": 3,
+      "original": 64,
+      "short-text": 64,
+      "capacity-text": 64,
+      "oversize-text": 64,
+      "below-min": 64,
+      "one-frame": 64,
+      "over-hold": 64,
+      "ten-minute-single-group": 64,
+      "max-hold-retimed-cues": 26,
+      "real-decoding-twenty-minute-source": 1,
+      "real-video-duration-offset": 25
+    }
+  },
+  "matrix": {
+    "scope": "synthetic timing, capacity and decoded media; not human AV acceptance",
+    "cases": [
+      {
+        "case": "real-narration-preflight",
+        "sourceSeconds": 1,
+        "mismatchedPlanRejectedBeforeExtraction": true,
+        "matchingFrameClock": 60,
+        "accepted": true
+      },
+      {
+        "case": "real-narration-preflight",
+        "sourceSeconds": 30,
+        "mismatchedPlanRejectedBeforeExtraction": true,
+        "matchingFrameClock": 1800,
+        "accepted": true
+      },
+      {
+        "case": "real-narration-preflight",
+        "sourceSeconds": 1200,
+        "mismatchedPlanRejectedBeforeExtraction": true,
+        "matchingFrameClock": 72000,
+        "accepted": true
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 928,
+        "accepted": false,
+        "reason": "claim-into-container.text-00 has 33 chars; template allows 32. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 835,
+        "accepted": false,
+        "reason": "claim-into-container needs at least 836 frames, got 835; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "claim-into-container needs at least 836 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1289,
+        "accepted": false,
+        "reason": "claim-into-container would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "claim-into-container would add 35072 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 928,
+        "accepted": false,
+        "reason": "claim-into-container.text-00 has 33 chars; template allows 32. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 835,
+        "accepted": false,
+        "reason": "claim-into-container needs at least 836 frames, got 835; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "claim-into-container needs at least 836 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1289,
+        "accepted": false,
+        "reason": "claim-into-container would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "claim-into-container would add 35072 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "claim-into-container",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 942,
+        "accepted": false,
+        "reason": "evidence-focus.text-00 has 33 chars; template allows 32. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 879,
+        "accepted": false,
+        "reason": "evidence-focus needs at least 880 frames, got 879; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "evidence-focus needs at least 880 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1303,
+        "accepted": false,
+        "reason": "evidence-focus would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "evidence-focus would add 35058 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 942,
+        "accepted": false,
+        "reason": "evidence-focus.text-00 has 33 chars; template allows 32. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 879,
+        "accepted": false,
+        "reason": "evidence-focus needs at least 880 frames, got 879; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "evidence-focus needs at least 880 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1303,
+        "accepted": false,
+        "reason": "evidence-focus would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "evidence-focus would add 35058 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 1042,
+        "accepted": false,
+        "reason": "decompose-and-consolidate.text-00 has 33 chars; template allows 32. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 881,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 882 frames, got 881; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 882 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1403,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 34958 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 1042,
+        "accepted": false,
+        "reason": "decompose-and-consolidate.text-00 has 33 chars; template allows 32. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 881,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 882 frames, got 881; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 882 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1403,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 34958 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-A",
+        "scene": "decompose-and-consolidate",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 928,
+        "accepted": false,
+        "reason": "claim-into-container.text-00 has 33 chars; template allows 32. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 834,
+        "accepted": false,
+        "reason": "claim-into-container needs at least 835 frames, got 834; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "claim-into-container needs at least 835 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1289,
+        "accepted": false,
+        "reason": "claim-into-container would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "claim-into-container would add 35072 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 928,
+        "accepted": false,
+        "reason": "claim-into-container.text-00 has 33 chars; template allows 32. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 834,
+        "accepted": false,
+        "reason": "claim-into-container needs at least 835 frames, got 834; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "claim-into-container needs at least 835 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1289,
+        "accepted": false,
+        "reason": "claim-into-container would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "claim-into-container would add 35072 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-B",
+        "scene": "claim-into-container",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 1042,
+        "accepted": false,
+        "reason": "decompose-and-consolidate.text-00 has 3 chars; template allows 2. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 1013,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 1014 frames, got 1013; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 1014 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1403,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 34958 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 1042,
+        "accepted": false,
+        "reason": "decompose-and-consolidate.text-00 has 3 chars; template allows 2. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 1013,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 1014 frames, got 1013; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 1014 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1403,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 34958 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 928,
+        "accepted": false,
+        "reason": "claim-and-response.text-claim-line1 has 7 chars; template allows 6. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 779,
+        "accepted": false,
+        "reason": "claim-and-response needs at least 780 frames, got 779; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "claim-and-response needs at least 780 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1289,
+        "accepted": false,
+        "reason": "claim-and-response would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "claim-and-response would add 35072 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 928,
+        "accepted": false,
+        "reason": "claim-and-response.text-claim-line1 has 7 chars; template allows 6. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 779,
+        "accepted": false,
+        "reason": "claim-and-response needs at least 780 frames, got 779; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "claim-and-response needs at least 780 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1289,
+        "accepted": false,
+        "reason": "claim-and-response would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "claim-and-response would add 35072 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "claim-and-response",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 942,
+        "accepted": false,
+        "reason": "evidence-and-focus.text-entry has 15 chars; template allows 14. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 714,
+        "accepted": false,
+        "reason": "evidence-and-focus needs at least 715 frames, got 714; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "evidence-and-focus needs at least 715 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1303,
+        "accepted": false,
+        "reason": "evidence-and-focus would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "evidence-and-focus would add 35058 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 942,
+        "accepted": false,
+        "reason": "evidence-and-focus.text-entry has 15 chars; template allows 14. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 714,
+        "accepted": false,
+        "reason": "evidence-and-focus needs at least 715 frames, got 714; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "evidence-and-focus needs at least 715 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1303,
+        "accepted": false,
+        "reason": "evidence-and-focus would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "evidence-and-focus would add 35058 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 1042,
+        "accepted": false,
+        "reason": "decompose-and-consolidate.text-entry has 16 chars; template allows 15. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 550,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 551 frames, got 550; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 551 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1403,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 34958 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 1042,
+        "accepted": false,
+        "reason": "decompose-and-consolidate.text-entry has 16 chars; template allows 15. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 550,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 551 frames, got 550; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 551 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1403,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 34958 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-C",
+        "scene": "decompose-and-consolidate",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 928,
+        "accepted": false,
+        "reason": "claim-and-response.text-claim-line1 has 7 chars; template allows 6. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 793,
+        "accepted": false,
+        "reason": "claim-and-response needs at least 794 frames, got 793; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "claim-and-response needs at least 794 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1289,
+        "accepted": false,
+        "reason": "claim-and-response would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "claim-and-response would add 35072 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 928,
+        "accepted": false,
+        "reason": "claim-and-response.text-claim-line1 has 7 chars; template allows 6. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 793,
+        "accepted": false,
+        "reason": "claim-and-response needs at least 794 frames, got 793; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "claim-and-response needs at least 794 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1289,
+        "accepted": false,
+        "reason": "claim-and-response would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "claim-and-response would add 35072 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "claim-and-response",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 942,
+        "accepted": false,
+        "reason": "evidence-and-focus.text-claim has 16 chars; template allows 15. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 594,
+        "accepted": false,
+        "reason": "evidence-and-focus needs at least 595 frames, got 594; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "evidence-and-focus needs at least 595 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1303,
+        "accepted": false,
+        "reason": "evidence-and-focus would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "evidence-and-focus would add 35058 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 942,
+        "accepted": false,
+        "reason": "evidence-and-focus.text-claim has 16 chars; template allows 15. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 594,
+        "accepted": false,
+        "reason": "evidence-and-focus needs at least 595 frames, got 594; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "evidence-and-focus needs at least 595 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1303,
+        "accepted": false,
+        "reason": "evidence-and-focus would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "evidence-and-focus would add 35058 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 1042,
+        "accepted": false,
+        "reason": "decompose-and-consolidate.text-entry has 8 chars; template allows 7. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 603,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 604 frames, got 603; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 604 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1403,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 34958 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 1042,
+        "accepted": false,
+        "reason": "decompose-and-consolidate.text-entry has 8 chars; template allows 7. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 603,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 604 frames, got 603; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 604 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1403,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 34958 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-D",
+        "scene": "decompose-and-consolidate",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 928,
+        "accepted": false,
+        "reason": "claim-and-response.text-claim-line1 has 7 chars; template allows 6. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 750,
+        "accepted": false,
+        "reason": "claim-and-response needs at least 751 frames, got 750; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "claim-and-response needs at least 751 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1289,
+        "accepted": false,
+        "reason": "claim-and-response would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "claim-and-response would add 35072 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 928,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 928,
+        "accepted": false,
+        "reason": "claim-and-response.text-claim-line1 has 7 chars; template allows 6. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 750,
+        "accepted": false,
+        "reason": "claim-and-response needs at least 751 frames, got 750; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "claim-and-response needs at least 751 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1289,
+        "accepted": false,
+        "reason": "claim-and-response would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "claim-and-response would add 35072 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "claim-and-response",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 942,
+        "accepted": false,
+        "reason": "evidence-and-focus.text-entry has 7 chars; template allows 6. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 701,
+        "accepted": false,
+        "reason": "evidence-and-focus needs at least 702 frames, got 701; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "evidence-and-focus needs at least 702 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1303,
+        "accepted": false,
+        "reason": "evidence-and-focus would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "evidence-and-focus would add 35058 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 942,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 942,
+        "accepted": false,
+        "reason": "evidence-and-focus.text-entry has 7 chars; template allows 6. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 701,
+        "accepted": false,
+        "reason": "evidence-and-focus needs at least 702 frames, got 701; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "evidence-and-focus needs at least 702 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1303,
+        "accepted": false,
+        "reason": "evidence-and-focus would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "evidence-and-focus would add 35058 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 1042,
+        "accepted": false,
+        "reason": "decompose-and-consolidate.text-entry has 9 chars; template allows 8. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 557,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 558 frames, got 557; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 558 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1403,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 34958 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 1042,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 1042,
+        "accepted": false,
+        "reason": "decompose-and-consolidate.text-entry has 9 chars; template allows 8. Rewrite or choose another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 557,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 558 frames, got 557; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "decompose-and-consolidate needs at least 558 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1403,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "decompose-and-consolidate would add 34958 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "01-E",
+        "scene": "decompose-and-consolidate",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 710,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 710,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 710,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 710,
+        "accepted": false,
+        "reason": "apparent-tension-to-value.presenter has 21 chars; template allows 20. Rewrite or choose another scene"
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 709,
+        "accepted": false,
+        "reason": "apparent-tension-to-value needs at least 710 frames, got 709; choose fewer beats or more narration"
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "apparent-tension-to-value needs at least 710 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1071,
+        "accepted": false,
+        "reason": "apparent-tension-to-value would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "apparent-tension-to-value would add 35290 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 710,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 710,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 710,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 710,
+        "accepted": false,
+        "reason": "apparent-tension-to-value.presenter has 21 chars; template allows 20. Rewrite or choose another scene"
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 709,
+        "accepted": false,
+        "reason": "apparent-tension-to-value needs at least 710 frames, got 709; choose fewer beats or more narration"
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "apparent-tension-to-value needs at least 710 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1071,
+        "accepted": false,
+        "reason": "apparent-tension-to-value would add 361 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "apparent-tension-to-value would add 35290 hold frames (limit 360); split narration into another scene"
+      },
+      {
+        "style": "02-A",
+        "scene": "apparent-tension-to-value",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 297,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 297,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 297,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 297,
+        "accepted": false,
+        "reason": "cards-to-network.presenter has 25 chars; template allows 24. Rewrite or choose another scene"
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 296,
+        "accepted": false,
+        "reason": "cards-to-network needs at least 297 frames, got 296; choose fewer beats or more narration"
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "cards-to-network needs at least 297 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 478,
+        "accepted": false,
+        "reason": "cards-to-network would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "cards-to-network would add 35703 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 297,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 297,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 297,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 297,
+        "accepted": false,
+        "reason": "cards-to-network.presenter has 25 chars; template allows 24. Rewrite or choose another scene"
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 296,
+        "accepted": false,
+        "reason": "cards-to-network needs at least 297 frames, got 296; choose fewer beats or more narration"
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "cards-to-network needs at least 297 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 478,
+        "accepted": false,
+        "reason": "cards-to-network would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "cards-to-network would add 35703 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "02-B",
+        "scene": "cards-to-network",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 676,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 676,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 676,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 676,
+        "accepted": false,
+        "reason": "calendar-to-delivery.presenter has 25 chars; template allows 24. Rewrite or choose another scene"
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 675,
+        "accepted": false,
+        "reason": "calendar-to-delivery needs at least 676 frames, got 675; choose fewer beats or more narration"
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "calendar-to-delivery needs at least 676 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 857,
+        "accepted": false,
+        "reason": "calendar-to-delivery would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "calendar-to-delivery would add 35324 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 676,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 676,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 676,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 676,
+        "accepted": false,
+        "reason": "calendar-to-delivery.presenter has 25 chars; template allows 24. Rewrite or choose another scene"
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 675,
+        "accepted": false,
+        "reason": "calendar-to-delivery needs at least 676 frames, got 675; choose fewer beats or more narration"
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "calendar-to-delivery needs at least 676 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 857,
+        "accepted": false,
+        "reason": "calendar-to-delivery would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "calendar-to-delivery would add 35324 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "02-B",
+        "scene": "calendar-to-delivery",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 528,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 528,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 528,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 528,
+        "accepted": false,
+        "reason": "s01.text_00 has 21 chars; template allows 20. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 326,
+        "accepted": false,
+        "reason": "s01 needs at least 327 frames, got 326; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s01 needs at least 327 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 709,
+        "accepted": false,
+        "reason": "s01 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s01 would add 35472 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 528,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 528,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 528,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 528,
+        "accepted": false,
+        "reason": "s01.text_00 has 21 chars; template allows 20. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 326,
+        "accepted": false,
+        "reason": "s01 needs at least 327 frames, got 326; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s01 needs at least 327 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 709,
+        "accepted": false,
+        "reason": "s01 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s01 would add 35472 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s01",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 1026,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 1026,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 1026,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 1026,
+        "accepted": false,
+        "reason": "s02.text_00 has 42 chars; template allows 41. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 635,
+        "accepted": false,
+        "reason": "s02 needs at least 636 frames, got 635; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s02 needs at least 636 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1207,
+        "accepted": false,
+        "reason": "s02 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s02 would add 34974 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 1026,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 1026,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 1026,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 1026,
+        "accepted": false,
+        "reason": "s02.text_00 has 42 chars; template allows 41. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 635,
+        "accepted": false,
+        "reason": "s02 needs at least 636 frames, got 635; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s02 needs at least 636 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1207,
+        "accepted": false,
+        "reason": "s02 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s02 would add 34974 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s02",
+        "case": "max-hold-retimed-cues",
+        "accepted": false,
+        "reason": "s02 motion window grid_cascade,continuous_media_full_scene,group_highlight,model_chips,all_checked,reasoning_slider,cost_counter cannot keep original action speed: bound spoken cues are 180 frames apart from the original choreography. Move the cue, lengthen the scene, or choose another macro scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 870,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 870,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 870,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 870,
+        "accepted": false,
+        "reason": "s03.text_00 has 22 chars; template allows 21. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 538,
+        "accepted": false,
+        "reason": "s03 needs at least 539 frames, got 538; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s03 needs at least 539 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1051,
+        "accepted": false,
+        "reason": "s03 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s03 would add 35130 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 870,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 870,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 870,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 870,
+        "accepted": false,
+        "reason": "s03.text_00 has 22 chars; template allows 21. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 538,
+        "accepted": false,
+        "reason": "s03 needs at least 539 frames, got 538; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s03 needs at least 539 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1051,
+        "accepted": false,
+        "reason": "s03 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s03 would add 35130 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s03",
+        "case": "max-hold-retimed-cues",
+        "accepted": false,
+        "reason": "s03 motion window grid_to_hero,continuous_media_full_scene,conclusion_slam,compare_layout,review_scan,precision_slam,previous_work_card cannot keep original action speed: bound spoken cues are 180 frames apart from the original choreography. Move the cue, lengthen the scene, or choose another macro scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 738,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 738,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 738,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 738,
+        "accepted": false,
+        "reason": "s04.text_00 has 18 chars; template allows 17. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 457,
+        "accepted": false,
+        "reason": "s04 needs at least 458 frames, got 457; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s04 needs at least 458 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 919,
+        "accepted": false,
+        "reason": "s04 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s04 would add 35262 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 738,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 738,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 738,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 738,
+        "accepted": false,
+        "reason": "s04.text_00 has 18 chars; template allows 17. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 457,
+        "accepted": false,
+        "reason": "s04 needs at least 458 frames, got 457; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s04 needs at least 458 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 919,
+        "accepted": false,
+        "reason": "s04 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s04 would add 35262 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s04",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 1002,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 1002,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 1002,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 1002,
+        "accepted": false,
+        "reason": "s05.text_00 has 24 chars; template allows 23. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 620,
+        "accepted": false,
+        "reason": "s05 needs at least 621 frames, got 620; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s05 needs at least 621 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 1183,
+        "accepted": false,
+        "reason": "s05 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s05 would add 34998 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 1002,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 1002,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 1002,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 1002,
+        "accepted": false,
+        "reason": "s05.text_00 has 24 chars; template allows 23. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 620,
+        "accepted": false,
+        "reason": "s05 needs at least 621 frames, got 620; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s05 needs at least 621 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 1183,
+        "accepted": false,
+        "reason": "s05 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s05 would add 34998 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s05",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 522,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 522,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 522,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 522,
+        "accepted": false,
+        "reason": "s06.text_00 has 18 chars; template allows 17. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 323,
+        "accepted": false,
+        "reason": "s06 needs at least 324 frames, got 323; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s06 needs at least 324 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 703,
+        "accepted": false,
+        "reason": "s06 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s06 would add 35478 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 522,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 522,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 522,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 522,
+        "accepted": false,
+        "reason": "s06.text_00 has 18 chars; template allows 17. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 323,
+        "accepted": false,
+        "reason": "s06 needs at least 324 frames, got 323; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s06 needs at least 324 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 703,
+        "accepted": false,
+        "reason": "s06 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s06 would add 35478 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s06",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 696,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 696,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 696,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 696,
+        "accepted": false,
+        "reason": "s07.text_00 has 18 chars; template allows 17. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 431,
+        "accepted": false,
+        "reason": "s07 needs at least 432 frames, got 431; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s07 needs at least 432 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 877,
+        "accepted": false,
+        "reason": "s07 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s07 would add 35304 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 696,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 696,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 696,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 696,
+        "accepted": false,
+        "reason": "s07.text_00 has 18 chars; template allows 17. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 431,
+        "accepted": false,
+        "reason": "s07 needs at least 432 frames, got 431; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s07 needs at least 432 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 877,
+        "accepted": false,
+        "reason": "s07 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s07 would add 35304 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s07",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 793,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 793,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 793,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 793,
+        "accepted": false,
+        "reason": "s08.text_00 has 17 chars; template allows 16. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 491,
+        "accepted": false,
+        "reason": "s08 needs at least 492 frames, got 491; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s08 needs at least 492 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 974,
+        "accepted": false,
+        "reason": "s08 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s08 would add 35207 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 793,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 793,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 793,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 793,
+        "accepted": false,
+        "reason": "s08.text_00 has 17 chars; template allows 16. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 491,
+        "accepted": false,
+        "reason": "s08 needs at least 492 frames, got 491; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s08 needs at least 492 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 974,
+        "accepted": false,
+        "reason": "s08 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s08 would add 35207 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s08",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 329,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 329,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 329,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 329,
+        "accepted": false,
+        "reason": "s09.text_00 has 19 chars; template allows 18. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 203,
+        "accepted": false,
+        "reason": "s09 needs at least 204 frames, got 203; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s09 needs at least 204 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 510,
+        "accepted": false,
+        "reason": "s09 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s09 would add 35671 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 329,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 329,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 329,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 329,
+        "accepted": false,
+        "reason": "s09.text_00 has 19 chars; template allows 18. Rewrite or choose another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 203,
+        "accepted": false,
+        "reason": "s09 needs at least 204 frames, got 203; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "s09 needs at least 204 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 510,
+        "accepted": false,
+        "reason": "s09 would add 181 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "s09 would add 35671 hold frames (limit 180); split narration into another scene"
+      },
+      {
+        "style": "03-A",
+        "scene": "s09",
+        "case": "max-hold-retimed-cues",
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 234,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 234,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 234,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 234,
+        "accepted": false,
+        "reason": "fusion-success.chapter has 19 chars; template allows 18. Rewrite or choose another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 233,
+        "accepted": false,
+        "reason": "fusion-success needs at least 234 frames, got 233; choose fewer beats or more narration"
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "fusion-success needs at least 234 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 235,
+        "accepted": false,
+        "reason": "fusion-success would add 1 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "fusion-success would add 35766 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 234,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 234,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 234,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 234,
+        "accepted": false,
+        "reason": "fusion-success.chapter has 19 chars; template allows 18. Rewrite or choose another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 233,
+        "accepted": false,
+        "reason": "fusion-success needs at least 234 frames, got 233; choose fewer beats or more narration"
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "fusion-success needs at least 234 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 235,
+        "accepted": false,
+        "reason": "fusion-success would add 1 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "fusion-success",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "fusion-success would add 35766 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 544,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 544,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 544,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 544,
+        "accepted": false,
+        "reason": "three-step-chat.method-contents has 33 chars; template allows 32. Rewrite or choose another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 543,
+        "accepted": false,
+        "reason": "three-step-chat needs at least 544 frames, got 543; choose fewer beats or more narration"
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "three-step-chat needs at least 544 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 545,
+        "accepted": false,
+        "reason": "three-step-chat would add 1 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "three-step-chat would add 35456 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 544,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 544,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 544,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 544,
+        "accepted": false,
+        "reason": "three-step-chat.method-contents has 33 chars; template allows 32. Rewrite or choose another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 543,
+        "accepted": false,
+        "reason": "three-step-chat needs at least 544 frames, got 543; choose fewer beats or more narration"
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "three-step-chat needs at least 544 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 545,
+        "accepted": false,
+        "reason": "three-step-chat would add 1 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "three-step-chat",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "three-step-chat would add 35456 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 688,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 688,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 688,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 688,
+        "accepted": false,
+        "reason": "manual-agents-delivery.chapter has 21 chars; template allows 20. Rewrite or choose another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 687,
+        "accepted": false,
+        "reason": "manual-agents-delivery needs at least 688 frames, got 687; choose fewer beats or more narration"
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "manual-agents-delivery needs at least 688 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 689,
+        "accepted": false,
+        "reason": "manual-agents-delivery would add 1 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "manual-agents-delivery would add 35312 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 688,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 688,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 688,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 688,
+        "accepted": false,
+        "reason": "manual-agents-delivery.chapter has 21 chars; template allows 20. Rewrite or choose another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 687,
+        "accepted": false,
+        "reason": "manual-agents-delivery needs at least 688 frames, got 687; choose fewer beats or more narration"
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "manual-agents-delivery needs at least 688 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 689,
+        "accepted": false,
+        "reason": "manual-agents-delivery would add 1 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "04-A",
+        "scene": "manual-agents-delivery",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "manual-agents-delivery would add 35312 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 484,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 484,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 484,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 484,
+        "accepted": false,
+        "reason": "keyword-to-conclusion.chapter has 19 chars; template allows 18. Rewrite or choose another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 483,
+        "accepted": false,
+        "reason": "keyword-to-conclusion needs at least 484 frames, got 483; choose fewer beats or more narration"
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "keyword-to-conclusion needs at least 484 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 485,
+        "accepted": false,
+        "reason": "keyword-to-conclusion would add 1 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "keyword-to-conclusion would add 35516 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 484,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 484,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 484,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 484,
+        "accepted": false,
+        "reason": "keyword-to-conclusion.chapter has 19 chars; template allows 18. Rewrite or choose another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 483,
+        "accepted": false,
+        "reason": "keyword-to-conclusion needs at least 484 frames, got 483; choose fewer beats or more narration"
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "keyword-to-conclusion needs at least 484 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 485,
+        "accepted": false,
+        "reason": "keyword-to-conclusion would add 1 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "keyword-to-conclusion",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "keyword-to-conclusion would add 35516 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 424,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 424,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 424,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 424,
+        "accepted": false,
+        "reason": "prepared-to-reuse.chapter has 19 chars; template allows 18. Rewrite or choose another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 423,
+        "accepted": false,
+        "reason": "prepared-to-reuse needs at least 424 frames, got 423; choose fewer beats or more narration"
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "prepared-to-reuse needs at least 424 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 425,
+        "accepted": false,
+        "reason": "prepared-to-reuse would add 1 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "prepared-to-reuse would add 35576 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 424,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 424,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 424,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 424,
+        "accepted": false,
+        "reason": "prepared-to-reuse.chapter has 19 chars; template allows 18. Rewrite or choose another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 423,
+        "accepted": false,
+        "reason": "prepared-to-reuse needs at least 424 frames, got 423; choose fewer beats or more narration"
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "prepared-to-reuse needs at least 424 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 425,
+        "accepted": false,
+        "reason": "prepared-to-reuse would add 1 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "prepared-to-reuse",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "prepared-to-reuse would add 35576 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "landscape",
+        "case": "original",
+        "frames": 350,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "landscape",
+        "case": "short-text",
+        "frames": 350,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "landscape",
+        "case": "capacity-text",
+        "frames": 350,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "landscape",
+        "case": "oversize-text",
+        "frames": 350,
+        "accepted": false,
+        "reason": "feedback-to-update.chapter has 19 chars; template allows 18. Rewrite or choose another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "landscape",
+        "case": "below-min",
+        "frames": 349,
+        "accepted": false,
+        "reason": "feedback-to-update needs at least 350 frames, got 349; choose fewer beats or more narration"
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "landscape",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "feedback-to-update needs at least 350 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "landscape",
+        "case": "over-hold",
+        "frames": 351,
+        "accepted": false,
+        "reason": "feedback-to-update would add 1 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "landscape",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "feedback-to-update would add 35650 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "portrait",
+        "case": "original",
+        "frames": 350,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "portrait",
+        "case": "short-text",
+        "frames": 350,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "portrait",
+        "case": "capacity-text",
+        "frames": 350,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "portrait",
+        "case": "oversize-text",
+        "frames": 350,
+        "accepted": false,
+        "reason": "feedback-to-update.chapter has 19 chars; template allows 18. Rewrite or choose another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "portrait",
+        "case": "below-min",
+        "frames": 349,
+        "accepted": false,
+        "reason": "feedback-to-update needs at least 350 frames, got 349; choose fewer beats or more narration"
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "portrait",
+        "case": "one-frame",
+        "frames": 1,
+        "accepted": false,
+        "reason": "feedback-to-update needs at least 350 frames, got 1; choose fewer beats or more narration"
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "portrait",
+        "case": "over-hold",
+        "frames": 351,
+        "accepted": false,
+        "reason": "feedback-to-update would add 1 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "style": "05-A",
+        "scene": "feedback-to-update",
+        "layout": "portrait",
+        "case": "ten-minute-single-group",
+        "frames": 36000,
+        "accepted": false,
+        "reason": "feedback-to-update would add 35650 hold frames (limit 0); split narration into another scene"
+      },
+      {
+        "case": "real-decoding-twenty-minute-source",
+        "preparedFrames": 570,
+        "wholeSourceFramesAt30fps": 36000,
+        "accepted": true
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1,
+        "offset": 0,
+        "accepted": false,
+        "reason": "stress.overview needs 3.000s of media after offset; has 1.000s. Supply a longer recording or change the scene; silent looping/freezing is not allowed"
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 30,
+        "offset": 0,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1180,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1199.8,
+        "accepted": false,
+        "reason": "stress.overview needs 3.000s of media after offset; has 0.200s. Supply a longer recording or change the scene; silent looping/freezing is not allowed"
+      },
+      {
+        "style": "01-A",
+        "scene": "evidence-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1201,
+        "accepted": false,
+        "reason": "stress.overview offset lies beyond the video"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1,
+        "offset": 0,
+        "accepted": false,
+        "reason": "stress.evidence needs 6.300s of media after offset; has 1.000s. Supply a longer recording or change the scene; silent looping/freezing is not allowed"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 30,
+        "offset": 0,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1180,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1199.8,
+        "accepted": false,
+        "reason": "stress.evidence needs 6.300s of media after offset; has 0.200s. Supply a longer recording or change the scene; silent looping/freezing is not allowed"
+      },
+      {
+        "style": "01-B",
+        "scene": "decompose-and-consolidate",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1201,
+        "accepted": false,
+        "reason": "stress.evidence offset lies beyond the video"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1,
+        "offset": 0,
+        "accepted": false,
+        "reason": "stress.video-overview needs 3.000s of media after offset; has 1.000s. Supply a longer recording or change the scene; silent looping/freezing is not allowed"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 30,
+        "offset": 0,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1180,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1199.8,
+        "accepted": false,
+        "reason": "stress.video-overview needs 3.000s of media after offset; has 0.200s. Supply a longer recording or change the scene; silent looping/freezing is not allowed"
+      },
+      {
+        "style": "01-C",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1201,
+        "accepted": false,
+        "reason": "stress.video-overview offset lies beyond the video"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1,
+        "offset": 0,
+        "accepted": false,
+        "reason": "stress.video-overview needs 3.000s of media after offset; has 1.000s. Supply a longer recording or change the scene; silent looping/freezing is not allowed"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 30,
+        "offset": 0,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1180,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1199.8,
+        "accepted": false,
+        "reason": "stress.video-overview needs 3.000s of media after offset; has 0.200s. Supply a longer recording or change the scene; silent looping/freezing is not allowed"
+      },
+      {
+        "style": "01-D",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1201,
+        "accepted": false,
+        "reason": "stress.video-overview offset lies beyond the video"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1,
+        "offset": 0,
+        "accepted": false,
+        "reason": "stress.video-overview needs 3.000s of media after offset; has 1.000s. Supply a longer recording or change the scene; silent looping/freezing is not allowed"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 30,
+        "offset": 0,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1180,
+        "accepted": true,
+        "reason": ""
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1199.8,
+        "accepted": false,
+        "reason": "stress.video-overview needs 3.000s of media after offset; has 0.200s. Supply a longer recording or change the scene; silent looping/freezing is not allowed"
+      },
+      {
+        "style": "01-E",
+        "scene": "evidence-and-focus",
+        "case": "real-video-duration-offset",
+        "sourceSeconds": 1200,
+        "offset": 1201,
+        "accepted": false,
+        "reason": "stress.video-overview offset lies beyond the video"
+      }
+    ]
+  },
+  "browser": {
+    "passed": true,
+    "styles": 10,
+    "sourceGroups": 32,
+    "layouts": 2,
+    "cycles": 3,
+    "instances": 192,
+    "seeks": 1980,
+    "totalTimelineSeconds": 1343.45,
+    "results": [
+      {
+        "family": "classic-performance",
+        "layout": "landscape",
+        "instances": 9,
+        "endSeconds": 163.6,
+        "sfx": 105
+      },
+      {
+        "family": "classic-performance",
+        "layout": "portrait",
+        "instances": 9,
+        "endSeconds": 163.6,
+        "sfx": 105
+      },
+      {
+        "family": "continuous-performance",
+        "layout": "landscape",
+        "instances": 6,
+        "endSeconds": 110.5,
+        "sfx": 60
+      },
+      {
+        "family": "continuous-performance",
+        "layout": "portrait",
+        "instances": 6,
+        "endSeconds": 110.5,
+        "sfx": 60
+      },
+      {
+        "family": "dark-3d-showcase",
+        "layout": "landscape",
+        "instances": 27,
+        "endSeconds": 346.2,
+        "sfx": 525
+      },
+      {
+        "family": "dark-3d-showcase",
+        "layout": "portrait",
+        "instances": 27,
+        "endSeconds": 346.2,
+        "sfx": 525
+      },
+      {
+        "family": "doubao-console-performance",
+        "layout": "landscape",
+        "instances": 9,
+        "endSeconds": 73.3,
+        "sfx": 102
+      },
+      {
+        "family": "doubao-console-performance",
+        "layout": "portrait",
+        "instances": 9,
+        "endSeconds": 73.3,
+        "sfx": 102
+      },
+      {
+        "family": "editorial-performance",
+        "layout": "landscape",
+        "instances": 9,
+        "endSeconds": 163.6,
+        "sfx": 78
+      },
+      {
+        "family": "editorial-performance",
+        "layout": "portrait",
+        "instances": 9,
+        "endSeconds": 163.6,
+        "sfx": 78
+      },
+      {
+        "family": "kinetic-performance",
+        "layout": "landscape",
+        "instances": 9,
+        "endSeconds": 163.6,
+        "sfx": 90
+      },
+      {
+        "family": "kinetic-performance",
+        "layout": "portrait",
+        "instances": 9,
+        "endSeconds": 163.6,
+        "sfx": 90
+      },
+      {
+        "family": "paper-balance",
+        "layout": "landscape",
+        "instances": 3,
+        "endSeconds": 41.5,
+        "sfx": 36
+      },
+      {
+        "family": "paper-balance",
+        "layout": "portrait",
+        "instances": 3,
+        "endSeconds": 41.5,
+        "sfx": 36
+      },
+      {
+        "family": "paper-ball-performance",
+        "layout": "landscape",
+        "instances": 6,
+        "endSeconds": 54.65,
+        "sfx": 237
+      },
+      {
+        "family": "paper-ball-performance",
+        "layout": "portrait",
+        "instances": 6,
+        "endSeconds": 54.65,
+        "sfx": 237
+      },
+      {
+        "family": "stage-performance",
+        "layout": "landscape",
+        "instances": 9,
+        "endSeconds": 163.6,
+        "sfx": 84
+      },
+      {
+        "family": "stage-performance",
+        "layout": "portrait",
+        "instances": 9,
+        "endSeconds": 163.6,
+        "sfx": 84
+      },
+      {
+        "family": "vivid-sticker-performance",
+        "layout": "landscape",
+        "instances": 9,
+        "endSeconds": 62.9,
+        "sfx": 81
+      },
+      {
+        "family": "vivid-sticker-performance",
+        "layout": "portrait",
+        "instances": 9,
+        "endSeconds": 62.9,
+        "sfx": 81
+      }
+    ],
+    "scope": "Synthetic replacement images and short copy, system fonts; actual repeated scene code, retimed holds, reversible Canvas/DOM and SFX durations. No human narration/listening acceptance."
+  },
+  "fixes": [
+    "binding-completeness-before-variety",
+    "narration-duration-grid-check",
+    "real-narration-preflight-before-frame-extraction",
+    "shared-following-tail-support",
+    "preserve-sfx-generator-duration-across-reading-holds"
+  ],
+  "runtimeSha256": "936ced75e2014ff3c1514a4aa2c0614236e89becc253d8c798a739e8181b8074",
+  "limits": [
+    "Synthetic fixture media and test-only cue times, not real narration/content acceptance",
+    "Browser uses system fonts and synthetic replacement images",
+    "No new template variant or stability promotion",
+    "Review findings do not automatically change semantic content or audio"
+  ],
+  "regressionSuites": {
+    "templateStress": {
+      "tests": 4,
+      "passed": true
+    },
+    "adaptationAndTimingAndBuild": {
+      "tests": 53,
+      "passed": true
+    },
+    "localRematch": {
+      "tests": 22,
+      "passed": true
+    },
+    "macroBindingAndMediaColor": {
+      "tests": 14,
+      "passed": true
+    },
+    "nodeMacroRuntime": {
+      "tests": 3,
+      "passed": true
+    },
+    "skillFormat": {
+      "passed": true
+    },
+    "scope": "Targeted suites for the changes; not a claim that every repository test was run"
+  }
+}

@@ -387,6 +387,34 @@ def prepare_episode_runtime(pack: dict, stage: Path) -> tuple[list[str], dict]:
     return generated, report
 
 
+def preflight_narration(pack: dict, spec: dict, talk: Path) -> dict:
+    """Match real media to the output clock before extracting thousands of JPEGs."""
+    from adapt_project import integer, target_span
+    from import_talk import input_timing
+    fps = integer(spec.get('fps', pack['fps']), 'spec.fps', minimum=1)
+    if fps > 120:
+        fail('Narration import supports output fps 1..120')
+    scenes = spec.get('scenes')
+    if not isinstance(scenes, list) or not scenes:
+        fail('Target needs nonempty scenes before narration import')
+    end = 0
+    for index, scene in enumerate(scenes):
+        if not isinstance(scene, dict):
+            fail(f'spec.scenes[{index}] must be an object')
+        _, end = target_span(scene, end, fps, index)
+    try:
+        probe = subprocess.run(['ffprobe', '-v', 'error', '-show_streams', '-show_format',
+                                '-of', 'json', str(talk)], capture_output=True, text=True, check=True)
+        timing = input_timing(json.loads(probe.stdout), fps)
+    except (OSError, ValueError, subprocess.CalledProcessError) as exc:
+        raise AdaptError(f'Edited narration preflight failed: {exc}') from exc
+    if timing['frames'] != end:
+        fail(f'Edited talk has {timing["frames"]} frames but timeline has {end}; match the edited narration exactly. '
+             'Stopped before frame extraction; revise complete segments or supply the correct edited clip. '
+             'Silent trimming, repeated animation padding and frozen presenter tails are not allowed')
+    return {'fps': fps, 'expectedFrames': end, **timing, 'stage': 'metadata-before-frame-extraction'}
+
+
 def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Path | None) -> None:
     if output.exists() or output.is_symlink(): fail(f'Refusing existing project: {output}')
     if not output.parent.is_dir(): fail(f'Project parent does not exist: {output.parent}')
@@ -407,6 +435,7 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
     subtitle_preset = spec.get('subtitlePreset', 'large-en')
     if subtitle_preset not in ('standard', 'large-en'):
         fail('subtitlePreset must be standard or large-en')
+    narration_preflight = preflight_narration(pack, spec, talk)
     prelude, authored_scenes = pack_scene_parts(pack_dir, pack)
     if len(authored_scenes) != len(pack['scenes']):
         fail(f'Pack scene count mismatch: manifest={len(pack["scenes"])} source={len(authored_scenes)}')
@@ -431,6 +460,7 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
         imported = read_json(stage / 'import.json')
         if imported['frames'] != plan['end_frame']:
             fail(f'Edited talk has {imported["frames"]} frames but timeline has {plan["end_frame"]}; match the edited narration exactly. Silent trimming or frozen presenter tails are not allowed')
+        (stage / 'narration_preflight.json').write_text(json.dumps(narration_preflight, indent=2) + '\n')
         imported.pop('source', None)
         imported.update(narrationAssets={'frames': 'talk/clip_000', 'audio': 'voice.wav'},
                         sourceEmbedded=False)

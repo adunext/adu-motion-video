@@ -11,7 +11,7 @@ import json
 from pathlib import Path
 import re
 
-from adapt_project import (AdaptError, cue_binding, integer, media_clocks,
+from adapt_project import (AdaptError, cue_binding, following_tail_issue, frame_of, integer, media_clocks, number,
                            read_json, require, slot_bindings, target_span,
                            timed_scene, transcript_rows)
 from semantic_inputs import SemanticInputError, expand_inputs
@@ -362,6 +362,77 @@ def audio_diagnostics(planned: list[dict], fps: int) -> dict:
             "reviewRequired": True, "note": "No event is removed or shortened. Build/render must inspect the frozen audio source and listen continuously."}
 
 
+def narration_issues(value, total_frames: int, fps: int) -> list[str]:
+    if value is None:
+        return []
+    frames = frame_of(number(value, "narrationDuration", positive=True), fps, "narrationDuration")
+    if frames != total_frames:
+        return [f"narrationDuration resolves to {frames} frames, but segments cover {total_frames}; "
+                "match the edited narration exactly by revising complete segments, never loop animations or freeze the presenter"]
+    return []
+
+
+def rhythm_diagnostics(path: list[dict], segments: list[dict], fps: int) -> dict:
+    """Describe repetition and extended reading; never invent semantic alternatives."""
+    ids = [c["sceneId"] for c in path]
+    usage, findings = {}, []
+    for i, sid in enumerate(ids):
+        row = usage.setdefault(sid, {"sceneId": sid, "count": 0, "durationFrames": 0})
+        row["count"] += 1
+        row["durationFrames"] += segments[i]["durationFrames"]
+    for row in usage.values():
+        row["segmentShare"] = row["count"] / len(ids)
+        if row["count"] >= 3 and row["segmentShare"] >= .6:
+            findings.append({"code": "dominant-scene", **row,
+                             "suggestion": "同一镜头组占比高；检查表达是否反复，补充语义相符的候选或另做经过核验的变体。"})
+    def runs(values, minimum):
+        start = 0
+        while start < len(values):
+            end = start + 1
+            while end < len(values) and values[end] == values[start]:
+                end += 1
+            if end - start >= minimum:
+                yield start, end
+            start = end
+    for start, end in runs(ids, 2):
+        findings.append({"code": "adjacent-scene-repeat", "sceneId": ids[start],
+                         "segmentIds": [s["id"] for s in segments[start:end]],
+                         "suggestion": "连续重复同组；先核对是否应合并表达，或提供不同但语义成立的候选。"})
+    # Alternating two/three groups can still become a mechanical long loop.
+    for period in (2, 3):
+        start = 0
+        while start + 3 * period <= len(ids):
+            pattern = ids[start:start + period]
+            if len(set(pattern)) <= 1 or ids[start:start + 3 * period] != pattern * 3:
+                start += 1
+                continue
+            end = start + 3 * period
+            while end < len(ids) and ids[end] == pattern[(end - start) % period]:
+                end += 1
+            findings.append({"code": "repeated-scene-cycle", "pattern": pattern,
+                             "segmentIds": [s["id"] for s in segments[start:end]],
+                             "suggestion": "两三组轮换仍形成固定循环；增加有内容依据的证据段、阅读段或已验证的新编舞。"})
+            start = end
+    effects = sorted({effect for c in path for effect in c["contract"]["effects"]})
+    for effect in effects:
+        membership = [effect in c["contract"]["effects"] for c in path]
+        for start, end in runs(membership, 3):
+            if membership[start]:
+                findings.append({"code": "repeated-effect-family", "effect": effect,
+                                 "segmentIds": [s["id"] for s in segments[start:end]],
+                                 "suggestion": "连续使用相同动作家族；检查人物构图、动作强弱与证据节奏，避免只换标题。"})
+    for i, c in enumerate(path):
+        for gap in (c.get("planned") or {}).get("intervals", []):
+            added = (gap["endFrame"] - gap["startFrame"]) / fps - (gap["sourceEnd"] - gap["sourceStart"])
+            if added > 4:
+                findings.append({"code": "extended-reading-hold", "segmentIds": [segments[i]["id"]],
+                                 "addedSeconds": round(added, 6),
+                                 "suggestion": "停留区增加超过四秒；检查真实阅读需求及人物、证据视频的连续性，不自动重播动作。"})
+    return {"sceneUsage": list(usage.values()), "segmentCount": len(ids),
+            "uniqueSceneCount": len(usage), "reviewRequired": bool(findings), "findings": findings,
+            "policy": "review-only; preserve semantics, action clocks and audio; no random alternatives"}
+
+
 def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
                     *, project: Path | None = None, beam_width: int = 64,
                     allow_pending_talk: bool = False) -> dict:
@@ -384,6 +455,8 @@ def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
     spec_dir = Path(spec_dir)
     transcript = transcript_rows(brief.get("transcript"), spec_dir)
     sources = {s["id"]: (i, s) for i, s in enumerate(manifest["scenes"])}
+    total_frames = sum(s["durationFrames"] for s in segments)
+    blocking = narration_issues(brief.get("narrationDuration"), total_frames, fps)
     candidates, segment_reports, offset = [], [], 0
     for segment in segments:
         end = offset + segment["durationFrames"]
@@ -394,8 +467,13 @@ def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
             supplied = segment.get("candidates", {}).get(sid, {})
             require(isinstance(supplied, dict), f"{segment['id']}.candidates.{sid} must be an object")
             target = {key: deepcopy(supplied[key]) for key in ("inputs", "slots") if key in supplied}
-            options.append(_evaluate(manifest, source, source_index, contract, segment, target,
-                                     offset, end, fps, transcript, spec_dir, project, allow_pending_talk))
+            option = _evaluate(manifest, source, source_index, contract, segment, target,
+                               offset, end, fps, transcript, spec_dir, project, allow_pending_talk)
+            tail = following_tail_issue(source, end, total_frames, fps, manifest.get("fps", 60), segment["id"])
+            if tail:
+                option["reasons"].append(tail)
+                option["status"] = "rejected"
+            options.append(option)
         candidates.append([c for c in options if c["status"] != "rejected"])
         segment_reports.append({"segmentId": segment["id"], "candidates": [
             {key: c[key] for key in ("sceneId", "status", "reasons", "missing", "deferred") if key in c} for c in options]})
@@ -414,7 +492,11 @@ def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
                     continue
                 next_states.append((score + _sequence_cost(path, option, segment) + len(missing) * 1000,
                                     path + [option], deficits + missing))
-        next_states.sort(key=lambda s: (s[0], tuple(c["sceneId"] for c in s[1])))
+        # Completeness is lexicographic, never a finite diversity penalty.
+        # On long films a cumulative repeat cost can exceed 1000 and otherwise
+        # make an unbound variant beat an entirely ready sequence.
+        next_states.sort(key=lambda s: (sum(len(c.get("missing", [])) for c in s[1]) + len(s[2]),
+                                        s[0], tuple(c["sceneId"] for c in s[1])))
         truncated |= len(next_states) > beam_width
         states = next_states[:beam_width]
     complete = []
@@ -430,7 +512,7 @@ def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
     brand = brief.get("brand")
     if not (isinstance(brand, str) and brand.strip()):
         missing.append("brand")
-    ready = bool(selected) and not missing
+    ready = bool(selected) and not missing and not blocking
     deferred = [item for c in path for item in c.get("deferred", [])]
     selection = []
     for index, candidate in enumerate(path):
@@ -457,13 +539,16 @@ def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
         raw = Path(spec["transcript"]).expanduser()
         spec["transcript"] = str((raw if raw.is_absolute() else spec_dir / raw).resolve())
     report = {"schema": "adu-adaptation-report/1", "ready": ready,
-              "status": "ready" if ready else "needs-binding" if selected else "blocked",
+              "status": "blocked" if blocking or not selected else "ready" if ready else "needs-binding",
               "profileId": profile["id"], "profileDigest": profile_digest(profile),
               "selectedScenes": [c["sceneId"] for c in path], "segments": segment_reports,
               "selection": selection, "score": selected[0] if selected else None,
               "validationStage": "pre-import" if deferred else "bound-media", "deferred": deferred,
-              "missing": missing, "seamRejections": sorted(seam_rejections),
-              "search": {"algorithm": "bounded-sequence-beam", "beamWidth": beam_width, "truncated": truncated},
+              "missing": missing, "blocking": blocking, "seamRejections": sorted(seam_rejections),
+              "durationFrames": total_frames, "durationSeconds": total_frames / fps,
+              "rhythm": rhythm_diagnostics(path, segments, fps),
+              "search": {"algorithm": "bounded-sequence-beam", "beamWidth": beam_width, "truncated": truncated,
+                         "priority": "binding-completeness-before-variety"},
               "audio": audio_diagnostics([c["planned"] for c in path if c["planned"]], fps)}
     if not selected:
         report["reason"] = "No complete feasible sequence within the bounded search; revise semantics, narration duration, anchors, or scene dependencies. No static fallback was inserted."
@@ -523,9 +608,11 @@ def validate_adapted_spec(manifest: dict, spec: dict, spec_dir: Path, profiles_r
     transcript = transcript_rows(spec.get("transcript"), Path(spec_dir))
     contracts = {s["sceneId"]: s for s in profile["scenes"]}
     sources = {s["id"]: (i, s) for i, s in enumerate(manifest["scenes"])}
-    offset, path, errors, seen = 0, [], [], set()
-    for index, (segment, target) in enumerate(zip(segments, targets)):
+    for segment in segments:
         _segment(segment)
+    total_frames = sum(integer(s.get("durationFrames"), "segment.durationFrames", minimum=1) for s in segments)
+    offset, path, errors, seen = 0, [], narration_issues(spec.get("narrationDuration"), total_frames, fps), set()
+    for index, (segment, target) in enumerate(zip(segments, targets)):
         require(segment["id"] not in seen and isinstance(target, dict) and target.get("id") == segment["id"],
                 "Adapted target order/identity differs from its segment; replan")
         seen.add(segment["id"])
@@ -545,6 +632,9 @@ def validate_adapted_spec(manifest: dict, spec: dict, spec_dir: Path, profiles_r
             evaluated.update(contract=contracts[sid], expanded=target)
         rejected, missing = _seam(path[-1] if path else None, evaluated)
         errors.extend(rejected + missing)
+        tail = following_tail_issue(source, end, total_frames, fps, manifest.get("fps", 60), segment["id"])
+        if tail:
+            errors.append(tail)
         path.append(evaluated)
         offset = end
     if path[-1]["contract"].get("exit", {}).get("requiresNext"):
@@ -556,4 +646,5 @@ def validate_adapted_spec(manifest: dict, spec: dict, spec_dir: Path, profiles_r
             "deferred": [item for c in path for item in c.get("deferred", [])],
             "profileId": profile["id"], "profileDigest": profile_digest(profile),
             "selectedScenes": [c["sceneId"] for c in path],
+            "rhythm": rhythm_diagnostics(path, segments, fps),
             "audio": audio_diagnostics([c["planned"] for c in path if c.get("planned")], fps)}

@@ -945,6 +945,17 @@ def map_audio_timeline(plan: dict, authored: dict) -> dict:
     return plan
 
 
+def following_tail_issue(source: dict, end_frame: int, total_frames: int,
+                         fps: int, src_fps: int, instance_id: str) -> str | None:
+    trailing = integer(source.get("minFollowingFrames", 0),
+                       f"{source['id']}.minFollowingFrames", minimum=0)
+    needed = math.ceil(trailing * fps / src_fps)
+    if total_frames - end_frame < needed:
+        return (f"{instance_id}: preserve at least {needed} following output frames for authored SFX tails; "
+                "append a complete compatible scene or reviewed outro, never truncate the sound")
+    return None
+
+
 def compile_plan(manifest: dict, spec: dict, *, spec_dir: Path | None = None,
                  project: Path | None = None, audio_timeline: dict | None = None) -> dict:
     spec_dir = Path.cwd() if spec_dir is None else Path(spec_dir)
@@ -1006,12 +1017,9 @@ def compile_plan(manifest: dict, spec: dict, *, spec_dir: Path | None = None,
     # inferred for older packs; a new extraction must review its own support.
     for item in result_scenes:
         source = source_scenes[item["source_scene_index"]]
-        trailing = source.get("minFollowingFrames", 0)
-        trailing = integer(trailing, f"{source['id']}.minFollowingFrames", minimum=0)
-        needed = math.ceil(trailing * fps / src_fps)
-        require(previous_end - item["output_end_frame"] >= needed,
-                f"{item['id']}: preserve at least {needed} following output frames for authored SFX tails; "
-                "append a complete compatible scene or reviewed outro, never truncate the sound")
+        issue = following_tail_issue(source, item["output_end_frame"], previous_end,
+                                     fps, src_fps, item["id"])
+        require(issue is None, issue or "")
     duration = previous_end / fps
     narration = spec.get("narrationDuration")
     if narration is not None:

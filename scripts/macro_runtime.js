@@ -53,8 +53,9 @@
       const frame = i === 0 ? Math.max(0, authoredFrame) : authoredFrame;
       if (frame < 0 || frame >= plan.end_frame) continue;
       const mapped = {...cue, t: frame / fps};
-      if (typeof cue.d === 'number' && cue.d > 0)
-        mapped.d = Math.max(1 / fps, (outputAt(item, cue.t + cue.d) - authoredFrame) / fps);
+      // d is generator time, not a second choreography anchor. A sound may
+      // cross a retimed reading gap; preserve its original duration/timbre.
+      // Only the onset follows the mapped action clock.
       SFX.push(mapped);
     }
   });

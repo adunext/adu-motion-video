@@ -48,7 +48,7 @@ class MacroMediaColorTests(unittest.TestCase):
         scene = {'id': 'proof', 'source': {'start': 0, 'end': .2},
                  'slots': [{'id': 'clip', 'type': 'video', 'sourceAsset': 'evidence',
                             'playback': {'start': 0, 'end': .2, 'fps': 30}}]}
-        pack = {'id': 'test', 'fps': 30, 'scenes': [scene]}
+        pack = {'id': 'test', 'fps': 30, 'width': 160, 'height': 90, 'scenes': [scene]}
         value = {'path': str(video)}
         if review is not None:
             value['colorReviewFile'] = str(review)

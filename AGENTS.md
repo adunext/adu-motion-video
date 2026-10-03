@@ -15,3 +15,5 @@
 用户要求竖屏时按目录 portraitSelection 选新候选，在 brief 顶层设置 layout=portrait；十种风格、32 个完整组均有布局契约。macro-plan/build/render 自动传递 1080×1920；不要只改 W/H。旧稳定包保留，竖屏候选的几何检查不等于真实口播声画验收。参见[竖屏说明](references/portrait.md)。
 
 05-A「鲜色角色叙事」用 `vivid-sticker-performance@0.1.1-candidate`，横竖屏均可选；读[范围与数量合同](references/vivid-sticker-template.md)。三个原子组不要拆成单独入场/飞行/印章。公共动图使用新矢量示意，不是原人物/贴纸或新片声画验收。
+
+长短素材先核对真实口播时长与分镜总帧数，读 `report.rhythm` 的全片重复/轮换/同类效果/停留提示；优先补内容与合法候选，不用缺素材的组换取变化。长证据素材按明确 offset 抽取所需区间，剩余时长不足不循环。构建在大规模抽帧前复核真实口播元数据；新运行时保留 SFX 生成器长度。范围见[长短素材压力测试](docs/template-stress-3.9.md)。
