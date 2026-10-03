@@ -2,7 +2,7 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。需要可读写本地文件并运行命令的 Agent。
 metadata:
-  version: "3.7.0"
+  version: "3.8.0"
 ---
 
 # adu-motion-video
@@ -13,7 +13,7 @@ metadata:
 
 用户指定模板编号（如 `01-B`）或要求选风格时，先读[模板与风格目录](references/template-catalog.md)，按“一级模板 → 二级风格”映射到显式包版本。未发布风格不能按已发布包承诺制作。需要辅助动画素材时，按[公开动画素材 API](references/lottie-assets.md)检索并下载到本期工程，再核对所选包的媒体与渲染要求。
 
-用户要求竖屏时，按目录的 **portraitSelection** 选择对应候选版本，并读取[竖屏契约](references/portrait.md)。目前九种风格、29 个完整组均支持 `brief.layout="portrait"` → macro-plan → macro-build → render，画幅自动为 1080×1920；旧 1.0.0 稳定包不获得追认。原动作、素材、字幕与音效时钟保持；标题、人物与内容层重排，控制台连接线按原激活落点重绘。候选必须做本期真实素材连续声画检查，几何测试不能当作新路线已验收。
+用户要求竖屏时，按目录的 **portraitSelection** 选择对应候选版本，并读取[竖屏契约](references/portrait.md)。目前十种风格、32 个完整组均支持 `brief.layout="portrait"` → macro-plan → macro-build → render，画幅自动为 1080×1920；旧 1.0.0 稳定包不获得追认。原动作、素材、字幕与音效时钟保持；标题、人物与内容层重排，控制台连接线按原激活落点重绘。候选必须做本期真实素材连续声画检查，几何测试不能当作新路线已验收。
 
 用户新增完成工程、提炼新镜头组或更新模板库时，读[持续模板接入](references/template-intake.md)。先登记来源和实际状态，再按价值提炼；收到工程不代表已经有可发布模板。`bash "$PL" packs` 只列包的语义与版本元数据，按任务加载相关清单；同一 ID 有多个版本时显式选择 `id@version`。
 
@@ -26,11 +26,13 @@ metadata:
 
 3.3.0 新增 **02-B · 纸面聚合** `paper-ball-performance@1.0.0`：六类资料聚合成网络，以及七步日历、六类能力、三项开箱和交付卡堆叠两个稳定组。源/重放对照与 18.2667 秒不同内容样片已获作者声画确认。需要本期真人口播/文案，并显式提供固定 SHA 的标题字体；详见[包说明](packs/paper-ball-performance/1.0.0/README.md)。这是组级增量，不是新整片路线；严格栅格问题保留在 review.json。3.2.0 的十五个稳定组与旧候选均保持原字节，当前七个风格共十七个稳定组。
 
+3.8.0 新增 **05-A · 鲜色角色叙事** `vivid-sticker-performance@0.1.1-candidate`，读取[专门说明](references/vivid-sticker-template.md)。三组分别为关键词递进到结论、两准备者向三接收者交接成果、三反馈汇入后升级。首版已提供横竖屏、命名槽、固定数量和完整动作窗；源码局部、静音文案与真实构建检查不等于新口播连续声画或独立复用已验收。
+
 ## 完整工程包流程
 
 3.6.0 新增当前分镜局部重配和素材版本检查，并为通用视频抽帧接入共享色彩处理。**04-A · 仪器台演示** 当前候选 `doubao-console-performance@0.1.2-candidate` 增加有界文字布局，原 0.1.1 三组的同内容技术重放仍保留；静音新文案检查不代替新口播完整声画或独立复用验收，详见[模板说明](references/doubao-console-template.md)。新预览统一使用带导出证据与版本检查的 `preview` 命令。
 
-新文案先按[系统适配机制](references/adaptive-composition.md)形成 `brief.json`，运行 `bash "$PL" macro-plan 包ID@版本 brief.json 新规划目录`。该入口按语义阶段、数量、原速动作窗和前后场依赖筛选，再在合法组合内减少效果重复。8 个风格包的 26 个完整组已有代码核对的适配 profile，能力仍为 adaptation-experimental。输出 `spec.json/report.json/report.md/profile.json`；退出码 0 为绑定检查通过，2 为已保存待补或受阻草稿，1 为无效输入。媒体或真实关键词时码缺失时修改 brief 并重新规划，不填源演示时码。`macro-spec` 保留为历史/人工配方入口，它不提供这层语义与邻接诊断；新制作优先沿用带 `adaptation` 的计划，构建会重新验证。
+新文案先按[系统适配机制](references/adaptive-composition.md)形成 `brief.json`，运行 `bash "$PL" macro-plan 包ID@版本 brief.json 新规划目录`。该入口按语义阶段、数量、原速动作窗和前后场依赖筛选，再在合法组合内减少效果重复。当前横竖屏版本的 10 个风格、32 个完整组已有代码核对的适配 profile，能力仍为 adaptation-experimental。输出 `spec.json/report.json/report.md/profile.json`；退出码 0 为绑定检查通过，2 为已保存待补或受阻草稿，1 为无效输入。媒体或真实关键词时码缺失时修改 brief 并重新规划，不填源演示时码。`macro-spec` 保留为历史/人工配方入口，它不提供这层语义与邻接诊断；新制作优先沿用带 `adaptation` 的计划，构建会重新验证。
 
 已有计划新增素材时，按[局部分镜重配](references/local-rematch.md)运行 `macro-rematch`，检查建议后通过 `macro-apply-rematch` 保存到新目录。固定原段语义、时间和其它分镜，重验媒体与双侧接缝；基线或素材已改变则拒绝应用。没有兼容新组时保留原组，不随机换效果、不猜其它模板的文案映射。此接口供制作工具调用，尚不等于已接入 ADuDir 拖放界面。
 

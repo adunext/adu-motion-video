@@ -1,0 +1,57 @@
+@font-face{font-family:'Geist';font-style:normal;font-weight:400;src:url(fonts/geist-400.woff2) format('woff2')}
+@font-face{font-family:'Geist';font-style:normal;font-weight:500;src:url(fonts/geist-500.woff2) format('woff2')}
+@font-face{font-family:'Geist';font-style:normal;font-weight:600;src:url(fonts/geist-600.woff2) format('woff2')}
+@font-face{font-family:'Geist';font-style:normal;font-weight:700;src:url(fonts/geist-700.woff2) format('woff2')}
+@font-face{font-family:'Geist';font-style:normal;font-weight:800;src:url(fonts/geist-800.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:400;src:url(fonts/geist-mono-400.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:500;src:url(fonts/geist-mono-500.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:600;src:url(fonts/geist-mono-600.woff2) format('woff2')}
+html,body{margin:0;padding:0;width:1920px;height:1080px;overflow:hidden;background:#000}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:#06070A}
+#world,#fx{position:absolute;inset:0;transform-origin:960px 540px}
+.sc{position:absolute;inset:0;overflow:hidden;display:none}
+.sticker-host{--paper:#F7F7F5;--ink:#0A0A0A;--blue:#2462EA;--blue2:#5B8CFF;--g1:#8C8C8C;--g2:#6B6B6B;--line:#E7E7E4}
+.sticker-host *{box-sizing:border-box;margin:0;padding:0}
+.sticker-host{width:1920px;height:1080px;overflow:hidden;background:#000}
+.sticker-host{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink)}
+.sticker-host{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--paper)}
+.sticker-host [data-sticker-node="world"]{position:absolute;inset:0;transform-origin:960px 540px}
+.sticker-host [data-sticker-node="fx"]{position:absolute;inset:0;pointer-events:none}
+.sticker-host .sc{position:absolute;inset:0;overflow:hidden;display:none}
+.sticker-host .e{position:absolute;left:0;top:0;white-space:nowrap}
+.sticker-host .mono{font-family:ui-monospace,'PingFang SC',monospace}
+.sticker-host .tag{font:400 22px ui-monospace,'PingFang SC',monospace;color:var(--g1);letter-spacing:.5px}
+.sticker-host .acc{color:var(--blue)}
+.sticker-host .h1{font-size:108px;font-weight:600;letter-spacing:-1.5px;line-height:1.12}
+.sticker-host .h2{font-size:88px;font-weight:600;letter-spacing:-1px;line-height:1.15}
+.sticker-host .h3{font-size:56px;font-weight:600;letter-spacing:-.5px}
+.sticker-host .grid{position:absolute;inset:-240px;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:240px 240px;opacity:.6}
+.sticker-host .gridD{position:absolute;inset:-240px;background-image:linear-gradient(#1a1a1a 1px,transparent 1px),linear-gradient(90deg,#1a1a1a 1px,transparent 1px);background-size:240px 240px}
+.sticker-host .gridB{position:absolute;inset:-240px;background-image:linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);background-size:240px 240px}
+.sticker-host .card{background:#fff;border:1.5px solid var(--line);border-radius:22px;position:relative}
+.sticker-host .card .lb{position:absolute;left:24px;top:20px;font:400 19px ui-monospace,'PingFang SC',monospace;color:var(--g1)}
+.sticker-host .card .ix{position:absolute;right:24px;top:20px;font:400 19px ui-monospace,monospace;color:var(--g1)}
+.sticker-host .dcard{background:#161616;border:1.5px solid #262626;border-radius:22px;position:relative;color:#fff}
+.sticker-host .dcard .lb{position:absolute;left:24px;top:20px;font:400 19px ui-monospace,'PingFang SC',monospace;color:#777}
+.sticker-host .ch{filter:drop-shadow(0 26px 30px rgba(0,0,0,.16))}
+.sticker-host .chD{filter:drop-shadow(0 26px 34px rgba(0,0,0,.55))}
+.sticker-host .bubble{background:#fff;border:2px solid var(--ink);border-radius:40px;padding:10px 28px;font:500 32px -apple-system,'PingFang SC',sans-serif}
+.sticker-host .pill{display:inline-block;padding:8px 22px;border-radius:40px;font:500 26px -apple-system,'PingFang SC',sans-serif}
+.sticker-host .term{background:#0E0E0E;border-radius:16px;padding:26px 30px;font:400 26px ui-monospace,'PingFang SC',monospace;color:#bbb;line-height:1.7}
+.sticker-host .hl{background:var(--blue);color:#fff;border-radius:18px;padding:0 18px}
+.sticker-host{background:#FF4D1F}
+.sticker-host [data-sticker-node="tk"],.sticker-host [data-sticker-node="front"],.sticker-host [data-sticker-node="hud"]{position:absolute;inset:0;pointer-events:none;transform-origin:960px 540px}
+.sticker-host .vt{position:relative;overflow:hidden;background:#111}
+.sticker-host .vt img{width:100%;height:100%;object-fit:cover;display:block}
+.sticker-host .tkc{position:absolute;overflow:hidden;background:#111;transform-origin:50% 50%}
+.sticker-host .tkc img{position:absolute;max-width:none;display:block}
+.sticker-host .tkc .tlab{position:absolute;left:16px;top:14px;font:500 16px 'Geist Mono',ui-monospace,monospace;color:#fff;background:rgba(10,10,10,.5);padding:6px 13px;border-radius:30px;display:flex;align-items:center;gap:8px;white-space:nowrap;letter-spacing:1.5px}
+.sticker-host .tkc .tlab i{width:9px;height:9px;border-radius:50%;display:block}
+.sticker-host .macwin{border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 40px 90px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.06)}
+.sticker-host .macwin .tb{height:42px;display:flex;align-items:center;gap:9px;padding:0 16px;background:#F1F0EC;color:#333;font:500 16px -apple-system,'PingFang SC'}
+.sticker-host .macwin .tb i{width:12px;height:12px;border-radius:50%;display:block}
+.sticker-host .macwin .body{position:relative;overflow:hidden;background:#111}
+.sticker-host .macwin .body img{width:100%;height:100%;display:block;object-fit:cover}
+.sticker-host .tile{position:absolute;border-radius:14px;overflow:hidden;background:#111;box-shadow:0 18px 40px rgba(0,0,0,.28)}
+.sticker-host .tile img{width:100%;height:100%;object-fit:cover;display:block}
+.sticker-host .ch{filter:drop-shadow(0 26px 30px rgba(0,0,0,.22))}

@@ -1,0 +1,1230 @@
+{
+  "id": "vivid-sticker-performance",
+  "version": "0.1.0-candidate",
+  "title": "鲜色角色叙事 · 关键词递进、成果交接与反馈升级",
+  "status": "candidate",
+  "sourceFormat": "authored-unit/1",
+  "sourceRevision": "da3c1de9239dcc5b2cd7bbbe065fe892442b46f1e88f0128d61ec3889cea75b8",
+  "source": {
+    "engine": "DOM/Canvas/private-source-host",
+    "assetPolicy": "Bind this episode's narration, images and owner-supplied grain texture."
+  },
+  "fps": 60,
+  "width": 1920,
+  "height": 1080,
+  "requireMotionWindows": true,
+  "runtimeFiles": [
+    "sticker_fonts.js",
+    "typography.js"
+  ],
+  "layouts": {
+    "landscape": {
+      "width": 1920,
+      "height": 1080
+    },
+    "portrait": {
+      "width": 1080,
+      "height": 1920,
+      "runtime": "portrait.js",
+      "stylesheet": "portrait.css",
+      "status": "candidate"
+    }
+  },
+  "runtimeHooks": [
+    "macroTransition/1"
+  ],
+  "scenes": [
+    {
+      "title": "关键词递进 → 光环聚能 → 金色结论",
+      "role": "关键词递进 → 光环聚能 → 金色结论",
+      "minFrames": 484,
+      "maxHoldFrames": 0,
+      "motionWindows": [
+        {
+          "id": "complete-authored-performance",
+          "start": 50.87,
+          "end": 58.93
+        }
+      ],
+      "cues": [
+        {
+          "id": "keyword-0",
+          "at": 50.9,
+          "kind": "keyword-0",
+          "required": true
+        },
+        {
+          "id": "keyword-1",
+          "at": 52.47,
+          "kind": "keyword-1",
+          "required": true
+        },
+        {
+          "id": "keyword-2",
+          "at": 53.9,
+          "kind": "keyword-2",
+          "required": true
+        },
+        {
+          "id": "keyword-3",
+          "at": 54.6,
+          "kind": "keyword-3",
+          "required": true
+        },
+        {
+          "id": "keyword-4",
+          "at": 55.33,
+          "kind": "keyword-4",
+          "required": true
+        },
+        {
+          "id": "keyword-5",
+          "at": 56.1,
+          "kind": "keyword-5",
+          "required": true
+        },
+        {
+          "id": "conclusion",
+          "at": 57.03,
+          "kind": "conclusion",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "text",
+          "sourceText": "// 09 — 讲清楚",
+          "inputPath": "chapter",
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 40976,
+              "end": 40987,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "keyword-0",
+          "type": "dynamicText",
+          "sourceText": "讲清楚",
+          "inputPath": "keywords.0",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41830,
+              "end": 41833,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "keyword-1",
+          "type": "dynamicText",
+          "sourceText": "为什么？",
+          "inputPath": "keywords.1",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41846,
+              "end": 41850,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "keyword-2",
+          "type": "dynamicText",
+          "sourceText": "豆包",
+          "inputPath": "keywords.2",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41862,
+              "end": 41864,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "keyword-3",
+          "type": "dynamicText",
+          "sourceText": "WorkBuddy",
+          "inputPath": "keywords.3",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41876,
+              "end": 41885,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "keyword-4",
+          "type": "dynamicText",
+          "sourceText": "国产大模型",
+          "inputPath": "keywords.4",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41898,
+              "end": 41903,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "keyword-5",
+          "type": "dynamicText",
+          "sourceText": "写 skill",
+          "inputPath": "keywords.5",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41915,
+              "end": 41922,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "prefix",
+          "type": "text",
+          "sourceText": "反而",
+          "inputPath": "conclusion.prefix",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 42062,
+              "end": 42064,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "conclusion",
+          "type": "text",
+          "sourceText": "更考验技术",
+          "inputPath": "conclusion.title",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 42289,
+              "end": 42294,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/noise.png"
+        }
+      ],
+      "inputExample": {
+        "chapter": "// 方法 — 从输入到成果",
+        "keywords": [
+          "输入",
+          "理解",
+          "提炼",
+          "复用",
+          "核验",
+          "交付"
+        ],
+        "conclusion": {
+          "prefix": "最终",
+          "title": "让方法可复用"
+        }
+      },
+      "boundaries": {
+        "mode": "complete-original-scene",
+        "entry": "explicit preceding presenter key; independent private host",
+        "exit": "completed payoff; next group establishes its own state"
+      },
+      "limits": [
+        "Fixed cardinality; new quantities require another reviewed group.",
+        "Full source motion window is protected; shorter durations refuse.",
+        "All text and media must belong to this episode.",
+        "New content and portrait AV acceptance pending."
+      ],
+      "id": "keyword-to-conclusion",
+      "source": {
+        "start": 50.87,
+        "end": 58.93
+      },
+      "sourceCodeFile": "units/keyword-to-conclusion.js",
+      "sourceBlockSha256": "4575bed5fb799126b1c8646a383f3c28798dfb9837765838d71f9597d660f52d",
+      "requiresFaceTracking": true,
+      "provenance": {
+        "adapter": "adapters/vivid-sticker/extract.py",
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 395,
+          "end": 420
+        },
+        "sourceStatementSha256": "44cd2aa3dd04f7522a458481ba40f7303d8220fca4dd00ed2b5b87588a1fd053",
+        "helperSha256": "c6ea27d9f86de93645da7eb505be43ca75477f1114e5f6728be25220e8c0b139",
+        "adapterSha256": "114db3fe840c9ca99efefb18b78bb09ce0a781bca560be9f2444645173878b96",
+        "initialTalkKey": "tkKey(44.63, 'RS', .6);",
+        "ports": [
+          "private DOM/Scene/canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock geometry and chapter",
+          "native transition plane hook",
+          "no source voice envelope consumed",
+          "source SFX forwarded once",
+          "explicit owner texture/fonts"
+        ]
+      },
+      "sourceRevision": "da3c1de9239dcc5b2cd7bbbe065fe892442b46f1e88f0128d61ec3889cea75b8"
+    },
+    {
+      "title": "两位准备者 → 成果交接 → 三位接收者 → 盖章",
+      "role": "两位准备者 → 成果交接 → 三位接收者 → 盖章",
+      "minFrames": 424,
+      "maxHoldFrames": 0,
+      "motionWindows": [
+        {
+          "id": "complete-authored-performance",
+          "start": 101.53,
+          "end": 108.6
+        }
+      ],
+      "cues": [
+        {
+          "id": "title",
+          "at": 101.55,
+          "kind": "title",
+          "required": true
+        },
+        {
+          "id": "creator-0",
+          "at": 103.23,
+          "kind": "creator-0",
+          "required": true
+        },
+        {
+          "id": "creator-1",
+          "at": 103.43,
+          "kind": "creator-1",
+          "required": true
+        },
+        {
+          "id": "giver",
+          "at": 103.9,
+          "kind": "giver",
+          "required": true
+        },
+        {
+          "id": "object",
+          "at": 104.6,
+          "kind": "object",
+          "required": true
+        },
+        {
+          "id": "transfer",
+          "at": 105.77,
+          "kind": "transfer",
+          "required": true
+        },
+        {
+          "id": "receivers",
+          "at": 105.9,
+          "kind": "receivers",
+          "required": true
+        },
+        {
+          "id": "arrival",
+          "at": 106.6,
+          "kind": "arrival",
+          "required": true
+        },
+        {
+          "id": "confirmation",
+          "at": 107.91,
+          "kind": "confirmation",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "text",
+          "sourceText": "// 16 — 抄作业",
+          "inputPath": "chapter",
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 40968,
+              "end": 40979,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "sourceText": "说直白点",
+          "inputPath": "title",
+          "maxChars": 12,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41062,
+              "end": 41066,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "creator-0",
+          "type": "text",
+          "sourceText": "Claude",
+          "inputPath": "creators.0",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41185,
+              "end": 41191,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "creator-1",
+          "type": "text",
+          "sourceText": "Codex",
+          "inputPath": "creators.1",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41220,
+              "end": 41225,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "badge",
+          "type": "text",
+          "sourceText": "最新模型",
+          "inputPath": "creatorBadge",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41250,
+              "end": 41254,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "object-label",
+          "type": "text",
+          "sourceText": "作业 · skill",
+          "inputPath": "transferLabel",
+          "maxChars": 12,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41481,
+              "end": 41491,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "receiver-0",
+          "type": "text",
+          "sourceText": "豆包",
+          "inputPath": "receivers.0",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41688,
+              "end": 41690,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "receiver-1",
+          "type": "text",
+          "sourceText": "WorkBuddy",
+          "inputPath": "receivers.1",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41719,
+              "end": 41728,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "receiver-2",
+          "type": "text",
+          "sourceText": "DeepSeek",
+          "inputPath": "receivers.2",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41757,
+              "end": 41765,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "stamp",
+          "type": "text",
+          "sourceText": "抄作业 ✓",
+          "inputPath": "confirmation",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41874,
+              "end": 41879,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "giver",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/p_handover.png",
+          "inputPath": "illustrations.giver"
+        },
+        {
+          "id": "transfer",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/x_notebook.png",
+          "inputPath": "illustrations.transfer"
+        },
+        {
+          "id": "receiver",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/x_robot.png",
+          "inputPath": "illustrations.receiver"
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/noise.png"
+        }
+      ],
+      "inputExample": {
+        "chapter": "// 交接 — 方法共享",
+        "title": "把成果交出去",
+        "creators": [
+          "设计组",
+          "工程组"
+        ],
+        "creatorBadge": "共同准备",
+        "transferLabel": "任务手册",
+        "receivers": [
+          "讲师",
+          "学员",
+          "助教"
+        ],
+        "confirmation": "共同复用 ✓",
+        "illustrations": {
+          "giver": "",
+          "transfer": "",
+          "receiver": ""
+        }
+      },
+      "boundaries": {
+        "mode": "complete-original-scene",
+        "entry": "explicit preceding presenter key; independent private host",
+        "exit": "completed payoff; next group establishes its own state"
+      },
+      "limits": [
+        "Fixed cardinality; new quantities require another reviewed group.",
+        "Full source motion window is protected; shorter durations refuse.",
+        "All text and media must belong to this episode.",
+        "New content and portrait AV acceptance pending."
+      ],
+      "id": "prepared-to-reuse",
+      "source": {
+        "start": 101.53,
+        "end": 108.6
+      },
+      "sourceCodeFile": "units/prepared-to-reuse.js",
+      "sourceBlockSha256": "3eb48eba79b8cc090aeaf356e82292343d9645a1a976bfeada15259f7c0cf4e5",
+      "requiresFaceTracking": true,
+      "provenance": {
+        "adapter": "adapters/vivid-sticker/extract.py",
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 586,
+          "end": 613
+        },
+        "sourceStatementSha256": "4c1cfb76482bb7431f50a6e0283d33f05f7911023108d5a4c60928c6684a4ae0",
+        "helperSha256": "c6ea27d9f86de93645da7eb505be43ca75477f1114e5f6728be25220e8c0b139",
+        "adapterSha256": "114db3fe840c9ca99efefb18b78bb09ce0a781bca560be9f2444645173878b96",
+        "initialTalkKey": "tkKey(97.3, 'LC', .6);",
+        "ports": [
+          "private DOM/Scene/canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock geometry and chapter",
+          "native transition plane hook",
+          "no source voice envelope consumed",
+          "source SFX forwarded once",
+          "explicit owner texture/fonts"
+        ]
+      },
+      "sourceRevision": "da3c1de9239dcc5b2cd7bbbe065fe892442b46f1e88f0128d61ec3889cea75b8"
+    },
+    {
+      "title": "三条反馈 → 汇入容器 → 版本升级",
+      "role": "三条反馈 → 汇入容器 → 版本升级",
+      "minFrames": 350,
+      "maxHoldFrames": 0,
+      "motionWindows": [
+        {
+          "id": "complete-authored-performance",
+          "start": 121.83,
+          "end": 127.67
+        }
+      ],
+      "cues": [
+        {
+          "id": "title",
+          "at": 121.9,
+          "kind": "title",
+          "required": true
+        },
+        {
+          "id": "feedback-0",
+          "at": 122.85,
+          "kind": "feedback-0",
+          "required": true
+        },
+        {
+          "id": "feedback-1",
+          "at": 123.97,
+          "kind": "feedback-1",
+          "required": true
+        },
+        {
+          "id": "feedback-2",
+          "at": 124.5,
+          "kind": "feedback-2",
+          "required": true
+        },
+        {
+          "id": "container",
+          "at": 125.73,
+          "kind": "container",
+          "required": true
+        },
+        {
+          "id": "aggregation",
+          "at": 125.9,
+          "kind": "aggregation",
+          "required": true
+        },
+        {
+          "id": "update",
+          "at": 126.63,
+          "kind": "update",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "text",
+          "sourceText": "// 18 — 给我留言",
+          "inputPath": "chapter",
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 40987,
+              "end": 40999,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "sourceText": "喜欢什么，给我留言",
+          "inputPath": "title",
+          "maxChars": 16,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41079,
+              "end": 41088,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "feedback-0",
+          "type": "text",
+          "sourceText": "风格",
+          "inputPath": "feedback.0",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41152,
+              "end": 41154,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "feedback-1",
+          "type": "text",
+          "sourceText": "模板",
+          "inputPath": "feedback.1",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41186,
+              "end": 41188,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "feedback-2",
+          "type": "text",
+          "sourceText": "动效",
+          "inputPath": "feedback.2",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41220,
+              "end": 41222,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "path",
+          "type": "text",
+          "sourceText": "adu-motion-video/",
+          "inputPath": "container.path",
+          "maxChars": 21,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41747,
+              "end": 41764,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "name",
+          "type": "text",
+          "sourceText": "skill",
+          "inputPath": "container.name",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41819,
+              "end": 41824,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "old-version",
+          "type": "text",
+          "sourceText": "v1.0",
+          "inputPath": "versions.before",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 41928,
+              "end": 41932,
+              "renderContext": "text"
+            },
+            {
+              "start": 42707,
+              "end": 42711,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "new-version",
+          "type": "dynamicText",
+          "sourceText": "v1.1 · 已更新",
+          "inputPath": "versions.after",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 42692,
+              "end": 42702,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "badge",
+          "type": "dynamicText",
+          "sourceText": "UPDATED",
+          "inputPath": "updateBadge",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 42746,
+              "end": 42753,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/noise.png"
+        }
+      ],
+      "inputExample": {
+        "chapter": "// 反馈 — 方法迭代",
+        "title": "收集反馈，改进方法",
+        "feedback": [
+          "清晰度",
+          "覆盖面",
+          "节奏感"
+        ],
+        "container": {
+          "path": "guide/",
+          "name": "制作手册"
+        },
+        "versions": {
+          "before": "v1",
+          "after": "v2 · 已更新"
+        },
+        "updateBadge": "REVISED"
+      },
+      "boundaries": {
+        "mode": "complete-original-scene",
+        "entry": "explicit preceding presenter key; independent private host",
+        "exit": "completed payoff; next group establishes its own state"
+      },
+      "limits": [
+        "Fixed cardinality; new quantities require another reviewed group.",
+        "Full source motion window is protected; shorter durations refuse.",
+        "All text and media must belong to this episode.",
+        "New content and portrait AV acceptance pending."
+      ],
+      "id": "feedback-to-update",
+      "source": {
+        "start": 121.83,
+        "end": 127.67
+      },
+      "sourceCodeFile": "units/feedback-to-update.js",
+      "sourceBlockSha256": "c2c59c3866b3e1b3ccdd636803e2e41a7d2b93fdeb727d790fbfe23c445f0444",
+      "requiresFaceTracking": true,
+      "provenance": {
+        "adapter": "adapters/vivid-sticker/extract.py",
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 658,
+          "end": 676
+        },
+        "sourceStatementSha256": "e6dee5ad51abfa95a2031dc0c5fe0ebf88bd76cbf2ff82dadecf10cbcba6374a",
+        "helperSha256": "c6ea27d9f86de93645da7eb505be43ca75477f1114e5f6728be25220e8c0b139",
+        "adapterSha256": "114db3fe840c9ca99efefb18b78bb09ce0a781bca560be9f2444645173878b96",
+        "initialTalkKey": "tkKey(118.43, 'R', .6, { rz: -2 });",
+        "ports": [
+          "private DOM/Scene/canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock geometry and chapter",
+          "native transition plane hook",
+          "no source voice envelope consumed",
+          "source SFX forwarded once",
+          "explicit owner texture/fonts"
+        ]
+      },
+      "sourceRevision": "da3c1de9239dcc5b2cd7bbbe065fe892442b46f1e88f0128d61ec3889cea75b8"
+    }
+  ],
+  "assetDefinitions": {},
+  "externalFonts": [
+    {
+      "id": "geist-400",
+      "family": "Geist",
+      "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/Geist-normal-400.woff2",
+      "distribution": "explicit-owner-supplied; not bundled"
+    },
+    {
+      "id": "geist-500",
+      "family": "Geist",
+      "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/Geist-normal-500.woff2",
+      "distribution": "explicit-owner-supplied; not bundled"
+    },
+    {
+      "id": "geist-600",
+      "family": "Geist",
+      "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/Geist-normal-600.woff2",
+      "distribution": "explicit-owner-supplied; not bundled"
+    },
+    {
+      "id": "geist-700",
+      "family": "Geist",
+      "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/Geist-normal-700.woff2",
+      "distribution": "explicit-owner-supplied; not bundled"
+    },
+    {
+      "id": "geist-800",
+      "family": "Geist",
+      "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/Geist-normal-800.woff2",
+      "distribution": "explicit-owner-supplied; not bundled"
+    },
+    {
+      "id": "geist-mono-400",
+      "family": "Geist Mono",
+      "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/GeistMono-normal-400.woff2",
+      "distribution": "explicit-owner-supplied; not bundled"
+    },
+    {
+      "id": "geist-mono-500",
+      "family": "Geist Mono",
+      "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/GeistMono-normal-500.woff2",
+      "distribution": "explicit-owner-supplied; not bundled"
+    },
+    {
+      "id": "geist-mono-600",
+      "family": "Geist Mono",
+      "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/GeistMono-normal-600.woff2",
+      "distribution": "explicit-owner-supplied; not bundled"
+    }
+  ],
+  "environment": {
+    "platform": "macOS",
+    "systemFonts": [
+      "PingFang SC"
+    ],
+    "format": "1920x1080/60"
+  },
+  "validation": {
+    "sourceReplay": "pending",
+    "newContent": "pending",
+    "independentUse": "pending"
+  },
+  "files": {
+    "README.md": "0c6fa70b7c7bd2d501f8dda2b5cf6c80938669f2ec60eb7757bec9e1dc2ba3f4",
+    "audio_timeline.json": "ea876e3fc9342bfcc10c109fb01ab4c50c78d702246ccab851446cf31868d5b2",
+    "config.js": "03695c9ebeea6897245f792d67ed44345ac4caaca8bed8b3ab7a6f005d7d7d64",
+    "lib.js": "feced1178a494b7b7bd7f1632f5c25652d6e06e304bcd99dcd085a0f4b5bcd33",
+    "portrait.css": "1f71706adfe34463150bb7bcdf68da8dcac547abf01144c3889dd791284fe930",
+    "portrait.js": "5ffc59d11f1b541a6695365d38b80bb15e811d5a46f35dbe77defcee8d88f912",
+    "sticker_fonts.js": "343550eebe1e56f607f6755b258b511a9765bc994d09c5d19e002c111d4919c9",
+    "style.css": "5f9a19adbfc279b5cda64f56eeb4592abd5f31a2110ad28e614a8cc7988292bc",
+    "typography.js": "0db6bdc15b7509a8f9e85f104ac86b2f3230bdcd848c8ddcdcd4cdf5139d0896",
+    "units/feedback-to-update.js": "c2c59c3866b3e1b3ccdd636803e2e41a7d2b93fdeb727d790fbfe23c445f0444",
+    "units/keyword-to-conclusion.js": "4575bed5fb799126b1c8646a383f3c28798dfb9837765838d71f9597d660f52d",
+    "units/prepared-to-reuse.js": "3eb48eba79b8cc090aeaf356e82292343d9645a1a976bfeada15259f7c0cf4e5"
+  },
+  "adaptationProfile": {
+    "schema": "adu-adaptation-profile/1",
+    "id": "vivid-sticker-adaptation",
+    "version": "0.1.0",
+    "quality": "adaptation-experimental",
+    "review": {
+      "basis": "source-code-and-manifest",
+      "status": "code-reviewed",
+      "scope": "三个完整组的阶段、数量与语义槽；不同内容及重排声画尚未作者验收。"
+    },
+    "scenes": [
+      {
+        "sceneId": "keyword-to-conclusion",
+        "intents": [
+          "keyword-progression-conclusion"
+        ],
+        "requiredPhases": [
+          "progression",
+          "accumulation",
+          "conclusion"
+        ],
+        "cardinality": {
+          "keywords": {
+            "min": 6,
+            "max": 6
+          }
+        },
+        "effects": [
+          "typewriter-pulse",
+          "gold-halo",
+          "conclusion-impact"
+        ],
+        "energy": 3,
+        "entry": {
+          "mode": "native-transition"
+        },
+        "exit": {},
+        "cueRoles": {
+          "keyword-0": "keyword-0",
+          "keyword-1": "keyword-1",
+          "keyword-2": "keyword-2",
+          "keyword-3": "keyword-3",
+          "keyword-4": "keyword-4",
+          "keyword-5": "keyword-5",
+          "conclusion": "conclusion"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "关键词序列、光环增长和结论冲击构成同一次推理；仅结论段缺少聚能前态。"
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "源动作SFX、冲击与混响尾音保留；默认新合成配乐，旧录音不分发。相邻组与最终音画须听审。"
+        },
+        "sourceBlockSha256": "4575bed5fb799126b1c8646a383f3c28798dfb9837765838d71f9597d660f52d"
+      },
+      {
+        "sceneId": "prepared-to-reuse",
+        "intents": [
+          "prepare-transfer-reuse"
+        ],
+        "requiredPhases": [
+          "preparation",
+          "transfer",
+          "reuse",
+          "confirmation"
+        ],
+        "cardinality": {
+          "creators": {
+            "min": 2,
+            "max": 2
+          },
+          "receivers": {
+            "min": 3,
+            "max": 3
+          },
+          "illustrations": {
+            "min": 3,
+            "max": 3
+          }
+        },
+        "effects": [
+          "sticker-entrance",
+          "object-handoff",
+          "receiver-stagger",
+          "stamp-impact"
+        ],
+        "energy": 3,
+        "entry": {
+          "mode": "native-transition"
+        },
+        "exit": {},
+        "cueRoles": {
+          "title": "title",
+          "creator-0": "creator-0",
+          "creator-1": "creator-1",
+          "giver": "giver",
+          "object": "object",
+          "transfer": "transfer",
+          "receivers": "receivers",
+          "arrival": "arrival",
+          "confirmation": "confirmation"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "角色、物件弧线、接收者和印章必须共用同一交接关系，不能从飞行中间切开。"
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "源动作SFX、冲击与混响尾音保留；默认新合成配乐，旧录音不分发。相邻组与最终音画须听审。"
+        },
+        "sourceBlockSha256": "3eb48eba79b8cc090aeaf356e82292343d9645a1a976bfeada15259f7c0cf4e5"
+      },
+      {
+        "sceneId": "feedback-to-update",
+        "intents": [
+          "feedback-aggregation-update"
+        ],
+        "requiredPhases": [
+          "feedback",
+          "aggregation",
+          "update"
+        ],
+        "cardinality": {
+          "feedback": {
+            "min": 3,
+            "max": 3
+          }
+        },
+        "effects": [
+          "message-pop",
+          "object-absorption",
+          "version-pulse",
+          "celebration"
+        ],
+        "energy": 2,
+        "entry": {
+          "mode": "native-transition"
+        },
+        "exit": {},
+        "cueRoles": {
+          "title": "title",
+          "feedback-0": "feedback-0",
+          "feedback-1": "feedback-1",
+          "feedback-2": "feedback-2",
+          "container": "container",
+          "aggregation": "aggregation",
+          "update": "update"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "三个反馈的吸入终点等于同一个更新容器；升级必须发生在反馈到达后。"
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "源动作SFX、冲击与混响尾音保留；默认新合成配乐，旧录音不分发。相邻组与最终音画须听审。"
+        },
+        "sourceBlockSha256": "c2c59c3866b3e1b3ccdd636803e2e41a7d2b93fdeb727d790fbfe23c445f0444"
+      }
+    ]
+  },
+  "adaptationStatus": "contract-validated-not-av-accepted"
+}

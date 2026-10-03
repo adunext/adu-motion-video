@@ -255,7 +255,7 @@
           "id": "04-A",
           "title": "仪器台演示",
           "status": "candidate",
-          "selection": "doubao-console-performance@0.1.1-candidate",
+          "selection": "doubao-console-performance@0.1.2-candidate",
           "preview": "assets/demos/04-A.gif",
           "demo": "assets/demos/04-A.mp4",
           "guide": "references/doubao-console-template.md",
@@ -279,11 +279,48 @@
               "selection": "doubao-console-performance@0.2.0-candidate"
             }
           },
-          "qualityLimits": "需要真实字体和本期VOX；严格栅格审计保留4 warning，needs-raster-review；没有原生竖屏声明",
+          "qualityLimits": "横屏有界文字已检查；竖屏选择0.2.0-candidate；仍待新口播完整声画与独立复用验收。",
           "portraitSelection": "doubao-console-performance@0.2.0-candidate"
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "title": "鲜色角色叙事",
+      "styles": [
+        {
+          "id": "05-A",
+          "title": "角色与物件接力",
+          "status": "candidate",
+          "selection": "vivid-sticker-performance@0.1.1-candidate",
+          "portraitSelection": "vivid-sticker-performance@0.1.1-candidate",
+          "preview": "assets/demos/05-A.gif",
+          "demo": "assets/demos/05-A.mp4",
+          "guide": "references/vivid-sticker-template.md",
+          "requires": [
+            "本期口播、文案与真实关键词时码",
+            "交接组：三幅获授权贴纸，准备者/物件/接收者",
+            "显式纹理与固定SHA的Geist/GeistMono字体"
+          ],
+          "scope": "三个完整组；源码局部对照、横竖屏静音容量和构建流程通过，新口播连续声画及独立使用待验收",
+          "previewBasis": "7.1秒交接局部；本次编写的矢量示意素材与占位人物，排除源人物/原插图/字幕/录音",
+          "demoAudio": "none; silent synthetic-layout preview",
+          "layouts": {
+            "landscape": {
+              "width": 1920,
+              "height": 1080,
+              "selection": "vivid-sticker-performance@0.1.1-candidate"
+            },
+            "portrait": {
+              "width": 1080,
+              "height": 1920,
+              "selection": "vivid-sticker-performance@0.1.1-candidate",
+              "status": "candidate"
+            }
+          }
         }
       ]
     }
   ],
-  "releaseVersion": "3.3.0"
+  "releaseVersion": "3.8.0"
 }

@@ -1,0 +1,6 @@
+html,body,#stage,#world,.sc,.sticker-host{width:1080px!important;height:1920px!important;margin:0;overflow:hidden}
+#world,[data-sticker-node=world],[data-sticker-node=front],[data-sticker-node=hud]{transform-origin:540px 960px!important;width:1080px!important;height:1920px!important}
+.sticker-island{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:visible}
+.native-subtitles{left:68px!important;right:68px!important;top:auto!important;bottom:110px!important;width:auto!important;max-width:944px!important}
+.native-subtitles .sz{font-size:46px!important;line-height:1.28!important;white-space:normal!important}
+.native-subtitles .se{font-size:30px!important;line-height:1.28!important;white-space:normal!important}

@@ -1001,6 +1001,17 @@ def compile_plan(manifest: dict, spec: dict, *, spec_dir: Path | None = None,
                               transcript, slots, details)
         planned["mediaClocks"] = media_clocks(source, planned, fps)
         result_scenes.append(planned)
+    # Authored tail support is output time: never silently trim a generator or
+    # reverb buffer merely because its scene has finished. No requirement is
+    # inferred for older packs; a new extraction must review its own support.
+    for item in result_scenes:
+        source = source_scenes[item["source_scene_index"]]
+        trailing = source.get("minFollowingFrames", 0)
+        trailing = integer(trailing, f"{source['id']}.minFollowingFrames", minimum=0)
+        needed = math.ceil(trailing * fps / src_fps)
+        require(previous_end - item["output_end_frame"] >= needed,
+                f"{item['id']}: preserve at least {needed} following output frames for authored SFX tails; "
+                "append a complete compatible scene or reviewed outro, never truncate the sound")
     duration = previous_end / fps
     narration = spec.get("narrationDuration")
     if narration is not None:

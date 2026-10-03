@@ -1,0 +1,831 @@
+{
+  "id": "vivid-sticker-performance",
+  "version": "0.1.1-candidate",
+  "title": "鲜色角色叙事 · 关键词递进、成果交接与反馈升级",
+  "sourceRevision": "da3c1de9239dcc5b2cd7bbbe065fe892442b46f1e88f0128d61ec3889cea75b8",
+  "sourceDuration": 139.4,
+  "sourceFiles": {
+    "scenes.js": "d63d3c42079f3627c9293050ca13ebf3a63a8825cb459d51b15ae74c016bd26f",
+    "lib.js": "9cbe9a44c94c6c45d20d5d8e85593e8312e746c0173577b57d6751f627008eb8",
+    "core.js": "d386b647beb97bb2d93f30c252e6d3f8532b5ef127e1821fd6d88af03a2f0755",
+    "main.js": "2fd9c56508c6056bf26634ea18c10eeba0f376d5a1db449f760f56c36816a9fb",
+    "style.css": "f4f9101ee7fb96133eb6bd80f8d4ec31d1640a32307852f29765abe012e78146",
+    "index.html": "7647725b441f98ddf7460c7e9262ac8d04efe30b53051a3cff8c7e1084b28fb4",
+    "config.js": "d4eb97df05ff29518d0ac750bfef19c80d32b2e636cec44c4e5f9b0987916ed3",
+    "audio.py": "f8ccf451a250318f32e62d4da4be11f1be689737d5712023cdad64d535afb7d0",
+    "beats.js": "3fb581bb746514568ab637227bf8fe2362d2682d64fe86dc840417d970628deb"
+  },
+  "units": [
+    {
+      "id": "keyword-to-conclusion",
+      "file": "scenes.js",
+      "index": 11,
+      "expectedStatementSha256": "44cd2aa3dd04f7522a458481ba40f7303d8220fca4dd00ed2b5b87588a1fd053",
+      "adapter": {
+        "initialTalkKey": "tkKey(44.63, 'RS', .6);"
+      },
+      "contract": {
+        "title": "关键词递进 → 光环聚能 → 金色结论",
+        "role": "关键词递进 → 光环聚能 → 金色结论",
+        "minFrames": 484,
+        "maxHoldFrames": 0,
+        "motionWindows": [
+          {
+            "id": "complete-authored-performance",
+            "start": 50.87,
+            "end": 58.93
+          }
+        ],
+        "cues": [
+          {
+            "id": "keyword-0",
+            "at": 50.9,
+            "kind": "keyword-0",
+            "required": true
+          },
+          {
+            "id": "keyword-1",
+            "at": 52.47,
+            "kind": "keyword-1",
+            "required": true
+          },
+          {
+            "id": "keyword-2",
+            "at": 53.9,
+            "kind": "keyword-2",
+            "required": true
+          },
+          {
+            "id": "keyword-3",
+            "at": 54.6,
+            "kind": "keyword-3",
+            "required": true
+          },
+          {
+            "id": "keyword-4",
+            "at": 55.33,
+            "kind": "keyword-4",
+            "required": true
+          },
+          {
+            "id": "keyword-5",
+            "at": 56.1,
+            "kind": "keyword-5",
+            "required": true
+          },
+          {
+            "id": "conclusion",
+            "at": 57.03,
+            "kind": "conclusion",
+            "required": true
+          }
+        ],
+        "slots": [
+          {
+            "id": "chapter",
+            "type": "text",
+            "sourceText": "// 09 — 讲清楚",
+            "inputPath": "chapter",
+            "maxChars": 18,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "keyword-0",
+            "type": "dynamicText",
+            "sourceText": "讲清楚",
+            "inputPath": "keywords.0",
+            "maxChars": 10,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text",
+            "occurrence": 0
+          },
+          {
+            "id": "keyword-1",
+            "type": "dynamicText",
+            "sourceText": "为什么？",
+            "inputPath": "keywords.1",
+            "maxChars": 10,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "keyword-2",
+            "type": "dynamicText",
+            "sourceText": "豆包",
+            "inputPath": "keywords.2",
+            "maxChars": 10,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "keyword-3",
+            "type": "dynamicText",
+            "sourceText": "WorkBuddy",
+            "inputPath": "keywords.3",
+            "maxChars": 10,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "keyword-4",
+            "type": "dynamicText",
+            "sourceText": "国产大模型",
+            "inputPath": "keywords.4",
+            "maxChars": 10,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "keyword-5",
+            "type": "dynamicText",
+            "sourceText": "写 skill",
+            "inputPath": "keywords.5",
+            "maxChars": 10,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "prefix",
+            "type": "text",
+            "sourceText": "反而",
+            "inputPath": "conclusion.prefix",
+            "maxChars": 6,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "conclusion",
+            "type": "text",
+            "sourceText": "更考验技术",
+            "inputPath": "conclusion.title",
+            "maxChars": 10,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          }
+        ],
+        "inputExample": {
+          "chapter": "// 方法 — 从输入到成果",
+          "keywords": [
+            "输入",
+            "理解",
+            "提炼",
+            "复用",
+            "核验",
+            "交付"
+          ],
+          "conclusion": {
+            "prefix": "最终",
+            "title": "让方法可复用"
+          }
+        },
+        "boundaries": {
+          "mode": "complete-original-scene",
+          "entry": "explicit preceding presenter key; independent private host",
+          "exit": "completed payoff; next group establishes its own state"
+        },
+        "limits": [
+          "Fixed cardinality; new quantities require another reviewed group.",
+          "Full source motion window is protected; shorter durations refuse.",
+          "All text and media must belong to this episode.",
+          "New content and portrait AV acceptance pending."
+        ],
+        "minFollowingFrames": 0,
+        "audioTailSupport": {
+          "generatorContractSha256": "a51e314dd7a19ed4ba341546ba1d7628c083532ff2315bff73173ee9bad0e049",
+          "reverbSeconds": 0.9,
+          "basis": "reviewed native source SFX at unchanged protected action speed",
+          "minimumFollowingSourceFrames": 0
+        }
+      }
+    },
+    {
+      "id": "prepared-to-reuse",
+      "file": "scenes.js",
+      "index": 18,
+      "expectedStatementSha256": "4c1cfb76482bb7431f50a6e0283d33f05f7911023108d5a4c60928c6684a4ae0",
+      "adapter": {
+        "initialTalkKey": "tkKey(97.3, 'LC', .6);"
+      },
+      "contract": {
+        "title": "两位准备者 → 成果交接 → 三位接收者 → 盖章",
+        "role": "两位准备者 → 成果交接 → 三位接收者 → 盖章",
+        "minFrames": 424,
+        "maxHoldFrames": 0,
+        "motionWindows": [
+          {
+            "id": "complete-authored-performance",
+            "start": 101.53,
+            "end": 108.6
+          }
+        ],
+        "cues": [
+          {
+            "id": "title",
+            "at": 101.55,
+            "kind": "title",
+            "required": true
+          },
+          {
+            "id": "creator-0",
+            "at": 103.23,
+            "kind": "creator-0",
+            "required": true
+          },
+          {
+            "id": "creator-1",
+            "at": 103.43,
+            "kind": "creator-1",
+            "required": true
+          },
+          {
+            "id": "giver",
+            "at": 103.9,
+            "kind": "giver",
+            "required": true
+          },
+          {
+            "id": "object",
+            "at": 104.6,
+            "kind": "object",
+            "required": true
+          },
+          {
+            "id": "transfer",
+            "at": 105.77,
+            "kind": "transfer",
+            "required": true
+          },
+          {
+            "id": "receivers",
+            "at": 105.9,
+            "kind": "receivers",
+            "required": true
+          },
+          {
+            "id": "arrival",
+            "at": 106.6,
+            "kind": "arrival",
+            "required": true
+          },
+          {
+            "id": "confirmation",
+            "at": 107.91,
+            "kind": "confirmation",
+            "required": true
+          }
+        ],
+        "slots": [
+          {
+            "id": "chapter",
+            "type": "text",
+            "sourceText": "// 16 — 抄作业",
+            "inputPath": "chapter",
+            "maxChars": 18,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "title",
+            "type": "text",
+            "sourceText": "说直白点",
+            "inputPath": "title",
+            "maxChars": 12,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "creator-0",
+            "type": "text",
+            "sourceText": "Claude",
+            "inputPath": "creators.0",
+            "maxChars": 8,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "creator-1",
+            "type": "text",
+            "sourceText": "Codex",
+            "inputPath": "creators.1",
+            "maxChars": 8,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "badge",
+            "type": "text",
+            "sourceText": "最新模型",
+            "inputPath": "creatorBadge",
+            "maxChars": 8,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "object-label",
+            "type": "text",
+            "sourceText": "作业 · skill",
+            "inputPath": "transferLabel",
+            "maxChars": 12,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "receiver-0",
+            "type": "text",
+            "sourceText": "豆包",
+            "inputPath": "receivers.0",
+            "maxChars": 8,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "receiver-1",
+            "type": "text",
+            "sourceText": "WorkBuddy",
+            "inputPath": "receivers.1",
+            "maxChars": 8,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "receiver-2",
+            "type": "text",
+            "sourceText": "DeepSeek",
+            "inputPath": "receivers.2",
+            "maxChars": 8,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "stamp",
+            "type": "text",
+            "sourceText": "抄作业 ✓",
+            "inputPath": "confirmation",
+            "maxChars": 10,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "giver",
+            "type": "image",
+            "required": true,
+            "sourceAsset": "assets/gen/p_handover.png",
+            "inputPath": "illustrations.giver"
+          },
+          {
+            "id": "transfer",
+            "type": "image",
+            "required": true,
+            "sourceAsset": "assets/gen/x_notebook.png",
+            "inputPath": "illustrations.transfer"
+          },
+          {
+            "id": "receiver",
+            "type": "image",
+            "required": true,
+            "sourceAsset": "assets/gen/x_robot.png",
+            "inputPath": "illustrations.receiver"
+          }
+        ],
+        "inputExample": {
+          "chapter": "// 交接 — 方法共享",
+          "title": "把成果交出去",
+          "creators": [
+            "设计组",
+            "工程组"
+          ],
+          "creatorBadge": "共同准备",
+          "transferLabel": "任务手册",
+          "receivers": [
+            "讲师",
+            "学员",
+            "助教"
+          ],
+          "confirmation": "共同复用 ✓",
+          "illustrations": {
+            "giver": "",
+            "transfer": "",
+            "receiver": ""
+          }
+        },
+        "boundaries": {
+          "mode": "complete-original-scene",
+          "entry": "explicit preceding presenter key; independent private host",
+          "exit": "completed payoff; next group establishes its own state"
+        },
+        "limits": [
+          "Fixed cardinality; new quantities require another reviewed group.",
+          "Full source motion window is protected; shorter durations refuse.",
+          "All text and media must belong to this episode.",
+          "New content and portrait AV acceptance pending."
+        ],
+        "minFollowingFrames": 73,
+        "audioTailSupport": {
+          "generatorContractSha256": "a51e314dd7a19ed4ba341546ba1d7628c083532ff2315bff73173ee9bad0e049",
+          "reverbSeconds": 0.9,
+          "basis": "reviewed native source SFX at unchanged protected action speed",
+          "minimumFollowingSourceFrames": 73
+        }
+      }
+    },
+    {
+      "id": "feedback-to-update",
+      "file": "scenes.js",
+      "index": 21,
+      "expectedStatementSha256": "e6dee5ad51abfa95a2031dc0c5fe0ebf88bd76cbf2ff82dadecf10cbcba6374a",
+      "adapter": {
+        "initialTalkKey": "tkKey(118.43, 'R', .6, { rz: -2 });"
+      },
+      "contract": {
+        "title": "三条反馈 → 汇入容器 → 版本升级",
+        "role": "三条反馈 → 汇入容器 → 版本升级",
+        "minFrames": 350,
+        "maxHoldFrames": 0,
+        "motionWindows": [
+          {
+            "id": "complete-authored-performance",
+            "start": 121.83,
+            "end": 127.67
+          }
+        ],
+        "cues": [
+          {
+            "id": "title",
+            "at": 121.9,
+            "kind": "title",
+            "required": true
+          },
+          {
+            "id": "feedback-0",
+            "at": 122.85,
+            "kind": "feedback-0",
+            "required": true
+          },
+          {
+            "id": "feedback-1",
+            "at": 123.97,
+            "kind": "feedback-1",
+            "required": true
+          },
+          {
+            "id": "feedback-2",
+            "at": 124.5,
+            "kind": "feedback-2",
+            "required": true
+          },
+          {
+            "id": "container",
+            "at": 125.73,
+            "kind": "container",
+            "required": true
+          },
+          {
+            "id": "aggregation",
+            "at": 125.9,
+            "kind": "aggregation",
+            "required": true
+          },
+          {
+            "id": "update",
+            "at": 126.63,
+            "kind": "update",
+            "required": true
+          }
+        ],
+        "slots": [
+          {
+            "id": "chapter",
+            "type": "text",
+            "sourceText": "// 18 — 给我留言",
+            "inputPath": "chapter",
+            "maxChars": 18,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "title",
+            "type": "text",
+            "sourceText": "喜欢什么，给我留言",
+            "inputPath": "title",
+            "maxChars": 16,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "feedback-0",
+            "type": "text",
+            "sourceText": "风格",
+            "inputPath": "feedback.0",
+            "maxChars": 6,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "feedback-1",
+            "type": "text",
+            "sourceText": "模板",
+            "inputPath": "feedback.1",
+            "maxChars": 6,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "feedback-2",
+            "type": "text",
+            "sourceText": "动效",
+            "inputPath": "feedback.2",
+            "maxChars": 6,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "path",
+            "type": "text",
+            "sourceText": "adu-motion-video/",
+            "inputPath": "container.path",
+            "maxChars": 21,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "name",
+            "type": "text",
+            "sourceText": "skill",
+            "inputPath": "container.name",
+            "maxChars": 10,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "old-version",
+            "type": "text",
+            "sourceText": "v1.0",
+            "inputPath": "versions.before",
+            "maxChars": 10,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "new-version",
+            "type": "dynamicText",
+            "sourceText": "v1.1 · 已更新",
+            "inputPath": "versions.after",
+            "maxChars": 10,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          },
+          {
+            "id": "badge",
+            "type": "dynamicText",
+            "sourceText": "UPDATED",
+            "inputPath": "updateBadge",
+            "maxChars": 8,
+            "required": true,
+            "mustChange": true,
+            "renderContext": "text"
+          }
+        ],
+        "inputExample": {
+          "chapter": "// 反馈 — 方法迭代",
+          "title": "收集反馈，改进方法",
+          "feedback": [
+            "清晰度",
+            "覆盖面",
+            "节奏感"
+          ],
+          "container": {
+            "path": "guide/",
+            "name": "制作手册"
+          },
+          "versions": {
+            "before": "v1",
+            "after": "v2 · 已更新"
+          },
+          "updateBadge": "REVISED"
+        },
+        "boundaries": {
+          "mode": "complete-original-scene",
+          "entry": "explicit preceding presenter key; independent private host",
+          "exit": "completed payoff; next group establishes its own state"
+        },
+        "limits": [
+          "Fixed cardinality; new quantities require another reviewed group.",
+          "Full source motion window is protected; shorter durations refuse.",
+          "All text and media must belong to this episode.",
+          "New content and portrait AV acceptance pending."
+        ],
+        "minFollowingFrames": 68,
+        "audioTailSupport": {
+          "generatorContractSha256": "a51e314dd7a19ed4ba341546ba1d7628c083532ff2315bff73173ee9bad0e049",
+          "reverbSeconds": 0.9,
+          "basis": "reviewed native source SFX at unchanged protected action speed",
+          "minimumFollowingSourceFrames": 68
+        }
+      }
+    }
+  ],
+  "adaptationProfile": {
+    "schema": "adu-adaptation-profile/1",
+    "id": "vivid-sticker-adaptation",
+    "version": "0.1.0",
+    "quality": "adaptation-experimental",
+    "review": {
+      "basis": "source-code-and-manifest",
+      "status": "code-reviewed",
+      "scope": "三个完整组的阶段、数量与语义槽；不同内容及重排声画尚未作者验收。"
+    },
+    "scenes": [
+      {
+        "sceneId": "keyword-to-conclusion",
+        "intents": [
+          "keyword-progression-conclusion"
+        ],
+        "requiredPhases": [
+          "progression",
+          "accumulation",
+          "conclusion"
+        ],
+        "cardinality": {
+          "keywords": {
+            "min": 6,
+            "max": 6
+          }
+        },
+        "effects": [
+          "typewriter-pulse",
+          "gold-halo",
+          "conclusion-impact"
+        ],
+        "energy": 3,
+        "entry": {
+          "mode": "native-transition"
+        },
+        "exit": {},
+        "cueRoles": {
+          "keyword-0": "keyword-0",
+          "keyword-1": "keyword-1",
+          "keyword-2": "keyword-2",
+          "keyword-3": "keyword-3",
+          "keyword-4": "keyword-4",
+          "keyword-5": "keyword-5",
+          "conclusion": "conclusion"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "关键词序列、光环增长和结论冲击构成同一次推理；仅结论段缺少聚能前态。"
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "源动作SFX、冲击与混响尾音保留；默认新合成配乐，旧录音不分发。相邻组与最终音画须听审。"
+        }
+      },
+      {
+        "sceneId": "prepared-to-reuse",
+        "intents": [
+          "prepare-transfer-reuse"
+        ],
+        "requiredPhases": [
+          "preparation",
+          "transfer",
+          "reuse",
+          "confirmation"
+        ],
+        "cardinality": {
+          "creators": {
+            "min": 2,
+            "max": 2
+          },
+          "receivers": {
+            "min": 3,
+            "max": 3
+          },
+          "illustrations": {
+            "min": 3,
+            "max": 3
+          }
+        },
+        "effects": [
+          "sticker-entrance",
+          "object-handoff",
+          "receiver-stagger",
+          "stamp-impact"
+        ],
+        "energy": 3,
+        "entry": {
+          "mode": "native-transition"
+        },
+        "exit": {
+          "requiresNext": [
+            "keyword-to-conclusion",
+            "prepared-to-reuse",
+            "feedback-to-update"
+          ],
+          "reason": "源音效发生后仍有生成器/混响支持，不能作为最后一组直接截断。"
+        },
+        "cueRoles": {
+          "title": "title",
+          "creator-0": "creator-0",
+          "creator-1": "creator-1",
+          "giver": "giver",
+          "object": "object",
+          "transfer": "transfer",
+          "receivers": "receivers",
+          "arrival": "arrival",
+          "confirmation": "confirmation"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "角色、物件弧线、接收者和印章必须共用同一交接关系，不能从飞行中间切开。"
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "源动作SFX、冲击与混响尾音保留；默认新合成配乐，旧录音不分发。相邻组与最终音画须听审。"
+        }
+      },
+      {
+        "sceneId": "feedback-to-update",
+        "intents": [
+          "feedback-aggregation-update"
+        ],
+        "requiredPhases": [
+          "feedback",
+          "aggregation",
+          "update"
+        ],
+        "cardinality": {
+          "feedback": {
+            "min": 3,
+            "max": 3
+          }
+        },
+        "effects": [
+          "message-pop",
+          "object-absorption",
+          "version-pulse",
+          "celebration"
+        ],
+        "energy": 2,
+        "entry": {
+          "mode": "native-transition"
+        },
+        "exit": {
+          "requiresNext": [
+            "keyword-to-conclusion",
+            "prepared-to-reuse",
+            "feedback-to-update"
+          ],
+          "reason": "源音效发生后仍有生成器/混响支持，不能作为最后一组直接截断。"
+        },
+        "cueRoles": {
+          "title": "title",
+          "feedback-0": "feedback-0",
+          "feedback-1": "feedback-1",
+          "feedback-2": "feedback-2",
+          "container": "container",
+          "aggregation": "aggregation",
+          "update": "update"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "三个反馈的吸入终点等于同一个更新容器；升级必须发生在反馈到达后。"
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "源动作SFX、冲击与混响尾音保留；默认新合成配乐，旧录音不分发。相邻组与最终音画须听审。"
+        }
+      }
+    ]
+  }
+}
