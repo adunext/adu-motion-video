@@ -1,7 +1,7 @@
 /* Preview-only placeholders: never used by build/import/export. */
 (()=>{'use strict';
 const base=new URL('../',location.href);
-const media=v=>new URL(/noise/i.test(v)?'noise.svg':/demo-presenter|talk|face/i.test(v)?'presenter.svg':'evidence.svg',base).href;
+const media=v=>/^(data:|blob:)/i.test(v)?v:new URL(/noise/i.test(v)?'noise.svg':/demo-presenter|talk|face/i.test(v)?'presenter.svg':'evidence.svg',base).href;
 const image=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,'src');
 Object.defineProperty(HTMLImageElement.prototype,'src',{...image,set(v){image.set.call(this,media(String(v)));}});
 const html=Object.getOwnPropertyDescriptor(Element.prototype,'innerHTML');

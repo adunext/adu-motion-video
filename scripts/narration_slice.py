@@ -42,4 +42,7 @@ def install(master: Path, stage: Path, start: int, end: int, fps: int):
                                    __import__('json').dumps([[0,i+1] for i in range(end-start)], separators=(',',':')) + ';\n')
     report.update(frames=end-start, duration=(end-start)/fps,
                   slice=dict(startFrame=start, endFrame=end, masterFrames=report['frames'], retimed=False))
+    if (master/'narration_edit_map.json').is_file():
+        shutil.copy2(master/'narration_edit_map.json',stage/'narration_edit_map.json')
+        report.update(clock='edited-narration',cutsApplied=True,playbackRateChanged=False)
     (stage / 'import.json').write_text(__import__('json').dumps(report, ensure_ascii=False, indent=2) + '\n')

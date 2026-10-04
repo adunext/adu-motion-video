@@ -13,7 +13,7 @@ import tempfile
 
 from adapt_project import AdaptError, read_json, require
 from adaptation import validate_adapted_spec
-from auto_templates import ROOT, choose
+from auto_templates import ROOT, choose, library
 from build_macro_project import build, pack_scene_parts, preflight_narration
 from mix_recipe import initial_settings
 from pack_catalog import resolve
@@ -25,32 +25,43 @@ def write(path, value):
 
 def global_scene(item, offset, fps):
     value = deepcopy(item)
-    frame_keys = {'output_start_frame', 'output_end_frame', 'output_frame', 'outputFrame',
-                  'outputStartFrame', 'outputEndFrame', 'startFrame', 'endFrame'}
-    def shift(node):
-        if isinstance(node, dict):
-            for key, child in node.items():
-                if key in frame_keys and type(child) is int: node[key] += offset
-                elif key in {'outputStart', 'outputEnd'} and isinstance(child, (int, float)): node[key] += offset/fps
-                elif key not in {'slots', 'bindings', 'texts'}: shift(child)
-        elif isinstance(node, list):
-            for child in node: shift(child)
-    shift(value)
+    # Schema-owned OUTPUT fields only. Source clocks, slot data, evidence,
+    # asset offsets and edit maps are never visited recursively.
+    for key in ('output_start_frame','output_end_frame','startFrame','endFrame'):
+        if key in value: value[key] += offset
+    for key in ('outputStart','outputEnd'):
+        if key in value: value[key] += offset/fps
+    for collection, keys in [
+        ('knots',('outputFrame',)), ('anchors',('outputFrame',)),
+        ('cues',('outputFrame',)), ('intervals',('startFrame','endFrame')),
+        ('motionWindows',('outputStartFrame','outputEndFrame')),
+        ('time_map',('output_frame',)), ('sfx',('outputFrame',)),
+        ('mediaClocks',('startFrame','endFrame'))]:
+        for node in value.get(collection, []):
+            for key in keys:
+                if key in node: node[key] += offset
     for event in value.get('sfx', []): event['at'] = event['outputFrame']/fps
     for clock in value.get('mediaClocks', []):
-        if isinstance(clock.get('start'), (int,float)): clock['start'] += offset/fps
-        if isinstance(clock.get('end'), (int,float)): clock['end'] += offset/fps
+        clock['start'] = clock['startFrame']/fps
+        clock['end'] = clock['endFrame']/fps
+    value['outputClock'] = 'final-output'
     return value
 
 
-def build_auto(plan_path, talk, output, subs_js=None):
+def build_auto(plan_path, talk, output, subs_js=None, *, edit_map=None):
     require(not output.exists() and not output.is_symlink(), 'Refusing existing auto project')
     require(output.parent.is_dir(), 'Auto project parent must exist')
     saved = read_json(plan_path)
     require(saved.get('schema') == 'adu-auto-plan/1', 'Not an auto plan')
     # Stored success/source/profile flags are never authority. Recompute all
     # choices from the saved episode brief and current real input files.
-    result = choose(saved['brief'], Path(saved['sourceDirectory']))
+    bindings = saved.get('catalogBindings')
+    if bindings is None:
+        bindings = {e['styleId']: e['selection'] for e in library() if e['selection'] in saved['sourceDigests']}
+        require(set(bindings.values()) == set(saved['sourceDigests']), 'Legacy plan needs replan: frozen catalog bindings unavailable')
+    pinned = library(layout=saved['brief'].get('layout','landscape'), bindings=bindings)
+    require({e['styleId']: e['selection'] for e in pinned} == bindings, 'Pinned style removed; replan explicitly')
+    result = choose(saved['brief'], Path(saved['sourceDirectory']), pinned)
     require(result['sourceDigests'] == saved['sourceDigests'], 'Catalog source changed; replan')
     require(result['spec'] == saved['spec'] and result['runs'] == saved['runs'],
             'Auto choices or run bindings changed; replan instead of editing generated specs')
@@ -58,7 +69,17 @@ def build_auto(plan_path, talk, output, subs_js=None):
     runs = result['runs']
     require(runs, 'Auto plan needs selected complete groups')
     require(subs_js is None or subs_js.is_file(), 'Missing generated subtitle data')
-    preflight_narration(result['manifest'], result['spec'], talk)
+    repair_mode=result['spec'].get('repairPolicy',{}).get('mode','off')
+    if repair_mode=='off':edit_map=None
+    if repair_mode not in {'off','basic'}:raise ValueError('Invalid repairPolicy.mode')
+    if repair_mode=='basic':
+        require(edit_map is not None,'Basic mode requires a prepared --edit-map for this invocation')
+        require(result['spec'].get('narrationClock')=='edited-narration','Replan in edited-narration after repair')
+        from repair_talk import validate_master
+        edited,_=validate_master(edit_map,talk)
+        require(result['spec'].get('narrationEditMap',{}).get('fingerprint') in (None,edited['fingerprint']),'Prepared edit map differs from the plan; replan')
+        require(edited['editedFrames']==result['report']['durationFrames'],'Edited master duration differs; replan before building')
+    else:preflight_narration(result['manifest'], result['spec'], talk)
     verified_packs=set()
     for run in runs:
         directory=resolve(run['selection'], ROOT/'packs')
@@ -66,11 +87,12 @@ def build_auto(plan_path, talk, output, subs_js=None):
         if run['selection'] not in verified_packs:
             pack_scene_parts(directory,pack)
             verified_packs.add(run['selection'])
-        validate_adapted_spec(pack,run['spec'],plan_path.parent,ROOT/'adaptation-profiles',allow_pending_talk=True)
+        validate_adapted_spec(pack,run['spec'],plan_path.parent,ROOT/'adaptation-profiles',allow_pending_talk=True,
+                              composition_context=dict(startFrame=run['startFrame'],durationFrames=result['report']['durationFrames']))
     if len(runs) == 1:
         with tempfile.TemporaryDirectory(prefix='adu-auto-spec-') as tmp:
             path=Path(tmp)/'spec.json';write(path,runs[0]['spec'])
-            build(resolve(runs[0]['selection'],ROOT/'packs'),path,talk,output,subs_js)
+            build(resolve(runs[0]['selection'],ROOT/'packs'),path,talk,output,subs_js,edit_map=edit_map)
         write(output/'auto_selection.json',result['report'])
         return
     with tempfile.TemporaryDirectory(prefix='.adu-auto-build-', dir=output.parent) as tmp:
@@ -79,7 +101,14 @@ def build_auto(plan_path, talk, output, subs_js=None):
         # PCM audio slices derive from this exact output grid, never re-encode.
         command=[sys.executable,str(ROOT/'scripts/import_talk.py'),str(stage),str(talk),'--fps','60']
         if result['spec'].get('colorReviewFile'): command.extend(['--color-review',result['spec']['colorReviewFile']])
-        subprocess.run(command,check=True,capture_output=True)
+        if edit_map is not None:
+            from repair_talk import install_master
+            install_master(edit_map,talk,stage)
+            if subs_js is None and (stage/'edited.srt').is_file():
+                from build_subs import build as subtitle_data
+                subs_js=stage/'subs.js'
+                subs_js.write_text('const SUBS='+json.dumps(subtitle_data(stage/'edited.srt'),ensure_ascii=False)+';\n')
+        else:subprocess.run(command,check=True,capture_output=True)
         (stage/'compositions').mkdir()
         parts=[]; scenes=[]; receipts=[]; provenance=[]
         width,height=(1080,1920) if result['spec'].get('layout')=='portrait' else (1920,1080)
@@ -92,7 +121,8 @@ def build_auto(plan_path, talk, output, subs_js=None):
             file=Path(tmp)/f'part-{i:02d}.json';write(file,spec)
             child=stage/'compositions'/f'part-{i:02d}'
             build(resolve(run['selection'],ROOT/'packs'),file,talk,child,subs_js,
-                  _narration_slice=(stage,run['startFrame'],run['endFrame']))
+                  _narration_slice=(stage,run['startFrame'],run['endFrame']),
+                  _composition_context=dict(startFrame=run['startFrame'],durationFrames=total))
             prefix=child.relative_to(stage).as_posix()
             part=dict(path=prefix,style=run['style'],selection=run['selection'],startFrame=run['startFrame'],endFrame=run['endFrame'])
             parts.append(part)
@@ -145,7 +175,7 @@ def build_auto(plan_path, talk, output, subs_js=None):
             f'<style>html,body{{margin:0;background:#000;overflow:hidden}}#stage{{position:relative;width:{width}px;height:{height}px}}</style>'+
             '<div id="stage"></div><script src="auto_plan.js"></script><script src="auto_runtime.js"></script></html>\n')
         runtime=stage/'audio_runtime';runtime.mkdir()
-        for name in ['auto_audio.py','macro_audio.py','audiolib.py','adaptation_audio.py','mix_recipe.py','music_policy.py']:
+        for name in ['auto_audio.py','macro_audio.py','audiolib.py','sound_catalog.py','adaptation_audio.py','mix_recipe.py','music_policy.py']:
             shutil.copy2(ROOT/'scripts'/name,runtime/name)
         from music_policy import selection
         music,_=selection(result['spec'].get('music'),Path(saved['sourceDirectory']),total/60)
@@ -161,7 +191,7 @@ def build_auto(plan_path, talk, output, subs_js=None):
         write(stage/'recipe_versions.json',dict(schema='adu-multi-pack-provenance/1',parts=provenance,
               qualityStatus='experimental-built-not-visually-accepted',layout=plan['layout'],
               frozenRuntime={p:hashlib.sha256((stage/p).read_bytes()).hexdigest() for p in
-                             ['auto_runtime.js','auto_plan.js','audio_runtime/auto_audio.py','audio_runtime/audiolib.py','audio_runtime/music_policy.py','macro_music.json']}))
+                             ['auto_runtime.js','auto_plan.js','audio_runtime/auto_audio.py','audio_runtime/audiolib.py','audio_runtime/music_policy.py', 'audio_runtime/sound_catalog.py','macro_music.json']}))
         write(stage/'macro_build_report.json',dict(status='experimental-built-not-visually-accepted',
               narrationFrames=total,outputFrames=total,parts=len(parts),voiceRetimed=False,
               subtitleClock='global',musicBoundary='one episode track; no per-pack background fallback; continuous listening required'))
@@ -171,11 +201,11 @@ def build_auto(plan_path, talk, output, subs_js=None):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('plan',type=Path);p.add_argument('talk',type=Path);p.add_argument('output',type=Path)
-    p.add_argument('--subs-js',type=Path)
+    p.add_argument('--subs-js',type=Path);p.add_argument('--edit-map',type=Path)
     a=p.parse_args()
     try:
         build_auto(a.plan.expanduser().resolve(),a.talk.expanduser().resolve(),a.output.expanduser().absolute(),
-                   a.subs_js.expanduser().resolve() if a.subs_js else None)
+                   a.subs_js.expanduser().resolve() if a.subs_js else None,edit_map=a.edit_map)
         print(json.dumps(dict(output=str(a.output),status='built-not-visually-accepted'),ensure_ascii=False))
     except (AdaptError,ValueError,OSError,subprocess.CalledProcessError) as exc:p.exit(1,f'Auto build failed: {exc}\n')
 

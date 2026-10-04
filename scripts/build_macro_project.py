@@ -73,7 +73,7 @@ def pack_scene_parts(pack_dir: Path, pack: dict) -> tuple[str, list[str]]:
 
 
 def js_content(value: str, *, html_context: bool) -> str:
-    if html_context: value = html.escape(value, quote=True)
+    if html_context: value = html.escape(value, quote=True).replace('\r\n', '\n').replace('\r', '\n').replace('\n', '<br>')
     # A single escaped representation is safe inside ', ", and ` strings.
     return ''.join({'\\': '\\\\', "'": "\\'", '"': '\\"', '`': '\\`', '$': '\\u0024',
                     '\n': '\\n', '\r': '\\r', '\u2028': '\\u2028', '\u2029': '\\u2029'}.get(c, c) for c in value)
@@ -154,6 +154,11 @@ def copy_external_fonts(pack: dict, spec: dict, spec_dir: Path, stage: Path) -> 
     if len(declared) != len(requirements) or any(not isinstance(id, str) for id in declared) or len(set(declared)) != len(declared):
         fail('External font IDs must be distinct')
     if set(inputs) - set(declared): fail('Unknown externalFontFiles ID')
+    def font_weight(item):
+        value = str(item.get('weight', item['id'].rsplit('-', 1)[-1] if re.search(r'-[1-9]00$', item['id']) else '400'))
+        if not re.fullmatch(r'[1-9]00(?: [1-9]00)?', value) or int(value.split()[0]) > int(value.split()[-1]):
+            fail('Invalid external font weight')
+        return value
     verified = []
     for item in requirements:
         id = item.get('id'); family = item.get('family'); expected = item.get('sha256')
@@ -170,12 +175,14 @@ def copy_external_fonts(pack: dict, spec: dict, spec_dir: Path, stage: Path) -> 
         if not source.is_file() or source.suffix.lower() != extension: fail(f'External font {id} must be a supplied {extension} file')
         actual = hashlib.sha256(source.read_bytes()).hexdigest()
         if actual != expected: fail(f'External font {id} differs from the reviewed source font; review a new pack version')
+        font_weight(item)
         verified.append((source, item))
     css = []; report = []
     for source, item in verified:
         target = stage / 'fonts' / (item['id'] + item['extension'])
         target.parent.mkdir(exist_ok=True); shutil.copy2(source, target)
-        css.append(f"@font-face{{font-family:'{item['family']}';src:url(fonts/{target.name}) format('{item['format']}')}}")
+        weight = font_weight(item)
+        css.append(f"@font-face{{font-family:'{item['family']}';font-style:normal;font-weight:{weight};src:url(fonts/{target.name}) format('{item['format']}')}}")
         report.append({'id':item['id'],'family':item['family'],'sha256':item['sha256'],
                        'projectFile':target.relative_to(stage).as_posix(),'mode':'explicit-owner-supplied'})
     return '\n'.join(css) + ('\n' if css else ''), report
@@ -358,7 +365,7 @@ def write_project_audio(stage: Path, music: dict) -> None:
         music['path'] = Path(music['path']).relative_to(stage.resolve()).as_posix()
     runtime = stage / 'audio_runtime'
     runtime.mkdir(exist_ok=True)
-    for name in ('macro_audio.py', 'audiolib.py', 'adaptation_audio.py', 'music_policy.py'):
+    for name in ('macro_audio.py', 'audiolib.py','sound_catalog.py', 'adaptation_audio.py', 'music_policy.py'):
         shutil.copy2(ROOT / 'scripts' / name, runtime / name)
     (stage / 'macro_music.json').write_text(json.dumps(music, ensure_ascii=False, indent=2) + '\n')
     (stage / 'audio.py').write_text('''import sys
@@ -418,12 +425,12 @@ def preflight_narration(pack: dict, spec: dict, talk: Path) -> dict:
     return {'fps': fps, 'expectedFrames': end, **timing, 'stage': 'metadata-before-frame-extraction'}
 
 
-def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Path | None, *, _narration_slice: tuple | None = None) -> None:
+def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Path | None, *, _narration_slice: tuple | None = None, _composition_context=None, edit_map=None) -> None:
     if output.exists() or output.is_symlink(): fail(f'Refusing existing project: {output}')
     if not output.parent.is_dir(): fail(f'Project parent does not exist: {output.parent}')
     pack = read_json(pack_dir / 'manifest.json'); spec = read_json(spec_path)
     from adaptation import load_profile, validate_adapted_spec
-    adaptation = validate_adapted_spec(pack, spec, spec_path.parent, ROOT / 'adaptation-profiles', allow_pending_talk=True)
+    adaptation = validate_adapted_spec(pack, spec, spec_path.parent, ROOT / 'adaptation-profiles', allow_pending_talk=True, composition_context=_composition_context)
     try:
         mix_settings = initial_settings(spec)
     except ValueError as exc:
@@ -438,7 +445,18 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
     subtitle_preset = spec.get('subtitlePreset', 'large-en')
     if subtitle_preset not in ('standard', 'large-en'):
         fail('subtitlePreset must be standard or large-en')
-    if _narration_slice is None:
+    repair_mode=spec.get('repairPolicy',{}).get('mode','off')
+    if repair_mode not in {'off','basic'}:fail('repairPolicy.mode must be off or basic')
+    if repair_mode=='off': edit_map=None # no inherited map opens or repair scans
+    if edit_map is not None and _narration_slice is None:
+        from repair_talk import validate_master
+        mapped,edited_master=validate_master(edit_map,talk)
+        if spec.get('narrationEditMap',{}).get('fingerprint') not in (None,mapped['fingerprint']):fail('Prepared edit map differs from the plan; replan')
+        if spec.get('narrationClock')!='edited-narration':fail('Replan in edited-narration before building a repaired master')
+        from narration_slice import preflight
+        narration_preflight=preflight(edited_master,talk,0,mapped['editedFrames'],spec.get('fps',pack['fps']))
+    elif _narration_slice is None:
+        if repair_mode=='basic':fail('Basic repair needs an explicitly prepared --edit-map; run repair-plan/apply and replan first')
         narration_preflight = preflight_narration(pack, spec, talk)
     else:
         from narration_slice import preflight
@@ -465,14 +483,20 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
             if not isinstance(spec['colorReviewFile'], str) or not spec['colorReviewFile'].strip():
                 fail('colorReviewFile must name an actual source comparison record')
             import_command.extend(['--color-review', str((spec_path.parent / spec['colorReviewFile']).resolve())])
-        if _narration_slice is None:
+        if edit_map is not None and _narration_slice is None:
+            from repair_talk import install_master
+            install_master(edit_map,talk,stage)
+            if subs_js is None and (stage/'edited.srt').is_file():
+                from build_subs import build as subtitle_data
+                (stage/'subs.js').write_text('const SUBS='+json.dumps(subtitle_data(stage/'edited.srt'),ensure_ascii=False)+';\n')
+        elif _narration_slice is None:
             subprocess.run(import_command, check=True)
         else:
             from narration_slice import install
             install(master, stage, first, last, spec.get('fps', pack['fps']))
         audio_timeline_path = pack_dir / 'audio_timeline.json'
         audio_timeline = read_json(audio_timeline_path) if audio_timeline_path.is_file() else None
-        plan = compile_plan(pack, spec, spec_dir=spec_path.parent, project=stage,
+        plan = compile_plan(pack, spec, spec_dir=spec_path.parent, project=stage, composition_context=_composition_context,
                             audio_timeline=audio_timeline)
         imported = read_json(stage / 'import.json')
         if imported['frames'] != plan['end_frame']:
@@ -488,6 +512,13 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
             if not subs_js.is_file(): fail(f'Missing generated subtitle data: {subs_js}')
             shutil.copy2(subs_js, stage / 'subs.js')
         css = (pack_dir / 'style.css').read_text()
+        # Supplied fonts replace the source declarations, not a second set of
+        # default-400 faces that leave broken URLs or ambiguous font readiness.
+        families = {f['family'] for f in external_font_report}
+        def keep_face(match):
+            face = re.search(r"font-family\s*:\s*['\"]([^'\"]+)['\"]", match.group())
+            return '' if face and face.group(1) in families else match.group()
+        css = re.sub(r'@font-face\s*\{[^}]*\}', keep_face, css, flags=re.I)
         font_report = {'mode': 'system-font-stack'}
         if re.search(r"['\"]SFM['\"]", css):
             css = re.sub(r"@font-face\s*\{[^}]*font-family\s*:\s*['\"]SFM['\"][^}]*\}", '', css)
@@ -530,11 +561,11 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
   }
 ''')
         if any(scene.get('plainTextExpressions') for scene in pack['scenes']):
-            lib += '''
+            lib += r'''
 const PACK_PLAIN_TEXT = (() => {
   const decoder = document.createElement('textarea'), cache = new Map();
   return value => {
-    if (!cache.has(value)) { decoder.innerHTML = value; cache.set(value, decoder.value); }
+    if (!cache.has(value)) { decoder.innerHTML = value.replace(/<br\s*\/?\s*>/gi, '\n'); cache.set(value, decoder.value); }
     return cache.get(value);
   };
 })();
@@ -650,11 +681,14 @@ function raceAt(e, sourceTime, opacity=1) {
             runtime_scripts.append('<script src=' + json.dumps(relative) + '></script>')
         if pack.get('sourceFormat') == 'authored-unit/1':
             (stage / 'config.js').write_text((pack_dir / 'config.js').read_text())
+        from subtitle_position import resolve_position
+        subtitle_position = resolve_position(spec.get('subtitlePosition'), plan['width'], plan['height'])
         config = (stage / 'config.js').read_text() + (f'\nCONFIG.demo=false; CONFIG.fps={plan["fps"]}; '
-                  f'CONFIG.end={plan["durationSeconds"]}; CONFIG.subtitles={str(bool(subs_js)).lower()};\n'
+                  f'CONFIG.end={plan["durationSeconds"]}; CONFIG.subtitles={str(bool(subs_js) or (stage/'edited.srt').is_file()).lower()};\n'
                   f'CONFIG.brand={json.dumps(brand, ensure_ascii=False)}; '
                   f'CONFIG.account={json.dumps(brand, ensure_ascii=False)};\n'
                   f'CONFIG.subtitlePreset={json.dumps(subtitle_preset)};\n'
+                  f'CONFIG.subtitlePosition={json.dumps(subtitle_position)};\n'
                   f'window.PACK_BRAND={json.dumps(brand, ensure_ascii=False)}; '
                   f'window.PACK_BRAND_HTML={json.dumps(html.escape(brand, quote=True), ensure_ascii=False)}; '
                   f'window.PACK_PRESENTER_LABEL={json.dumps(html.escape(presenter_label, quote=True), ensure_ascii=False)};\n')
@@ -707,7 +741,7 @@ function raceAt(e, sourceTime, opacity=1) {
                       'frozenRuntime': {name: hashlib.sha256((stage / name).read_bytes()).hexdigest()
                                         for name in ['lib.js', 'macro_main.js', 'style.css', 'audio_runtime/mix_recipe.py',
                                                      'audio_runtime/macro_audio.py', 'audio_runtime/audiolib.py',
-                                                     'audio_runtime/adaptation_audio.py', 'audio_runtime/music_policy.py', 'macro_music.json', *pack.get('runtimeFiles', []), *generated_runtime, *layout_files]},
+                                                     'audio_runtime/adaptation_audio.py', 'audio_runtime/music_policy.py', 'audio_runtime/sound_catalog.py', 'macro_music.json', *pack.get('runtimeFiles', []), *generated_runtime, *layout_files]},
                       'layout': plan['layout'],
                       'qualityStatus': 'built-not-visually-accepted'}
         if adaptation['applicable']:
@@ -729,11 +763,12 @@ def main() -> None:
     project = sub.add_parser('build', help='Create a new project from an edited talk video and target spec')
     project.add_argument('pack', type=Path); project.add_argument('spec', type=Path)
     project.add_argument('talk', type=Path); project.add_argument('output', type=Path)
+    project.add_argument('--edit-map',type=Path,help='Prepared basic-repair master map; explicit repairPolicy.basic required')
     project.add_argument('--subs-js', type=Path, help='New narration-aligned bilingual subtitle data')
     args = parser.parse_args()
     try:
         if args.command == 'scaffold': scaffold(read_json(args.pack / 'manifest.json'), args.output)
-        else: build(args.pack.resolve(), args.spec.resolve(), args.talk.resolve(), args.output.resolve(), args.subs_js)
+        else: build(args.pack.resolve(), args.spec.resolve(), args.talk.resolve(), args.output.resolve(), args.subs_js, edit_map=args.edit_map)
     except (AdaptError, OSError, subprocess.CalledProcessError) as exc:
         raise SystemExit(f'Macro project failed: {exc}') from exc
 

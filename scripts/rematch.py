@@ -67,23 +67,10 @@ def _whole_plan(manifest, profile, spec, spec_dir, project, allow_pending_talk):
     Do not load or synthesize a profile on disk. Return separate deficits so a
     missing attachment stays a non-adoptable draft instead of a generic error.
     """
-    segments, contracts, sources, spans, fps = _structure(manifest, profile, spec)
-    transcript = transcript_rows(spec.get("transcript"), spec_dir)
-    path, reasons, missing = [], [], []
-    for segment, target, (start, end) in zip(segments, spec["scenes"], spans):
-        sid = target["sceneId"]
-        source_index, source = sources[sid]
-        evaluated = _evaluate(manifest, source, source_index, contracts[sid], segment, target,
-                              start, end, fps, transcript, spec_dir, project, allow_pending_talk)
-        reasons.extend(f"{segment['id']}: {item}" for item in evaluated.get("reasons", []))
-        missing.extend(f"{segment['id']}: {item}" for item in evaluated.get("missing", []))
-        # Semantic rejection returns early; seams still need its declared identity.
-        evaluated.setdefault("contract", contracts[sid]); evaluated.setdefault("expanded", target)
-        bad, absent = _seam(path[-1] if path else None, evaluated)
-        reasons.extend(bad); missing.extend(absent); path.append(evaluated)
-    if path[-1]["contract"].get("exit", {}).get("requiresNext"):
-        reasons.append(f"{path[-1]['sceneId']}: requiresNext is unsatisfied at video end")
-    return path, list(dict.fromkeys(reasons)), list(dict.fromkeys(missing)), fps
+    _structure(manifest, profile, spec)
+    from adaptation import validate_selected_path
+    return validate_selected_path(manifest, profile, spec, spec_dir,
+        project=project, allow_pending_talk=allow_pending_talk)
 
 
 def _input_leaves(value, prefix=""):

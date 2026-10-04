@@ -1,6 +1,6 @@
 """audiolib — 合成乐器 / 音效库 / 音量曲线。给 audio.py 调用，一般不需要改。
 N（总采样数）由 init(end_seconds) 设定。"""
-import numpy as np, wave, os, json, subprocess
+import numpy as np, wave, os, json, subprocess, hashlib
 SR = 44100
 HERE = os.path.dirname(os.path.abspath(__file__))
 rng = np.random.default_rng(11)
@@ -33,9 +33,9 @@ def sweep(f0, f1, d, curve='exp'):
     f = f0 * (f1 / f0) ** (t / d) if curve == 'exp' else f0 + (f1 - f0) * t / d
     return np.sin(2 * np.pi * np.cumsum(f) / SR)
 def noise(d): return rng.standard_normal(len(T(d)))
-def reverb(x, dec=1.6, mix=.25, pre=.012):
+def reverb(x, dec=1.6, mix=.25, pre=.012, *, ir_seed=29011):
     n = int(SR * dec); t = np.arange(n) / SR
-    ir = rng.standard_normal(n) * np.exp(-t * 6.9 / dec); ir = lowpass(ir, 5000); ir[: int(pre * SR)] = 0; ir /= np.sqrt((ir ** 2).sum())
+    ir = np.random.default_rng(ir_seed).standard_normal(n) * np.exp(-t * 6.9 / dec); ir = lowpass(ir, 5000); ir[: int(pre * SR)] = 0; ir /= np.sqrt((ir ** 2).sum())
     out = np.zeros_like(x)
     for c in range(x.shape[1]):
         ir_c = np.roll(ir, c * 37)
@@ -328,13 +328,41 @@ GEN = {
     'levelup': lambda c: levelupS(), 'ff': lambda c: ffS(c.get('d', 2)), 'jump': lambda c: jumpS(), 'rise_s': lambda c: riseS(),
 }
 
+def event_identity(c):
+    if c.get('eventId'): return c['eventId']
+    # Compatibility for legacy captures: stable fields, excluding output time,
+    # gain and pan when source identity is available.
+    identity = {k:c[k] for k in ('sceneInstanceId','sourceAt','type','d','n') if k in c}
+    if 'sourceAt' not in identity: identity['sourceAt'] = c['t']
+    return 'legacy:'+hashlib.sha256(json.dumps(identity,sort_keys=True).encode()).hexdigest()
+
+
+def render_event(c, *, wet=False):
+    global rng
+    kind = c['type']
+    if kind not in GEN: raise ValueError('Unknown SFX recipe: '+kind)
+    old = rng
+    rng = np.random.default_rng(int.from_bytes(hashlib.sha256(event_identity(c).encode()).digest()[:8], 'big'))
+    try:
+        mono = GEN[kind](c)
+        # Recipes retain their original generator lengths. Style tint is mild
+        # and declared, never a pitch/time change to match narration.
+        family = c.get('soundFamily', '')
+        if family in {'paper','editorial'}: mono = lowpass(mono, 6200)
+        data = pan(mono,c.get('p',0))*c.get('g',1)
+        if wet:
+            data = np.pad(data,((0,round(.9*SR)),(0,0)))
+            data = reverb(data,.9,.12,ir_seed=29011)
+        return data
+    finally: rng = old
+
+
 def render_sfx(cues):
-    out = np.zeros((N, 2)); missing = set()
-    for c in cues:
-        g = GEN.get(c['type'])
-        if not g: missing.add(c['type']); continue
-        add(out, pan(g(c), c.get('p', 0)), c['t'], c.get('g', 1))
-    if missing: print('missing sfx types:', missing)
+    out = np.zeros((N,2))
+    identities = [event_identity(c) for c in cues if c.get('eventId')]
+    if len(identities)!=len(set(identities)): raise ValueError('Duplicate stable SFX eventId')
+    for c in sorted(cues,key=lambda c:(c['t'],event_identity(c))):
+        add(out,render_event(c),c['t'])
     return out
 
 def env_curve(keys):

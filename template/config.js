@@ -17,3 +17,6 @@ window.CONFIG = {
     keys: [0, 4, 16, 27, 36],
   },
 };
+
+// Spatial only; null keeps landscape preset. Portrait defaults to bottomRatio .25.
+CONFIG.subtitlePosition = null;

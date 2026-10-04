@@ -115,7 +115,7 @@ async function main() {
       color = JSON.parse(plan.stdout);
     }
     temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'adu-video-render-'));
-    browser = await chromium.launch({ executablePath: browserPath, headless: true, args: ['--allow-file-access-from-files', '--force-color-profile=srgb', ...(opt.composite ? ['--disable-gpu','--disable-accelerated-2d-canvas'] : [])] });
+    browser = await chromium.launch({ executablePath: browserPath, headless: true, args: ['--allow-file-access-from-files', '--force-color-profile=srgb', '--disable-gpu','--disable-accelerated-2d-canvas'] });
     const context = await browser.newContext({ viewport: { width: opt.width, height: opt.height }, deviceScaleFactor: 1, serviceWorkers: 'block' });
     await context.route('**/*', route => {
       if (/^https?:/i.test(route.request().url())) { errors.add('Remote request blocked; local assets are required'); return route.abort(); }

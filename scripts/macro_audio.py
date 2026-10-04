@@ -129,13 +129,17 @@ def render(project: Path, track: Path | None = None, offset: float = 0, *, music
         A.write_wav(str(project / f'{name}.wav'), data)
     report = {'mode': music_config['mode'], 'musicPolicy': POLICY,
               'trackSha256': music_config.get('sha256'), 'bgmSha256': sha(project / 'bgm.wav'),
-              'sfxSha256': sha(project / 'sfx.wav'), 'sfxRandomPolicy': 'adu-sfx-independent-seed11/1', 'duration': end, 'sampleRate': A.SR,
+              'sfxSha256': sha(project / 'sfx.wav'), 'sfxRandomPolicy': 'adu-sfx-stable-event-and-ir/2', 'duration': end, 'sampleRate': A.SR,
               'mixProfile': profile,
               'renderedSections': len(sections), 'bars': sum(s['bars'] for s in sections),
               'specialEvents': rendered_special, 'plannedSpecialEvents': len(joined), 'hits': rendered_hits,
               'plannedHits': len(score.get('hits', [])),
               'sfx': len(cues['sfx']), 'voiceRetimed': False,
               'review': 'Structure rendered; listening and source/reference comparison still required.'}
+    imported=json.loads((project/'import.json').read_text()) if (project/'import.json').is_file() else {}
+    report.update(cutsApplied=bool(imported.get('cutsApplied')),playbackRateChanged=False,narrationClock=imported.get('clock','edited-narration'),editMapFingerprint=imported.get('editMapFingerprint'))
+    from sound_catalog import measure,VERSION
+    (project/'sound_recipe_receipt.json').write_text(json.dumps(dict(schema='adu-sound-recipe-receipt/1',version=VERSION,events=[measure(event) for event in cues['sfx']],limits='Measured generated buffers; final mix listening still required'),ensure_ascii=False,indent=2)+'\n')
     (project / 'macro_audio_report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     (project / 'audio_boundary_report.json').write_text(json.dumps(audio_boundary_report(plan, cues), ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(report, ensure_ascii=False))

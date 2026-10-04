@@ -54,9 +54,17 @@ def main():
     ap.add_argument('--fps', type=int, default=60, help='project frame clock; default 60')
     ap.add_argument('--size', default='720x1280', help='frame box; preserves aspect ratio with padding')
     ap.add_argument('--color-review', type=Path, help='explicit source colour comparison record; never generated automatically')
+    ap.add_argument('--repair-mode', choices=['off', 'basic'], default='off')
+    ap.add_argument('--edit-map', type=Path, help='Prepared master; ignored when repair-mode=off')
     a = ap.parse_args()
     project, video = a.project.expanduser().resolve(), a.video.expanduser().resolve()
     if not project.is_dir() or not video.is_file(): ap.error('project folder and input video must exist')
+    if a.repair_mode == 'basic':
+        if a.edit_map is None or a.fps != 60: ap.error('Basic import requires --edit-map and fps=60')
+        from repair_talk import install_master
+        install_master(a.edit_map, video, project)
+        print(json.dumps({'project': str(project), 'cutsApplied': True, 'playbackRateChanged': False}))
+        return
     try:
         width, height = map(int, a.size.split('x'))
         if not 1 <= a.fps <= 120 or min(width, height) < 2: raise ValueError()

@@ -12,6 +12,7 @@ import crypto from 'node:crypto';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
 import { chrome } from './chrome.mjs';
+import {measureTypography} from './typography_audit.mjs';
 
 const HELP = `Usage: node scripts/audit_macro_project.mjs PROJECT [--output NEW.json]
        [--screenshots NEW_DIR] [--browser CHROME_PATH]
@@ -259,7 +260,7 @@ async function audit(opt) {
   let browser;
   try {
     browser = await chromium.launch({ executablePath: chrome(opt.browser), headless: true,
-      args: ['--allow-file-access-from-files'] });
+      args: ['--allow-file-access-from-files', '--force-color-profile=srgb', '--disable-gpu', '--disable-accelerated-2d-canvas'] });
     const context = await browser.newContext({ viewport: { width: plan.width || 1920, height: plan.height || 1080 },
       deviceScaleFactor: 1, serviceWorkers: 'block' });
     await context.route('**/*', route => {
@@ -273,6 +274,7 @@ async function audit(opt) {
       errors.add('WebSocket asset blocked'); socket.close();
     });
     const randomPage = await loadedPage(context, opt.entry, errors);
+    report.typography={schema:'adu-actual-typography/1',frames:[],findings:[],status:'measured-needs-visual-review',canvas:'renderer-owned bounds or visual review; DOM scan does not measure Canvas glyphs'};
     const resultByFrame = new Map();
     const reps = new Set(representatives);
     for (const item of shuffled(samples)) {
@@ -281,6 +283,9 @@ async function audit(opt) {
         report.decodedImageReferences += state.decodedImages;
         report.visibleImageChecks += state.visibleImages;
         resultByFrame.set(item.frame, state);
+        const type=await measureTypography(randomPage,item.frame,plan.fps);
+        report.typography.frames.push(type);report.typography.findings.push(...type.findings);
+        for(const f of type.findings)if(['font-not-ready','caption-safe-space'].includes(f.kind))report.issues.push({kind:f.kind,frame:item.frame,detail:f});
         if (item.frame === 0 && !state.visiblePresenter)
           report.issues.push({ frame: 0, kind: 'first-frame-presenter', message: 'The narration image is not visible on the first frame' });
       } catch (error) {

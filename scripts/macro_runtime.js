@@ -46,6 +46,7 @@
     throw Error('Source SFX capture is incomplete');
   SFX.length = 0;
   plan.scenes.forEach((item, i) => {
+    const occurrences=new Map();
     for (const cue of window.MACRO_SOURCE_SFX[i]) {
       const authoredFrame = outputAt(item, cue.t);
       // A reused opening scene has no preceding shot for its transition
@@ -54,7 +55,12 @@
       const globalEnd = window.MACRO_GLOBAL_END_FRAME ?? plan.end_frame;
       const frame = i === 0 && globalStart === 0 ? Math.max(0, authoredFrame) : authoredFrame;
       if (frame + globalStart < 0 || frame + globalStart >= globalEnd) continue;
-      const mapped = {...cue, t: frame / fps};
+      const key=JSON.stringify([cue.t,cue.type,cue.d??null,cue.n??null]);
+      const ordinal=occurrences.get(key)||0;occurrences.set(key,ordinal+1);
+      const packId=plan.pack||window.PACK_LAYOUT?.pack||'performance';
+      const family=packId.includes('paper')?'paper':packId.includes('editorial')?'editorial':packId.includes('console')?'instrument':packId.includes('showcase')?'depth':packId.includes('sticker')?'sticker':packId.includes('kinetic')?'kinetic':'performance';
+      const mapped = {...cue, t: frame / fps, sourceAt:cue.t,sceneInstanceId:item.id,
+        eventId:JSON.stringify([packId,item.id,key,ordinal]),soundFamily:family};
       // d is generator time, not a second choreography anchor. A sound may
       // cross a retimed reading gap; preserve its original duration/timbre.
       // Only the onset follows the mapped action clock.
@@ -111,6 +117,7 @@
     if (index < 0) throw Error(`No macro scene at output frame ${frame}`);
     const item = plan.scenes[index], sc = SCENES[index], source = sourceAt(item, frame);
     window.MACRO_OUTPUT_T = frame / fps;
+    window.MACRO_TEMPLATE_SOURCE_T = source;
     window.PACK_OUTPUT_TIME = frame / fps;
     window.MACRO_IS_OPENING_SCENE = index === 0;
     window.PACK_NUMBERS = window.MACRO_NUMBERS_BY_INSTANCE?.[index] || {};

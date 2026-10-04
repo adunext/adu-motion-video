@@ -213,7 +213,7 @@ def verify_delivery(project: Path, video: Path) -> dict:
         require(isinstance(name, str) and not Path(name).is_absolute() and sha(digest), 'Invalid export source_sha256 entry')
         source = (project / name).resolve()
         require(source.is_relative_to(project) and source.is_file(), 'Export source file is missing or outside the project: ' + name)
-        require(hashlib.sha256(source.read_bytes()).hexdigest() == digest, 'Project source changed after export: ' + name)
+        require(fingerprint_file(source)['sha256'] == digest, 'Project source changed after export: ' + name)
     try:
         entry = Path(record['entry'])
         if entry.is_absolute():
@@ -221,8 +221,12 @@ def verify_delivery(project: Path, video: Path) -> dict:
         require(str(entry) in hashes, 'Export entry HTML is not bound by source_sha256')
     except (KeyError, TypeError, ValueError) as exc:
         raise ValueError('Export manifest entry/project identity is missing or invalid') from exc
+    if record.get('audio_identity') is not None:
+        mux_audio = Path(record['audio'])
+        require(mux_audio.is_file() and fingerprint_file(mux_audio) == record['audio_identity'], 'Actual mux audio changed after export')
     imported = imported_color(project, hashes)
     prepared = prepared_media_color(project, hashes)
+    repaired = repaired_narration(project, hashes)
     try:
         actual = verify(video, count, fps, record['width'], record['height'], bool(record['audio']))
         actual_video = next(s for s in actual['streams'] if s['codec_type'] == 'video')
@@ -235,17 +239,42 @@ def verify_delivery(project: Path, video: Path) -> dict:
     require(hashlib.sha256(manifest_path.read_bytes()).hexdigest() == manifest_digest,
             'Export manifest changed during delivery verification')
     for name, digest in hashes.items():
-        require(hashlib.sha256((project / name).read_bytes()).hexdigest() == digest,
+        require(fingerprint_file(project / name)['sha256'] == digest,
                 'Project source changed during delivery verification: ' + name)
     return dict(schema='adu-delivery-verification/v1', status='verified', video=video.name,
                 output_sha256=identity['sha256'], output_size_bytes=identity['sizeBytes'],
                 manifest_sha256=manifest_digest,
                 frames=count, fps=fps, width=record['width'], height=record['height'],
                 duration=count / fps, audio=bool(record['audio']), color=EXPORT_COLOR.copy(),
-                frame_clock=actual_clock, importedColor=imported, preparedMediaColor=prepared,
+                frame_clock=actual_clock, importedColor=imported, preparedMediaColor=prepared, repairedNarration=repaired,
                 scope='Byte identity, source receipt, output colour tags, decoded frames, frame clock and complete decode.',
-                limits='Technical verification does not certify appearance, skin colour, listening quality or unrecorded upstream conversions. Media outside the explicit prepared-video receipts are not fingerprinted by this gate.',
+                limits='Technical verification does not certify appearance, skin colour, listening quality or unrecorded upstream conversions. Older export manifests may omit narration, audio or font identities; new manifests bind actual local image/audio/font/subtitle files. External streamed resources remain unsupported.',
                 visual_review='Not performed by this verifier.')
+
+
+def repaired_narration(project, hashes):
+    path = project / 'narration_edit_map.json'
+    if not path.is_file():
+        return {'present': False}
+    from narration_edit_map import validate_edit_map
+    from repair_talk import tree_identity, read_pcm
+    from retime_subtitles import retime, identity
+    edit = validate_edit_map(read_object(path, 'Narration edit map'))
+    require('narration_edit_map.json' in hashes, 'Export must bind the actual edit map')
+    receipt = read_object(project / 'repair_receipt.json', 'Repair receipt')
+    require(receipt.get('mapFingerprint') == edit['fingerprint'], 'Repair receipt belongs to a different map')
+    require(tree_identity(project / 'talk') == receipt['framesIdentity'], 'Edited narration frames differ from repair receipt')
+    require(fingerprint_file(project / 'voice.wav') == receipt['voiceIdentity'], 'Edited PCM differs from repair receipt')
+    require(len(read_pcm(project / 'voice.wav')) == edit['editedSamples'], 'Actual PCM does not fit the edit map')
+    imported = read_object(project / 'import.json', 'Import receipt')
+    require(imported.get('frames') == edit['editedFrames'] and imported.get('editMapFingerprint') == edit['fingerprint'], 'Imported master and edit map disagree')
+    if edit.get('transcriptIdentity'):
+        original = project / 'original.srt'
+        require(identity(original) == edit['transcriptIdentity'], 'Original SRT bytes differ')
+        text, expected = retime(original, edit)
+        require((project / 'edited.srt').read_text() == text, 'Derived SRT does not implement the actual edit map')
+        require(read_object(project / 'subtitle_edit_receipt.json', 'Subtitle receipt') == expected, 'Derived subtitle receipt disagrees')
+    return {'present': True, 'mapFingerprint': edit['fingerprint'], 'frames': edit['editedFrames'], 'samples': edit['editedSamples'], 'cutsApplied': True, 'playbackRateChanged': False}
 
 
 def main():

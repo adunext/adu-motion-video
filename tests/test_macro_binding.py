@@ -103,6 +103,9 @@ class MacroBindingTests(unittest.TestCase):
         bound,_=bind_authored_block(block,scene,{'evidence.title':'A & B < 3'},'test')
         self.assertIn("html='<b>A &amp; B &lt; 3</b>'",bound)
         self.assertIn("text='A & B < 3'",bound)
+        bound,_=bind_authored_block(block,scene,{'evidence.title':'第一行\n第二行 <br>'},'test')
+        self.assertIn("html='<b>第一行<br>第二行 &lt;br&gt;</b>'",bound)
+        self.assertIn("text='第一行\\n第二行 <br>'",bound)
 
     def test_all_public_text_ranges_match_and_are_disjoint(self):
         import json

@@ -91,7 +91,7 @@ def parse_srt(path: Path) -> list[dict]:
             return h * 3600 + m * 60 + s + ms / 1000
         start, end = sec(matches[0]), sec(matches[1])
         require(0 <= start < end, f"Bad SRT cue span at {lines[time_index]}")
-        text = " ".join(line.strip() for line in lines[time_index + 1:] if line.strip())
+        text = "\n".join(lines[time_index + 1:])
         require(bool(text), f"Empty SRT cue at {lines[time_index]}")
         cue_id = lines[0].strip() if time_index > 0 else str(len(rows) + 1)
         rows.append({"id": cue_id, "start": start, "end": end, "text": text})
@@ -677,7 +677,7 @@ def timed_scene(source: dict, target: dict, source_index: int, output_start: int
     instance_id = target.get("id", scene_id)
     text_slots = {detail["id"]: detail["value"] for detail in binding_details if detail["type"] in {"text", "dynamicText"}}
     time_map = [{"source": knot["sourceAt"], "output_frame": knot["outputFrame"]} for knot in knots]
-    return {"id": instance_id, "sceneId": scene_id, "sourceIndex": source_index,
+    return {"id": instance_id, "sceneId": scene_id, "layoutSceneId": source.get("variantOf", scene_id), "sourceIndex": source_index,
             "sourceSceneIndex": source_index,
             "sourceStart": src_start, "sourceEnd": src_end,
             "startFrame": output_start, "endFrame": output_end,
@@ -946,24 +946,31 @@ def map_audio_timeline(plan: dict, authored: dict) -> dict:
 
 
 def following_tail_issue(source: dict, end_frame: int, total_frames: int,
-                         fps: int, src_fps: int, instance_id: str) -> str | None:
+                         fps: int, src_fps: int, instance_id: str, *, composition_context=None) -> str | None:
     trailing = integer(source.get("minFollowingFrames", 0),
                        f"{source['id']}.minFollowingFrames", minimum=0)
     needed = math.ceil(trailing * fps / src_fps)
-    if total_frames - end_frame < needed:
+    available = total_frames - end_frame
+    if composition_context is not None:
+        require(isinstance(composition_context, dict), "composition context must be an object")
+        origin = integer(composition_context.get('startFrame'), 'composition.startFrame')
+        whole = integer(composition_context.get('durationFrames'), 'composition.durationFrames', minimum=1)
+        require(origin + total_frames <= whole, "Child extends beyond root composition")
+        available = whole - origin - end_frame
+    if available < needed:
         return (f"{instance_id}: preserve at least {needed} following output frames for authored SFX tails; "
                 "append a complete compatible scene or reviewed outro, never truncate the sound")
     return None
 
 
 def compile_plan(manifest: dict, spec: dict, *, spec_dir: Path | None = None,
-                 project: Path | None = None, audio_timeline: dict | None = None) -> dict:
+                 project: Path | None = None, audio_timeline: dict | None = None, composition_context=None) -> dict:
     spec_dir = Path.cwd() if spec_dir is None else Path(spec_dir)
     # Import lazily: the selector reuses this module's original timing solver.
     from adaptation import validate_adapted_spec
     adaptation = validate_adapted_spec(manifest, spec, spec_dir,
                                       Path(__file__).resolve().parents[1] / 'adaptation-profiles',
-                                      project=project)
+                                      project=project, composition_context=composition_context)
     from pack_layout import resolve_layout
     try:
         layout = resolve_layout(manifest, spec)
@@ -1018,7 +1025,7 @@ def compile_plan(manifest: dict, spec: dict, *, spec_dir: Path | None = None,
     for item in result_scenes:
         source = source_scenes[item["source_scene_index"]]
         issue = following_tail_issue(source, item["output_end_frame"], previous_end,
-                                     fps, src_fps, item["id"])
+                                     fps, src_fps, item["id"], composition_context=composition_context)
         require(issue is None, issue or "")
     duration = previous_end / fps
     narration = spec.get("narrationDuration")

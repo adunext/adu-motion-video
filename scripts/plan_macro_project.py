@@ -24,6 +24,8 @@ def resolve_project_paths(brief: dict, directory: Path) -> dict:
         result['monoFontFile'] = absolute(result['monoFontFile'])
     if 'colorReviewFile' in result:
         result['colorReviewFile'] = absolute(result['colorReviewFile'])
+    if isinstance(result.get('transcript'), str):
+        result['transcript'] = absolute(result['transcript'])
     if isinstance(result.get('externalFontFiles'), dict):
         result['externalFontFiles'] = {key: absolute(value) for key, value in result['externalFontFiles'].items()}
     if isinstance(result.get('music'), dict) and 'path' in result['music']:
@@ -76,6 +78,12 @@ def markdown_report(report: dict, spec: dict) -> str:
             detail = candidate.get('reasons', []) + candidate.get('missing', [])
             lines.append(f"- **{cell(candidate['sceneId'])} · {state}**：" + ('；'.join(cell(x) for x in detail) or '语义、绑定和时长检查通过'))
         lines.append('')
+    if report.get('contentEvidence'):
+        evidence = report['contentEvidence']
+        lines += ['## 内容依据', '', '状态：' + cell(evidence['status']), '']
+        for item in evidence.get('displayEvidence', []):
+            lines.append('- ' + cell(item['segmentId']) + '.' + cell(item['field']) + ' ← ' + cell('、'.join(item['refs'])))
+        lines.append('')
     if report.get('seamRejections'):
         lines += ['## 被排除的接缝', '']
         lines += ['- ' + cell(x) for x in report['seamRejections']]
@@ -89,13 +97,15 @@ def markdown_report(report: dict, spec: dict) -> str:
     return '\n'.join(lines)
 
 
-def plan(pack_dir: Path, brief_path: Path, output: Path, profiles_root: Path = ROOT / 'adaptation-profiles') -> dict:
+def plan(pack_dir: Path, brief_path: Path, output: Path, profiles_root: Path = ROOT / 'adaptation-profiles', *, edit_map=None) -> dict:
     require(not output.exists() and not output.is_symlink(), f'Refusing existing plan directory: {output}')
     require(output.parent.is_dir(), f'Output parent does not exist: {output.parent}')
     manifest = read_json(pack_dir / 'manifest.json')
     profile = load_profile(manifest, profiles_root)
     validate_profile(profile, manifest)
     brief = resolve_project_paths(read_json(brief_path), brief_path.parent)
+    from repair_intake import prepare
+    brief = prepare(brief, edit_map)
     result = plan_adaptation(manifest, profile, brief, brief_path.parent, allow_pending_talk=True)
     from music_policy import apply
     apply(result, brief.get('music'), brief_path.parent)
@@ -116,9 +126,10 @@ def main():
     parser.add_argument('pack', help='Explicit pack ID@version or pack directory')
     parser.add_argument('brief', type=Path)
     parser.add_argument('output', type=Path, help='New directory for spec and diagnostic reports')
+    parser.add_argument('--edit-map', type=Path, help='Prepared basic-repair master; replan on edited clock')
     args = parser.parse_args()
     try:
-        result = plan(resolve(args.pack, ROOT / 'packs'), args.brief.expanduser().resolve(), args.output.expanduser().absolute())
+        result = plan(resolve(args.pack, ROOT / 'packs'), args.brief.expanduser().resolve(), args.output.expanduser().absolute(), edit_map=args.edit_map)
         print(json.dumps(result, ensure_ascii=False))
         return 0 if result['ready'] else 2
     except (AdaptError, ValueError, OSError) as exc:

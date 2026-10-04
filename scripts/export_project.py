@@ -121,15 +121,15 @@ def concat_video(work, boundaries, fps):
 
 
 def sources(project):
-    """Bind source files and the video frames covered by explicit colour receipts."""
+    """Bind runtime, narration/asset frames, PCM/stems/mix, captions and actual fonts."""
     result = {}
     for root, dirs, names in os.walk(project, followlinks=False):
         dirs[:] = sorted(d for d in dirs if not d.startswith('.') and d not in
-                         {'node_modules', '__pycache__', 'parts', 'vparts', 'stills', 'talk', 'sc', 'assets'})
+                         {'node_modules', '__pycache__', 'parts', 'vparts', 'stills'})
         for name in sorted(names):
             p = Path(root) / name
-            if p.suffix.lower() in {'.html', '.js', '.mjs', '.css', '.json', '.py'} and p.is_file():
-                result[str(p.relative_to(project))] = hashlib.sha256(p.read_bytes()).hexdigest()
+            if p.suffix.lower() in {'.html', '.js', '.mjs', '.css', '.json', '.py', '.srt', '.vtt', '.wav', '.mp3', '.aac', '.m4a', '.flac', '.ogg', '.jpg', '.jpeg', '.png', '.webp', '.svg', '.woff', '.woff2', '.ttf', '.otf', '.bin'} and p.is_file():
+                result[str(p.relative_to(project))] = fingerprint_file(p)['sha256']
     receipt_path = project / 'media_color.json'
     if receipt_path.exists():
         receipt = json.loads(receipt_path.read_text())
@@ -226,6 +226,7 @@ def main():
         if not track or audio_duration + .05 < duration:
             parser.error('audio does not cover the full video; prepare an intentional padded mix first')
     original_sources = sources(project)
+    audio_identity = fingerprint_file(audio) if audio else None
     k = min(args.segments, count)
     boundaries = [math.floor(count * i / k + .5) for i in range(k + 1)]
     with tempfile.TemporaryDirectory(prefix='adu-motion-export-') as temporary:
@@ -253,7 +254,7 @@ def main():
             futures = [pool.submit(segment, i) for i in range(k)]
             for future in as_completed(futures):
                 segments.append(future.result())
-        if sources(project) != original_sources:
+        if sources(project) != original_sources or (audio and fingerprint_file(audio) != audio_identity):
             raise RuntimeError('Project source changed during rendering; export rejected. Render again after edits finish.')
         try:
             video = concat_video(work, boundaries, args.fps)
@@ -280,11 +281,11 @@ def main():
                   'project': str(project), 'entry': str(entry), 'output': str(output), 'fps': args.fps,
                   'width': args.width, 'height': args.height, 'frames': count, 'duration': duration,
                   'audio': str(audio) if audio else None, 'segments': sorted(segments, key=lambda s: s['index']),
-                  'source_sha256': original_sources, 'reused_segments': False, 'color': export_plan(),
+                  'source_sha256': original_sources, 'audio_identity': audio_identity, 'reused_segments': False, 'color': export_plan(),
                   'verification': 'all segment exits + frame counts; concat/mux metadata; every display timestamp; complete media decode',
                   'frame_clock': frame_clock,
                   'visual_review': 'not performed by this command',
-                  'media_fingerprints': 'prepared video frames in media_color.json are bound by source_sha256; other media are outside this receipt scope',
+                  'media_fingerprints': 'runtime, all local narration/asset images, PCM/stems/mix, subtitle files and font binaries; external mux audio separately bound; prepared colour receipts verified',
                   'streams': metadata['streams']}
         created = []
         try:

@@ -12,7 +12,7 @@
 # vert <dir> <NEW.mp4> [K]    requires a separately authored vert.html layout
 # seg <dir> <i> <NEW.mp4> [K] safe full fresh render, no cache speedup
 # check <file.mp4>            frame count/rate, complete decode, loudness and peak
-# auto-capabilities          full catalog semantic fields, capacity and dependencies
+# auto-capabilities [--layout portrait|landscape] actual layout capabilities and full catalog counts
 # auto-plan <brief> <NEW dir> compare coherent styles and legal mixed routes
 # auto-build <plan> <talk> <NEW dir> [--subs-js file] one narration master
 # macro-spec <pack> <NEW.json>  manual scaffold with unbound episode cues
@@ -44,13 +44,18 @@ PY
   fi
 }
 case "$cmd" in
+repair-plan|repair-apply)
+  shift
+  python3 "$SC/repair_talk.py" "${cmd#repair-}" "$@"
+  ;;
 auto-capabilities)
-  [ "$#" -eq 1 ] || { echo 'Usage: pipeline.sh auto-capabilities' >&2; exit 2; }
-  python3 "$SC/auto_templates.py" capabilities
+  shift
+  python3 "$SC/auto_templates.py" capabilities "$@"
   ;;
 auto-plan)
-  [ "$#" -eq 3 ] || { echo 'Usage: pipeline.sh auto-plan <brief.json> <NEW directory>' >&2; exit 2; }
-  python3 "$SC/auto_templates.py" plan "$2" "$3"
+  [ "$#" -ge 3 ] || { echo 'Usage: pipeline.sh auto-plan <brief.json> <NEW directory> [--edit-map file]' >&2; exit 2; }
+  shift
+  python3 "$SC/auto_templates.py" plan "$@"
   ;;
 auto-build)
   [ "$#" -ge 4 ] || { echo 'Usage: pipeline.sh auto-build <auto_plan.json> <talk.mp4> <NEW project> [--subs-js file]' >&2; exit 2; }
@@ -63,8 +68,9 @@ preview)
   python3 "$SC/preview_delivery.py" "$@"
   ;;
 macro-plan)
-  [ "$#" -eq 4 ] || { echo 'Usage: pipeline.sh macro-plan <pack-id@version|pack-directory> <brief.json> <NEW directory>' >&2; exit 2; }
-  python3 "$SC/plan_macro_project.py" "$2" "$3" "$4"
+  [ "$#" -ge 4 ] || { echo 'Usage: pipeline.sh macro-plan <pack-id@version|pack-directory> <brief.json> <NEW directory> [--edit-map file]' >&2; exit 2; }
+  shift
+  python3 "$SC/plan_macro_project.py" "$@"
   ;;
 macro-rematch)
   [ "$#" -ge 5 ] || { echo 'Usage: pipeline.sh macro-rematch <pack> <spec.json> <change.json> <NEW directory> [--project directory]' >&2; exit 2; }
@@ -133,8 +139,9 @@ print(f'New project: {target}\n36s template demo is ready: local illustration + 
 PY
   ;;
 import)
-  [ "$#" -eq 3 ] || { echo 'Usage: pipeline.sh import <project> <edited-talk-video>' >&2; exit 2; }
-  python3 "$SC/import_talk.py" "$D" "$3" --fps "${FPS:-60}" --size "${TALK_SIZE:-720x1280}"
+  [ "$#" -ge 3 ] || { echo 'Usage: pipeline.sh import <project> <edited-talk-video> [--repair-mode basic --edit-map file]' >&2; exit 2; }
+  shift
+  python3 "$SC/import_talk.py" "$@" --fps "${FPS:-60}" --size "${TALK_SIZE:-720x1280}"
   ;;
 demo)
   [ "$#" -eq 2 ] || { echo 'Usage: pipeline.sh demo <NEW directory>' >&2; exit 2; }

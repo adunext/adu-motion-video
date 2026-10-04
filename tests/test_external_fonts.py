@@ -34,6 +34,14 @@ class ExternalFontsTest(unittest.TestCase):
         self.assertEqual(report[0]['sha256'],self.pack['externalFonts'][0]['sha256'])
         self.assertNotIn(str(self.root),str(report))
 
+    def test_distinct_weights_are_declared_for_a_shared_variable_font(self):
+        item=self.pack['externalFonts'][0];item['id']='title-700'
+        css,_=copy_external_fonts(self.pack,{'externalFontFiles':{'title-700':'owner.ttf'}},self.root,self.stage)
+        self.assertIn('font-weight:700;',css)
+        item['weight']='700 400'
+        with self.assertRaisesRegex(AdaptError,'weight'):
+            copy_external_fonts(self.pack,{'externalFontFiles':{'title-700':'owner.ttf'}},self.root,self.stage)
+
     def test_invalid_declaration_and_unknown_input_rejected(self):
         self.pack['externalFonts'][0]['family']="font');bad"
         with self.assertRaisesRegex(AdaptError,'Invalid external font family'):

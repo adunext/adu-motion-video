@@ -118,7 +118,7 @@ def freeze(source: Path, evidence_path: Path, readme_path: Path, target: Path):
         load_profile(promoted, Path(__file__).resolve().parents[1] / 'adaptation-profiles')
     require((source / 'manifest.json').read_bytes() == manifest_bytes,
             'Source manifest changed during publication')
-    with tempfile.TemporaryDirectory(prefix='adu-reviewed-pack-') as temporary:
+    with tempfile.TemporaryDirectory(prefix='.adu-reviewed-pack-', dir=target.parent) as temporary:
         stage = Path(temporary) / 'pack'
         stage.mkdir()
         for name, data in blobs.items():
@@ -126,7 +126,8 @@ def freeze(source: Path, evidence_path: Path, readme_path: Path, target: Path):
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(data)
         (stage / 'manifest.json').write_text(json.dumps(promoted, ensure_ascii=False, indent=2) + '\n')
-        shutil.copytree(stage, target)
+        require(not target.exists(), "Publication target appeared during preparation")
+        stage.rename(target)
     return {'packId': manifest['id'], 'version': version, 'recipes': [s['id'] for s in selected],
             'sourceVersionPreserved': True, 'runtimeBytesUnchanged': True,
             'path': str(target), 'recordedHumanReview': True}

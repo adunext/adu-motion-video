@@ -22,12 +22,16 @@ ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = 'adu-auto-brief/1'
 
 
-def library(root=ROOT):
+def library(root=ROOT, layout="portrait", bindings=None):
+    require(layout in {'portrait', 'landscape'}, 'layout must be landscape or portrait')
     result = []
     catalog = read_json(root / 'references/template-catalog.json')
     for template in catalog['templates']:
         for style in template['styles']:
-            selection = style.get('portraitSelection', style['selection'])
+            selection = style.get('portraitSelection', style['selection']) if layout == 'portrait' else style['selection']
+            if bindings is not None:
+                if style['id'] not in bindings: continue
+                selection = bindings[style['id']]
             path = resolve(selection, root / 'packs')
             manifest = read_json(path / 'manifest.json')
             profile = load_profile(manifest, root / 'adaptation-profiles')
@@ -37,7 +41,7 @@ def library(root=ROOT):
     return result
 
 
-def capabilities(entries):
+def capabilities(entries, layout="portrait"):
     groups = []
     for entry in entries:
         manifest = entry['manifest']
@@ -59,7 +63,10 @@ def capabilities(entries):
                                externalFonts=manifest.get('externalFonts', []),
                                layouts=list(manifest.get('layouts', {'landscape': {}})),
                                manifestDigest=manifest_digest(manifest)))
-    return dict(schema='adu-auto-capabilities/1', styles=len(entries), groups=groups,
+    available = [g for g in groups if layout in g['layouts']]
+    return dict(schema='adu-auto-capabilities/1', styles=len(entries), groups=groups, layout=layout,
+                catalogStyles=len(entries), catalogGroups=len(groups),
+                availableStyles=len({g['style'] for g in available}), availableGroups=len(available),
                 semanticAuthor='current-assistant; must inspect whole narration and real timestamps',
                 selection='hard constraints before style coherence and variety',
                 status='experimental; source candidates retain their maturity')
@@ -68,8 +75,6 @@ def capabilities(entries):
 def requirements(entry, brief):
     missing = []
     layouts = entry['manifest'].get('layouts', {'landscape': {}})
-    if brief.get('layout', 'landscape') not in layouts:
-        missing.append('layout: this style has no ' + brief.get('layout', 'landscape') + ' contract')
     supplied = brief.get('styleSettings', {}).get(entry['styleId'], {})
     require(isinstance(supplied, dict), 'styleSettings entries must be objects')
     fonts = supplied.get('externalFontFiles', brief.get('externalFontFiles', {}))
@@ -114,6 +119,8 @@ def universe(entries, brief):
             clone = deepcopy(contract); clone['sceneId'] = names[contract['sceneId']]
             clone['styleId'] = entry['styleId']
             clone['unmetRequirements'] = requirements(entry, brief)
+            if brief.get('layout', 'landscape') not in m.get('layouts', {'landscape': {}}):
+                clone['capabilityRejections'] = ['layout unsupported: ' + brief.get('layout', 'landscape')]
             for block, key in [('entry', 'requiresPrevious'), ('exit', 'requiresNext')]:
                 if key in clone[block]: clone[block][key] = [names[x] for x in clone[block][key]]
             for binding in clone['entry'].get('continuityBindings', []):
@@ -180,12 +187,14 @@ def child_runs(spec, index, directory):
                        'adaptation': dict(schema='adu-adapted-spec/1', profileId=profile['id'],
                                           profileVersion=profile['version'], profileDigest=profile_digest(profile),
                                           segments=run.pop('segments'), ready=True, validationStage='pre-import')}
+        if run['spec'].get('contentEvidence'):
+            run['spec']['contentEvidence']['scopeRefs'] = [r for s in run['spec']['adaptation']['segments'] for r in s.get('ownershipRefs', [])]
     return runs
 
 
 def choose(brief, directory, entries=None):
     brief = prepare_brief(brief, directory)
-    entries = entries or library()
+    entries = entries if entries is not None else library(layout=brief.get("layout", "landscape"))
     known = {e['styleId'] for e in entries}
     allowed = brief.get('allowedStyles', sorted(known))
     require(isinstance(allowed, list) and allowed and all(isinstance(x, str) for x in allowed)
@@ -238,7 +247,9 @@ def choose(brief, directory, entries=None):
                 {'monoFontFile', 'externalFontFiles'}, 'styleSettings only supports font bindings')
     report = {**selected['report'], 'schema': 'adu-auto-report/1', 'selectedStyle': selected['style'],
               'selectedSegmentation': selected['route'], 'stylesCompared': len(entries),
-              'groupsCompared': len(profile['scenes']), 'stylePolicy': brief.get('stylePolicy', 'coherent-first'),
+              'groupsCompared': len(profile['scenes']),
+              'availableStyles': sum(brief.get('layout', 'landscape') in e['manifest'].get('layouts', {'landscape': {}}) for e in entries),
+              'availableGroups': sum(len(e['manifest']['scenes']) for e in entries if brief.get('layout', 'landscape') in e['manifest'].get('layouts', {'landscape': {}})), 'stylePolicy': brief.get('stylePolicy', 'coherent-first'),
               'alternatives': [dict(style=x['style'], segmentation=x['route'], status=x['report']['status'],
                                     missing=x['report']['missing'], score=x['report']['score']) for x in results],
               'nextActions': []}
@@ -247,17 +258,20 @@ def choose(brief, directory, entries=None):
                                  'Never invent missing phases, keyword timestamps, evidence or extra items; never loop animations or stretch protected action windows.']
     return dict(schema='adu-auto-plan/1', brief=brief, sourceDirectory=str(directory.resolve()),
                 sourceDigests={e['selection']: manifest_digest(e['manifest']) for e in entries},
+                catalogBindings={e['styleId']: e['selection'] for e in entries},
                 manifest=manifest, profile=selected['profile'], spec=selected['spec'], report=report, runs=runs)
 
 
-def save(brief_path, output):
+def save(brief_path, output, *, edit_map=None):
     require(not output.exists() and not output.is_symlink(), 'Refusing existing auto plan directory')
     require(output.parent.is_dir(), 'Auto plan parent must exist')
-    result = choose(read_json(brief_path), brief_path.parent)
+    from repair_intake import prepare
+    brief = resolve_project_paths(read_json(brief_path), brief_path.parent)
+    result = choose(prepare(brief, edit_map), brief_path.parent)
     with tempfile.TemporaryDirectory(prefix='.adu-auto-plan-', dir=output.parent) as tmp:
         stage = Path(tmp) / 'plan'; stage.mkdir()
         for name, value in [('auto_plan.json', result), ('report.json', result['report']),
-                            ('spec.json', result['spec']), ('capabilities.json', capabilities(library()))]:
+                            ('spec.json', result['spec']), ('capabilities.json', capabilities(library(layout=result['brief'].get('layout','landscape')),result['brief'].get('layout','landscape')))]:
             (stage / name).write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + '\n')
         (stage / 'report.md').write_text(markdown_report(result['report'], result['spec']))
         for i, run in enumerate(result['runs']):
@@ -269,13 +283,14 @@ def save(brief_path, output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
-    sub.add_parser('capabilities')
+    cap = sub.add_parser('capabilities'); cap.add_argument('--layout', choices=['portrait','landscape'], default='portrait')
     p = sub.add_parser('plan'); p.add_argument('brief', type=Path); p.add_argument('output', type=Path)
+    p.add_argument('--edit-map', type=Path)
     args = parser.parse_args()
     try:
         if args.command == 'capabilities':
-            print(json.dumps(capabilities(library()), ensure_ascii=False, indent=2)); return 0
-        report = save(args.brief.expanduser().resolve(), args.output.expanduser().absolute())
+            print(json.dumps(capabilities(library(layout=args.layout), args.layout), ensure_ascii=False, indent=2)); return 0
+        report = save(args.brief.expanduser().resolve(), args.output.expanduser().absolute(), edit_map=args.edit_map)
         print(json.dumps({k: report[k] for k in ('ready', 'status', 'selectedStyle', 'selectedSegmentation')}, ensure_ascii=False))
         return 0 if report['ready'] else 2
     except (AdaptError, ValueError, OSError) as exc:

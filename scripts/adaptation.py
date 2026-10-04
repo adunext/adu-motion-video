@@ -202,7 +202,7 @@ def _evaluate(manifest, source, source_index, contract, segment, target, start, 
               fps, transcript, spec_dir, project, allow_pending_talk=False):
     """Keep timing and slot validation independent so a draft explains both."""
     segment = candidate_segment(segment, source["id"])
-    rejected, missing = _semantic_rejections(contract, segment), []
+    rejected, missing = _semantic_rejections(contract, segment) + contract.get("capabilityRejections", []), []
     if rejected:
         # minFrames is an authored hard bound, not a reading-time estimate.
         if end - start < source.get("minFrames", 1):
@@ -502,6 +502,10 @@ def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
     transcript = transcript_rows(brief.get("transcript"), spec_dir)
     sources = {s["id"]: (i, s) for i, s in enumerate(manifest["scenes"])}
     total_frames = sum(s["durationFrames"] for s in segments)
+    from content_evidence import validate_coverage, derive_from_transcript
+    brief,segments,evidence_note=derive_from_transcript(brief,segments,spec_dir,fps)
+    coverage = validate_coverage(brief.get("contentEvidence"), segments)
+    if evidence_note:coverage["nextAction"]=evidence_note
     blocking = narration_issues(brief.get("narrationDuration"), total_frames, fps)
     candidates, segment_reports, offset = [], [], 0
     for segment in segments:
@@ -578,7 +582,7 @@ def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
                            "segments": clean_segments, "ready": ready,
                            "validationStage": "pre-import" if deferred else "bound-media"}}
     for key in ("layout", "brand", "transcript", "narrationDuration", "faceTracking", "presenterLabel", "subtitlePreset",
-                "music", "monoFontFile", "externalFontFiles", "progressRail", "fadeEndSeconds", "mix", "colorReviewFile"):
+                "music", "monoFontFile", "externalFontFiles", "progressRail", "fadeEndSeconds", "mix", "colorReviewFile", "contentEvidence", "subtitlePosition", "repairPolicy", "narrationEditMap", "narrationClock"):
         if key in brief:
             spec[key] = deepcopy(brief[key])
     if isinstance(spec.get("transcript"), str):
@@ -595,6 +599,7 @@ def plan_adaptation(manifest: dict, profile: dict, brief: dict, spec_dir: Path,
               "rhythm": rhythm_diagnostics(path, segments, fps),
               "search": {"algorithm": "bounded-sequence-beam", "beamWidth": beam_width, "truncated": truncated,
                          "priority": "binding-completeness-before-variety"},
+              "contentEvidence": coverage,
               "audio": audio_diagnostics([c["planned"] for c in path if c["planned"]], fps)}
     if not selected:
         report["reason"] = "No complete feasible sequence within the bounded search; revise semantics, narration duration, anchors, or scene dependencies. No static fallback was inserted."
@@ -631,21 +636,11 @@ def load_profile(manifest: dict, profiles_root: Path, profile_id: str | None = N
     return matches[0]
 
 
-def validate_adapted_spec(manifest: dict, spec: dict, spec_dir: Path, profiles_root: Path,
-                          *, project: Path | None = None, allow_pending_talk: bool = False) -> dict:
-    """Recompute every check; a stored ready/passed flag conveys no authority."""
-    metadata = spec.get("adaptation")
-    if metadata is None:
-        return {"applicable": False, "ready": True, "status": "legacy"}
-    require(isinstance(metadata, dict) and metadata.get("schema") == SPEC_SCHEMA,
-            f"adaptation schema must be {SPEC_SCHEMA}")
-    require(isinstance(metadata.get("profileId"), str) and isinstance(metadata.get("profileVersion"), str),
-            "Adaptation metadata needs profileId and profileVersion")
-    profile = load_profile(manifest, profiles_root, metadata["profileId"], metadata["profileVersion"])
+def validate_selected_path(manifest, profile, spec, spec_dir, *, project=None,
+                           allow_pending_talk=False, composition_context=None):
+    """Shared plan/rematch/build selected-path validation; saved flags are not authority."""
     validate_profile(profile, manifest)
-    require(metadata.get("profileDigest") == profile_digest(profile), "Adaptation profileDigest mismatch; replan against the reviewed profile")
-    require(spec.get("pack") == manifest.get("id") and spec.get("version") == manifest.get("version"),
-            "Adapted spec pack/version differs from reviewed manifest")
+    metadata = spec['adaptation']
     segments, targets = metadata.get("segments"), spec.get("scenes")
     require(isinstance(segments, list) and segments and isinstance(targets, list)
             and len(segments) == len(targets), "Blocked draft: every segment needs one complete selected scene")
@@ -654,9 +649,12 @@ def validate_adapted_spec(manifest: dict, spec: dict, spec_dir: Path, profiles_r
     transcript = transcript_rows(spec.get("transcript"), Path(spec_dir))
     contracts = {s["sceneId"]: s for s in profile["scenes"]}
     sources = {s["id"]: (i, s) for i, s in enumerate(manifest["scenes"])}
+    from content_evidence import validate_coverage
+    coverage = validate_coverage(spec.get("contentEvidence"), segments)
     for segment in segments:
         _segment(segment)
     total_frames = sum(integer(s.get("durationFrames"), "segment.durationFrames", minimum=1) for s in segments)
+    deficits = []
     offset, path, errors, seen = 0, [], narration_issues(spec.get("narrationDuration"), total_frames, fps), set()
     for index, (segment, target) in enumerate(zip(segments, targets)):
         require(segment["id"] not in seen and isinstance(target, dict) and target.get("id") == segment["id"],
@@ -672,19 +670,43 @@ def validate_adapted_spec(manifest: dict, spec: dict, spec_dir: Path, profiles_r
                 f"{segment['id']}: changed cue bindings differ from semantic anchors; replan")
         evaluated = _evaluate(manifest, source, source_index, contracts[sid], segment, target,
                               start, end, fps, transcript, Path(spec_dir), project, allow_pending_talk)
-        errors.extend(f"{segment['id']}: {reason}" for reason in evaluated.get("reasons", []) + evaluated.get("missing", []))
+        errors.extend(f"{segment['id']}: {reason}" for reason in evaluated.get("reasons", []))
+        deficits.extend(f"{segment['id']}: {reason}" for reason in evaluated.get("missing", []))
         if evaluated["status"] == "rejected" and "contract" not in evaluated:
             # Still include the declared source for dependency diagnostics.
             evaluated.update(contract=contracts[sid], expanded=target)
         rejected, missing = _seam(path[-1] if path else None, evaluated)
-        errors.extend(rejected + missing)
-        tail = following_tail_issue(source, end, total_frames, fps, manifest.get("fps", 60), segment["id"])
+        errors.extend(rejected); deficits.extend(missing)
+        tail = following_tail_issue(source, end, total_frames, fps, manifest.get("fps", 60), segment["id"], composition_context=composition_context)
         if tail:
             errors.append(tail)
         path.append(evaluated)
         offset = end
     if path[-1]["contract"].get("exit", {}).get("requiresNext"):
         errors.append(f"{path[-1]['sceneId']}: requiresNext is unsatisfied at video end")
+    require(isinstance(spec.get("brand"), str) and spec["brand"].strip(), "Adapted spec needs brand")
+    return path, list(dict.fromkeys(errors)), list(dict.fromkeys(deficits)), fps
+
+
+def validate_adapted_spec(manifest: dict, spec: dict, spec_dir: Path, profiles_root: Path,
+                          *, project: Path | None = None, allow_pending_talk: bool = False, composition_context=None) -> dict:
+    """Recompute every check; a stored ready/passed flag conveys no authority."""
+    metadata = spec.get("adaptation")
+    if metadata is None:
+        return {"applicable": False, "ready": True, "status": "legacy"}
+    require(isinstance(metadata, dict) and metadata.get("schema") == SPEC_SCHEMA,
+            f"adaptation schema must be {SPEC_SCHEMA}")
+    require(isinstance(metadata.get("profileId"), str) and isinstance(metadata.get("profileVersion"), str),
+            "Adaptation metadata needs profileId and profileVersion")
+    profile = load_profile(manifest, profiles_root, metadata["profileId"], metadata["profileVersion"])
+    validate_profile(profile, manifest)
+    require(metadata.get("profileDigest") == profile_digest(profile), "Adaptation profileDigest mismatch; replan against the reviewed profile")
+    require(spec.get("pack") == manifest.get("id") and spec.get("version") == manifest.get("version"),
+            "Adapted spec pack/version differs from reviewed manifest")
+    path, errors, deficits, fps = validate_selected_path(manifest, profile, spec, spec_dir,
+        project=project, allow_pending_talk=allow_pending_talk, composition_context=composition_context)
+    errors += deficits
+    segments = metadata['segments']
     require(isinstance(spec.get("brand"), str) and spec["brand"].strip(), "Adapted spec needs brand")
     require(not errors, "Adaptation validation blocked: " + "; ".join(errors))
     return {"applicable": True, "ready": True, "status": "revalidated",
