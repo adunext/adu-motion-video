@@ -2,7 +2,7 @@
 
 模板的价值是可复用的表达和动作关系。新文案先说明「这段要让观众理解什么」，再选能完整表达它的镜头组。现在增加一层可检查的规划资料：把每个组适合的意图、必须讲完的阶段、固定数量、动作类型、强弱、关键词落点和连接要求写成独立 profile；规划器据此给出选择、淘汰原因和待补输入。
 
-这些 profile 是 `adaptation-experimental`，依据当前源码和清单做过代码核对。它们不改变原包的验收等级：七个已发布风格仍是十七个已验收完整组，03-A 仍是九场候选；新文案、重排接缝和新成片都需要本期声画验收。
+这些 profile 是 `adaptation-experimental`，依据当前源码和清单做过代码核对。它们不改变原包的验收等级：七个已发布风格仍是十七个已验收完整组，03-A 本次为九场原编舞加一场独立成果候选；新文案、重排接缝和新成片都需要本期声画验收。
 
 ## 全部风格自动比较
 
@@ -82,7 +82,7 @@ SFX 的起音跟随本期动作落点，生成器 `d` 保持原秒数，不随�
 
 `motionWindows` 描述受保护的动作时间。两个窗口之间可能允许多读半秒，但那里不一定具备独立入场、对象状态重建、声音收束或新的真人构图，所以不能自动变成剪点。
 
-当前 32 个完整场景全部标记为 `splitPolicy.mode = atomic`。它的含义是「规划器只能调用整个现有组」，不是说今后永远不能拆。每场记录具体不可拆原因；没有伪造已经可用的小变体。
+既有 32 个完整场景标记为 `splitPolicy.mode = atomic`。它的含义是「规划器只能调用整个现有组」，不是说今后永远不能拆。每场记录具体不可拆原因；没有伪造已经可用的小变体。
 
 03-A 有几条必须特别保留的关系：
 
@@ -145,3 +145,8 @@ bash scripts/pipeline.sh macro-plan classic-performance@1.0.0 \
 - 新成片仍走 `macro-build → 抽帧与连续声画检查 → audio / mix / render / check`。规划通过不等于成片通过。
 
 构建保存 `adaptation_profile.json`、重新校验的 `adaptation_report.json` 和版本摘要。`audio_boundary_report.json` 在构建时明确只有部分清单事件；执行 `audio` 后以实际采集的全部 `S()` 更新，列出跨场尾音、提前起音、密集重音、未知时长及潜在结尾截断。时长估计不是听感缺陷结论，报告不会自动删音效或改混音。原生连续场的正常尾音接力标为提示。测试范围见[适配机制验证记录](../docs/adaptation-validation-2026-10-03.md)。
+
+
+## 3.13.0-rc.1 迁移
+
+保存计划的 catalogBindings 锁定所选版本；旧摘要无法恢复时另存重规划。contentEvidence、ownershipRefs 与 supportingRefs 保留原文依据，缺可靠来源明确 source-unrecorded。可选修剪须显式 basic、一个母版以及 edited-narration 上重新分段，素材 offset 不重定位。字段和实际使用边界见[质量升级说明](quality-upgrade.md)。

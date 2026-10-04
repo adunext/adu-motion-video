@@ -1,6 +1,6 @@
 # 全库选型与长短素材适配
 
-3.10.0 增加 `auto-capabilities → auto-plan → auto-build`。当前竖屏11种风格、39组参与比较；横屏10种风格、32组，使用对应显式版本。源模板的发布等级保持不变；全库组合本身为 experimental。
+3.10.0 增加 `auto-capabilities → auto-plan → auto-build`。3.13.0-rc.1 当前竖屏11种风格、54组参与比较；横屏10种风格、47组，使用对应显式版本。源模板的发布等级保持不变；全库组合本身为 experimental。
 
 用户只需要给口播、文案、素材和画幅。下述结构化输入由执行助手整理；不要要求用户为每套模板手填一份 JSON。
 
@@ -60,3 +60,8 @@ bash "$PL" check /已有目录/新片_v1.mp4
 见 [3.10 全库测试](../docs/template-auto-selection-3.10.md)。自动规划不证明表达标注忠实，也不替代真实人物裁切、长标题排版、完整影片观看与试听。候选不会因本次机器测试被提升为 stable。
 
 `report.rhythm.actionSpans` 统计声明动作保护窗占比和最后保护窗到段尾的时长，超过四秒提示复核真实阅读、口播与动态证据；未保护区间不等于静止。组的 maxHold 是容量上限，不是目标时长。
+
+
+## 3.13.0-rc.1 迁移
+
+保存计划的 catalogBindings 锁定所选版本；旧摘要无法恢复时另存重规划。contentEvidence、ownershipRefs 与 supportingRefs 保留原文依据，缺可靠来源明确 source-unrecorded。可选修剪须显式 basic、一个母版以及 edited-narration 上重新分段，素材 offset 不重定位。字段和实际使用边界见[质量升级说明](quality-upgrade.md)。

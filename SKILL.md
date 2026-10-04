@@ -2,10 +2,12 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。支持 Windows、macOS、Linux，以及 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等可读写文件并运行命令的助手。
 metadata:
-  version: "3.12.0"
+  version: "3.13.0-rc.1"
 ---
 
 # adu-motion-video
+
+当前为 **3.13.0-rc.1 质量升级候选**，实际默认映射以 template-catalog.json 为准。新增候选接入横竖屏选型，旧版本可显式使用，稳定验收不追认到新增组；读[升级范围与验收](references/quality-upgrade.md)。最终效果待用户同视频 A/B 确认。
 
 用户提供剪好的口播视频、文案，最好还有新口播的时间码字幕；选用含录屏、作品墙、头像、标识或配乐的场景时，还须提供本期有权使用的素材。你负责把**完整场景编舞**适配到新台词与片长，生成可编辑工程，核查后导出新 MP4。先读 [制作约定](references/rules.md)。`SKILL_DIR` 是本文件目录，`PL="$SKILL_DIR/scripts/pipeline.sh"`。 制作记录保存实际 Skill 路径、版本和所用入口；同名旧安装、仓库版本与已生成工程的冻结运行代码可能不同，不能用最新版说明追认旧工程。
 
@@ -19,11 +21,11 @@ metadata:
 
 用户指定模板编号（如 `01-B`）或要求选风格时，先读[模板与风格目录](references/template-catalog.md)，按“一级模板 → 二级风格”映射到显式包版本。未发布风格不能按已发布包承诺制作。需要辅助动画素材时，按[公开动画素材 API](references/lottie-assets.md)检索并下载到本期工程，再核对所选包的媒体与渲染要求。
 
-用户要求竖屏时，按目录的 **portraitSelection** 选择对应候选版本，并读取[竖屏契约](references/portrait.md)。既有十种风格、32 个完整组均支持 `brief.layout="portrait"` → macro-plan → macro-build → render，画幅自动为 1080×1920；旧 1.0.0 稳定包不获得追认。原动作、素材、字幕与音效时钟保持；标题、人物与内容层重排，控制台连接线按原激活落点重绘。候选必须做本期真实素材连续声画检查，几何测试不能当作新路线已验收。
+用户要求竖屏时，按目录的 **portraitSelection** 选择对应候选版本，并读取[竖屏契约](references/portrait.md)。当前十一种风格、54 个完整组参与竖屏选型，均支持 `brief.layout="portrait"` → macro-plan → macro-build → render，画幅自动为 1080×1920；旧 1.0.0 稳定包不获得追认。原动作、素材、字幕与音效时钟保持；标题、人物与内容层重排，控制台连接线按原激活落点重绘。候选必须做本期真实素材连续声画检查，几何测试不能当作新路线已验收。
 
 用户新增完成工程、提炼新镜头组或更新模板库时，读[持续模板接入](references/template-intake.md)。先登记来源和实际状态，再按价值提炼；收到工程不代表已经有可发布模板。`bash "$PL" packs` 只列包的语义与版本元数据，按任务加载相关清单；同一 ID 有多个版本时显式选择 `id@version`。
 
-用户指定 **03 · 深色 3D / 03-A · 多屏展陈** 时，读[深色 3D 模板](references/dark-3d-template.md)，横屏基线选择 `anim4-showcase-macro@1.1.1-candidate`；新竖屏按目录选 `anim4-showcase-macro@1.2.0-candidate` 并声明 layout。它保留九场作品墙、多屏比较、重点放大与软件窗口编舞，新增 1080×1920 原生竖屏布局。1.1.1 补齐 HDR 抽帧和 SDR 导出色彩核验；此前冷安装记录属于 1.1.0，当前仍待作者连续声画确认；按本期材料选择完整场景，不计入十七个稳定组。旧 1.0.0 保持原字节。
+用户指定 **03 · 深色 3D / 03-A · 多屏展陈** 时，读[深色 3D 模板](references/dark-3d-template.md)，本次横竖屏均选择 `anim4-showcase-macro@1.3.0-candidate`，九场有名输入与新增独立成果入口的范围见质量升级说明；旧横屏基线为 `anim4-showcase-macro@1.1.1-candidate` 并声明 layout。它保留九场作品墙、多屏比较、重点放大与软件窗口编舞，新增 1080×1920 原生竖屏布局。1.1.1 补齐 HDR 抽帧和 SDR 导出色彩核验；此前冷安装记录属于 1.1.0，当前仍待作者连续声画确认；按本期材料选择完整场景，不计入十七个稳定组。旧 1.0.0 保持原字节。
 
 1. 默认运行 `bash "$PL" packs`，按表达目的选择显式版本，读取相关包的 `README.md` 与 `manifest.json`，并查看[完整工程复用说明](references/full-project-templating.md)。`classic-performance@1.0.0` 保留错峰、人物回应与回稳，共三个已验证组；`continuous-performance@1.0.0` 保留同物件变形、拆解与闭合，共两个已验证组。`paper-balance@1.0.0` 是一个纸面透视续接组。既有稳定验收记录使用 macOS 1080p60，不代表整份来源或任意文案已模板化；逐组边界见[能力矩阵](docs/capability-matrix.md)。旧候选版本保留，B 的计划干扰组仍在候选中。旧 `anim3/anim4` 分别有 12/9 个完整场景，仍为 experimental。包 ID 与原片标题、品牌无关。
    C/D/E 的 `stage-performance@1.0.0`、`editorial-performance@1.0.0` 与 `kinetic-performance@1.0.0` 各有三个稳定组，分别保留前后层与人物让位、分栏与跨栏交接、整词与实体回应。每条路线都由未参与提炼的执行者从冻结公开包和本期输入独立制作一部 99.5 秒新片，作者确认成立。旧候选原字节保留；本期桥接不计作公开稳定组。
@@ -36,11 +38,11 @@ metadata:
 
 ## 完整工程包流程
 
-3.6.0 新增当前分镜局部重配和素材版本检查，并为通用视频抽帧接入共享色彩处理。**04-A · 仪器台演示** 当前候选 `doubao-console-performance@0.1.2-candidate` 增加有界文字布局，原 0.1.1 三组的同内容技术重放仍保留；静音新文案检查不代替新口播完整声画或独立复用验收，详见[模板说明](references/doubao-console-template.md)。新预览统一使用带导出证据与版本检查的 `preview` 命令。
+3.6.0 新增当前分镜局部重配和素材版本检查，并为通用视频抽帧接入共享色彩处理。**04-A · 仪器台演示** 历史候选 `doubao-console-performance@0.1.2-candidate` 增加有界文字布局，原 0.1.1 三组的同内容技术重放仍保留；静音新文案检查不代替新口播完整声画或独立复用验收，详见[模板说明](references/doubao-console-template.md)。新预览统一使用带导出证据与版本检查的 `preview` 命令。
 
-用户未锁定单一风格，或要求自动比较全部模板时，先读[全库自动选型](references/automatic-selection.md)，运行 `auto-capabilities`。助手根据整篇台词整理语义阶段、短标题、真实媒体和准确落点，形成 `adu-auto-brief/1`，再执行 `auto-plan → auto-build`。当前 11 种风格、39 组参与竖屏比较，其中既有 10 种风格、32 组也参与横屏比较，优先完整可用的统一风格；必要时仅在有独立入场合同的组间组合。长段提供有实际内容依据的完整分段路线，不循环补时长。用户锁定风格就设置 `allowedStyles`；不要让用户手填各套字段。构建会重验选型和素材，混合工程保持全片口播/字幕时钟与音效尾音，整片显式绑定同一首本期配乐，须连续试听。机器检查仍为 experimental，详见[本轮测试](docs/template-auto-selection-3.10.md)。
+用户未锁定单一风格，或要求自动比较全部模板时，先读[全库自动选型](references/automatic-selection.md)，运行 `auto-capabilities`。助手根据整篇台词整理语义阶段、短标题、真实媒体和准确落点，形成 `adu-auto-brief/1`，再执行 `auto-plan → auto-build`。当前 11 种风格、54 组参与竖屏比较，其中 10 种风格、47 组也参与横屏比较，优先完整可用的统一风格；必要时仅在有独立入场合同的组间组合。长段提供有实际内容依据的完整分段路线，不循环补时长。用户锁定风格就设置 `allowedStyles`；不要让用户手填各套字段。构建会重验选型和素材，混合工程保持全片口播/字幕时钟与音效尾音，整片显式绑定同一首本期配乐，须连续试听。机器检查仍为 experimental，详见[本轮测试](docs/template-auto-selection-3.10.md)。
 
-新文案先按[系统适配机制](references/adaptive-composition.md)形成 `brief.json`，运行 `bash "$PL" macro-plan 包ID@版本 brief.json 新规划目录`。该入口按语义阶段、数量、原速动作窗和前后场依赖筛选，再在合法组合内减少效果重复。当前横竖屏版本的 10 个风格、32 个完整组已有代码核对的适配 profile，能力仍为 adaptation-experimental。输出 `spec.json/report.json/report.md/profile.json`；退出码 0 为绑定检查通过，2 为已保存待补或受阻草稿，1 为无效输入。媒体或真实关键词时码缺失时修改 brief 并重新规划，不填源演示时码。`macro-spec` 保留为历史/人工配方入口，它不提供这层语义与邻接诊断；新制作优先沿用带 `adaptation` 的计划，构建会重新验证。
+新文案先按[系统适配机制](references/adaptive-composition.md)形成 `brief.json`，运行 `bash "$PL" macro-plan 包ID@版本 brief.json 新规划目录`。该入口按语义阶段、数量、原速动作窗和前后场依赖筛选，再在合法组合内减少效果重复。当前横屏 10 风格/47 组、竖屏 11 风格/54 组已有版本绑定的适配 profile，能力仍为 adaptation-experimental。输出 `spec.json/report.json/report.md/profile.json`；退出码 0 为绑定检查通过，2 为已保存待补或受阻草稿，1 为无效输入。媒体或真实关键词时码缺失时修改 brief 并重新规划，不填源演示时码。`macro-spec` 保留为历史/人工配方入口，它不提供这层语义与邻接诊断；新制作优先沿用带 `adaptation` 的计划，构建会重新验证。
 
 已有计划新增素材时，按[局部分镜重配](references/local-rematch.md)运行 `macro-rematch`，检查建议后通过 `macro-apply-rematch` 保存到新目录。固定原段语义、时间和其它分镜，重验媒体与双侧接缝；基线或素材已改变则拒绝应用。没有兼容新组时保留原组，不随机换效果、不猜其它模板的文案映射。此接口供制作工具调用，尚不等于已接入 ADuDir 拖放界面。
 
@@ -74,3 +76,11 @@ metadata:
 3.11.0 新增 **06 · 活力色彩 / 06-A · 原生竖屏** `vibrant-color-performance@0.1.0-candidate`：四组原编舞和三组基础动画，只有 portrait 合同。读[输入与验证范围](references/vibrant-color-template.md)，不同意图/四步骤/三成本条的含义不能随意互换；示意条高不是报价或真实统计。动作整体保护，不循环补长，尾音支持帧须满足。模板的输入要求与技术检查范围以上述说明为准。
 
 3.12.0 新工程淘汰 `adu-source-score-synth-v1` 全部时长变体和已知旧配乐文件，改为显式本期 track/offset/SHA；整片同曲、独立 SFX 与跨场尾音保持。报告新增最后声明动作窗到段尾的复核指标，不把未保护区间判作静止。提炼 Skill 属于所有者本地工具，不随公开库分发。实测与接入边界见[本轮记录](docs/editorial-music-3.12.md)。
+
+## 新口播的质量流程
+
+先理解完整台词、真实数量和素材身份，再按所求画幅选型；`auto-capabilities --layout landscape|portrait` 分别显示全目录与所求画幅可用规模。不支持画幅是能力不匹配，不能要求用户补素材解决。保存的 auto-plan 锁定原包版本，新增无关目录项目不触发隐式换组。
+
+提供原文 `contentEvidence` 与每段 `ownershipRefs`，覆盖所有保留台词且不重复、不错序；显示文案的 `supportingRefs` 可多对多。助手核对否定、条件、数字、单位和实体，代码验证来源摘要与声明归属。旧工程缺依据会明确报告 `source-unrecorded`，不能称已经验证台词匹配。使用有名输入；规划、素材重配、构建使用同一组选场校验。
+
+口播修剪默认关闭；本次用户明确开启 `repairPolicy.mode=basic` 才能尝试基础修剪，旧工程或 map 不代表开启。空间字幕位置不改变字幕时间。先构建并检查真实字体、媒体、动作与声尾，再完整导出与连续看听；最后由用户对同输入 A/B 确认效果。技术 ready、静帧和短接缝不替代最终验收。

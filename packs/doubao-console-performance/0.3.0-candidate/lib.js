@@ -203,4 +203,3 @@ function raceAt(e, t, o = 1) {
   const p = i + clamp((t - RACE_K[i]) / (RACE_K[i + 1] - RACE_K[i]));
   e._p.style.left = Math.min(100, p / NS * 100) + '%'; place(e, { o });
 }
-
