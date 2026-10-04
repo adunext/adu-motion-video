@@ -233,11 +233,11 @@ def extract(source, proposal_path, output, *, legacy=False):
                   'runtimeFiles':proposal.get('runtimeFiles',[]),'scenes':scenes,
                   'assetDefinitions':proposal.get('assetDefinitions',{}),'environment':proposal.get('environment',{}),
                   'validation':{'sourceReplay':'pending','newContent':'pending','independentUse':'pending'},
-                  'files':{p.relative_to(stage).as_posix():sha(p.read_bytes()) for p in sorted(stage.rglob('*')) if p.is_file()}}
+                  'files':{p.relative_to(stage).as_posix():sha(p.read_bytes()) for p in sorted(stage.rglob('*')) if p.is_file() and '__pycache__' not in p.relative_to(stage).parts and p.suffix.lower() not in {'.pyc','.pyo'}}}
         if layouts is not None: manifest['layouts']=layouts
         attach_adaptation_profile(manifest, proposal.get('adaptationProfile'), legacy=legacy)
         (stage/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
-        shutil.copytree(stage,output)
+        shutil.copytree(stage,output,ignore=shutil.ignore_patterns('__pycache__','*.pyc','*.pyo'))
     return {'pack':proposal['id'],'version':proposal['version'],'units':len(scenes),'status':'candidate','path':str(output)}
 
 

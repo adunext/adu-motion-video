@@ -20,6 +20,9 @@ def audit(pack, inventory=None):
     profile=load_profile(manifest,Path(__file__).resolve().parents[1]/'adaptation-profiles')
     validate_profile(profile,manifest)
     for relative,digest in manifest.get('files',{}).items():
+        if '__pycache__' in Path(relative).parts or Path(relative).suffix.lower() in {'.pyc','.pyo'}:
+            findings.append(dict(file=relative,code='generated-cache-dependency'))
+            continue
         file=pack/relative
         if not file.is_file() or hashlib.sha256(file.read_bytes()).hexdigest()!=digest:
             findings.append(dict(file=relative,code='frozen-file-drift'))

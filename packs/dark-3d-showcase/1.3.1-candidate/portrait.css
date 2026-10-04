@@ -1,0 +1,8 @@
+html,body,#stage,#world,.sc{width:1080px!important;height:1920px!important}
+#world{transform-origin:540px 960px!important}
+.native-subtitles{left:68px!important;right:68px!important;bottom:100px!important;top:auto!important;padding:0!important;gap:10px!important}
+.native-subtitles .sz{font-size:46px!important;line-height:1.28!important;max-width:944px!important;white-space:normal!important;text-align:center!important;padding:0!important}
+.native-subtitles .se{font-size:30px!important;line-height:1.24!important;max-width:944px!important;white-space:normal!important;text-align:center!important;padding:0!important}
+.portrait-top-tag .tag{font-size:24px!important}.portrait-time-tag .tag{font-size:22px!important}
+.native-portrait-node .macwin .tb{height:44px!important;font-size:22px!important}
+.native-portrait-node .lab{font-size:23px!important}

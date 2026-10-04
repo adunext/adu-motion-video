@@ -20,7 +20,7 @@ try {
       if(time===1.5){assert.equal(state.opacity,'0');continue;}
       assert.equal(state.cues.includes('a'),time<1);assert.equal(state.cues.includes('b'),time>=.5);
       if(time<1){assert.ok(state.text.includes('<内容>& é👩‍💻'));assert.ok(!state.html.includes('<内容>'));assert.ok(state.text.includes('\n'));}
-      if(height>width){const ratios=position??{bottomRatio:.18,leftRatio:.06,rightRatio:.15};assert.ok(state.rect.bottom<=height*(1-ratios.bottomRatio)+.1);assert.ok(state.rect.left>=width*ratios.leftRatio-.1);assert.ok(state.rect.right<=width*(1-ratios.rightRatio)+.1);}
+      if(height>width){const ratios=position??{bottomRatio:.18,leftRatio:.15,rightRatio:.15};assert.ok(state.rect.bottom<=height*(1-ratios.bottomRatio)+.1);assert.ok(state.rect.left>=width*ratios.leftRatio-.1);assert.ok(state.rect.right<=width*(1-ratios.rightRatio)+.1);if(position===null)assert.ok(Math.abs((state.rect.left+state.rect.right)/2-width/2)<.1);}
       else {assert.equal(state.cssTop,'872px');assert.ok(state.rect.top>=862&&state.rect.top<=872);}
       assert.ok(state.rect.top>=0);checks++;
     }
@@ -29,5 +29,5 @@ try {
     if(height>width)assert.ok(formatted.transform.startsWith('translate(0px,'));checks++;
     await page.close();
   }
-  console.log(JSON.stringify({passed:true,checks,scope:'Caption literal text, overlapping half-open cues, custom/default portrait block bounds, legacy CSS override, safe SRT formatting, ratio-mode absolute-X rejection, landscape preset and reverse seek. No artistic AV acceptance.'}));
+  console.log(JSON.stringify({passed:true,checks,scope:'Caption literal text, overlapping half-open cues, custom/default portrait block bounds, legacy CSS override, true portrait axis centering, safe SRT formatting, ratio-mode absolute-X rejection, landscape preset and reverse seek. No artistic AV acceptance.'}));
 } finally {if(browser)await browser.close();fs.rmSync(directory,{recursive:true,force:true});}

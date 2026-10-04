@@ -2,14 +2,18 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。支持 Windows、macOS、Linux，以及 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等可读写文件并运行命令的助手。
 metadata:
-  version: "3.13.0-rc.1"
+  version: "3.13.0-rc.2"
 ---
 
 # adu-motion-video
 
-当前为 **3.13.0-rc.1 质量升级候选**，实际默认映射以 template-catalog.json 为准。新增候选接入横竖屏选型，旧版本可显式使用，稳定验收不追认到新增组；读[升级范围与验收](references/quality-upgrade.md)。最终效果待用户同视频 A/B 确认。
+当前为 **3.13.0-rc.2 质量升级候选**，实际默认映射以 template-catalog.json 为准。新增候选接入横竖屏选型，旧版本可显式使用，稳定验收不追认到新增组；读[升级范围与验收](references/quality-upgrade.md)。最终效果待用户同视频 A/B 确认。
 
 用户提供剪好的口播视频、文案，最好还有新口播的时间码字幕；选用含录屏、作品墙、头像、标识或配乐的场景时，还须提供本期有权使用的素材。你负责把**完整场景编舞**适配到新台词与片长，生成可编辑工程，核查后导出新 MP4。先读 [制作约定](references/rules.md)。`SKILL_DIR` 是本文件目录，`PL="$SKILL_DIR/scripts/pipeline.sh"`。 制作记录保存实际 Skill 路径、版本和所用入口；同名旧安装、仓库版本与已生成工程的冻结运行代码可能不同，不能用最新版说明追认旧工程。
+
+## 引导用户开始创作
+
+用户说“加载这个 skill，引导我开始创作”“加载 adu-motion-video Skill，引导我开始创作”或询问怎样开始时，读[开始创作引导](references/start-creating.md)，在读取成功后发送简短的素材引导：先发已有口播/文案/音频、视频方向及横竖屏；SRT、录屏、图片、Logo、配乐有则一起发，模板未选时由助手推荐。清楚说明附件/本地路径的提供方式及最终 MP4/可编辑工程交付。已有输入直接检查推进，缺项逐步补齐，不强制用户一次填完技术表格；修剪仍默认 off。
 
 ## 平台与助手
 
@@ -25,7 +29,7 @@ metadata:
 
 用户新增完成工程、提炼新镜头组或更新模板库时，读[持续模板接入](references/template-intake.md)。先登记来源和实际状态，再按价值提炼；收到工程不代表已经有可发布模板。`bash "$PL" packs` 只列包的语义与版本元数据，按任务加载相关清单；同一 ID 有多个版本时显式选择 `id@version`。
 
-用户指定 **03 · 深色 3D / 03-A · 多屏展陈** 时，读[深色 3D 模板](references/dark-3d-template.md)，本次横竖屏均选择 `anim4-showcase-macro@1.3.0-candidate`，九场有名输入与新增独立成果入口的范围见质量升级说明；旧横屏基线为 `anim4-showcase-macro@1.1.1-candidate` 并声明 layout。它保留九场作品墙、多屏比较、重点放大与软件窗口编舞，新增 1080×1920 原生竖屏布局。1.1.1 补齐 HDR 抽帧和 SDR 导出色彩核验；此前冷安装记录属于 1.1.0，当前仍待作者连续声画确认；按本期材料选择完整场景，不计入十七个稳定组。旧 1.0.0 保持原字节。
+用户指定 **03 · 深色 3D / 03-A · 多屏展陈** 时，读[深色 3D 模板](references/dark-3d-template.md)，本次横竖屏均选择 `anim4-showcase-macro@1.3.1-candidate`，九场有名输入与新增独立成果入口的范围见质量升级说明；旧横屏基线为 `anim4-showcase-macro@1.1.1-candidate` 并声明 layout。它保留九场作品墙、多屏比较、重点放大与软件窗口编舞，新增 1080×1920 原生竖屏布局。1.1.1 补齐 HDR 抽帧和 SDR 导出色彩核验；此前冷安装记录属于 1.1.0，当前仍待作者连续声画确认；按本期材料选择完整场景，不计入十七个稳定组。旧 1.0.0 保持原字节。
 
 1. 默认运行 `bash "$PL" packs`，按表达目的选择显式版本，读取相关包的 `README.md` 与 `manifest.json`，并查看[完整工程复用说明](references/full-project-templating.md)。`classic-performance@1.0.0` 保留错峰、人物回应与回稳，共三个已验证组；`continuous-performance@1.0.0` 保留同物件变形、拆解与闭合，共两个已验证组。`paper-balance@1.0.0` 是一个纸面透视续接组。既有稳定验收记录使用 macOS 1080p60，不代表整份来源或任意文案已模板化；逐组边界见[能力矩阵](docs/capability-matrix.md)。旧候选版本保留，B 的计划干扰组仍在候选中。旧 `anim3/anim4` 分别有 12/9 个完整场景，仍为 experimental。包 ID 与原片标题、品牌无关。
    C/D/E 的 `stage-performance@1.0.0`、`editorial-performance@1.0.0` 与 `kinetic-performance@1.0.0` 各有三个稳定组，分别保留前后层与人物让位、分栏与跨栏交接、整词与实体回应。每条路线都由未参与提炼的执行者从冻结公开包和本期输入独立制作一部 99.5 秒新片，作者确认成立。旧候选原字节保留；本期桥接不计作公开稳定组。

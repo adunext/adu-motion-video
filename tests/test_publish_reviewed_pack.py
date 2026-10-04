@@ -81,6 +81,17 @@ class ReviewedPublicationTest(unittest.TestCase):
                 with self.assertRaises(ValueError): freeze(source, evidence, readme, root / 'stable')
                 self.assertFalse((root / 'stable').exists())
 
+    def test_present_matching_python_cache_is_not_publishable_source(self):
+        for name in ['__pycache__/helper.cpython-314.pyc','helper.pyo']:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as temporary:
+                root=Path(temporary);source,evidence,readme,e=self.fixture(root)
+                cached=source/name;cached.parent.mkdir(parents=True,exist_ok=True);cached.write_bytes(b'present matching generated cache')
+                m=json.loads((source/'manifest.json').read_text());m['files'][name]=hashlib.sha256(cached.read_bytes()).hexdigest();(source/'manifest.json').write_text(json.dumps(m))
+                e['manifestSha256']=hashlib.sha256((source/'manifest.json').read_bytes()).hexdigest();evidence.write_text(json.dumps(e))
+                with self.assertRaisesRegex(ValueError,'Generated Python caches'):
+                    freeze(source,evidence,readme,root/'stable')
+                self.assertFalse((root/'stable').exists())
+
     def test_embedded_adaptation_subset_keeps_source_locks_and_dependencies(self):
         from adaptation import load_profile
         for dependent in (False, True):

@@ -59,6 +59,7 @@ class QualityCoreTests(unittest.TestCase):
     def test_subtitle_default_and_custom_ratios_leave_landscape_preset(self):
         self.assertIsNone(resolve_position(None,1920,1080))
         self.assertEqual(resolve_position(None,1080,1920)['bottomRatio'],.18)
+        self.assertEqual(resolve_position(None,1080,1920)['leftRatio'],resolve_position(None,1080,1920)['rightRatio'])
         self.assertEqual(resolve_position(dict(bottomRatio=.3),1080,1920)['bottomRatio'],.3)
         with self.assertRaises(ValueError):resolve_position(dict(leftRatio=.5,rightRatio=.5),1080,1920)
 

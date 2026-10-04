@@ -77,6 +77,8 @@ def freeze(source: Path, evidence_path: Path, readme_path: Path, target: Path):
     for relative, expected in manifest.get('files', {}).items():
         p = Path(relative)
         require(not p.is_absolute() and '..' not in p.parts, 'Frozen file path must be local')
+        require('__pycache__' not in p.parts and p.suffix.lower() not in {'.pyc','.pyo'},
+                'Generated Python caches cannot be frozen source dependencies; extract a clean new candidate')
         path = (source / p).resolve()
         require(path.is_relative_to(source), 'Frozen file escaped the source pack')
         data = path.read_bytes()

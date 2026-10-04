@@ -99,8 +99,8 @@
             "对应文案",
             "演示或证据组：本期真实视频"
           ],
-          "scope": "三个完整镜头组；新内容整片与独立使用已验收",
-          "previewBasis": "已保留的源演出短段；新内容验收摘要见实际包 review.json",
+          "scope": "十三个候选完整组：十个源演出与三个新创基础组；源码结构覆盖已核对，新真人口播与独立使用连续声画待验收",
+          "previewBasis": "保留的原三组源演出短段；不能代表新增十组已经人工验收",
           "portraitSelection": "editorial-performance@1.2.0-candidate",
           "layouts": {
             "landscape": {
@@ -230,7 +230,7 @@
           "id": "03-A",
           "title": "多屏展陈",
           "status": "candidate",
-          "selection": "anim4-showcase-macro@1.3.0-candidate",
+          "selection": "anim4-showcase-macro@1.3.1-candidate",
           "preview": "assets/demos/03-A.gif",
           "demo": "assets/demos/03-A.mp4",
           "requires": [
@@ -238,7 +238,7 @@
             "所选场景的真实作品、比较视频与软件录屏",
             "按场景提供头像、标识、作品清单与来源图标"
           ],
-          "scope": "九场完整宏场景，横屏与原生竖屏；不同内容整片和冷安装已核验，待作者连续声画确认",
+          "scope": "十个候选完整组：九场原编舞与一个独立成果；源码闭包已修正，新内容整片与独立使用连续声画待验收",
           "guide": "references/dark-3d-template.md",
           "previewBasis": "不同内容九场样片的软件窗口段；仅包含所有者口播与本人实录",
           "demoAudio": "none; silent different-content preview",
@@ -248,22 +248,24 @@
             "landscape": {
               "width": 1920,
               "height": 1080,
-              "selection": "anim4-showcase-macro@1.3.0-candidate",
+              "selection": "anim4-showcase-macro@1.3.1-candidate",
               "status": "candidate"
             },
             "portrait": {
               "width": 1080,
               "height": 1920,
               "status": "candidate",
-              "selection": "anim4-showcase-macro@1.3.0-candidate"
+              "selection": "anim4-showcase-macro@1.3.1-candidate"
             }
           },
           "acceptance": "technical candidate; human episode AV review pending",
-          "portraitSelection": "anim4-showcase-macro@1.3.0-candidate",
+          "portraitSelection": "anim4-showcase-macro@1.3.1-candidate",
           "historicalSelections": {
             "landscape": "anim4-showcase-macro@1.1.1-candidate",
             "portrait": "anim4-showcase-macro@1.2.0-candidate"
-          }
+          },
+          "previousTechnicalCandidate": "anim4-showcase-macro@1.3.0-candidate",
+          "migrationNote": "1.3.0-candidate旧清单包含未封存Python缓存，不能用本机缓存补齐冷安装；另存重规划至1.3.1-candidate，旧A/B保留"
         }
       ]
     },

@@ -8,7 +8,7 @@ if (typeof SUBS !== 'undefined' && CONFIG.subtitles !== false) (() => {
   const name = CONFIG.subtitlePreset || 'standard';
   if (!presets[name]) throw Error(`Unknown subtitlePreset: ${name}`);
   const style = {...presets[name], ...(portrait ? {zhSize:46,enSize:30} : {}), ...CONFIG.subtitleStyle};
-  const position = CONFIG.subtitlePosition ?? (portrait ? {bottomRatio:.18,leftRatio:.06,rightRatio:.15} : null);
+  const position = CONFIG.subtitlePosition ?? (portrait ? {bottomRatio:.18,leftRatio:.15,rightRatio:.15} : null);
   const width = CONFIG.width || 1920, height = CONFIG.height || 1080;
   const box = document.createElement('div'); box.className='native-subtitles';
   box.dataset.captionClock='final-output';

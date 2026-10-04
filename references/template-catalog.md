@@ -2,7 +2,7 @@
 
 用户编号为“一级模板－二级风格”，例如 `01-B`。先根据此目录识别风格，再使用显式包版本。编号固定，不因选题、样片或版本更新而改名；新增同模板风格沿用一级编号。
 
-## 3.13.0-rc.1 当前选择
+## 3.13.0-rc.2 当前选择
 
 机器目录 `template-catalog.json` 为选型依据。以下五项替换本次候选选择，均支持横竖屏；旧稳定验收属于原版本，新增版本仍待完整声画验收。
 
@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | 01-D | `editorial-performance@1.2.0-candidate` | 13：10 个源完整组与 3 个新创基础组 |
 | 01-E | `kinetic-performance@1.2.0-candidate` | 4：新增实际三项编舞 |
-| 03-A | `anim4-showcase-macro@1.3.0-candidate` | 10：九场与独立成果 |
+| 03-A | `anim4-showcase-macro@1.3.1-candidate` | 10：九场与独立成果 |
 | 04-A | `doubao-console-performance@0.3.0-candidate` | 4：新增交付阅读收束 |
 | 05-A | `vivid-sticker-performance@0.2.0-candidate` | 5：新增两种自然收束 |
 

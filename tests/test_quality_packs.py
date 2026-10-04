@@ -7,7 +7,7 @@ from build_macro_project import pack_scene_parts,bind_authored_block
 from adaptation import load_profile,validate_profile
 from semantic_inputs import expand_inputs,unused_inputs
 
-PACKS=[('doubao-console-performance','0.3.0-candidate'),('vivid-sticker-performance','0.2.0-candidate'),('kinetic-performance','1.2.0-candidate'),('editorial-performance','1.2.0-candidate'),('dark-3d-showcase','1.3.0-candidate')]
+PACKS=[('doubao-console-performance','0.3.0-candidate'),('vivid-sticker-performance','0.2.0-candidate'),('kinetic-performance','1.2.0-candidate'),('editorial-performance','1.2.0-candidate'),('dark-3d-showcase','1.3.1-candidate')]
 class QualityPackTests(unittest.TestCase):
     def test_all_candidates_bind_reviewed_text_spans_without_overlap(self):
         for family,version in PACKS:
@@ -17,6 +17,29 @@ class QualityPackTests(unittest.TestCase):
                 values={s['id']:'新' if s['type'] in ['text','dynamicText'] else 3 for s in scene['slots'] if s['type'] in ['text','dynamicText','number']}
                 with self.subTest(family=family,scene=scene['id']):
                     bound,_=bind_authored_block(body,scene,values,'instance');self.assertTrue(bound)
+
+    def test_candidate_dependency_closure_excludes_generated_caches(self):
+        import hashlib
+        for family,version in PACKS:
+            folder=ROOT/'packs'/family/version;m=json.loads((folder/'manifest.json').read_text())
+            for name,digest in m['files'].items():
+                with self.subTest(pack=family,file=name):
+                    self.assertNotIn('__pycache__',Path(name).parts)
+                    self.assertNotIn(Path(name).suffix.lower(),{'.pyc','.pyo'})
+                    self.assertTrue((folder/name).is_file())
+                    self.assertEqual(hashlib.sha256((folder/name).read_bytes()).hexdigest(),digest)
+
+    def test_legacy_cache_is_rejected_even_when_local_bytes_match(self):
+        import tempfile,hashlib
+        from adapt_project import AdaptError
+        with tempfile.TemporaryDirectory() as temp:
+            folder=Path(temp);cached=folder/'__pycache__/helper.cpython-314.pyc';cached.parent.mkdir();cached.write_bytes(b'local compiled cache')
+            m={'files':{'__pycache__/helper.cpython-314.pyc':hashlib.sha256(cached.read_bytes()).hexdigest()}}
+            with self.assertRaisesRegex(AdaptError,'Generated Python caches'):
+                pack_scene_parts(folder,m)
+            helper=folder/'helper.py';helper.write_text('changed helper')
+            with self.assertRaisesRegex(AdaptError,'Frozen pack file'):
+                pack_scene_parts(folder,{'files':{'helper.py':'0'*64}})
 
     def test_three_item_choreography_has_three_real_card_events(self):
         p=ROOT/'packs/kinetic-performance/1.2.0-candidate';m=json.loads((p/'manifest.json').read_text());sc=m['scenes'][-1];body=(p/sc['sourceCodeFile']).read_text();profile=load_profile(m,ROOT/'adaptation-profiles')
@@ -37,11 +60,11 @@ class QualityPackTests(unittest.TestCase):
         self.assertAlmostEqual(spans[-1][1],163.23333333333332)
 
     def test_showcase_nine_named_mappings_and_independent_entry(self):
-        m=json.loads((ROOT/'packs/dark-3d-showcase/1.3.0-candidate/manifest.json').read_text());profile=load_profile(m,ROOT/'adaptation-profiles')
+        m=json.loads((ROOT/'packs/dark-3d-showcase/1.3.1-candidate/manifest.json').read_text());profile=load_profile(m,ROOT/'adaptation-profiles')
         for scene in m['scenes'][:9]:self.assertTrue(all(s.get('inputPath') or s.get('inputTemplate') for s in scene['slots']))
         new=m['scenes'][-1];c=profile['scenes'][-1]
         self.assertEqual(c['entry']['mode'],'independent');self.assertNotIn('requiresPrevious',c['entry']);self.assertEqual(c['cardinality']['artifacts'],dict(min=1,max=1))
-        self.assertNotIn('PASS',pack_scene_parts(ROOT/'packs/dark-3d-showcase/1.3.0-candidate',m)[1][-1])
+        self.assertNotIn('PASS',pack_scene_parts(ROOT/'packs/dark-3d-showcase/1.3.1-candidate',m)[1][-1])
         old=profile['scenes'][2];self.assertEqual(old['entry']['continuityBindings'][0]['previousSlot'],'grid_opus55')
 
 if __name__=='__main__':unittest.main()

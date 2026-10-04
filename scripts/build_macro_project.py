@@ -47,17 +47,20 @@ def scene_parts(source: str) -> tuple[str, list[str]]:
 
 def pack_scene_parts(pack_dir: Path, pack: dict) -> tuple[str, list[str]]:
     """Load reviewed independent closures without instantiating unused siblings."""
-    if pack.get('sourceFormat') != 'authored-unit/1':
-        return scene_parts((pack_dir / 'scenes.js').read_text())
-    fingerprints = pack.get('files')
-    if not isinstance(fingerprints, dict) or not fingerprints:
+    authored = pack.get('sourceFormat') == 'authored-unit/1'
+    fingerprints = pack.get('files', {})
+    if not isinstance(fingerprints, dict) or (authored and not fingerprints):
         fail('Independent authored pack needs frozen runtime and source file hashes')
     for relative, expected in fingerprints.items():
         if not isinstance(relative, str) or Path(relative).is_absolute() or '..' in Path(relative).parts:
             fail('Pack fingerprint path must be local and relative')
+        if '__pycache__' in Path(relative).parts or Path(relative).suffix.lower() in {'.pyc','.pyo'}:
+            fail(f'Generated Python caches cannot satisfy frozen source closure: {relative}; use a clean new candidate')
         path = (pack_dir / relative).resolve()
-        if not path.is_relative_to(pack_dir.resolve()) or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
-            fail(f'Frozen pack file changed: {relative}; create a reviewed new pack version')
+        if not path.is_relative_to(pack_dir.resolve()) or not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+            fail(f'Frozen pack file changed or missing: {relative}; create a reviewed new pack version')
+    if not authored:
+        return scene_parts((pack_dir / 'scenes.js').read_text())
     blocks = []
     for scene in pack['scenes']:
         relative = scene.get('sourceCodeFile')

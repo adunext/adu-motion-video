@@ -7,11 +7,11 @@
 | 标准 | `subtitlePreset: 'standard'` | 中文 44px、英文 26px、top 872、gap 8 |
 | 英文加大 | `subtitlePreset: 'large-en'` | 中文 44px、英文 30px、top 940、gap 6 |
 
-竖屏默认按整块定位：底部留 18%、左 6%、右 15%，多行向上展开，入场位移也计入包围盒。它是可调项目起点，并非官方平台安全线；须检查人物、关键标题和实际平台覆盖。没有复杂自动人脸避让，测量报告发现遮挡后需调整布局。
+竖屏默认按整块定位：底部留 18%、左右各 15%，多行向上展开，入场位移也计入包围盒。它是可调项目起点，并非官方平台安全线；须检查人物、关键标题和实际平台覆盖。没有复杂自动人脸避让，测量报告发现遮挡后需调整布局。
 
 ```js
 subtitlePreset: 'standard',
-subtitlePosition: {bottomRatio: .18, leftRatio: .06, rightRatio: .15},
+subtitlePosition: {bottomRatio: .18, leftRatio: .15, rightRatio: .15},
 subtitleStyle: {}, // 字号、gap 等；不得以旧 CSS 强制 top/bottom 覆盖比例
 ```
 
