@@ -43,7 +43,7 @@ class AutoTests(unittest.TestCase):
 
     def test_all_real_contracts_and_independent_full_style_paths(self):
         caps=capabilities(self.entries)
-        self.assertEqual(caps['styles'],11);self.assertEqual(len(caps['groups']),39)
+        self.assertEqual(caps['styles'],11);self.assertEqual(len(caps['groups']),54)
         for entry in self.entries:
             with self.subTest(style=entry['styleId']):
                 segments=[self.segment(entry,s,i) for i,s in enumerate(entry['manifest']['scenes'])]
@@ -263,7 +263,7 @@ class AutoTests(unittest.TestCase):
             if os.environ.get('ADU_AUTO_REPORT'):
                 Path(os.environ['ADU_AUTO_REPORT']).write_text(json.dumps(dict(
                     schema='adu-auto-test-evidence/1',source='tests/test_auto_templates.py',
-                    styles=11,groups=39,composition=dict(frames=total,fps=60,parts=len(plan['parts']),
+                    styles=11,groups=54,composition=dict(frames=total,fps=60,parts=len(plan['parts']),
                     width=1080,height=1920,seeks=evidence['seeks'],repeatRoundTrips=evidence['repeatRoundTrips'],
                     softwareRaster=True,deterministicPixels=True,
                     subtitleGlobalClock=True,voicePCMRejoinIdentical=True,

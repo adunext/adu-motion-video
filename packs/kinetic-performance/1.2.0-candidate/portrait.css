@@ -1,0 +1,16 @@
+/* Portrait output is authored in 1080×1920. Each content island reflows itself. */
+html,body,#stage,#world,.sc{width:1080px!important;height:1920px!important}
+html,body{margin:0;overflow:hidden}
+#world{transform-origin:540px 960px!important}
+.portrait-island{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:visible}
+.native-subtitles{left:68px!important;right:68px!important;top:auto!important;bottom:110px!important;width:auto!important;max-width:944px!important}
+.native-subtitles .sz{font-size:46px!important;line-height:1.28!important;white-space:normal!important}
+.native-subtitles .se{font-size:30px!important;line-height:1.28!important;white-space:normal!important}
+.portrait-island .tag{max-width:720px;white-space:normal;font-size:24px!important}
+.portrait-island .tc{white-space:nowrap;font-size:21px!important}
+.pb-host,.nd-host,.doubao-host{width:1080px!important;height:1920px!important}
+[data-pb-node=main],.scn,[data-doubao-node=world],[data-doubao-node=front],[data-doubao-node=hud]{width:1080px!important;height:1920px!important;transform-origin:540px 960px!important}
+[data-pb-node=subs]{display:none!important}
+[data-pb-node=tagL]{left:64px!important;top:48px!important;max-width:680px;font-size:23px!important}
+[data-pb-node=tagR]{right:340px!important;top:88px!important;font-size:21px!important}
+[data-pb-node=disc]{left:64px!important;top:1560px!important;max-width:936px!important}

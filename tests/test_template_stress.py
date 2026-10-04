@@ -185,7 +185,7 @@ class TemplateStressTests(unittest.TestCase):
                         accepted, reason = False, str(exc)
                     self.rows.append({'style': style, 'scene': source['id'], 'case': 'max-hold-retimed-cues',
                                       'accepted': accepted, 'reason': reason})
-        self.assertEqual(groups, 39)
+        self.assertEqual(groups, 54)
 
     def test_real_one_second_and_twenty_minute_recordings_with_offsets(self):
         clips = 0
@@ -208,7 +208,7 @@ class TemplateStressTests(unittest.TestCase):
                         self.rows.append({'style': style, 'scene': source['id'], 'case': 'real-video-duration-offset',
                                           'sourceSeconds': duration, 'offset': offset, 'accepted': observed, 'reason': reason})
                         self.assertEqual(observed, expected, reason)
-        self.assertEqual(clips, 5)
+        self.assertEqual(clips, 9)
 
     def test_long_source_decodes_only_used_window_and_retains_motion(self):
         pack = resolve('classic-performance@1.1.0-candidate', ROOT / 'packs')

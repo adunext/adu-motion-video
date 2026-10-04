@@ -1,0 +1,8 @@
+{
+  "status": "candidate",
+  "version": "1.2.0-candidate",
+  "groups": 4,
+  "technicalValidation": "see manifest.validation; private run records retained locally",
+  "humanAudiovisualAcceptance": "pending",
+  "historicalAcceptance": "Belongs to the original unchanged base subset; does not certify new variants or portrait episode reuse"
+}

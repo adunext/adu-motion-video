@@ -90,8 +90,8 @@
         {
           "id": "01-D",
           "title": "杂志分屏",
-          "status": "released",
-          "selection": "editorial-performance@1.0.0",
+          "status": "candidate",
+          "selection": "editorial-performance@1.2.0-candidate",
           "preview": "assets/demos/01-D.gif",
           "demo": "assets/demos/01-D.mp4",
           "requires": [
@@ -101,25 +101,32 @@
           ],
           "scope": "三个完整镜头组；新内容整片与独立使用已验收",
           "previewBasis": "已保留的源演出短段；新内容验收摘要见实际包 review.json",
-          "portraitSelection": "editorial-performance@1.1.0-candidate",
+          "portraitSelection": "editorial-performance@1.2.0-candidate",
           "layouts": {
             "landscape": {
               "width": 1920,
-              "height": 1080
+              "height": 1080,
+              "selection": "editorial-performance@1.2.0-candidate",
+              "status": "candidate"
             },
             "portrait": {
               "width": 1080,
               "height": 1920,
               "status": "candidate",
-              "selection": "editorial-performance@1.1.0-candidate"
+              "selection": "editorial-performance@1.2.0-candidate"
             }
-          }
+          },
+          "historicalSelections": {
+            "landscape": "editorial-performance@1.0.0",
+            "portrait": "editorial-performance@1.1.0-candidate"
+          },
+          "acceptance": "technical candidate; human episode AV review pending"
         },
         {
           "id": "01-E",
           "title": "节拍字效",
-          "status": "released",
-          "selection": "kinetic-performance@1.0.0",
+          "status": "candidate",
+          "selection": "kinetic-performance@1.2.0-candidate",
           "preview": "assets/demos/01-E.gif",
           "demo": "assets/demos/01-E.mp4",
           "requires": [
@@ -129,19 +136,26 @@
           ],
           "scope": "三个完整镜头组；新内容整片与独立使用已验收",
           "previewBasis": "已保留的源演出短段；新内容验收摘要见实际包 review.json",
-          "portraitSelection": "kinetic-performance@1.1.0-candidate",
+          "portraitSelection": "kinetic-performance@1.2.0-candidate",
           "layouts": {
             "landscape": {
               "width": 1920,
-              "height": 1080
+              "height": 1080,
+              "selection": "kinetic-performance@1.2.0-candidate",
+              "status": "candidate"
             },
             "portrait": {
               "width": 1080,
               "height": 1920,
               "status": "candidate",
-              "selection": "kinetic-performance@1.1.0-candidate"
+              "selection": "kinetic-performance@1.2.0-candidate"
             }
-          }
+          },
+          "historicalSelections": {
+            "landscape": "kinetic-performance@1.0.0",
+            "portrait": "kinetic-performance@1.1.0-candidate"
+          },
+          "acceptance": "technical candidate; human episode AV review pending"
         }
       ]
     },
@@ -216,7 +230,7 @@
           "id": "03-A",
           "title": "多屏展陈",
           "status": "candidate",
-          "selection": "anim4-showcase-macro@1.1.1-candidate",
+          "selection": "anim4-showcase-macro@1.3.0-candidate",
           "preview": "assets/demos/03-A.gif",
           "demo": "assets/demos/03-A.mp4",
           "requires": [
@@ -233,17 +247,23 @@
           "layouts": {
             "landscape": {
               "width": 1920,
-              "height": 1080
+              "height": 1080,
+              "selection": "anim4-showcase-macro@1.3.0-candidate",
+              "status": "candidate"
             },
             "portrait": {
               "width": 1080,
               "height": 1920,
               "status": "candidate",
-              "selection": "anim4-showcase-macro@1.2.0-candidate"
+              "selection": "anim4-showcase-macro@1.3.0-candidate"
             }
           },
-          "acceptance": "awaiting owner continuous audiovisual confirmation",
-          "portraitSelection": "anim4-showcase-macro@1.2.0-candidate"
+          "acceptance": "technical candidate; human episode AV review pending",
+          "portraitSelection": "anim4-showcase-macro@1.3.0-candidate",
+          "historicalSelections": {
+            "landscape": "anim4-showcase-macro@1.1.1-candidate",
+            "portrait": "anim4-showcase-macro@1.2.0-candidate"
+          }
         }
       ]
     },
@@ -255,7 +275,7 @@
           "id": "04-A",
           "title": "仪器台演示",
           "status": "candidate",
-          "selection": "doubao-console-performance@0.1.2-candidate",
+          "selection": "doubao-console-performance@0.3.0-candidate",
           "preview": "assets/demos/04-A.gif",
           "demo": "assets/demos/04-A.mp4",
           "guide": "references/doubao-console-template.md",
@@ -270,17 +290,24 @@
           "layouts": {
             "landscape": {
               "width": 1920,
-              "height": 1080
+              "height": 1080,
+              "selection": "doubao-console-performance@0.3.0-candidate",
+              "status": "candidate"
             },
             "portrait": {
               "width": 1080,
               "height": 1920,
               "status": "candidate",
-              "selection": "doubao-console-performance@0.2.0-candidate"
+              "selection": "doubao-console-performance@0.3.0-candidate"
             }
           },
           "qualityLimits": "横屏有界文字已检查；竖屏选择0.2.0-candidate；仍待新口播完整声画与独立复用验收。",
-          "portraitSelection": "doubao-console-performance@0.2.0-candidate"
+          "portraitSelection": "doubao-console-performance@0.3.0-candidate",
+          "historicalSelections": {
+            "landscape": "doubao-console-performance@0.1.2-candidate",
+            "portrait": "doubao-console-performance@0.2.0-candidate"
+          },
+          "acceptance": "technical candidate; human episode AV review pending"
         }
       ]
     },
@@ -292,8 +319,8 @@
           "id": "05-A",
           "title": "角色与物件接力",
           "status": "candidate",
-          "selection": "vivid-sticker-performance@0.1.1-candidate",
-          "portraitSelection": "vivid-sticker-performance@0.1.1-candidate",
+          "selection": "vivid-sticker-performance@0.2.0-candidate",
+          "portraitSelection": "vivid-sticker-performance@0.2.0-candidate",
           "preview": "assets/demos/05-A.gif",
           "demo": "assets/demos/05-A.mp4",
           "guide": "references/vivid-sticker-template.md",
@@ -309,15 +336,21 @@
             "landscape": {
               "width": 1920,
               "height": 1080,
-              "selection": "vivid-sticker-performance@0.1.1-candidate"
+              "selection": "vivid-sticker-performance@0.2.0-candidate",
+              "status": "candidate"
             },
             "portrait": {
               "width": 1080,
               "height": 1920,
-              "selection": "vivid-sticker-performance@0.1.1-candidate",
+              "selection": "vivid-sticker-performance@0.2.0-candidate",
               "status": "candidate"
             }
-          }
+          },
+          "historicalSelections": {
+            "landscape": "vivid-sticker-performance@0.1.1-candidate",
+            "portrait": "vivid-sticker-performance@0.1.1-candidate"
+          },
+          "acceptance": "technical candidate; human episode AV review pending"
         }
       ]
     },

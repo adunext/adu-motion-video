@@ -1,0 +1,2547 @@
+{
+  "id": "doubao-console-performance",
+  "version": "0.3.0-candidate",
+  "title": "深色科技控制台 · 双输入融合、三步对话与手册交付",
+  "status": "candidate",
+  "sourceFormat": "authored-unit/1",
+  "sourceRevision": "f55059465bef56a00e9675726c10f4a3f6738d8c8e0a0a94b0f6a41e0cd6a950",
+  "source": {
+    "engine": "DOM/Canvas/private-source-host",
+    "assetPolicy": "Bind this episode's narration, images and owner-supplied grain texture."
+  },
+  "fps": 60,
+  "width": 1920,
+  "height": 1080,
+  "requireMotionWindows": true,
+  "runtimeFiles": [
+    "doubao_fonts.js"
+  ],
+  "generatedRuntimeFiles": [
+    "doubao_episode.js"
+  ],
+  "episodePreparation": {
+    "kind": "doubao-voice-rms/1",
+    "implementationSha256": "197a6a2ea6f3551b55ae5600c606f989e06dde2c321ce3bb4b9d259eefc8c40e"
+  },
+  "runtimeHooks": [
+    "macroTransition/1"
+  ],
+  "scenes": [
+    {
+      "role": "双输入亮相 → 轨迹汇聚 → 合体冲击 → 成功结果",
+      "requiresFaceTracking": true,
+      "minFrames": 234,
+      "maxHoldFrames": 0,
+      "motionWindows": [
+        {
+          "id": "complete-authored-performance",
+          "start": 0,
+          "end": 3.9
+        }
+      ],
+      "cues": [
+        {
+          "id": "title",
+          "at": 0.1,
+          "kind": "opening-title",
+          "required": true
+        },
+        {
+          "id": "left",
+          "at": 0.55,
+          "kind": "first-input",
+          "required": true
+        },
+        {
+          "id": "right",
+          "at": 0.75,
+          "kind": "second-input",
+          "required": true
+        },
+        {
+          "id": "status",
+          "at": 1.46,
+          "kind": "processing-status",
+          "required": true
+        },
+        {
+          "id": "payoff",
+          "at": 2.6,
+          "kind": "result-claim",
+          "required": true
+        },
+        {
+          "id": "fusion",
+          "at": 2.95,
+          "kind": "merge-impact",
+          "required": true
+        },
+        {
+          "id": "delivery",
+          "at": 3.05,
+          "kind": "success-output",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "text",
+          "sourceText": "// 01 — 实测",
+          "inputPath": "chapter",
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 39724,
+              "end": 39734,
+              "renderContext": "text"
+            }
+          ],
+          "label": "章节"
+        },
+        {
+          "id": "title-lead",
+          "type": "text",
+          "sourceText": "豆包 × WorkBuddy",
+          "inputPath": "title.lead",
+          "maxChars": 17,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39812,
+              "end": 39826,
+              "renderContext": "html"
+            }
+          ],
+          "label": "标题 · 引导句"
+        },
+        {
+          "id": "title-payoff",
+          "type": "text",
+          "sourceText": "自动剪辑，成功了",
+          "inputPath": "title.payoff",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39830,
+              "end": 39838,
+              "renderContext": "html"
+            }
+          ],
+          "label": "标题 · 结果句"
+        },
+        {
+          "id": "kicker",
+          "type": "text",
+          "sourceText": "// AI AUTO-EDIT · 实测",
+          "inputPath": "kicker",
+          "maxChars": 26,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39860,
+              "end": 39880,
+              "renderContext": "html"
+            }
+          ],
+          "label": "辅助说明"
+        },
+        {
+          "id": "left-product",
+          "type": "text",
+          "sourceText": "豆包",
+          "inputPath": "products.left",
+          "maxChars": 9,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39977,
+              "end": 39979,
+              "renderContext": "html"
+            },
+            {
+              "start": 40257,
+              "end": 40259,
+              "renderContext": "html"
+            }
+          ],
+          "label": "产品 · 左侧"
+        },
+        {
+          "id": "right-product",
+          "type": "text",
+          "sourceText": "WorkBuddy",
+          "inputPath": "products.right",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40003,
+              "end": 40012,
+              "renderContext": "html"
+            },
+            {
+              "start": 40345,
+              "end": 40354,
+              "renderContext": "html"
+            }
+          ],
+          "label": "产品 · 右侧"
+        },
+        {
+          "id": "output-label",
+          "type": "text",
+          "sourceText": "成片 · 1920×1080",
+          "inputPath": "delivery.label",
+          "maxChars": 20,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40523,
+              "end": 40537,
+              "renderContext": "html"
+            }
+          ],
+          "label": "交付 · 名称"
+        },
+        {
+          "id": "engine-label",
+          "type": "text",
+          "sourceText": "ENGINE",
+          "inputPath": "labels.engine",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39967,
+              "end": 39973,
+              "renderContext": "html"
+            }
+          ],
+          "label": "标签 · 执行引擎"
+        },
+        {
+          "id": "agent-label",
+          "type": "text",
+          "sourceText": "AGENT",
+          "inputPath": "labels.agent",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39994,
+              "end": 39999,
+              "renderContext": "html"
+            }
+          ],
+          "label": "标签 · 执行者"
+        },
+        {
+          "id": "status-label",
+          "type": "text",
+          "sourceText": "STATUS",
+          "inputPath": "labels.status",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40040,
+              "end": 40046,
+              "renderContext": "html"
+            }
+          ],
+          "label": "标签 · 状态"
+        },
+        {
+          "id": "status-working",
+          "type": "text",
+          "sourceText": "EDITING…",
+          "inputPath": "status.working",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40067,
+              "end": 40075,
+              "renderContext": "html"
+            },
+            {
+              "start": 41077,
+              "end": 41085,
+              "renderContext": "html"
+            }
+          ],
+          "label": "状态 · 工作状态"
+        },
+        {
+          "id": "status-done",
+          "type": "text",
+          "sourceText": "SUCCESS ✓",
+          "inputPath": "status.done",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41117,
+              "end": 41126,
+              "renderContext": "html"
+            }
+          ],
+          "label": "状态 · 完成状态"
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true,
+          "label": "本期口播 · 本期口播"
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/noise.png",
+          "label": "图片 · 纹理素材"
+        }
+      ],
+      "boundaries": {
+        "entry": "Source opening starts at 0 with tkKey(0,R,.01); no previous scene is needed. Camera shake/flash and Canvas stage must be present.",
+        "exit": "Last authored check at 3.05; original next scene flash pre-roll begins at 3.75. Do not invent a visual outro. Preserve source riser 1.9–2.95 and crash/check tails; end-of-video mix must provide tail-safe outro.",
+        "connection": "Source original-order boundary is documented. Arbitrary reordered adjacency has not received continuous audiovisual review."
+      },
+      "limits": [
+        "1920x1080 at 60fps only; portrait version not reviewed.",
+        "Whole source group stays atomic at 1x: no new safe hold or internal split is asserted.",
+        "Every required text/media/cue binding must come from the new episode; source examples are not new input.",
+        "Original score/fonts/texture are external inputs with explicit rights and identity requirements.",
+        "Cue time quantization follows the engine frame policy; no scene speed-up is licensed by minFrames rounding."
+      ],
+      "inputExample": {
+        "chapter": "01 — 合作成片",
+        "title": {
+          "lead": "创意 × 执行",
+          "payoff": "方法落地，完成了"
+        },
+        "kicker": "// TEAMWORK · 本期方法",
+        "products": {
+          "left": "创意",
+          "right": "执行"
+        },
+        "delivery": {
+          "label": "本期成片 · 16:9"
+        },
+        "labels": {
+          "engine": "IDEA",
+          "agent": "MAKE",
+          "status": "STAGE"
+        },
+        "status": {
+          "working": "WORKING…",
+          "done": "COMPLETE ✓"
+        }
+      },
+      "id": "fusion-success",
+      "source": {
+        "start": 0,
+        "end": 3.9
+      },
+      "sourceCodeFile": "units/fusion-success.js",
+      "sourceBlockSha256": "d533a3090e2ded2a878a41ce6949a06c7a23f1dd9a62f08157cd6973a405e5f3",
+      "provenance": {
+        "adapter": "adapters/doubao-console/extract.py",
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 19,
+          "end": 48
+        },
+        "sourceStatementSha256": "e744e99ace0305617b1a232bb3a747f7dc7c8ec2b55fd06b048f7f8d5f0e4c0f",
+        "helperSha256": "216f4750f6d1ca797cf2ea358e177a4ac52d6b72f8b7037cf2e98a4a4319cb06",
+        "adapterSha256": "99b4031a47a1f7d3fad42dafd1277454dc1825c674c56f4d5fde3da876b781cf",
+        "initialTalkKey": null,
+        "ports": [
+          "private DOM/Scene/canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock geometry and chapter",
+          "native transition plane hook",
+          "new narration RMS glow",
+          "source SFX forwarded once",
+          "explicit owner texture/fonts"
+        ],
+        "boundedTypographyFromVersion": "0.1.1-candidate"
+      },
+      "sourceRevision": "f55059465bef56a00e9675726c10f4a3f6738d8c8e0a0a94b0f6a41e0cd6a950",
+      "minFollowingFrames": 42
+    },
+    {
+      "role": "提交方法 → 提供地址或文件两种输入 → 确认并执行六项检查",
+      "requiresFaceTracking": true,
+      "minFrames": 544,
+      "maxHoldFrames": 0,
+      "motionWindows": [
+        {
+          "id": "complete-authored-performance",
+          "start": 17.75,
+          "end": 26.81
+        }
+      ],
+      "cues": [
+        {
+          "id": "panel",
+          "at": 17.85,
+          "kind": "dialogue-intro",
+          "required": true
+        },
+        {
+          "id": "method",
+          "at": 19.43,
+          "kind": "method-submission",
+          "required": true
+        },
+        {
+          "id": "path",
+          "at": 20.47,
+          "kind": "input-address",
+          "required": true
+        },
+        {
+          "id": "alternative",
+          "at": 23.87,
+          "kind": "input-alternative",
+          "required": true
+        },
+        {
+          "id": "file",
+          "at": 24.2,
+          "kind": "input-file",
+          "required": true
+        },
+        {
+          "id": "receipt",
+          "at": 25.43,
+          "kind": "execution-receipt",
+          "required": true
+        },
+        {
+          "id": "progress",
+          "at": 25.7,
+          "kind": "execution-progress",
+          "required": true
+        },
+        {
+          "id": "done",
+          "at": 26.7,
+          "kind": "execution-complete",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "method-contents",
+          "type": "text",
+          "sourceText": "SKILL.md · references · scripts",
+          "inputPath": "method.contents",
+          "maxChars": 32,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41432,
+              "end": 41463,
+              "renderContext": "html"
+            }
+          ],
+          "label": "方法 · 目录内容"
+        },
+        {
+          "id": "chapter",
+          "type": "text",
+          "sourceText": "// 04 — 三步",
+          "inputPath": "chapter",
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 39805,
+              "end": 39815,
+              "renderContext": "text"
+            }
+          ],
+          "label": "章节"
+        },
+        {
+          "id": "chat-title",
+          "type": "text",
+          "sourceText": "豆包 · 对话",
+          "inputPath": "chat.title",
+          "maxChars": 14,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40181,
+              "end": 40188,
+              "renderContext": "html"
+            }
+          ],
+          "label": "对话 · 标题"
+        },
+        {
+          "id": "chat-tier",
+          "type": "text",
+          "sourceText": "免费版",
+          "inputPath": "chat.tier",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40205,
+              "end": 40208,
+              "renderContext": "html"
+            }
+          ],
+          "label": "对话 · 版本"
+        },
+        {
+          "id": "step-0",
+          "type": "text",
+          "sourceText": "发 skill",
+          "inputPath": "steps.0",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40232,
+              "end": 40239,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 1"
+        },
+        {
+          "id": "step-1",
+          "type": "text",
+          "sourceText": "给地址 / 发文件",
+          "inputPath": "steps.1",
+          "maxChars": 12,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40243,
+              "end": 40252,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 2"
+        },
+        {
+          "id": "step-2",
+          "type": "text",
+          "sourceText": "自动剪辑",
+          "inputPath": "steps.2",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40256,
+              "end": 40260,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 3"
+        },
+        {
+          "id": "method-icon",
+          "type": "text",
+          "sourceText": "SKILL",
+          "inputPath": "method.icon",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41242,
+              "end": 41247,
+              "renderContext": "html"
+            }
+          ],
+          "label": "方法 · 图标"
+        },
+        {
+          "id": "method-name",
+          "type": "text",
+          "sourceText": "adu-motion-video",
+          "inputPath": "method.name",
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41315,
+              "end": 41331,
+              "renderContext": "html"
+            }
+          ],
+          "label": "方法 · 名称"
+        },
+        {
+          "id": "path-message",
+          "type": "text",
+          "sourceText": "本期素材路径由使用者填写",
+          "inputPath": "input.message",
+          "maxChars": 52,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 43458,
+              "end": 43470,
+              "renderContext": "html"
+            }
+          ],
+          "label": "输入 · 消息"
+        },
+        {
+          "id": "alternative",
+          "type": "text",
+          "sourceText": "— 或者 —",
+          "inputPath": "input.alternative",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41798,
+              "end": 41804,
+              "renderContext": "html"
+            }
+          ],
+          "label": "输入 · 另一方案"
+        },
+        {
+          "id": "file-name",
+          "type": "text",
+          "sourceText": "10月2日.mov",
+          "inputPath": "input.fileName",
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 42314,
+              "end": 42323,
+              "renderContext": "html"
+            }
+          ],
+          "label": "输入 · 文件名"
+        },
+        {
+          "id": "file-meta",
+          "type": "text",
+          "sourceText": "口播 · 129.9s · 1080×1920",
+          "inputPath": "input.fileMeta",
+          "maxChars": 30,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 42389,
+              "end": 42412,
+              "renderContext": "html"
+            }
+          ],
+          "label": "输入 · 文件信息"
+        },
+        {
+          "id": "receipt",
+          "type": "text",
+          "sourceText": "收到，开始剪辑",
+          "inputPath": "receipt",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 42676,
+              "end": 42683,
+              "renderContext": "html"
+            }
+          ],
+          "label": "接收确认"
+        },
+        {
+          "id": "check-0",
+          "type": "text",
+          "sourceText": "对齐口播",
+          "inputPath": "checks.0",
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 43076,
+              "end": 43080,
+              "renderContext": "html"
+            }
+          ],
+          "label": "检查项 · 1"
+        },
+        {
+          "id": "check-1",
+          "type": "text",
+          "sourceText": "分镜",
+          "inputPath": "checks.1",
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 43084,
+              "end": 43086,
+              "renderContext": "html"
+            }
+          ],
+          "label": "检查项 · 2"
+        },
+        {
+          "id": "check-2",
+          "type": "text",
+          "sourceText": "动效",
+          "inputPath": "checks.2",
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 43090,
+              "end": 43092,
+              "renderContext": "html"
+            }
+          ],
+          "label": "检查项 · 3"
+        },
+        {
+          "id": "check-3",
+          "type": "text",
+          "sourceText": "字幕",
+          "inputPath": "checks.3",
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 43096,
+              "end": 43098,
+              "renderContext": "html"
+            }
+          ],
+          "label": "检查项 · 4"
+        },
+        {
+          "id": "check-4",
+          "type": "text",
+          "sourceText": "混音",
+          "inputPath": "checks.4",
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 43102,
+              "end": 43104,
+              "renderContext": "html"
+            }
+          ],
+          "label": "检查项 · 5"
+        },
+        {
+          "id": "check-5",
+          "type": "text",
+          "sourceText": "导出",
+          "inputPath": "checks.5",
+          "maxChars": 5,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 43108,
+              "end": 43110,
+              "renderContext": "html"
+            }
+          ],
+          "label": "检查项 · 6"
+        },
+        {
+          "id": "input-thumbnail",
+          "type": "image",
+          "sourceAsset": "assets/f_02000.jpg",
+          "required": true,
+          "label": "图片 · 输入缩略图"
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true,
+          "label": "本期口播 · 本期口播"
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/noise.png",
+          "label": "图片 · 纹理素材"
+        }
+      ],
+      "boundaries": {
+        "entry": "Native wipe td=.45 begins at 17.525, .225 seconds before scene start. Presenter enters from prior exact tkKey(3.90,RC,.75) to R over .75 seconds. Adapter carries prior pose; new adjacency must review wipe pre-roll.",
+        "exit": "Achieve and completion burst occur at 26.7, only .11 seconds before source end; original next flash begins 26.66. Sound tail extends beyond group. Use explicit overlap/tail-aware continuation or a reviewed outro; a hard final cut is not accepted.",
+        "connection": "Source original-order boundary is documented. Arbitrary reordered adjacency has not received continuous audiovisual review."
+      },
+      "limits": [
+        "1920x1080 at 60fps only; portrait version not reviewed.",
+        "Whole source group stays atomic at 1x: no new safe hold or internal split is asserted.",
+        "Every required text/media/cue binding must come from the new episode; source examples are not new input.",
+        "Original score/fonts/texture are external inputs with explicit rights and identity requirements.",
+        "Cue time quantization follows the engine frame policy; no scene speed-up is licensed by minFrames rounding."
+      ],
+      "inputExample": {
+        "chapter": "02 — 三步提交",
+        "chat": {
+          "title": "制作助手 · 对话",
+          "tier": "制作中"
+        },
+        "steps": [
+          "提交方法",
+          "填地址 / 传素材",
+          "开始执行"
+        ],
+        "method": {
+          "icon": "GUIDE",
+          "name": "episode-playbook",
+          "contents": "说明书 · 素材要求 · 操作步骤"
+        },
+        "input": {
+          "message": "请使用本期已选素材目录，或上传同一份素材文件。",
+          "alternative": "— 也可以 —",
+          "fileName": "本期素材.mov",
+          "fileMeta": "时长与尺寸按本期素材填写"
+        },
+        "receipt": "收到，开始制作",
+        "checks": [
+          "理素材",
+          "写分镜",
+          "做动画",
+          "对字幕",
+          "配声音",
+          "查成片"
+        ]
+      },
+      "id": "three-step-chat",
+      "source": {
+        "start": 17.75,
+        "end": 26.81
+      },
+      "sourceCodeFile": "units/three-step-chat.js",
+      "sourceBlockSha256": "aa53b1ab1b19e25ac8b5bafbf30499ac4380c638cfd18969ad9fb416b906c93a",
+      "provenance": {
+        "adapter": "adapters/doubao-console/extract.py",
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 154,
+          "end": 197
+        },
+        "sourceStatementSha256": "a809393d058069adda2f3769870720b10b394ee96db41c719424121e544eb6c4",
+        "helperSha256": "216f4750f6d1ca797cf2ea358e177a4ac52d6b72f8b7037cf2e98a4a4319cb06",
+        "adapterSha256": "99b4031a47a1f7d3fad42dafd1277454dc1825c674c56f4d5fde3da876b781cf",
+        "initialTalkKey": "tkKey(3.90, 'RC', .75);",
+        "ports": [
+          "private DOM/Scene/canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock geometry and chapter",
+          "native transition plane hook",
+          "new narration RMS glow",
+          "source SFX forwarded once",
+          "explicit owner texture/fonts"
+        ],
+        "boundedTypographyFromVersion": "0.1.1-candidate"
+      },
+      "sourceRevision": "f55059465bef56a00e9675726c10f4a3f6738d8c8e0a0a94b0f6a41e0cd6a950",
+      "minFollowingFrames": 132
+    },
+    {
+      "role": "定义手册 → 三名执行者连接同一手册 → 依序完成七步 → 同一手册收束并交付",
+      "requiresFaceTracking": true,
+      "minFrames": 688,
+      "maxHoldFrames": 0,
+      "motionWindows": [
+        {
+          "id": "complete-authored-performance",
+          "start": 50.54,
+          "end": 62.01
+        }
+      ],
+      "cues": [
+        {
+          "id": "definition",
+          "at": 50.7,
+          "kind": "define-manual",
+          "required": true
+        },
+        {
+          "id": "manual",
+          "at": 50.9,
+          "kind": "show-manual",
+          "required": true
+        },
+        {
+          "id": "definition-slam",
+          "at": 51.65,
+          "kind": "manual-equivalence",
+          "required": true
+        },
+        {
+          "id": "agent-0",
+          "at": 53.13,
+          "kind": "executor-first",
+          "required": true
+        },
+        {
+          "id": "agent-1",
+          "at": 53.93,
+          "kind": "executor-second",
+          "required": true
+        },
+        {
+          "id": "agent-2",
+          "at": 54.87,
+          "kind": "executor-third",
+          "required": true
+        },
+        {
+          "id": "check-0",
+          "at": 57.1,
+          "kind": "procedure-step-1",
+          "required": true
+        },
+        {
+          "id": "check-1",
+          "at": 57.33,
+          "kind": "procedure-step-2",
+          "required": true
+        },
+        {
+          "id": "check-2",
+          "at": 57.56,
+          "kind": "procedure-step-3",
+          "required": true
+        },
+        {
+          "id": "check-3",
+          "at": 57.79,
+          "kind": "procedure-step-4",
+          "required": true
+        },
+        {
+          "id": "check-4",
+          "at": 58.02,
+          "kind": "procedure-step-5",
+          "required": true
+        },
+        {
+          "id": "check-5",
+          "at": 58.25,
+          "kind": "procedure-step-6",
+          "required": true
+        },
+        {
+          "id": "check-6",
+          "at": 58.480000000000004,
+          "kind": "procedure-step-7",
+          "required": true
+        },
+        {
+          "id": "close",
+          "at": 58.9,
+          "kind": "manual-close",
+          "required": true
+        },
+        {
+          "id": "delivery",
+          "at": 60.5,
+          "kind": "result-delivery",
+          "required": true
+        },
+        {
+          "id": "success",
+          "at": 60.8,
+          "kind": "delivery-impact",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "text",
+          "sourceText": "// 09 — 工作手册",
+          "inputPath": "chapter",
+          "maxChars": 20,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 39799,
+              "end": 39811,
+              "renderContext": "text"
+            }
+          ],
+          "label": "章节"
+        },
+        {
+          "id": "title-lead",
+          "type": "text",
+          "sourceText": "Skill =",
+          "inputPath": "title.lead",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39879,
+              "end": 39886,
+              "renderContext": "html"
+            }
+          ],
+          "label": "标题 · 引导句"
+        },
+        {
+          "id": "title-payoff",
+          "type": "text",
+          "sourceText": "一本工作手册",
+          "inputPath": "title.payoff",
+          "maxChars": 9,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39890,
+              "end": 39896,
+              "renderContext": "html"
+            }
+          ],
+          "label": "标题 · 结果句"
+        },
+        {
+          "id": "manual-format",
+          "type": "text",
+          "sourceText": "SKILL.md",
+          "inputPath": "manual.format",
+          "maxChars": 12,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40409,
+              "end": 40417,
+              "renderContext": "html"
+            }
+          ],
+          "label": "手册 · 格式"
+        },
+        {
+          "id": "manual-name",
+          "type": "text",
+          "sourceText": "adu-motion-video",
+          "inputPath": "manual.name",
+          "maxChars": 20,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40488,
+              "end": 40504,
+              "renderContext": "html"
+            }
+          ],
+          "label": "手册 · 名称"
+        },
+        {
+          "id": "manual-tagline",
+          "type": "text",
+          "sourceText": "工作手册 · 照着做就行",
+          "inputPath": "manual.tagline",
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40576,
+              "end": 40588,
+              "renderContext": "html"
+            }
+          ],
+          "label": "手册 · 说明"
+        },
+        {
+          "id": "step-0",
+          "type": "text",
+          "sourceText": "读取素材",
+          "inputPath": "steps.0",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39942,
+              "end": 39946,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 1"
+        },
+        {
+          "id": "step-1",
+          "type": "text",
+          "sourceText": "对齐口播",
+          "inputPath": "steps.1",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39950,
+              "end": 39954,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 2"
+        },
+        {
+          "id": "step-2",
+          "type": "text",
+          "sourceText": "写分镜",
+          "inputPath": "steps.2",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39958,
+              "end": 39961,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 3"
+        },
+        {
+          "id": "step-3",
+          "type": "text",
+          "sourceText": "做动效",
+          "inputPath": "steps.3",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39965,
+              "end": 39968,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 4"
+        },
+        {
+          "id": "step-4",
+          "type": "text",
+          "sourceText": "配乐踩点",
+          "inputPath": "steps.4",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39972,
+              "end": 39976,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 5"
+        },
+        {
+          "id": "step-5",
+          "type": "text",
+          "sourceText": "渲染导出",
+          "inputPath": "steps.5",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39980,
+              "end": 39984,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 6"
+        },
+        {
+          "id": "step-6",
+          "type": "text",
+          "sourceText": "逐项核验",
+          "inputPath": "steps.6",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39988,
+              "end": 39992,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 7"
+        },
+        {
+          "id": "agent-0",
+          "type": "text",
+          "sourceText": "豆包",
+          "inputPath": "agents.0",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41451,
+              "end": 41453,
+              "renderContext": "html"
+            }
+          ],
+          "label": "执行者 · 1"
+        },
+        {
+          "id": "agent-1",
+          "type": "text",
+          "sourceText": "WorkBuddy",
+          "inputPath": "agents.1",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41481,
+              "end": 41490,
+              "renderContext": "html"
+            }
+          ],
+          "label": "执行者 · 2"
+        },
+        {
+          "id": "agent-2",
+          "type": "text",
+          "sourceText": "Codex",
+          "inputPath": "agents.2",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41517,
+              "end": 41522,
+              "renderContext": "html"
+            }
+          ],
+          "label": "执行者 · 3"
+        },
+        {
+          "id": "agent-role",
+          "type": "text",
+          "sourceText": "AGENT · ",
+          "inputPath": "agentRolePrefix",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41765,
+              "end": 41773,
+              "renderContext": "html"
+            }
+          ],
+          "label": "执行者角色前缀"
+        },
+        {
+          "id": "check-status",
+          "type": "text",
+          "sourceText": "DONE",
+          "inputPath": "completionLabel",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41123,
+              "end": 41127,
+              "renderContext": "html"
+            }
+          ],
+          "label": "完成说明"
+        },
+        {
+          "id": "delivery-file",
+          "type": "text",
+          "sourceText": "成片.mp4",
+          "inputPath": "delivery.fileName",
+          "maxChars": 16,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 42254,
+              "end": 42260,
+              "renderContext": "html"
+            }
+          ],
+          "label": "交付 · 文件名"
+        },
+        {
+          "id": "delivery-status",
+          "type": "text",
+          "sourceText": "DELIVERED ✓",
+          "inputPath": "delivery.status",
+          "maxChars": 16,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 42346,
+              "end": 42357,
+              "renderContext": "html"
+            }
+          ],
+          "label": "交付 · 状态"
+        },
+        {
+          "id": "output-thumbnail",
+          "type": "image",
+          "sourceAsset": "assets/f_0300.jpg",
+          "required": true,
+          "label": "图片 · 输出缩略图"
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true,
+          "label": "本期口播 · 本期口播"
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/noise.png",
+          "label": "图片 · 纹理素材"
+        }
+      ],
+      "boundaries": {
+        "entry": "Native flash td=.25 begins at 50.415. Presenter RC is inherited from exact tkKey(48.09,RC,.5); local tkKey maintains this pose. Adapter carries pose without replaying previous title.",
+        "exit": "Output moves from the manual at 60.47–61.0; keep the same output through success burst 60.8 and final hold to 62.01. Achieve tail and incoming original next-circle pre-roll 61.76 need boundary review in a new sequence.",
+        "connection": "Source original-order boundary is documented. Arbitrary reordered adjacency has not received continuous audiovisual review."
+      },
+      "limits": [
+        "1920x1080 at 60fps only; portrait version not reviewed.",
+        "Whole source group stays atomic at 1x: no new safe hold or internal split is asserted.",
+        "Every required text/media/cue binding must come from the new episode; source examples are not new input.",
+        "Original score/fonts/texture are external inputs with explicit rights and identity requirements.",
+        "Cue time quantization follows the engine frame policy; no scene speed-up is licensed by minFrames rounding."
+      ],
+      "inputExample": {
+        "chapter": "03 — 共同执行",
+        "title": {
+          "lead": "规范 =",
+          "payoff": "共同操作指南"
+        },
+        "manual": {
+          "format": "GUIDE.md",
+          "name": "episode-playbook",
+          "tagline": "同一套步骤 · 三方照着做"
+        },
+        "steps": [
+          "确认目标",
+          "读入素材",
+          "组织段落",
+          "分配场景",
+          "对齐声音",
+          "检查成片",
+          "输出交付"
+        ],
+        "agents": [
+          "主笔",
+          "剪辑",
+          "复核"
+        ],
+        "agentRolePrefix": "ROLE · ",
+        "completionLabel": "PASS",
+        "delivery": {
+          "fileName": "本期交付.mp4",
+          "status": "READY ✓"
+        }
+      },
+      "id": "manual-agents-delivery",
+      "source": {
+        "start": 50.54,
+        "end": 62.01
+      },
+      "sourceCodeFile": "units/manual-agents-delivery.js",
+      "sourceBlockSha256": "d3b095f146b40534d61e6656cb6d0e21ffeb8f65a64b7a71e37374b55e3a3745",
+      "provenance": {
+        "adapter": "adapters/doubao-console/extract.py",
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 420,
+          "end": 466
+        },
+        "sourceStatementSha256": "8ed898c8c1f7b36be65de024e747a1fe1f3fa6e9cd80b4acfa5b07156007ba49",
+        "helperSha256": "216f4750f6d1ca797cf2ea358e177a4ac52d6b72f8b7037cf2e98a4a4319cb06",
+        "adapterSha256": "99b4031a47a1f7d3fad42dafd1277454dc1825c674c56f4d5fde3da876b781cf",
+        "initialTalkKey": "tkKey(48.09, 'RC', .5);",
+        "ports": [
+          "private DOM/Scene/canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock geometry and chapter",
+          "native transition plane hook",
+          "new narration RMS glow",
+          "source SFX forwarded once",
+          "explicit owner texture/fonts"
+        ],
+        "boundedTypographyFromVersion": "0.1.1-candidate"
+      },
+      "sourceRevision": "f55059465bef56a00e9675726c10f4a3f6738d8c8e0a0a94b0f6a41e0cd6a950",
+      "minFollowingFrames": 66
+    },
+    {
+      "role": "定义手册 → 三名执行者连接同一手册 → 依序完成七步 → 同一手册收束并交付; reviewed reading and independent terminal composition",
+      "requiresFaceTracking": true,
+      "minFrames": 868,
+      "maxHoldFrames": 600,
+      "motionWindows": [
+        {
+          "id": "complete-authored-performance",
+          "start": 50.54,
+          "end": 62.01
+        },
+        {
+          "id": "terminal-settle",
+          "start": 62.01,
+          "end": 62.61
+        },
+        {
+          "id": "terminal-balance",
+          "start": 64.56,
+          "end": 65.01
+        }
+      ],
+      "cues": [
+        {
+          "id": "definition",
+          "at": 50.7,
+          "kind": "define-manual",
+          "required": true
+        },
+        {
+          "id": "manual",
+          "at": 50.9,
+          "kind": "show-manual",
+          "required": true
+        },
+        {
+          "id": "definition-slam",
+          "at": 51.65,
+          "kind": "manual-equivalence",
+          "required": true
+        },
+        {
+          "id": "agent-0",
+          "at": 53.13,
+          "kind": "executor-first",
+          "required": true
+        },
+        {
+          "id": "agent-1",
+          "at": 53.93,
+          "kind": "executor-second",
+          "required": true
+        },
+        {
+          "id": "agent-2",
+          "at": 54.87,
+          "kind": "executor-third",
+          "required": true
+        },
+        {
+          "id": "check-0",
+          "at": 57.1,
+          "kind": "procedure-step-1",
+          "required": true
+        },
+        {
+          "id": "check-1",
+          "at": 57.33,
+          "kind": "procedure-step-2",
+          "required": true
+        },
+        {
+          "id": "check-2",
+          "at": 57.56,
+          "kind": "procedure-step-3",
+          "required": true
+        },
+        {
+          "id": "check-3",
+          "at": 57.79,
+          "kind": "procedure-step-4",
+          "required": true
+        },
+        {
+          "id": "check-4",
+          "at": 58.02,
+          "kind": "procedure-step-5",
+          "required": true
+        },
+        {
+          "id": "check-5",
+          "at": 58.25,
+          "kind": "procedure-step-6",
+          "required": true
+        },
+        {
+          "id": "check-6",
+          "at": 58.480000000000004,
+          "kind": "procedure-step-7",
+          "required": true
+        },
+        {
+          "id": "close",
+          "at": 58.9,
+          "kind": "manual-close",
+          "required": true
+        },
+        {
+          "id": "delivery",
+          "at": 60.5,
+          "kind": "result-delivery",
+          "required": true
+        },
+        {
+          "id": "success",
+          "at": 60.8,
+          "kind": "delivery-impact",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "text",
+          "sourceText": "// 09 — 工作手册",
+          "inputPath": "chapter",
+          "maxChars": 20,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 39799,
+              "end": 39811,
+              "renderContext": "text"
+            }
+          ],
+          "label": "章节"
+        },
+        {
+          "id": "title-lead",
+          "type": "text",
+          "sourceText": "Skill =",
+          "inputPath": "title.lead",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39879,
+              "end": 39886,
+              "renderContext": "html"
+            }
+          ],
+          "label": "标题 · 引导句"
+        },
+        {
+          "id": "title-payoff",
+          "type": "text",
+          "sourceText": "一本工作手册",
+          "inputPath": "title.payoff",
+          "maxChars": 9,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39890,
+              "end": 39896,
+              "renderContext": "html"
+            }
+          ],
+          "label": "标题 · 结果句"
+        },
+        {
+          "id": "manual-format",
+          "type": "text",
+          "sourceText": "SKILL.md",
+          "inputPath": "manual.format",
+          "maxChars": 12,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40409,
+              "end": 40417,
+              "renderContext": "html"
+            }
+          ],
+          "label": "手册 · 格式"
+        },
+        {
+          "id": "manual-name",
+          "type": "text",
+          "sourceText": "adu-motion-video",
+          "inputPath": "manual.name",
+          "maxChars": 20,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40488,
+              "end": 40504,
+              "renderContext": "html"
+            }
+          ],
+          "label": "手册 · 名称"
+        },
+        {
+          "id": "manual-tagline",
+          "type": "text",
+          "sourceText": "工作手册 · 照着做就行",
+          "inputPath": "manual.tagline",
+          "maxChars": 18,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 40576,
+              "end": 40588,
+              "renderContext": "html"
+            }
+          ],
+          "label": "手册 · 说明"
+        },
+        {
+          "id": "step-0",
+          "type": "text",
+          "sourceText": "读取素材",
+          "inputPath": "steps.0",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39942,
+              "end": 39946,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 1"
+        },
+        {
+          "id": "step-1",
+          "type": "text",
+          "sourceText": "对齐口播",
+          "inputPath": "steps.1",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39950,
+              "end": 39954,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 2"
+        },
+        {
+          "id": "step-2",
+          "type": "text",
+          "sourceText": "写分镜",
+          "inputPath": "steps.2",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39958,
+              "end": 39961,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 3"
+        },
+        {
+          "id": "step-3",
+          "type": "text",
+          "sourceText": "做动效",
+          "inputPath": "steps.3",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39965,
+              "end": 39968,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 4"
+        },
+        {
+          "id": "step-4",
+          "type": "text",
+          "sourceText": "配乐踩点",
+          "inputPath": "steps.4",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39972,
+              "end": 39976,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 5"
+        },
+        {
+          "id": "step-5",
+          "type": "text",
+          "sourceText": "渲染导出",
+          "inputPath": "steps.5",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39980,
+              "end": 39984,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 6"
+        },
+        {
+          "id": "step-6",
+          "type": "text",
+          "sourceText": "逐项核验",
+          "inputPath": "steps.6",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 39988,
+              "end": 39992,
+              "renderContext": "html"
+            }
+          ],
+          "label": "步骤 · 7"
+        },
+        {
+          "id": "agent-0",
+          "type": "text",
+          "sourceText": "豆包",
+          "inputPath": "agents.0",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41451,
+              "end": 41453,
+              "renderContext": "html"
+            }
+          ],
+          "label": "执行者 · 1"
+        },
+        {
+          "id": "agent-1",
+          "type": "text",
+          "sourceText": "WorkBuddy",
+          "inputPath": "agents.1",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41481,
+              "end": 41490,
+              "renderContext": "html"
+            }
+          ],
+          "label": "执行者 · 2"
+        },
+        {
+          "id": "agent-2",
+          "type": "text",
+          "sourceText": "Codex",
+          "inputPath": "agents.2",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41517,
+              "end": 41522,
+              "renderContext": "html"
+            }
+          ],
+          "label": "执行者 · 3"
+        },
+        {
+          "id": "agent-role",
+          "type": "text",
+          "sourceText": "AGENT · ",
+          "inputPath": "agentRolePrefix",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41765,
+              "end": 41773,
+              "renderContext": "html"
+            }
+          ],
+          "label": "执行者角色前缀"
+        },
+        {
+          "id": "check-status",
+          "type": "text",
+          "sourceText": "DONE",
+          "inputPath": "completionLabel",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 41123,
+              "end": 41127,
+              "renderContext": "html"
+            }
+          ],
+          "label": "完成说明"
+        },
+        {
+          "id": "delivery-file",
+          "type": "text",
+          "sourceText": "成片.mp4",
+          "inputPath": "delivery.fileName",
+          "maxChars": 16,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 42254,
+              "end": 42260,
+              "renderContext": "html"
+            }
+          ],
+          "label": "交付 · 文件名"
+        },
+        {
+          "id": "delivery-status",
+          "type": "text",
+          "sourceText": "DELIVERED ✓",
+          "inputPath": "delivery.status",
+          "maxChars": 16,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 42346,
+              "end": 42357,
+              "renderContext": "html"
+            }
+          ],
+          "label": "交付 · 状态"
+        },
+        {
+          "id": "output-thumbnail",
+          "type": "image",
+          "sourceAsset": "assets/f_0300.jpg",
+          "required": true,
+          "label": "图片 · 输出缩略图"
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true,
+          "label": "本期口播 · 本期口播"
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "required": true,
+          "sourceAsset": "assets/noise.png",
+          "label": "图片 · 纹理素材"
+        }
+      ],
+      "boundaries": {
+        "entry": "Native flash td=.25 begins at 50.415. Presenter RC is inherited from exact tkKey(48.09,RC,.5); local tkKey maintains this pose. Adapter carries pose without replaying previous title.",
+        "exit": "independent terminal: same delivered object remains, presenters/captions use output time",
+        "connection": "Source original-order boundary is documented. Arbitrary reordered adjacency has not received continuous audiovisual review."
+      },
+      "limits": [
+        "1920x1080 at 60fps only; portrait version not reviewed.",
+        "Whole source group stays atomic at 1x: no new safe hold or internal split is asserted.",
+        "Every required text/media/cue binding must come from the new episode; source examples are not new input.",
+        "Original score/fonts/texture are external inputs with explicit rights and identity requirements.",
+        "Cue time quantization follows the engine frame policy; no scene speed-up is licensed by minFrames rounding."
+      ],
+      "inputExample": {
+        "chapter": "03 — 共同执行",
+        "title": {
+          "lead": "规范 =",
+          "payoff": "共同操作指南"
+        },
+        "manual": {
+          "format": "GUIDE.md",
+          "name": "episode-playbook",
+          "tagline": "同一套步骤 · 三方照着做"
+        },
+        "steps": [
+          "确认目标",
+          "读入素材",
+          "组织段落",
+          "分配场景",
+          "对齐声音",
+          "检查成片",
+          "输出交付"
+        ],
+        "agents": [
+          "主笔",
+          "剪辑",
+          "复核"
+        ],
+        "agentRolePrefix": "ROLE · ",
+        "completionLabel": "PASS",
+        "delivery": {
+          "fileName": "本期交付.mp4",
+          "status": "READY ✓"
+        }
+      },
+      "id": "delivery-reading-complete",
+      "source": {
+        "start": 50.54,
+        "end": 65.01
+      },
+      "sourceCodeFile": "units/delivery-reading-complete.js",
+      "sourceBlockSha256": "096661d5b1771b786211b641ff97591c919af14ef1da4efb399638604eacb6bc",
+      "provenance": {
+        "adapter": "adapters/doubao-console/extract.py",
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 420,
+          "end": 466
+        },
+        "sourceStatementSha256": "8ed898c8c1f7b36be65de024e747a1fe1f3fa6e9cd80b4acfa5b07156007ba49",
+        "helperSha256": "216f4750f6d1ca797cf2ea358e177a4ac52d6b72f8b7037cf2e98a4a4319cb06",
+        "adapterSha256": "99b4031a47a1f7d3fad42dafd1277454dc1825c674c56f4d5fde3da876b781cf",
+        "initialTalkKey": "tkKey(48.09, 'RC', .5);",
+        "ports": [
+          "private DOM/Scene/canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock geometry and chapter",
+          "native transition plane hook",
+          "new narration RMS glow",
+          "source SFX forwarded once",
+          "explicit owner texture/fonts"
+        ],
+        "boundedTypographyFromVersion": "0.1.1-candidate"
+      },
+      "sourceRevision": "f55059465bef56a00e9675726c10f4a3f6738d8c8e0a0a94b0f6a41e0cd6a950",
+      "variantOf": "manual-agents-delivery",
+      "minFollowingFrames": 0,
+      "authorship": "newly-authored-ending-extension; original action preserved; not original-source byte replay"
+    }
+  ],
+  "assetDefinitions": {},
+  "externalFonts": [
+    {
+      "id": "geist-400",
+      "family": "Geist",
+      "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/Geist-normal-400.woff2",
+      "distribution": "explicit-owner-supplied; not bundled",
+      "weight": "400"
+    },
+    {
+      "id": "geist-500",
+      "family": "Geist",
+      "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/Geist-normal-500.woff2",
+      "distribution": "explicit-owner-supplied; not bundled",
+      "weight": "500"
+    },
+    {
+      "id": "geist-600",
+      "family": "Geist",
+      "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/Geist-normal-600.woff2",
+      "distribution": "explicit-owner-supplied; not bundled",
+      "weight": "600"
+    },
+    {
+      "id": "geist-700",
+      "family": "Geist",
+      "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/Geist-normal-700.woff2",
+      "distribution": "explicit-owner-supplied; not bundled",
+      "weight": "700"
+    },
+    {
+      "id": "geist-800",
+      "family": "Geist",
+      "sha256": "0c855f7567881c1f3c41738616d4274cea4afbd2bf6aa198be467aefc157ee6d",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/Geist-normal-800.woff2",
+      "distribution": "explicit-owner-supplied; not bundled",
+      "weight": "800"
+    },
+    {
+      "id": "geist-mono-400",
+      "family": "Geist Mono",
+      "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/GeistMono-normal-400.woff2",
+      "distribution": "explicit-owner-supplied; not bundled",
+      "weight": "400"
+    },
+    {
+      "id": "geist-mono-500",
+      "family": "Geist Mono",
+      "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/GeistMono-normal-500.woff2",
+      "distribution": "explicit-owner-supplied; not bundled",
+      "weight": "500"
+    },
+    {
+      "id": "geist-mono-600",
+      "family": "Geist Mono",
+      "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/GeistMono-normal-600.woff2",
+      "distribution": "explicit-owner-supplied; not bundled",
+      "weight": "600"
+    }
+  ],
+  "environment": {
+    "platform": "macOS",
+    "systemFonts": [
+      "PingFang SC"
+    ],
+    "format": "1920x1080/60",
+    "status": "candidate; landscape baseline retained, portrait episode acceptance pending"
+  },
+  "validation": {
+    "status": "candidate; human continuous AV acceptance pending",
+    "structural": "tests/test_quality_packs.py and test_quality_integration.py",
+    "browser": "actual declared-font native portrait, software raster, all knots and reverse seek; local QA records",
+    "sourceCoverage": "See per-group source identity; new authored variants do not increase original source coverage"
+  },
+  "files": {
+    "README.md": "bb1f23c36226e77762f6fc6901c0dfaa5dd54c322d4f2c637ba83cb597593144",
+    "audio_timeline.json": "083b2298c836d03811f36d6182b1ca26bc6d598e102e3c97107b58a32566769c",
+    "config.js": "bff860aab3622a42823031593d97c3654c04997ebd3d84d787ae542a3cdc751f",
+    "doubao_fonts.js": "9ba857cc3a0332d0d18cf9977975130a7c38f347290d96e86267ef68dd1f4a6d",
+    "lib.js": "55b3fb9a6f2b7dface65ce57cbabd510b45f47a7a9fd3632e33aecc09c296cac",
+    "portrait.css": "9e030169becf590a62d69caa90bddff19c3e6153e017f9783dcef4347e882b63",
+    "portrait.js": "2a9e8a14a2e119571fb8929d328a146ac2686ba2d714035f48dadd6135fe71d2",
+    "review.json": "bbccdcbbafb9baa7dca9d3b5ece3b55cfef4d4ef3661c9a900e84f7d4f888b99",
+    "style.css": "8d2b210258186315b80fc7d8a25871d982e7ae9f4e130e0b9a2825136d08eb2c",
+    "units/delivery-reading-complete.js": "096661d5b1771b786211b641ff97591c919af14ef1da4efb399638604eacb6bc",
+    "units/fusion-success.js": "d533a3090e2ded2a878a41ce6949a06c7a23f1dd9a62f08157cd6973a405e5f3",
+    "units/manual-agents-delivery.js": "d3b095f146b40534d61e6656cb6d0e21ffeb8f65a64b7a71e37374b55e3a3745",
+    "units/three-step-chat.js": "aa53b1ab1b19e25ac8b5bafbf30499ac4380c638cfd18969ad9fb416b906c93a"
+  },
+  "adaptationProfile": {
+    "schema": "adu-adaptation-profile/1",
+    "id": "doubao-console-performance-adaptation",
+    "version": "2.0.0",
+    "quality": "adaptation-experimental",
+    "scenes": [
+      {
+        "sceneId": "fusion-success",
+        "intents": [
+          "collaboration-result",
+          "two-input-merge"
+        ],
+        "requiredPhases": [
+          "two-input-introduction",
+          "merge",
+          "success-result"
+        ],
+        "effects": [
+          "glow-orbit-merge",
+          "title-slam",
+          "particle-burst",
+          "status-chip"
+        ],
+        "energy": 3,
+        "cardinality": {
+          "inputs": {
+            "min": 2,
+            "max": 2
+          },
+          "outputs": {
+            "min": 1,
+            "max": 1
+          },
+          "statusPanels": {
+            "min": 3,
+            "max": 3
+          }
+        },
+        "entry": {
+          "mode": "independent",
+          "review": "code-reviewed; reordered adjacency remains experimental"
+        },
+        "exit": {},
+        "cueRoles": {
+          "title": "opening-title",
+          "left": "first-input",
+          "right": "second-input",
+          "status": "processing-status",
+          "payoff": "result-claim",
+          "fusion": "merge-impact",
+          "delivery": "success-output"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "Two orbiting entities merge into the same output with synchronized title slam, crash and success chip; internal cuts destroy the cause/result handoff."
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "Keep source rise 1.9–2.95, fusion crash and 3.05 check at 1x. Source score is external, not bundled; end tails require continuation."
+        },
+        "sourceBlockSha256": "d533a3090e2ded2a878a41ce6949a06c7a23f1dd9a62f08157cd6973a405e5f3"
+      },
+      {
+        "sceneId": "three-step-chat",
+        "intents": [
+          "three-step-instruction",
+          "method-input-execution"
+        ],
+        "requiredPhases": [
+          "submit-method",
+          "choose-address-or-file",
+          "execute-six-checks"
+        ],
+        "effects": [
+          "glass-chat",
+          "message-arc",
+          "typewriter",
+          "step-beam",
+          "progress-checklist"
+        ],
+        "energy": 2,
+        "cardinality": {
+          "steps": {
+            "min": 3,
+            "max": 3
+          },
+          "inputAlternatives": {
+            "min": 2,
+            "max": 2
+          },
+          "checks": {
+            "min": 6,
+            "max": 6
+          }
+        },
+        "entry": {
+          "mode": "native-transition",
+          "review": "code-reviewed; reordered adjacency remains experimental"
+        },
+        "exit": {},
+        "cueRoles": {
+          "panel": "dialogue-intro",
+          "method": "method-submission",
+          "path": "input-address",
+          "alternative": "input-alternative",
+          "file": "input-file",
+          "receipt": "execution-receipt",
+          "progress": "execution-progress",
+          "done": "execution-complete"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "Method submission, address typing and alternative file form one input decision; receipt drives the same progress bar and six checks. Trimming typing or completion changes semantic/action timing."
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "Preserve typing duration 2.8s, fill 1s and achieve at26.7 plus source 0.9s reverb. Achieve crosses the original boundary, so a simple cut ending this group is not AV accepted."
+        },
+        "sourceBlockSha256": "aa53b1ab1b19e25ac8b5bafbf30499ac4380c638cfd18969ad9fb416b906c93a"
+      },
+      {
+        "sceneId": "manual-agents-delivery",
+        "intents": [
+          "shared-manual-execution",
+          "procedure-to-delivery"
+        ],
+        "requiredPhases": [
+          "define-manual",
+          "introduce-three-executors",
+          "complete-seven-steps",
+          "deliver-result"
+        ],
+        "effects": [
+          "tilted-manual",
+          "agent-orbits",
+          "energy-beams",
+          "sequential-checks",
+          "delivery-ejection"
+        ],
+        "energy": 2,
+        "cardinality": {
+          "executors": {
+            "min": 3,
+            "max": 3
+          },
+          "steps": {
+            "min": 7,
+            "max": 7
+          },
+          "outputs": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        "entry": {
+          "mode": "native-transition",
+          "review": "code-reviewed; reordered adjacency remains experimental"
+        },
+        "exit": {},
+        "cueRoles": {
+          "definition": "define-manual",
+          "manual": "show-manual",
+          "definition-slam": "manual-equivalence",
+          "agent-0": "executor-first",
+          "agent-1": "executor-second",
+          "agent-2": "executor-third",
+          "check-0": "procedure-step-1",
+          "check-1": "procedure-step-2",
+          "check-2": "procedure-step-3",
+          "check-3": "procedure-step-4",
+          "check-4": "procedure-step-5",
+          "check-5": "procedure-step-6",
+          "check-6": "procedure-step-7",
+          "close": "manual-close",
+          "delivery": "result-delivery",
+          "success": "delivery-impact"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "Three agent beams remain tied to one manual; the seven checks, manual closure and outgoing result are a single cause/effect chain. An internal gap is not a safe split or hold."
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "Seven checks retain0.23s spacing and output achieve60.8 keeps generator/reverb tail. External music must be explicitly mapped; new narration VOX is rebuilt, never copied from source."
+        },
+        "sourceBlockSha256": "d3b095f146b40534d61e6656cb6d0e21ffeb8f65a64b7a71e37374b55e3a3745"
+      },
+      {
+        "sceneId": "delivery-reading-complete",
+        "intents": [
+          "shared-manual-execution",
+          "procedure-to-delivery"
+        ],
+        "requiredPhases": [
+          "define-manual",
+          "introduce-three-executors",
+          "complete-seven-steps",
+          "deliver-result"
+        ],
+        "effects": [
+          "tilted-manual",
+          "agent-orbits",
+          "energy-beams",
+          "sequential-checks",
+          "delivery-ejection",
+          "result-reading-settle"
+        ],
+        "energy": 2,
+        "cardinality": {
+          "executors": {
+            "min": 3,
+            "max": 3
+          },
+          "steps": {
+            "min": 7,
+            "max": 7
+          },
+          "outputs": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        "entry": {
+          "mode": "native-transition",
+          "review": "code-reviewed; reordered adjacency remains experimental"
+        },
+        "exit": {
+          "state": "settled independent result, original object retained"
+        },
+        "cueRoles": {
+          "definition": "define-manual",
+          "manual": "show-manual",
+          "definition-slam": "manual-equivalence",
+          "agent-0": "executor-first",
+          "agent-1": "executor-second",
+          "agent-2": "executor-third",
+          "check-0": "procedure-step-1",
+          "check-1": "procedure-step-2",
+          "check-2": "procedure-step-3",
+          "check-3": "procedure-step-4",
+          "check-4": "procedure-step-5",
+          "check-5": "procedure-step-6",
+          "check-6": "procedure-step-7",
+          "close": "manual-close",
+          "delivery": "result-delivery",
+          "success": "delivery-impact"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "Three agent beams remain tied to one manual; the seven checks, manual closure and outgoing result are a single cause/effect chain. An internal gap is not a safe split or hold."
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "Seven checks retain0.23s spacing and output achieve60.8 keeps generator/reverb tail. External music must be explicitly mapped; new narration VOX is rebuilt, never copied from source."
+        },
+        "sourceBlockSha256": "096661d5b1771b786211b641ff97591c919af14ef1da4efb399638604eacb6bc"
+      }
+    ]
+  },
+  "adaptationStatus": "contract-validated-not-av-accepted",
+  "typography": {
+    "schema": "doubao-bounded-type/1",
+    "baselinePack": "0.1.1-candidate",
+    "policy": "Preserve all supplied text and source action clocks; shrink only overflowing single-line titles, allow bounded wrapping inside fixed text regions, and fail explicitly if minimum readable size cannot fit. No truncation, ellipsis or hidden overflow is introduced.",
+    "regions": {
+      "fusion-title": {
+        "maxWidth": 1050,
+        "minFontPx": 52
+      },
+      "fusion-status": {
+        "maxWidthPerValue": 153,
+        "maxLines": 2,
+        "minFontPx": 22
+      },
+      "chat-steps": {
+        "maxWidth": 138,
+        "maxLines": 2,
+        "minFontPx": 18
+      },
+      "chat-method-icon": {
+        "maxWidth": 54,
+        "maxLines": 2,
+        "minFontPx": 12
+      },
+      "manual-title": {
+        "maxWidth": 520,
+        "minFontPx": 48
+      },
+      "manual-name": {
+        "maxWidth": 482,
+        "maxLines": 2,
+        "maxHeight": 80,
+        "minFontPx": 28
+      }
+    },
+    "review": {
+      "scope": "silent-no-person-display-copy-only",
+      "cases": [
+        "short-course-preview",
+        "medium-exhibition-guide",
+        "near-limit-campus-guide",
+        "mixed-latin-workflow"
+      ],
+      "samplesPerCase": 198,
+      "totalSamples": 792,
+      "textBindings": 208,
+      "missingVisibleBindings": 0,
+      "clippedTextSamples": 0,
+      "browserResourceErrors": 0,
+      "visiblePresenterFrames": 0,
+      "externalFontHashesVerified": 8,
+      "browser": "Chromium 154.0.8037.97",
+      "fixedRegionAndReverseSeek": "passed",
+      "systemFontMaximumCjkAndLatinTest": "passed",
+      "minimumFontFailureGate": "passed",
+      "fullAudiovisualAcceptance": "not-performed"
+    }
+  },
+  "layouts": {
+    "landscape": {
+      "width": 1920,
+      "height": 1080
+    },
+    "portrait": {
+      "width": 1080,
+      "height": 1920,
+      "runtime": "portrait.js",
+      "stylesheet": "portrait.css",
+      "status": "candidate",
+      "acceptance": "native geometry; episode continuous audiovisual review required"
+    }
+  },
+  "derivedFrom": {
+    "version": "0.2.0-candidate",
+    "manifestSha256": "4ab6caacbbf876fbc018b49b0f30874bc095674404e948f633568ddd44743e39"
+  },
+  "historicalReview": {
+    "baseRecord": "previous pack version review.json",
+    "scope": "Original reviewed subset only; not acceptance for changed or new groups"
+  },
+  "historicalMetadata": {
+    "landscapeValidation": {
+      "sourceReplay": "not-pixel-identical: bounded typography changes",
+      "newContent": "pending-real-narration-and-av-review",
+      "independentUse": "pending",
+      "typography": "passed-private-silent-four-copy-sets-792-frames"
+    },
+    "portraitBase": {
+      "version": "0.1.2-candidate",
+      "sourceUnits": "byte-identical",
+      "timing": "unchanged",
+      "audio": "unchanged"
+    }
+  }
+}
