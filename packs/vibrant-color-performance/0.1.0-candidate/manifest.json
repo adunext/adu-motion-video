@@ -1,0 +1,1771 @@
+{
+  "id": "vibrant-color-performance",
+  "version": "0.1.0-candidate",
+  "title": "活力色彩 · 原生竖屏",
+  "status": "candidate",
+  "sourceFormat": "authored-unit/1",
+  "sourceRevision": "34894c33a6b26701e405751225e7a70a85210433a479d437e7693911a73c532a",
+  "source": {
+    "engine": "native-portrait DOM/Canvas/private-source-host",
+    "assetPolicy": "Private media and commercial recording excluded; bind new narration, texture and fonts."
+  },
+  "fps": 60,
+  "width": 1080,
+  "height": 1920,
+  "requireMotionWindows": true,
+  "runtimeFiles": [
+    "typography.js"
+  ],
+  "layouts": {
+    "portrait": {
+      "width": 1080,
+      "height": 1920,
+      "runtime": "portrait.js",
+      "status": "candidate"
+    }
+  },
+  "runtimeHooks": [
+    "macroTransition/1"
+  ],
+  "scenes": [
+    {
+      "title": "划掉答案 → 提出问题",
+      "role": "划掉答案 → 提出问题",
+      "minFrames": 157,
+      "maxHoldFrames": 0,
+      "minFollowingFrames": 3,
+      "motionWindows": [
+        {
+          "id": "complete-authored-performance",
+          "start": 61.2,
+          "end": 63.82
+        }
+      ],
+      "cues": [
+        {
+          "id": "answer",
+          "at": 61.3,
+          "kind": "answer",
+          "required": true
+        },
+        {
+          "id": "rejection",
+          "at": 61.75,
+          "kind": "rejection",
+          "required": true
+        },
+        {
+          "id": "question",
+          "at": 62.72,
+          "kind": "question",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "dynamicText",
+          "sourceText": "— ONE QUESTION",
+          "inputPath": "chapter",
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 72183,
+              "end": 72197,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "answer",
+          "type": "dynamicText",
+          "sourceText": "ANSWER",
+          "inputPath": "answer",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72426,
+              "end": 72432,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "question",
+          "type": "dynamicText",
+          "sourceText": "只问一句",
+          "inputPath": "question",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72655,
+              "end": 72659,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "inputPath": "grainTexture",
+          "required": true,
+          "sourceAsset": "assets/noise.png"
+        }
+      ],
+      "inputExample": {
+        "chapter": "— THINK FIRST",
+        "answer": "CLAIM",
+        "question": "先看证据",
+        "grainTexture": ""
+      },
+      "boundaries": {
+        "mode": "complete-original-scene",
+        "entry": "Independent frozen preceding presenter pose; full native portrait scene",
+        "exit": "Source terminal state with generator and reverb tail supported by following output frames"
+      },
+      "limits": [
+        "No unreviewed reading stretch",
+        "Hard quantities and symbolic meters; not factual data charts",
+        "Source commercial recording excluded"
+      ],
+      "id": "answer-to-question",
+      "source": {
+        "start": 61.2,
+        "end": 63.82
+      },
+      "sourceCodeFile": "units/answer-to-question.js",
+      "sourceBlockSha256": "f1b92e5734985177861ab4dd697c456164a524a0101363410d40dfcf95fca23e",
+      "requiresFaceTracking": true,
+      "provenance": {
+        "adapter": "adapters/vibrant-color/extract.py",
+        "adapterSha256": "e093a0cc175c09a9f474b7ea877f97cac1f7b15e54e66089f087cfa48753d4e1",
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 402,
+          "end": 413
+        },
+        "sourceStatementSha256": "70515648a376007570c8c14486e637524b45bfe1d4c223fff5af60f7ca36e8c7",
+        "initialTalkKey": "tkKey(55.95, Object.assign({}, LAY.TRC, { x: 880, y: 1300, w: 240, h: 240, r: 120 }), .6);",
+        "ports": [
+          "native portrait private DOM/Canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock choreography and beat pulse",
+          "source-native vertical wipe/wipex/circle/flash",
+          "once-only SFX forwarding",
+          "explicit texture/fonts"
+        ]
+      },
+      "sourceRevision": "34894c33a6b26701e405751225e7a70a85210433a479d437e7693911a73c532a"
+    },
+    {
+      "title": "四步骤 → 完成确认 → 同质化结果",
+      "role": "四步骤 → 完成确认 → 同质化结果",
+      "minFrames": 510,
+      "maxHoldFrames": 0,
+      "minFollowingFrames": 75,
+      "motionWindows": [
+        {
+          "id": "complete-authored-performance",
+          "start": 63.82,
+          "end": 72.32
+        }
+      ],
+      "cues": [
+        {
+          "id": "step-0",
+          "at": 64.98,
+          "kind": "step-0",
+          "required": true
+        },
+        {
+          "id": "step-1",
+          "at": 66.22,
+          "kind": "step-1",
+          "required": true
+        },
+        {
+          "id": "step-2",
+          "at": 66.98,
+          "kind": "step-2",
+          "required": true
+        },
+        {
+          "id": "step-3",
+          "at": 67.64,
+          "kind": "step-3",
+          "required": true
+        },
+        {
+          "id": "confirmation",
+          "at": 69.18,
+          "kind": "confirmation",
+          "required": true
+        },
+        {
+          "id": "uniformity",
+          "at": 70.9,
+          "kind": "uniformity",
+          "required": true
+        },
+        {
+          "id": "summary",
+          "at": 71.66,
+          "kind": "summary",
+          "required": true
+        },
+        {
+          "id": "consequence",
+          "at": 72.0,
+          "kind": "consequence",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "dynamicText",
+          "sourceText": "— FULL AUTO",
+          "inputPath": "chapter",
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 72148,
+              "end": 72159,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "figure-title",
+          "type": "dynamicText",
+          "sourceText": "FIG.13 — CONTENT PIPELINE",
+          "inputPath": "figure.title",
+          "maxChars": 36,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72405,
+              "end": 72430,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "figure-sub",
+          "type": "dynamicText",
+          "sourceText": "SCRIPT · VISUAL · VOICE · EDIT",
+          "inputPath": "figure.subtitle",
+          "maxChars": 38,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72434,
+              "end": 72464,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "step-0",
+          "type": "dynamicText",
+          "sourceText": "写文案",
+          "inputPath": "steps.0",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72500,
+              "end": 72503,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "step-1",
+          "type": "dynamicText",
+          "sourceText": "生画面",
+          "inputPath": "steps.1",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72516,
+              "end": 72519,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "step-2",
+          "type": "dynamicText",
+          "sourceText": "配音",
+          "inputPath": "steps.2",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72532,
+              "end": 72534,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "step-3",
+          "type": "dynamicText",
+          "sourceText": "做剪辑",
+          "inputPath": "steps.3",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72547,
+              "end": 72550,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "confirmation",
+          "type": "dynamicText",
+          "sourceText": "全搞定",
+          "inputPath": "confirmation",
+          "maxChars": 6,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 73003,
+              "end": 73006,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "summary",
+          "type": "dynamicText",
+          "sourceText": "100% AI",
+          "inputPath": "summary",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 73083,
+              "end": 73090,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "result-label",
+          "type": "dynamicText",
+          "sourceText": "人味",
+          "inputPath": "result.label",
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 73320,
+              "end": 73322,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "result-value",
+          "type": "dynamicText",
+          "sourceText": "0%",
+          "inputPath": "result.value",
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72812,
+              "end": 72814,
+              "renderContext": "html"
+            },
+            {
+              "start": 73375,
+              "end": 73377,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "inputPath": "grainTexture",
+          "required": true,
+          "sourceAsset": "assets/noise.png"
+        }
+      ],
+      "inputExample": {
+        "chapter": "— SAME OUTPUT",
+        "figure": {
+          "title": "FIG — AUTOMATION",
+          "subtitle": "PLAN · IMAGE · SOUND · EDIT"
+        },
+        "steps": [
+          "列大纲",
+          "生成图",
+          "配声音",
+          "剪片子"
+        ],
+        "confirmation": "都完成",
+        "summary": "SAME LOOK",
+        "result": {
+          "label": "差异",
+          "value": "0"
+        },
+        "grainTexture": ""
+      },
+      "boundaries": {
+        "mode": "complete-original-scene",
+        "entry": "Independent frozen preceding presenter pose; full native portrait scene",
+        "exit": "Source terminal state with generator and reverb tail supported by following output frames"
+      },
+      "limits": [
+        "No unreviewed reading stretch",
+        "Hard quantities and symbolic meters; not factual data charts",
+        "Source commercial recording excluded"
+      ],
+      "id": "steps-to-uniformity",
+      "source": {
+        "start": 63.82,
+        "end": 72.32
+      },
+      "sourceCodeFile": "units/steps-to-uniformity.js",
+      "sourceBlockSha256": "b734c5955b3984fa10723cffb9debf0fb78f85a140cb189295319fedb0901edb",
+      "requiresFaceTracking": true,
+      "provenance": {
+        "adapter": "adapters/vibrant-color/extract.py",
+        "adapterSha256": "e093a0cc175c09a9f474b7ea877f97cac1f7b15e54e66089f087cfa48753d4e1",
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 416,
+          "end": 444
+        },
+        "sourceStatementSha256": "b5fe1e98ef8542d624d04e6074012c50090fd0edb2a6812a2a4997949e7d8ca9",
+        "initialTalkKey": "tkKey(63.8, Object.assign({}, LAY.TRC, { x: 880, y: 1340, w: 230, h: 230, r: 115 }), .6);",
+        "ports": [
+          "native portrait private DOM/Canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock choreography and beat pulse",
+          "source-native vertical wipe/wipex/circle/flash",
+          "once-only SFX forwarding",
+          "explicit texture/fonts"
+        ]
+      },
+      "sourceRevision": "34894c33a6b26701e405751225e7a70a85210433a479d437e7693911a73c532a"
+    },
+    {
+      "title": "回声大字 → 核心解释",
+      "role": "回声大字 → 核心解释",
+      "minFrames": 198,
+      "maxHoldFrames": 0,
+      "minFollowingFrames": 0,
+      "motionWindows": [
+        {
+          "id": "complete-authored-performance",
+          "start": 98,
+          "end": 101.3
+        }
+      ],
+      "cues": [
+        {
+          "id": "focus",
+          "at": 98.64,
+          "kind": "focus",
+          "required": true
+        },
+        {
+          "id": "explanation",
+          "at": 100.1,
+          "kind": "explanation",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "dynamicText",
+          "sourceText": "— THE CORE",
+          "inputPath": "chapter",
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 72168,
+              "end": 72178,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "focus",
+          "type": "dynamicText",
+          "sourceText": "HUMAN",
+          "inputPath": "focus",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72333,
+              "end": 72338,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "explanation",
+          "type": "dynamicText",
+          "sourceText": "口播最重要的东西",
+          "inputPath": "explanation",
+          "maxChars": 16,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72403,
+              "end": 72411,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "inputPath": "grainTexture",
+          "required": true,
+          "sourceAsset": "assets/noise.png"
+        }
+      ],
+      "inputExample": {
+        "chapter": "— THE POINT",
+        "focus": "FOCUS",
+        "explanation": "表达要有自己的重点",
+        "grainTexture": ""
+      },
+      "boundaries": {
+        "mode": "complete-original-scene",
+        "entry": "Independent frozen preceding presenter pose; full native portrait scene",
+        "exit": "Source terminal state with generator and reverb tail supported by following output frames"
+      },
+      "limits": [
+        "No unreviewed reading stretch",
+        "Hard quantities and symbolic meters; not factual data charts",
+        "Source commercial recording excluded"
+      ],
+      "id": "echo-focus",
+      "source": {
+        "start": 98,
+        "end": 101.3
+      },
+      "sourceCodeFile": "units/echo-focus.js",
+      "sourceBlockSha256": "667ad79282f50d83283c75cc25a787afc3ad08307ce3f0c41dfd008179e0785b",
+      "requiresFaceTracking": true,
+      "provenance": {
+        "adapter": "adapters/vibrant-color/extract.py",
+        "adapterSha256": "e093a0cc175c09a9f474b7ea877f97cac1f7b15e54e66089f087cfa48753d4e1",
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 533,
+          "end": 543
+        },
+        "sourceStatementSha256": "74ba713454fb50520e5251e5260106a65fd5e21dff5aef31b27626dd85a0eaa9",
+        "initialTalkKey": "tkKey(97.98, Object.assign({}, LAY.LOW, { x: 540, y: 1110, w: 620, h: 720 }), .6);",
+        "ports": [
+          "native portrait private DOM/Canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock choreography and beat pulse",
+          "source-native vertical wipe/wipex/circle/flash",
+          "once-only SFX forwarding",
+          "explicit texture/fonts"
+        ]
+      },
+      "sourceRevision": "34894c33a6b26701e405751225e7a70a85210433a479d437e7693911a73c532a"
+    },
+    {
+      "title": "三项成本 → 累积 → 结论",
+      "role": "三项成本 → 累积 → 结论",
+      "minFrames": 650,
+      "maxHoldFrames": 0,
+      "minFollowingFrames": 59,
+      "motionWindows": [
+        {
+          "id": "complete-authored-performance",
+          "start": 124.58,
+          "end": 135.42
+        }
+      ],
+      "cues": [
+        {
+          "id": "accumulation",
+          "at": 126.04,
+          "kind": "accumulation",
+          "required": true
+        },
+        {
+          "id": "item-0",
+          "at": 128.12,
+          "kind": "item-0",
+          "required": true
+        },
+        {
+          "id": "item-1",
+          "at": 128.66,
+          "kind": "item-1",
+          "required": true
+        },
+        {
+          "id": "item-2",
+          "at": 132.1,
+          "kind": "item-2",
+          "required": true
+        },
+        {
+          "id": "impact",
+          "at": 134.44,
+          "kind": "impact",
+          "required": true
+        },
+        {
+          "id": "verdict",
+          "at": 134.88,
+          "kind": "verdict",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "dynamicText",
+          "sourceText": "— THE COST",
+          "inputPath": "chapter",
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "text",
+          "sourceSpans": [
+            {
+              "start": 72174,
+              "end": 72184,
+              "renderContext": "text"
+            }
+          ]
+        },
+        {
+          "id": "figure-title",
+          "type": "dynamicText",
+          "sourceText": "FIG.22 — COST OF A DIGITAL HUMAN",
+          "inputPath": "figure.title",
+          "maxChars": 32,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72344,
+              "end": 72376,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "figure-sub",
+          "type": "dynamicText",
+          "sourceText": "示意 · 非报价 · 以各平台官网为准",
+          "inputPath": "figure.subtitle",
+          "maxChars": 25,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72380,
+              "end": 72399,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "item-0",
+          "type": "dynamicText",
+          "sourceText": "Seedance",
+          "inputPath": "items.0",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72436,
+              "end": 72444,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "item-1",
+          "type": "dynamicText",
+          "sourceText": "MiniMax",
+          "inputPath": "items.1",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72458,
+              "end": 72465,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "item-2",
+          "type": "dynamicText",
+          "sourceText": "对口型模型",
+          "inputPath": "items.2",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72479,
+              "end": 72484,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "card-type",
+          "type": "dynamicText",
+          "sourceText": "MODEL",
+          "inputPath": "cardType",
+          "maxChars": 8,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72762,
+              "end": 72767,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "meter-label",
+          "type": "dynamicText",
+          "sourceText": "TOKEN / 算力 / 时长",
+          "inputPath": "meterLabel",
+          "maxChars": 28,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 73508,
+              "end": 73523,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "impact",
+          "type": "dynamicText",
+          "sourceText": "$$$",
+          "inputPath": "impact",
+          "maxChars": 4,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 73188,
+              "end": 73191,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "verdict",
+          "type": "dynamicText",
+          "sourceText": "成本真的不低",
+          "inputPath": "verdict",
+          "maxChars": 10,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 73263,
+              "end": 73269,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "inputPath": "grainTexture",
+          "required": true,
+          "sourceAsset": "assets/noise.png"
+        }
+      ],
+      "inputExample": {
+        "chapter": "— TIME COST",
+        "figure": {
+          "title": "FIG — PRODUCTION COST",
+          "subtitle": "示意强度 · 非统计与报价"
+        },
+        "items": [
+          "策划",
+          "制作",
+          "返工"
+        ],
+        "cardType": "STAGE",
+        "meterLabel": "规划 / 工时 / 返工",
+        "impact": "TIME",
+        "verdict": "先把流程理顺",
+        "grainTexture": ""
+      },
+      "boundaries": {
+        "mode": "complete-original-scene",
+        "entry": "Independent frozen preceding presenter pose; full native portrait scene",
+        "exit": "Source terminal state with generator and reverb tail supported by following output frames"
+      },
+      "limits": [
+        "No unreviewed reading stretch",
+        "Hard quantities and symbolic meters; not factual data charts",
+        "Source commercial recording excluded"
+      ],
+      "id": "cost-to-verdict",
+      "source": {
+        "start": 124.58,
+        "end": 135.42
+      },
+      "sourceCodeFile": "units/cost-to-verdict.js",
+      "sourceBlockSha256": "580b8937e98d7b8882f7c0b07668680ac4bd2ae973be503b051968a87c5a9b54",
+      "requiresFaceTracking": true,
+      "provenance": {
+        "adapter": "adapters/vibrant-color/extract.py",
+        "adapterSha256": "e093a0cc175c09a9f474b7ea877f97cac1f7b15e54e66089f087cfa48753d4e1",
+        "sourceFile": "scenes.js",
+        "sourceLines": {
+          "start": 645,
+          "end": 670
+        },
+        "sourceStatementSha256": "9c7782a4118cc2aad34d64389af5adc0bdb4bf47c64013e3b59243cdbd051d9b",
+        "initialTalkKey": "tkKey(124.56, Object.assign({}, LAY.TLC, { x: 190, y: 380, w: 220, h: 220, r: 110 }), .6);",
+        "ports": [
+          "native portrait private DOM/Canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock choreography and beat pulse",
+          "source-native vertical wipe/wipex/circle/flash",
+          "once-only SFX forwarding",
+          "explicit texture/fonts"
+        ]
+      },
+      "sourceRevision": "34894c33a6b26701e405751225e7a70a85210433a479d437e7693911a73c532a"
+    },
+    {
+      "title": "回声关键词与解释",
+      "role": "回声关键词与解释",
+      "minFrames": 180,
+      "maxHoldFrames": 600,
+      "minFollowingFrames": 0,
+      "motionWindows": [
+        {
+          "id": "entrance",
+          "start": 300,
+          "end": 301.1
+        },
+        {
+          "id": "exit",
+          "start": 302.4,
+          "end": 303
+        }
+      ],
+      "cues": [
+        {
+          "id": "keyword",
+          "at": 300.16,
+          "kind": "keyword",
+          "required": true
+        },
+        {
+          "id": "explanation",
+          "at": 300.55,
+          "kind": "explanation",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "dynamicText",
+          "sourceText": "— KEYWORD",
+          "inputPath": "chapter",
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72114,
+              "end": 72123,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "keyword",
+          "type": "dynamicText",
+          "sourceText": "KEYWORD",
+          "inputPath": "keyword",
+          "maxChars": 9,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72230,
+              "end": 72237,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "explanation",
+          "type": "dynamicText",
+          "sourceText": "一个需要强调的重点",
+          "inputPath": "explanation",
+          "maxChars": 48,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72294,
+              "end": 72303,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "inputPath": "grainTexture",
+          "required": true,
+          "sourceAsset": "assets/noise.png"
+        }
+      ],
+      "inputExample": {
+        "chapter": "— ESSENTIAL",
+        "keyword": "CLEAR",
+        "explanation": "把最重要的一点讲清楚",
+        "grainTexture": ""
+      },
+      "boundaries": {
+        "mode": "new-style-extension",
+        "entry": "Independent newly authored native portrait pose",
+        "exit": "Complete deterministic exit with sound support"
+      },
+      "limits": [
+        "Up to 10 extra seconds of reviewed reading; never loop animation",
+        "New style-compatible extension, not original source choreography"
+      ],
+      "id": "basic-keyword",
+      "source": {
+        "start": 300,
+        "end": 303
+      },
+      "sourceCodeFile": "units/basic-keyword.js",
+      "sourceBlockSha256": "cac7cc1460548e56082dbb5506f3a3046892759027fa0a1450b8f4098c85971e",
+      "requiresFaceTracking": true,
+      "provenance": {
+        "adapter": "adapters/vibrant-color/extract.py",
+        "adapterSha256": "e093a0cc175c09a9f474b7ea877f97cac1f7b15e54e66089f087cfa48753d4e1",
+        "sourceFile": "adapters/vibrant-color/basic-scenes.js",
+        "sourceLines": {
+          "start": 4,
+          "end": 12
+        },
+        "sourceStatementSha256": "e09d878a24fcbcd6143043ee4b514a42b947b2f3e96d475da2aad2c53a869baa",
+        "initialTalkKey": "tkKey(299, Object.assign({}, LAY.LOW, {x:540,y:1230,w:660,h:550,r:40}), .01);",
+        "ports": [
+          "native portrait private DOM/Canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock choreography and beat pulse",
+          "source-native vertical wipe/wipex/circle/flash",
+          "once-only SFX forwarding",
+          "explicit texture/fonts"
+        ],
+        "origin": "newly-authored-style-extension"
+      },
+      "sourceRevision": "34894c33a6b26701e405751225e7a70a85210433a479d437e7693911a73c532a"
+    },
+    {
+      "title": "两项要点逐次出现",
+      "role": "两项要点逐次出现",
+      "minFrames": 240,
+      "maxHoldFrames": 600,
+      "minFollowingFrames": 0,
+      "motionWindows": [
+        {
+          "id": "entrance",
+          "start": 310,
+          "end": 311.95
+        },
+        {
+          "id": "exit",
+          "start": 313.4,
+          "end": 314
+        }
+      ],
+      "cues": [
+        {
+          "id": "heading",
+          "at": 310.1,
+          "kind": "heading",
+          "required": true
+        },
+        {
+          "id": "point-0",
+          "at": 310.65,
+          "kind": "point-0",
+          "required": true
+        },
+        {
+          "id": "point-1",
+          "at": 311.4,
+          "kind": "point-1",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "dynamicText",
+          "sourceText": "— TWO POINTS",
+          "inputPath": "chapter",
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72134,
+              "end": 72146,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "heading",
+          "type": "dynamicText",
+          "sourceText": "两项要点",
+          "inputPath": "heading",
+          "maxChars": 16,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72251,
+              "end": 72255,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "point-0",
+          "type": "dynamicText",
+          "sourceText": "第一项解释",
+          "inputPath": "points.0",
+          "maxChars": 56,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72745,
+              "end": 72750,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "point-1",
+          "type": "dynamicText",
+          "sourceText": "第二项解释",
+          "inputPath": "points.1",
+          "maxChars": 56,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72767,
+              "end": 72772,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "inputPath": "grainTexture",
+          "required": true,
+          "sourceAsset": "assets/noise.png"
+        }
+      ],
+      "inputExample": {
+        "chapter": "— PROCESS",
+        "heading": "先做好这两步",
+        "points": [
+          "明确这一段要表达什么",
+          "再选择能承载它的动画"
+        ],
+        "grainTexture": ""
+      },
+      "boundaries": {
+        "mode": "new-style-extension",
+        "entry": "Independent newly authored native portrait pose",
+        "exit": "Complete deterministic exit with sound support"
+      },
+      "limits": [
+        "Up to 10 extra seconds of reviewed reading; never loop animation",
+        "New style-compatible extension, not original source choreography"
+      ],
+      "id": "basic-points",
+      "source": {
+        "start": 310,
+        "end": 314
+      },
+      "sourceCodeFile": "units/basic-points.js",
+      "sourceBlockSha256": "f6bfded9e50fad4efd3db8ea2c32a35f8426f5bc1ad2f82c4b73d8d3a94556ba",
+      "requiresFaceTracking": true,
+      "provenance": {
+        "adapter": "adapters/vibrant-color/extract.py",
+        "adapterSha256": "e093a0cc175c09a9f474b7ea877f97cac1f7b15e54e66089f087cfa48753d4e1",
+        "sourceFile": "adapters/vibrant-color/basic-scenes.js",
+        "sourceLines": {
+          "start": 14,
+          "end": 23
+        },
+        "sourceStatementSha256": "8e50be15ba32f20a37491e3ba6590af276116c0a162b5f431133cb222c2e4ba9",
+        "initialTalkKey": "tkKey(309, Object.assign({}, LAY.LOW, {x:540,y:1290,w:620,h:450,r:40}), .01);",
+        "ports": [
+          "native portrait private DOM/Canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock choreography and beat pulse",
+          "source-native vertical wipe/wipex/circle/flash",
+          "once-only SFX forwarding",
+          "explicit texture/fonts"
+        ],
+        "origin": "newly-authored-style-extension"
+      },
+      "sourceRevision": "34894c33a6b26701e405751225e7a70a85210433a479d437e7693911a73c532a"
+    },
+    {
+      "title": "结论字块与展开说明",
+      "role": "结论字块与展开说明",
+      "minFrames": 210,
+      "maxHoldFrames": 600,
+      "minFollowingFrames": 0,
+      "motionWindows": [
+        {
+          "id": "entrance",
+          "start": 320,
+          "end": 321.2
+        },
+        {
+          "id": "exit",
+          "start": 322.9,
+          "end": 323.5
+        }
+      ],
+      "cues": [
+        {
+          "id": "summary",
+          "at": 320.16,
+          "kind": "summary",
+          "required": true
+        },
+        {
+          "id": "explanation",
+          "at": 320.65,
+          "kind": "explanation",
+          "required": true
+        }
+      ],
+      "slots": [
+        {
+          "id": "chapter",
+          "type": "dynamicText",
+          "sourceText": "— SUMMARY",
+          "inputPath": "chapter",
+          "maxChars": 24,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72147,
+              "end": 72156,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "summary",
+          "type": "dynamicText",
+          "sourceText": "先给结论",
+          "inputPath": "summary",
+          "maxChars": 36,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72454,
+              "end": 72458,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "explanation",
+          "type": "dynamicText",
+          "sourceText": "用一段清晰说明支撑观点",
+          "inputPath": "explanation",
+          "maxChars": 96,
+          "required": true,
+          "mustChange": true,
+          "renderContext": "html",
+          "sourceSpans": [
+            {
+              "start": 72512,
+              "end": 72523,
+              "renderContext": "html"
+            }
+          ]
+        },
+        {
+          "id": "presenter",
+          "type": "talk",
+          "required": true
+        },
+        {
+          "id": "grainTexture",
+          "type": "image",
+          "inputPath": "grainTexture",
+          "required": true,
+          "sourceAsset": "assets/noise.png"
+        }
+      ],
+      "inputExample": {
+        "chapter": "— TAKEAWAY",
+        "summary": "让内容带着动画走",
+        "explanation": "文字多时增加阅读区，保持入场与退出原速；仍需确认最终字幕和声音。",
+        "grainTexture": ""
+      },
+      "boundaries": {
+        "mode": "new-style-extension",
+        "entry": "Independent newly authored native portrait pose",
+        "exit": "Complete deterministic exit with sound support"
+      },
+      "limits": [
+        "Up to 10 extra seconds of reviewed reading; never loop animation",
+        "New style-compatible extension, not original source choreography"
+      ],
+      "id": "basic-summary",
+      "source": {
+        "start": 320,
+        "end": 323.5
+      },
+      "sourceCodeFile": "units/basic-summary.js",
+      "sourceBlockSha256": "f4b269799b299ae2d95a7e2ddc3d186522bc294cc93d3b17034ba9c8876aeb89",
+      "requiresFaceTracking": true,
+      "provenance": {
+        "adapter": "adapters/vibrant-color/extract.py",
+        "adapterSha256": "e093a0cc175c09a9f474b7ea877f97cac1f7b15e54e66089f087cfa48753d4e1",
+        "sourceFile": "adapters/vibrant-color/basic-scenes.js",
+        "sourceLines": {
+          "start": 25,
+          "end": 33
+        },
+        "sourceStatementSha256": "cabbc64afc874cf7cf627d25380a2252ff744be7c2f212a6a3cbfdab6b0f2af6",
+        "initialTalkKey": "tkKey(319, Object.assign({}, LAY.LOW, {x:540,y:1260,w:680,h:500,r:40}), .01);",
+        "ports": [
+          "native portrait private DOM/Canvas state",
+          "output-clock narration/face/HUD progress",
+          "source-clock choreography and beat pulse",
+          "source-native vertical wipe/wipex/circle/flash",
+          "once-only SFX forwarding",
+          "explicit texture/fonts"
+        ],
+        "origin": "newly-authored-style-extension"
+      },
+      "sourceRevision": "34894c33a6b26701e405751225e7a70a85210433a479d437e7693911a73c532a"
+    }
+  ],
+  "assetDefinitions": {},
+  "externalFonts": [
+    {
+      "id": "anton-400",
+      "family": "Anton",
+      "weight": 400,
+      "sha256": "23aab0b2692a0c89eb7997d3c7cf5bda41276d6cd4ab6cc0edc3edfcece32b09",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/Anton-400.woff2",
+      "distribution": "owner-supplied; not bundled"
+    },
+    {
+      "id": "geist-mono-500",
+      "family": "Geist Mono",
+      "weight": 500,
+      "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/GeistMono-normal-500.woff2",
+      "distribution": "owner-supplied; not bundled"
+    },
+    {
+      "id": "geist-mono-600",
+      "family": "Geist Mono",
+      "weight": 600,
+      "sha256": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b",
+      "format": "woff2",
+      "extension": ".woff2",
+      "required": true,
+      "sourceFile": "fonts/GeistMono-normal-600.woff2",
+      "distribution": "owner-supplied; not bundled"
+    }
+  ],
+  "environment": {
+    "platform": "Windows/WSL, macOS, Linux; executable assistant and licensed CJK font required",
+    "systemFonts": [
+      "PingFang SC or owner-specified CJK font"
+    ],
+    "format": "1080x1920/60"
+  },
+  "validation": {
+    "sourceReplay": "pending",
+    "newContent": "pending",
+    "independentUse": "pending"
+  },
+  "files": {
+    "README.md": "e6d45955c0bc285a7a2580cd0bcabce93ef0a6e6314430bb0e003a335a34555c",
+    "audio_timeline.json": "2cade3261a7e79097a238a033ba02db4b45b3be11a170d7acba9ce1ab659c929",
+    "config.js": "fe3c2e37e9e115a34b3d86650d60ee8f772e2e33982be2909ea0c460ff619dd9",
+    "lib.js": "cd7c4133b4a0c711752df8d229b3e4ebf999cc8cfdcef4a63ab50b3f7c06cfad",
+    "portrait.js": "0161451ef7a066f817f90e4aae64f68ac92b45d594804fef2b2ac20c77b3d9b0",
+    "style.css": "214fc6faa444526490dd300b0486ced645d32b214504dcae30e6f92d2f06b3fb",
+    "typography.js": "6e3472d21e9ae6334fe5ab33c59fd524bb18a67bab1e22f9fbf0f3ca024a1f10",
+    "units/answer-to-question.js": "f1b92e5734985177861ab4dd697c456164a524a0101363410d40dfcf95fca23e",
+    "units/basic-keyword.js": "cac7cc1460548e56082dbb5506f3a3046892759027fa0a1450b8f4098c85971e",
+    "units/basic-points.js": "f6bfded9e50fad4efd3db8ea2c32a35f8426f5bc1ad2f82c4b73d8d3a94556ba",
+    "units/basic-summary.js": "f4b269799b299ae2d95a7e2ddc3d186522bc294cc93d3b17034ba9c8876aeb89",
+    "units/cost-to-verdict.js": "580b8937e98d7b8882f7c0b07668680ac4bd2ae973be503b051968a87c5a9b54",
+    "units/echo-focus.js": "667ad79282f50d83283c75cc25a787afc3ad08307ce3f0c41dfd008179e0785b",
+    "units/steps-to-uniformity.js": "b734c5955b3984fa10723cffb9debf0fb78f85a140cb189295319fedb0901edb"
+  },
+  "adaptationProfile": {
+    "schema": "adu-adaptation-profile/1",
+    "id": "vibrant-color-adaptation",
+    "version": "0.1.0",
+    "quality": "adaptation-experimental",
+    "review": {
+      "basis": "source-code-and-manifest",
+      "status": "code-reviewed",
+      "scope": "Four complete native portrait groups, not whole-episode or independent AV acceptance"
+    },
+    "scenes": [
+      {
+        "sceneId": "answer-to-question",
+        "intents": [
+          "answer-to-question"
+        ],
+        "requiredPhases": [
+          "answer",
+          "rejection",
+          "question"
+        ],
+        "cardinality": {},
+        "effects": [
+          "title-impact",
+          "strike-through",
+          "highlight-reveal"
+        ],
+        "energy": 3,
+        "entry": {
+          "mode": "independent"
+        },
+        "exit": {
+          "requiresNext": [
+            "answer-to-question",
+            "steps-to-uniformity",
+            "echo-focus",
+            "cost-to-verdict",
+            "basic-keyword",
+            "basic-points",
+            "basic-summary"
+          ],
+          "reason": "Preserve source generator plus reverb tail"
+        },
+        "cueRoles": {
+          "answer": "answer",
+          "rejection": "rejection",
+          "question": "question"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "Cause, object states and result share a complete authored clock; fragments have no independent initialization."
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "Keep source SFX duration; default replacement synth, review real new narration/music and seams."
+        },
+        "sourceBlockSha256": "f1b92e5734985177861ab4dd697c456164a524a0101363410d40dfcf95fca23e"
+      },
+      {
+        "sceneId": "steps-to-uniformity",
+        "intents": [
+          "automation-to-uniformity"
+        ],
+        "requiredPhases": [
+          "steps",
+          "confirmation",
+          "uniformity",
+          "consequence"
+        ],
+        "cardinality": {
+          "steps": {
+            "min": 4,
+            "max": 4
+          }
+        },
+        "effects": [
+          "staggered-pills",
+          "stamp-impact",
+          "shape-grid-unification",
+          "title-impact"
+        ],
+        "energy": 3,
+        "entry": {
+          "mode": "independent"
+        },
+        "exit": {
+          "requiresNext": [
+            "answer-to-question",
+            "steps-to-uniformity",
+            "echo-focus",
+            "cost-to-verdict",
+            "basic-keyword",
+            "basic-points",
+            "basic-summary"
+          ],
+          "reason": "Preserve source generator plus reverb tail"
+        },
+        "cueRoles": {
+          "step-0": "step-0",
+          "step-1": "step-1",
+          "step-2": "step-2",
+          "step-3": "step-3",
+          "confirmation": "confirmation",
+          "uniformity": "uniformity",
+          "summary": "summary",
+          "consequence": "consequence"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "Cause, object states and result share a complete authored clock; fragments have no independent initialization."
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "Keep source SFX duration; default replacement synth, review real new narration/music and seams."
+        },
+        "sourceBlockSha256": "b734c5955b3984fa10723cffb9debf0fb78f85a140cb189295319fedb0901edb"
+      },
+      {
+        "sceneId": "echo-focus",
+        "intents": [
+          "core-emphasis"
+        ],
+        "requiredPhases": [
+          "focus",
+          "explanation"
+        ],
+        "cardinality": {},
+        "effects": [
+          "echo-type",
+          "impact",
+          "presenter-settle"
+        ],
+        "energy": 2,
+        "entry": {
+          "mode": "independent"
+        },
+        "exit": {},
+        "cueRoles": {
+          "focus": "focus",
+          "explanation": "explanation"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "Cause, object states and result share a complete authored clock; fragments have no independent initialization."
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "Keep source SFX duration; default replacement synth, review real new narration/music and seams."
+        },
+        "sourceBlockSha256": "667ad79282f50d83283c75cc25a787afc3ad08307ce3f0c41dfd008179e0785b"
+      },
+      {
+        "sceneId": "cost-to-verdict",
+        "intents": [
+          "cost-accumulation-verdict"
+        ],
+        "requiredPhases": [
+          "accumulation",
+          "items",
+          "impact",
+          "verdict"
+        ],
+        "cardinality": {
+          "items": {
+            "min": 3,
+            "max": 3
+          }
+        },
+        "effects": [
+          "meter-fill",
+          "card-stagger",
+          "coin-impact",
+          "highlight-verdict"
+        ],
+        "energy": 3,
+        "entry": {
+          "mode": "independent"
+        },
+        "exit": {
+          "requiresNext": [
+            "answer-to-question",
+            "steps-to-uniformity",
+            "echo-focus",
+            "cost-to-verdict",
+            "basic-keyword",
+            "basic-points",
+            "basic-summary"
+          ],
+          "reason": "Preserve source generator plus reverb tail"
+        },
+        "cueRoles": {
+          "accumulation": "accumulation",
+          "item-0": "item-0",
+          "item-1": "item-1",
+          "item-2": "item-2",
+          "impact": "impact",
+          "verdict": "verdict"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "Cause, object states and result share a complete authored clock; fragments have no independent initialization."
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "Keep source SFX duration; default replacement synth, review real new narration/music and seams."
+        },
+        "sourceBlockSha256": "580b8937e98d7b8882f7c0b07668680ac4bd2ae973be503b051968a87c5a9b54"
+      },
+      {
+        "sceneId": "basic-keyword",
+        "intents": [
+          "keyword-emphasis"
+        ],
+        "requiredPhases": [
+          "keyword",
+          "explanation"
+        ],
+        "cardinality": {},
+        "effects": [
+          "echo-type",
+          "keyword-impact"
+        ],
+        "energy": 2,
+        "entry": {
+          "mode": "independent"
+        },
+        "exit": {},
+        "cueRoles": {
+          "keyword": "keyword",
+          "explanation": "explanation"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "Independent complete basic scene; extend reading gap while preserving entrance/exit"
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "New restrained SFX; no original recording."
+        },
+        "sourceBlockSha256": "cac7cc1460548e56082dbb5506f3a3046892759027fa0a1450b8f4098c85971e"
+      },
+      {
+        "sceneId": "basic-points",
+        "intents": [
+          "two-point-explanation"
+        ],
+        "requiredPhases": [
+          "heading",
+          "point-0",
+          "point-1"
+        ],
+        "cardinality": {
+          "points": {
+            "min": 2,
+            "max": 2
+          }
+        },
+        "effects": [
+          "color-block",
+          "staggered-points"
+        ],
+        "energy": 2,
+        "entry": {
+          "mode": "independent"
+        },
+        "exit": {},
+        "cueRoles": {
+          "heading": "heading",
+          "point-0": "point-0",
+          "point-1": "point-1"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "Independent complete basic scene; extend reading gap while preserving entrance/exit"
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "New restrained SFX; no original recording."
+        },
+        "sourceBlockSha256": "f6bfded9e50fad4efd3db8ea2c32a35f8426f5bc1ad2f82c4b73d8d3a94556ba"
+      },
+      {
+        "sceneId": "basic-summary",
+        "intents": [
+          "summary-explanation"
+        ],
+        "requiredPhases": [
+          "summary",
+          "explanation"
+        ],
+        "cardinality": {},
+        "effects": [
+          "summary-impact",
+          "reading-hold"
+        ],
+        "energy": 2,
+        "entry": {
+          "mode": "independent"
+        },
+        "exit": {},
+        "cueRoles": {
+          "summary": "summary",
+          "explanation": "explanation"
+        },
+        "splitPolicy": {
+          "mode": "atomic",
+          "reason": "Independent complete basic scene; extend reading gap while preserving entrance/exit"
+        },
+        "audio": {
+          "mode": "source-remap",
+          "tailPolicy": "preserve",
+          "notes": "New restrained SFX; no original recording."
+        },
+        "sourceBlockSha256": "f4b269799b299ae2d95a7e2ddc3d186522bc294cc93d3b17034ba9c8876aeb89"
+      }
+    ]
+  },
+  "adaptationStatus": "contract-validated-not-av-accepted"
+}

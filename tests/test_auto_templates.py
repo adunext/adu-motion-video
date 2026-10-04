@@ -41,14 +41,14 @@ class AutoTests(unittest.TestCase):
 
     def entry(self,style):return next(x for x in self.entries if x['styleId']==style)
 
-    def test_all_32_real_contracts_and_independent_full_style_paths(self):
+    def test_all_real_contracts_and_independent_full_style_paths(self):
         caps=capabilities(self.entries)
-        self.assertEqual(caps['styles'],10);self.assertEqual(len(caps['groups']),32)
+        self.assertEqual(caps['styles'],11);self.assertEqual(len(caps['groups']),39)
         for entry in self.entries:
             with self.subTest(style=entry['styleId']):
                 segments=[self.segment(entry,s,i) for i,s in enumerate(entry['manifest']['scenes'])]
                 # 05 handoffs require a closing group, not an arbitrary video end.
-                if entry['styleId']=='05-A':segments.append(self.segment(entry,entry['manifest']['scenes'][0],len(segments)))
+                if entry['styleId'] in ('05-A','06-A'):segments.append(self.segment(entry,entry['manifest']['scenes'][2 if entry['styleId']=='06-A' else 0],len(segments)))
                 result=choose(self.brief(segments,allowedStyles=[entry['styleId']]),self.root,self.entries)
                 self.assertNotEqual(result['report']['status'],'blocked',result['report'])
                 if entry['manifest'].get('externalFonts'):

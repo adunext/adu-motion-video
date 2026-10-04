@@ -24,7 +24,7 @@ Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选�
 
 先选一级模板，再从一行预览中选择风格。**已发布 2 类模板 · 7 种风格 · 17 个镜头组**；深色 3D、深色科技控制台与鲜色角色叙事为候选，实际核验范围见各板块。
 
-**全部 10 种风格、32 个完整组已有横竖屏候选版本。** [查看版本与使用方式 →](references/portrait.md) 旧稳定横屏与已交付视频保留。
+**模板库现有 11 种风格、39 个完整组支持竖屏；其中既有 10 种风格、32 组同时支持横屏。** [查看版本与使用方式 →](references/portrait.md) 旧稳定横屏与已交付视频保留。
 
 <p align="center">
   <a href="references/portrait.md"><img src="assets/demos/portrait-layouts.webp" alt="九风格原生竖屏布局示意，占位素材" width="720"></a><br>
@@ -113,6 +113,20 @@ Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选�
 **准备：** 本期口播、文案、交接贴纸、纹理和指定字体。[查看输入与核验范围 →](references/vivid-sticker-template.md)
 
 <table><tr><td align="center" width="144"><a href="assets/demos/05-A.mp4?raw=true"><img src="assets/demos/05-A.gif" alt="05-A · 角色与物件接力，静音矢量示意" width="128" height="72"></a><br><strong>05-A</strong><br><sub>角色与物件接力</sub></td></tr></table>
+
+---
+
+### 模板 06 · 活力色彩
+
+> **候选 · 原生竖屏**　｜　7 个完整镜头组 · 1080×1920 / 60fps
+
+纸白、红、蓝与荧光黄绿，配合划除字、步骤归一、回声标题与成本累积。保留完整动作与音效边界，适合观点表达、自动化反思和概念性成本讲解；新增关键词、双要点、总结三组基础动画，支持段落换行与有界阅读延长。
+
+**准备：** 本期口播、文案、准确时码、纹理与指定字体。[查看输入与验证范围 →](references/vibrant-color-template.md)
+
+<table><tr><td align="center" width="144"><a href="assets/demos/06-A.mp4?raw=true"><img src="assets/demos/06-A.gif" alt="06-A · 活力色彩，竖屏静音新文案示意" width="40" height="72"></a><br><strong>06-A</strong><br><sub>原生竖屏</sub></td></tr></table>
+
+06-A 动图为三组基础动画的10.5秒静音示意，仅提供竖屏。成本条为示意，不能当作真实数值图；公开预览使用占位人物和新文案，无原人物或配乐，新真人口播连续声画与独立使用仍待验收。
 
 动图为静音预览：01–03 各 8 秒，04-A 为 3.9 秒开场局部。04-A 尚待不同内容与独立复用验收。05-A 为 7.1 秒静音矢量示意，不含原人物、原贴纸或录音，尚待新口播连续声画与独立复用验收。样片来源、声音与具体发布范围见下方说明。
 
@@ -337,3 +351,5 @@ MIT License · 第三方说明见 [THIRD_PARTY.md](THIRD_PARTY.md)。
 </details>
 
 阿杜实验室 · [AI 执行入口](SKILL.md) · [模板与风格目录](references/template-catalog.md) · [动画素材 API](references/lottie-assets.md) · [更新与下载](https://github.com/adunext/adu-motion-video/releases) · [MIT License](LICENSE) · [第三方说明](THIRD_PARTY.md)
+
+**3.11.0 升级完成**：新增06-A「活力色彩」原生竖屏七组，模板库竖屏达到11风格/39组；新增可独立安装的[adu-template-extractor](skills/adu-template-extractor/SKILL.md)，沉淀模板提炼与适配验证流程。[查看本轮验证记录](docs/vibrant-color-3.11.md)。

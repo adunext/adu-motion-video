@@ -2,7 +2,7 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。支持 Windows、macOS、Linux，以及 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等可读写文件并运行命令的助手。
 metadata:
-  version: "3.10.0"
+  version: "3.11.0"
 ---
 
 # adu-motion-video
@@ -19,7 +19,7 @@ metadata:
 
 用户指定模板编号（如 `01-B`）或要求选风格时，先读[模板与风格目录](references/template-catalog.md)，按“一级模板 → 二级风格”映射到显式包版本。未发布风格不能按已发布包承诺制作。需要辅助动画素材时，按[公开动画素材 API](references/lottie-assets.md)检索并下载到本期工程，再核对所选包的媒体与渲染要求。
 
-用户要求竖屏时，按目录的 **portraitSelection** 选择对应候选版本，并读取[竖屏契约](references/portrait.md)。目前十种风格、32 个完整组均支持 `brief.layout="portrait"` → macro-plan → macro-build → render，画幅自动为 1080×1920；旧 1.0.0 稳定包不获得追认。原动作、素材、字幕与音效时钟保持；标题、人物与内容层重排，控制台连接线按原激活落点重绘。候选必须做本期真实素材连续声画检查，几何测试不能当作新路线已验收。
+用户要求竖屏时，按目录的 **portraitSelection** 选择对应候选版本，并读取[竖屏契约](references/portrait.md)。既有十种风格、32 个完整组均支持 `brief.layout="portrait"` → macro-plan → macro-build → render，画幅自动为 1080×1920；旧 1.0.0 稳定包不获得追认。原动作、素材、字幕与音效时钟保持；标题、人物与内容层重排，控制台连接线按原激活落点重绘。候选必须做本期真实素材连续声画检查，几何测试不能当作新路线已验收。
 
 用户新增完成工程、提炼新镜头组或更新模板库时，读[持续模板接入](references/template-intake.md)。先登记来源和实际状态，再按价值提炼；收到工程不代表已经有可发布模板。`bash "$PL" packs` 只列包的语义与版本元数据，按任务加载相关清单；同一 ID 有多个版本时显式选择 `id@version`。
 
@@ -38,7 +38,7 @@ metadata:
 
 3.6.0 新增当前分镜局部重配和素材版本检查，并为通用视频抽帧接入共享色彩处理。**04-A · 仪器台演示** 当前候选 `doubao-console-performance@0.1.2-candidate` 增加有界文字布局，原 0.1.1 三组的同内容技术重放仍保留；静音新文案检查不代替新口播完整声画或独立复用验收，详见[模板说明](references/doubao-console-template.md)。新预览统一使用带导出证据与版本检查的 `preview` 命令。
 
-用户未锁定单一风格，或要求自动比较全部模板时，先读[全库自动选型](references/automatic-selection.md)，运行 `auto-capabilities`。助手根据整篇台词整理语义阶段、短标题、真实媒体和准确落点，形成 `adu-auto-brief/1`，再执行 `auto-plan → auto-build`。当前 10 种风格、32 组参与横竖屏比较，优先完整可用的统一风格；必要时仅在有独立入场合同的组间组合。长段提供有实际内容依据的完整分段路线，不循环补时长。用户锁定风格就设置 `allowedStyles`；不要让用户手填各套字段。构建会重验选型和素材，混合工程保持全片口播/字幕时钟与音效尾音，默认跨风格配乐坡道须连续试听。机器检查仍为 experimental，详见[本轮测试](docs/template-auto-selection-3.10.md)。
+用户未锁定单一风格，或要求自动比较全部模板时，先读[全库自动选型](references/automatic-selection.md)，运行 `auto-capabilities`。助手根据整篇台词整理语义阶段、短标题、真实媒体和准确落点，形成 `adu-auto-brief/1`，再执行 `auto-plan → auto-build`。当前 11 种风格、39 组参与竖屏比较，其中既有 10 种风格、32 组也参与横屏比较，优先完整可用的统一风格；必要时仅在有独立入场合同的组间组合。长段提供有实际内容依据的完整分段路线，不循环补时长。用户锁定风格就设置 `allowedStyles`；不要让用户手填各套字段。构建会重验选型和素材，混合工程保持全片口播/字幕时钟与音效尾音，默认跨风格配乐坡道须连续试听。机器检查仍为 experimental，详见[本轮测试](docs/template-auto-selection-3.10.md)。
 
 新文案先按[系统适配机制](references/adaptive-composition.md)形成 `brief.json`，运行 `bash "$PL" macro-plan 包ID@版本 brief.json 新规划目录`。该入口按语义阶段、数量、原速动作窗和前后场依赖筛选，再在合法组合内减少效果重复。当前横竖屏版本的 10 个风格、32 个完整组已有代码核对的适配 profile，能力仍为 adaptation-experimental。输出 `spec.json/report.json/report.md/profile.json`；退出码 0 为绑定检查通过，2 为已保存待补或受阻草稿，1 为无效输入。媒体或真实关键词时码缺失时修改 brief 并重新规划，不填源演示时码。`macro-spec` 保留为历史/人工配方入口，它不提供这层语义与邻接诊断；新制作优先沿用带 `adaptation` 的计划，构建会重新验证。
 
@@ -70,3 +70,5 @@ metadata:
 - 输出新工程和新版本成片，不覆盖用户原工程；报告实际检查范围。`anim3` 与 `anim4` 在完整新文案逐帧对照和成片声画验收前保持 **experimental**，不要称已完整验证。
 
 更多细节：[完整工程复用](references/full-project-templating.md) · [制作约定](references/rules.md) · [字幕](references/subtitle-options.md) · [配乐](references/audio.md) · [手绘](references/handdrawn-animation.md) · [排错](references/troubleshooting.md)。
+
+3.11.0 新增 **06 · 活力色彩 / 06-A · 原生竖屏** `vibrant-color-performance@0.1.0-candidate`：四组原编舞和三组基础动画，只有 portrait 合同。读[输入与验证范围](references/vibrant-color-template.md)，不同意图/四步骤/三成本条的含义不能随意互换；示意条高不是报价或真实统计。动作整体保护，不循环补长，尾音支持帧须满足。提炼过程现在提供独立[adu-template-extractor Skill](skills/adu-template-extractor/SKILL.md)，按实际主库位置运行，可单独安装。

@@ -19,3 +19,5 @@
 长短素材先核对真实口播时长与分镜总帧数，读 `report.rhythm` 的全片重复/轮换/同类效果/停留提示；优先补内容与合法候选，不用缺素材的组换取变化。长证据素材按明确 offset 抽取所需区间，剩余时长不足不循环。构建在大规模抽帧前复核真实口播元数据；新运行时保留 SFX 生成器长度。范围见[长短素材压力测试](docs/template-stress-3.9.md)。
 
 自动比较风格、长短文案与不同素材时，读取[全库选型](references/automatic-selection.md)，由当前助手整理真实语义与候选字段，不让用户手填复杂配置。`auto-plan` 同时比较完整单风格和合法混合路线；`auto-build` 重验后沿用一次口播导入、全局字幕和 SFX 尾音。缺字体/素材、超容量、错误数量及无独立跨风格入口不能绕过；有实际含义的分段路线保持整片帧数一致。
+
+3.11.0 新增 06-A「活力色彩 · 原生竖屏」七个完整组，选择 `vibrant-color-performance@0.1.0-candidate` 并显式 layout=portrait。当前竖屏11风格/39组，横屏仍10风格/32组；不得为新包猜横屏。提炼新来源时使用[adu-template-extractor](skills/adu-template-extractor/SKILL.md)，读[模板说明](references/vibrant-color-template.md)与实际验证记录。

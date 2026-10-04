@@ -1,6 +1,6 @@
 {
   "schema": "adu-template-catalog/1",
-  "updated": "2026-10-03",
+  "updated": "2026-10-04",
   "numbering": "template-style",
   "templates": [
     {
@@ -320,7 +320,39 @@
           }
         }
       ]
+    },
+    {
+      "id": "06",
+      "title": "活力色彩",
+      "styles": [
+        {
+          "id": "06-A",
+          "title": "原生竖屏",
+          "status": "candidate",
+          "selection": "vibrant-color-performance@0.1.0-candidate",
+          "portraitSelection": "vibrant-color-performance@0.1.0-candidate",
+          "preview": "assets/demos/06-A.gif",
+          "demo": "assets/demos/06-A.mp4",
+          "guide": "references/vibrant-color-template.md",
+          "requires": [
+            "本期口播、文案与准确动作时码",
+            "grainTexture与固定SHA的Anton/Geist Mono字体",
+            "当前平台可用且许可明确的中文字体"
+          ],
+          "scope": "四组原编舞与三组基础动画，仅原生竖屏；源码/换稿与构建验证按记录，不宣称整片或独立声画验收",
+          "previewBasis": "静音新文案与占位人物布局示意，不含源人物/字幕/配乐",
+          "demoAudio": "none; silent synthetic-layout preview",
+          "layouts": {
+            "portrait": {
+              "width": 1080,
+              "height": 1920,
+              "status": "candidate",
+              "selection": "vibrant-color-performance@0.1.0-candidate"
+            }
+          }
+        }
+      ]
     }
   ],
-  "releaseVersion": "3.8.0"
+  "releaseVersion": "3.11.0"
 }

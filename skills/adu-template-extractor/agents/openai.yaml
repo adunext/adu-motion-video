@@ -1,0 +1,4 @@
+interface:
+  display_name: "阿杜动画模板提炼"
+  short_description: "从完成工程提炼可复用镜头组，保留编舞、声音和适配合同"
+  default_prompt: "从指定的完成动画工程提炼模板，核验来源、动画边界、输入容量、画幅与声画，并登记实际验证范围。"

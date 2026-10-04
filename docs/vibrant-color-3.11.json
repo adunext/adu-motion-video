@@ -1,0 +1,67 @@
+{
+  "schema": "adu-template-release-evidence/1",
+  "version": "3.11.0",
+  "pack": "vibrant-color-performance",
+  "packVersion": "0.1.0-candidate",
+  "manifestSha256": "1ed4d5d5f1a4c37f11b33db82f1271fa88942c406187e8ca5de1ede5159786ff",
+  "sourceRevision": "34894c33a6b26701e405751225e7a70a85210433a479d437e7693911a73c532a",
+  "portraitGroups": 39,
+  "landscapeGroups": 32,
+  "pythonDistinctChecks": 55,
+  "browser": {
+    "passed": true,
+    "groups": 7,
+    "layouts": [
+      "portrait"
+    ],
+    "cases": [
+      {
+        "mode": "source",
+        "seeks": 113,
+        "sfx": 27
+      },
+      {
+        "mode": "new",
+        "seeks": 226,
+        "sfx": 27
+      },
+      {
+        "mode": "near-cjk",
+        "seeks": 339,
+        "sfx": 27
+      },
+      {
+        "mode": "near-latin",
+        "seeks": 452,
+        "sfx": 27
+      },
+      {
+        "mode": "hold",
+        "seeks": 565,
+        "sfx": 27
+      }
+    ],
+    "seeks": 565,
+    "fonts": "owner-SHA-verified",
+    "scope": "Synthetic presenter and texture; source-control/new/near-CJK/near-Latin/max-hold reversible DOM/Canvas and SFX. Not new-narration AV acceptance."
+  },
+  "sourceGeometryChecks": 12,
+  "build": {
+    "frames": 2325,
+    "fps": 60,
+    "width": 1080,
+    "height": 1920,
+    "synthetic": true
+  },
+  "artifacts": {
+    "runtime-report.json": "7f444086079b89b105c8700c4bd1469f25e8aec8cb033048daf4d23f094a3bb4",
+    "source-geometry-report.json": "d6ac4566db82065e3bcb0e85451dc4718e1980ab33b16346c3a397d55fcd0109",
+    "新内容构建_v4_工程/recipe_versions.json": "cb722482bbb0cbd5280dac2c9d461f3a7dc14ea4e0bbda7851382cb39234c477",
+    "基础动画示意_v4.mp4": "71505ab36fb337266b4073f07bea21dbdca0a676407db68b8ab8eb4fda596022"
+  },
+  "limits": [
+    "candidate, not continuous new-narration AV or independent-use acceptance",
+    "source foreground geometry only, not source whole-frame pixel comparison",
+    "macOS exercised; Windows/Linux contract only"
+  ]
+}

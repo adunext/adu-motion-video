@@ -95,3 +95,9 @@ Review 固定 `packId`、`sourceVersion`、`sourceRevision`、`manifestSha256`�
 ## 隐藏状态与往返跳转
 
 新组的 transform、opacity、clip 和 Canvas 状态都应由当前时间独立计算；隐藏分支也要复位，不能早返回后继续用 `+=` 累积变换。验收包含跨场多轮往返，并核对隐藏节点的状态增长。可见图片须解码、字体和子工程布局须准备完成；DOM/Canvas 确定性与受控软件绘制的像素对照分别记录。
+
+## 可独立使用的提炼 Skill
+
+此文档维护工具契约；新提炼的来源选择、表达拆分、输入容量、画幅、媒体色彩、时钟、音效尾音和发布验证见[adu-template-extractor](../skills/adu-template-extractor/SKILL.md)。06-A原生竖屏实例与适用限制见[活力色彩](vibrant-color-template.md)，仅有portrait的包须在手动构建和自动选型提前报告无landscape合同。
+
+新提炼须清除公共默认值、helpers、HUD、示例与预览中的本期个人信息，保留匿名来源摘要及必要许可证；同时增加适合该风格的基础动画，明确区分原编舞与新创扩展。基础组分别提供文本容量、换行、合法阅读时长、独立进出和声音合同，不把专门的因果演出当作万能清单。详见提炼 Skill 的容量矩阵和验证流程。

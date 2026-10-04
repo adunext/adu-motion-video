@@ -148,7 +148,7 @@ class TemplateStressTests(unittest.TestCase):
                 base = round((source['source']['end'] - source['source']['start']) * 60)
                 limit = source.get('maxHoldFrames', 0)
                 slots = self.assets.slots(manifest, source)
-                for layout in ['landscape', 'portrait']:
+                for layout in manifest.get('layouts', {'landscape': {}}):
                     cases = [('original', base, True, 0), ('short-text', base, True, 0),
                              ('capacity-text', base, True, 0), ('oversize-text', base, False, 0), ('below-min', source.get('minFrames', 1) - 1, False, 0),
                              ('one-frame', 1, False, 0), ('over-hold', base + limit + 1, False, 0),
@@ -185,7 +185,7 @@ class TemplateStressTests(unittest.TestCase):
                         accepted, reason = False, str(exc)
                     self.rows.append({'style': style, 'scene': source['id'], 'case': 'max-hold-retimed-cues',
                                       'accepted': accepted, 'reason': reason})
-        self.assertEqual(groups, 32)
+        self.assertEqual(groups, 39)
 
     def test_real_one_second_and_twenty_minute_recordings_with_offsets(self):
         clips = 0

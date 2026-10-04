@@ -35,3 +35,7 @@ examples/portrait-shell.html 仅是历史工程的分区配方，需引用工程
 手绘续接仍按[手绘动画方法](handdrawn-animation.md)安排人物、道具与字幕；它目前是制作方法，不计作本次新增完整模板。
 
 3.8.0 新增05-A的三个完整组，分别为光环关键词、贴纸交接与反馈升级。它们另做489次寻帧，覆盖横竖屏、正常/近上限中文/近上限英文，八份固定SHA字体及反向Canvas/DOM状态；27个源动作SFX保持。记录独立于上面的3.7.0九风格565次检查，不合并成真实声画验收。
+
+## 3.11.0 原生竖屏增量
+
+06-A「活力色彩」`vibrant-color-performance@0.1.0-candidate`新增四组原编舞和三组基础动画，仅portrait，不能省略layout或选landscape。当前11风格/39组支持竖屏，其中原10风格/32组支持横竖两种画幅。详见[活力色彩](vibrant-color-template.md)。

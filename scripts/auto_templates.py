@@ -67,6 +67,9 @@ def capabilities(entries):
 
 def requirements(entry, brief):
     missing = []
+    layouts = entry['manifest'].get('layouts', {'landscape': {}})
+    if brief.get('layout', 'landscape') not in layouts:
+        missing.append('layout: this style has no ' + brief.get('layout', 'landscape') + ' contract')
     supplied = brief.get('styleSettings', {}).get(entry['styleId'], {})
     require(isinstance(supplied, dict), 'styleSettings entries must be objects')
     fonts = supplied.get('externalFontFiles', brief.get('externalFontFiles', {}))

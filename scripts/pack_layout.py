@@ -12,6 +12,8 @@ def resolve_layout(manifest: dict, spec: dict) -> dict:
     variants = manifest.get('layouts', {})
     variant = variants.get(name)
     if variant is None:
+        if variants:
+            raise ValueError('This frozen pack has no ' + name + ' contract; choose a supported layout')
         if name == 'portrait':
             raise ValueError('This frozen pack has no portrait contract; select its portrait candidate version')
         variant = {'width': manifest.get('width', 1920), 'height': manifest.get('height', 1080)}
