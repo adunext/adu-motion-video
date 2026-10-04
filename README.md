@@ -330,13 +330,13 @@ bash "$PL" render /已有目录/新工程 /已有目录/新片_v1_16x9_60fps.mp4
 bash "$PL" check /已有目录/新片_v1_16x9_60fps.mp4
 ```
 
-以上路径只是格式示例，规划目录和新工程路径必须事先不存在。brief 结构见[适配机制](references/adaptive-composition.md)与[可运行示例](examples/adaptation/README.md)。可传 `--subs-js /路径/新口播字幕.js` 给 `macro-build`；字幕必须与新口播对齐。历史人工入口 `macro-spec` 列出全部组的接口；生成的 cue 留空，须绑定本期真实台词，示例文案与原片时长不代表已适配。配置还可指定本期音乐 `music:{mode:"track",path,offset}`，以及本期混音增益 `mix:{musicVolume:0.42}`；完成后会把实际选择、处理图和声音摘要保存为 `mix_recipe.json`，详见[声音与重现](references/audio.md)。`anim4` 和 `anim3/s06` 默认在 macOS 使用 Vision 跟踪新口播人脸，其他系统要显式提供审核过的固定裁切。构建器要求目标场景总帧数与剪好口播相符，按输出帧网格量化后必须完全一致。长短差异和动作锚点的处理见[完整工程复用与验收](references/full-project-templating.md)。
+以上路径只是格式示例，规划目录和新工程路径必须事先不存在。brief 结构见[适配机制](references/adaptive-composition.md)与[可运行示例](examples/adaptation/README.md)。可传 `--subs-js /路径/新口播字幕.js` 给 `macro-build`；字幕必须与新口播对齐。历史人工入口 `macro-spec` 列出全部组的接口；生成的 cue 留空，须绑定本期真实台词，示例文案与原片时长不代表已适配。配置须显式指定本期音乐 `music:{mode:"track",path,offset}`，缺项保持待补，旧默认合成底乐已停用；用户明确无BGM才设 `music:{mode:"none"}`，以及本期混音增益 `mix:{musicVolume:0.42}`；完成后会把实际选择、处理图和声音摘要保存为 `mix_recipe.json`，详见[声音与重现](references/audio.md)。`anim4` 和 `anim3/s06` 默认在 macOS 使用 Vision 跟踪新口播人脸，其他系统要显式提供审核过的固定裁切。构建器要求目标场景总帧数与剪好口播相符，按输出帧网格量化后必须完全一致。长短差异和动作锚点的处理见[完整工程复用与验收](references/full-project-templating.md)。
 
 可以直接对 Agent 说：
 
 > 使用 adu-motion-video 的完整场景包制作这条新口播。口播、SRT、文案和本期录屏在 `/实际路径/素材目录`。先运行 packs，按语义选择显式版本的完整镜头组或场景，列出所需替代素材和关键台词时间，补齐配置后生成工程；检查首帧、转场、文字裁切、口型、音乐和音效，再导出新 MP4。不要把原工程的示例文字、数字或第三方素材带进新片。
 
-Agent 缺少 Skill 机制时，先读 [AGENTS.md](AGENTS.md)。基础模板只需运行 `bash "$PL" demo /不存在的新目录` 查看 36 秒示例；参数见[模板目录](references/templates.md)。
+Agent 缺少 Skill 机制时，先读 [AGENTS.md](AGENTS.md)。基础模板只需运行 `bash "$PL" demo /不存在的新目录` 查看 36 秒无口播、无BGM的布局与音效示例；参数见[模板目录](references/templates.md)。
 
 ### 验收与扩展
 
@@ -352,4 +352,6 @@ MIT License · 第三方说明见 [THIRD_PARTY.md](THIRD_PARTY.md)。
 
 阿杜实验室 · [AI 执行入口](SKILL.md) · [模板与风格目录](references/template-catalog.md) · [动画素材 API](references/lottie-assets.md) · [更新与下载](https://github.com/adunext/adu-motion-video/releases) · [MIT License](LICENSE) · [第三方说明](THIRD_PARTY.md)
 
-**3.11.0 升级完成**：新增06-A「活力色彩」原生竖屏七组，模板库竖屏达到11风格/39组；新增可独立安装的[adu-template-extractor](skills/adu-template-extractor/SKILL.md)，沉淀模板提炼与适配验证流程。[查看本轮验证记录](docs/vibrant-color-3.11.md)。
+**3.11.0 升级完成**：新增06-A「活力色彩」原生竖屏七组，模板库竖屏达到11风格/39组。[查看本轮验证记录](docs/vibrant-color-3.11.md)。
+
+**3.12.0 升级完成**：淘汰旧默认合成底乐，显式选择本期配乐；新工程换曲保持动作音效一致，混合模板保留跨场尾音；新增段尾节奏复核指标。提炼 Skill 仅保留本地，移除公开副本。[查看验证与接入范围](docs/editorial-music-3.12.md)。

@@ -322,7 +322,7 @@ def copy_media(stage: Path, pack: dict, item: dict, source_scene: dict, block: s
 def scaffold(pack: dict, output: Path) -> None:
     if output.exists(): fail(f'Refusing existing file: {output}')
     data: dict = {'pack': pack['id'], 'version': pack.get('version'), 'layout': 'landscape', 'fps': pack['fps'], 'brand': '',
-                  'presenterLabel': '// on air · 主讲人', 'scenes': []}
+                  'presenterLabel': '// on air · 主讲人', 'music': {'mode': 'track', 'path': '', 'offset': None}, 'scenes': []}
     if pack.get('externalFonts'):
         data['externalFontFiles'] = {item['id']: '' for item in pack['externalFonts']}
     for scene in pack['scenes']:
@@ -352,18 +352,21 @@ def scaffold(pack: dict, output: Path) -> None:
 
 def write_project_audio(stage: Path, music: dict) -> None:
     """Freeze the sound recipe with the project so future skill updates cannot alter it."""
+    from music_policy import selection
+    music, _ = selection(music, stage)
+    if music['mode'] == 'track':
+        music['path'] = Path(music['path']).relative_to(stage.resolve()).as_posix()
     runtime = stage / 'audio_runtime'
     runtime.mkdir(exist_ok=True)
-    for name in ('macro_audio.py', 'audiolib.py', 'adaptation_audio.py'):
+    for name in ('macro_audio.py', 'audiolib.py', 'adaptation_audio.py', 'music_policy.py'):
         shutil.copy2(ROOT / 'scripts' / name, runtime / name)
     (stage / 'macro_music.json').write_text(json.dumps(music, ensure_ascii=False, indent=2) + '\n')
-    (stage / 'audio.py').write_text('''import sys, json
+    (stage / 'audio.py').write_text('''import sys
 from pathlib import Path
 project = Path(__file__).resolve().parent
 sys.path.insert(0, str(project / "audio_runtime"))
 from macro_audio import render
-music = json.loads((project / "macro_music.json").read_text())
-render(project, project / music["path"] if music["mode"] == "track" else None, music.get("offset", 0))
+render(project) # revalidate the saved track identity; never synthesize a fallback
 ''')
 
 
@@ -441,6 +444,11 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
         from narration_slice import preflight
         master, first, last = _narration_slice
         narration_preflight = preflight(master, talk, first, last, spec.get('fps', pack['fps']))
+    from music_policy import selection
+    try:
+        episode_music, _ = selection(spec.get('music'), spec_path.parent, narration_preflight['frames'] / spec.get('fps', pack['fps']))
+    except ValueError as exc:
+        raise AdaptError(str(exc)) from exc
     prelude, authored_scenes = pack_scene_parts(pack_dir, pack)
     if len(authored_scenes) != len(pack['scenes']):
         fail(f'Pack scene count mismatch: manifest={len(pack["scenes"])} source={len(authored_scenes)}')
@@ -677,17 +685,10 @@ function raceAt(e, sourceTime, opacity=1) {
 <script src="subs.js"></script><script src="wall.js"></script><script src="macro_plan.js"></script>
 <script src="lib.js"></script>''' + ''.join(runtime_scripts) + '''<script src="scenes.js"></script><script src="subtitles.js"></script>
 <script src="macro_main.js"></script>''' + layout_script + '''</body></html>\n''')
-        # Recompose the complete mapped score, never the generic starter score.
-        music = spec.get('music', {'mode': 'synth'})
-        if not isinstance(music, dict) or music.get('mode') not in ('synth', 'track'):
-            fail('music must be an object with mode synth or track')
-        music = dict(music)
+        # Explicit episode track; retired synthesis cannot enter a new project.
+        music = dict(episode_music)
         if music['mode'] == 'track':
-            path = music.get('path'); offset = music.get('offset')
-            if not isinstance(path, str) or not (spec_path.parent / path).is_file(): fail('music.path must name the new supplied music track')
-            if not isinstance(offset, (float, int)) or isinstance(offset, bool) or not 0 <= offset < float('inf'):
-                fail('music.offset must be an explicit nonnegative number aligned for this new track')
-            src_music = (spec_path.parent / path).resolve()
+            src_music = Path(music['path'])
             dst_music = stage / 'assets' / ('music' + src_music.suffix.lower())
             shutil.copy2(src_music, dst_music); music['path'] = 'assets/' + dst_music.name
         write_project_audio(stage, music)
@@ -706,7 +707,7 @@ function raceAt(e, sourceTime, opacity=1) {
                       'frozenRuntime': {name: hashlib.sha256((stage / name).read_bytes()).hexdigest()
                                         for name in ['lib.js', 'macro_main.js', 'style.css', 'audio_runtime/mix_recipe.py',
                                                      'audio_runtime/macro_audio.py', 'audio_runtime/audiolib.py',
-                                                     'audio_runtime/adaptation_audio.py', *pack.get('runtimeFiles', []), *generated_runtime, *layout_files]},
+                                                     'audio_runtime/adaptation_audio.py', 'audio_runtime/music_policy.py', 'macro_music.json', *pack.get('runtimeFiles', []), *generated_runtime, *layout_files]},
                       'layout': plan['layout'],
                       'qualityStatus': 'built-not-visually-accepted'}
         if adaptation['applicable']:

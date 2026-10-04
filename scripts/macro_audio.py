@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render a mapped full-pack score at its original tempo, plus runtime S() cues.
+"""Render the selected episode track, plus runtime S() action cues.
 
 Never stretch the original episode's waveform or substitute the quick demo's
 two-section score. The caller supplies macro_plan.json and runtime sfx.json.
@@ -13,67 +13,6 @@ import subprocess
 import numpy as np
 import audiolib as A
 from adaptation_audio import audio_boundary_report
-
-
-def merged_sections(sections):
-    result = []
-    for raw in sections:
-        item = dict(raw)
-        prev = result[-1] if result else None
-        continuous = prev and abs(prev['end'] - item['start']) < 1e-5 and abs(prev['sourceEnd'] - item['sourceStart']) < 1e-5
-        same_score = prev and (prev['sourceSectionId'] == item['sourceSectionId'] or
-                               prev['mode'] == item['mode'] == 'chip-8bit')
-        if continuous and same_score:
-            prev.update(end=item['end'], endFrame=item['endFrame'], sourceEnd=item['sourceEnd'])
-        else:
-            result.append(item)
-    return result
-
-
-def chip_bar(buf, start, index, end):
-    progression = [(48, [60, 64, 67]), (45, [57, 60, 64]), (41, [57, 60, 65]), (43, [59, 62, 67])]
-    melody = [76, 79, 84, 79, 77, 76, 74, 72, 72, 76, 79, 76, 74, 72, 71, 74]
-    root, chord = progression[index % 4]
-    for eighth in range(8):
-        at = start + eighth * A.B / 2
-        if at >= end - .05: break
-        A.add(buf, A.pan(A.chip(root + (12 if eighth % 2 else 0), A.B / 2 * .9, .5), 0), at, .45)
-        A.add(buf, A.pan(A.chip(chord[eighth % 3] + 12, A.B / 4, .125), .35), at, .16)
-        if index >= 1:
-            A.add(buf, A.pan(A.chip(melody[(index * 8 + eighth) % 16], A.B / 2 * .8, .25), -.25), at, .3)
-        if eighth % 4 == 0: A.add(buf, A.pan(A.kick(.6), 0), at)
-        A.add(buf, A.pan(A.hat(.14), .2), at)
-
-
-def render_bed(buf, sections):
-    A.music = buf
-    bar = 0
-    rendered = []
-    for section in merged_sections(sections):
-        mode, start, end = section['mode'], section['start'], section['end']
-        if mode == 'piano-break':
-            # The source deliberately stops the beat here. Individual piano
-            # notes and the falling oscillator are specialEvents, not a bed.
-            rendered.append({**section, 'bars': 0}); continue
-        if mode not in ('synth', 'rhythm', 'reflective-piano', 'chip-8bit'):
-            raise ValueError(f'Unknown score mode: {mode}')
-        count = 0
-        for tb in A.bars(start, end):
-            if mode == 'chip-8bit': chip_bar(buf, tb, count, end)
-            elif mode == 'reflective-piano': A.piano_bar(tb, bar, end)
-            else:
-                options = dict(section.get('options', {}))
-                instruments = section.get('instruments', {})
-                if isinstance(instruments, dict):
-                    for src, dst in (('kick', 'kick_on'), ('clap', 'clapon'), ('hats', 'hats'), ('bass', 'bass'), ('arp', 'arp')):
-                        if src in instruments: options[dst] = instruments[src]
-                unknown = set(options) - {'kick_on', 'clapon', 'hats', 'bass', 'arp'}
-                if unknown: raise ValueError(f'Unimplemented score options: {unknown}')
-                A.mbar(tb, bar, section.get('energy', section.get('level', .7)), end, **options)
-            if mode != 'chip-8bit': bar += 1
-            count += 1
-        rendered.append({**section, 'bars': count})
-    return rendered
 
 
 def render_special(buf, event):
@@ -117,7 +56,7 @@ def load_track(path, offset, end):
     return np.pad(raw, ((0, max(0, A.N - len(raw))), (0, 0)))[:A.N]
 
 
-def render(project: Path, track: Path | None = None, offset: float = 0):
+def render(project: Path, track: Path | None = None, offset: float = 0, *, music_mode: str | None = None):
     plan = json.loads((project / 'macro_plan.json').read_text())
     cues = json.loads((project / 'sfx.json').read_text())
     end = plan['end_frame'] / plan['fps']
@@ -128,6 +67,13 @@ def render(project: Path, track: Path | None = None, offset: float = 0):
     if not score or score.get('sfxMixSource') != 'runtime-scene-S-only': raise ValueError('Missing mapped source score')
     profile = score.get('mixProfile', 'legacy-macro')
     if profile not in ('legacy-macro', 'opus-five-v1'): raise ValueError(f'Unknown score mix profile: {profile}')
+    from music_policy import selection, POLICY, sha
+    requested = ({'mode': 'track', 'path': str(track), 'offset': offset} if track is not None else
+                 {'mode': music_mode} if music_mode is not None else
+                 json.loads((project / 'macro_music.json').read_text()) if (project / 'macro_music.json').is_file() else None)
+    music_config, _ = selection(requested, project)
+    track = Path(music_config['path']) if music_config['mode'] == 'track' else None
+    offset = music_config.get('offset', 0)
     A.init(end); A.rng = np.random.default_rng(11)
     music = np.zeros((A.N, 2)); sections = []
     if track:
@@ -138,8 +84,7 @@ def render(project: Path, track: Path | None = None, offset: float = 0):
             filtered = np.stack([A.lowpass(music[:, c], dark.get('cutoffHz', 900)) for c in range(2)], 1)
             music = music * (1 - w[:, None]) + filtered * w[:, None] * dark.get('gain', 1.15)
         music *= .9 / max(1e-9, np.max(np.abs(music)))
-    else:
-        sections = render_bed(music, score['sections'])
+
     fx = np.zeros_like(music)
     special = score.get('specialEvents', [])
     # Risers crossing an authored scene boundary continue as one sound.
@@ -151,17 +96,19 @@ def render(project: Path, track: Path | None = None, offset: float = 0):
         else: joined.append(dict(event))
     rendered_special = 0
     for event in joined:
-        if not track or event['type'] == 'riser':
+        if track and event['type'] == 'riser':
             render_special(fx, event)
             rendered_special += 1
     crashes = []
-    for hit in score.get('hits', []):
+    rendered_hits = 0
+    for hit in score.get('hits', []) if track else []:
         if hit['kind'] == 'subDrops': A.add(fx, A.pan(A.sub_drop(1.1, .5), 0), hit['at'])
         elif hit['kind'] == 'crashes':
             if profile == 'opus-five-v1':
                 A.add(fx, A.pan(A.crash_cym(), (hit['at'] % 2) - .5), hit['at'])
             else: crashes.append(hit)
         else: raise ValueError(f'Unimplemented source hit: {hit["kind"]}')
+        rendered_hits += 1
     music += fx * (.6 if track or profile == 'opus-five-v1' else 1.)
     keys = [(e['at'], e['db']) for e in score.get('envelope', [])]
     if keys: music *= A.env_curve(keys)[:, None]
@@ -171,6 +118,8 @@ def render(project: Path, track: Path | None = None, offset: float = 0):
         if b <= a: raise ValueError('Zero-length musical fade')
         music[a:b] *= np.clip(1 - np.arange(b-a) / (b-a), 0, 1)[:, None] ** 1.3
         if fade['endFrame'] >= plan['end_frame'] - 1: music[b:] = 0
+    # Background selection must not change the action-noise sequence.
+    A.rng = np.random.default_rng(11)
     sfx = A.render_sfx(cues['sfx'])
     music = A.reverb(music, 1.1, .12); sfx = A.reverb(sfx, .9, .12)
     samples = round(end * A.SR)
@@ -178,10 +127,13 @@ def render(project: Path, track: Path | None = None, offset: float = 0):
         data = data[:samples]
         data /= max(np.max(np.abs(data)) * 1.1, 1e-9)
         A.write_wav(str(project / f'{name}.wav'), data)
-    report = {'mode': 'track' if track else 'source-synth', 'duration': end, 'sampleRate': A.SR,
+    report = {'mode': music_config['mode'], 'musicPolicy': POLICY,
+              'trackSha256': music_config.get('sha256'), 'bgmSha256': sha(project / 'bgm.wav'),
+              'sfxSha256': sha(project / 'sfx.wav'), 'sfxRandomPolicy': 'adu-sfx-independent-seed11/1', 'duration': end, 'sampleRate': A.SR,
               'mixProfile': profile,
               'renderedSections': len(sections), 'bars': sum(s['bars'] for s in sections),
-              'specialEvents': rendered_special, 'plannedSpecialEvents': len(joined), 'hits': len(score.get('hits', [])),
+              'specialEvents': rendered_special, 'plannedSpecialEvents': len(joined), 'hits': rendered_hits,
+              'plannedHits': len(score.get('hits', [])),
               'sfx': len(cues['sfx']), 'voiceRetimed': False,
               'review': 'Structure rendered; listening and source/reference comparison still required.'}
     (project / 'macro_audio_report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
@@ -191,7 +143,10 @@ def render(project: Path, track: Path | None = None, offset: float = 0):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('project', type=Path); parser.add_argument('--track', type=Path)
+    parser.add_argument('project', type=Path)
+    music_args = parser.add_mutually_exclusive_group()
+    music_args.add_argument('--track', type=Path)
     parser.add_argument('--offset', type=float, default=0)
+    music_args.add_argument('--no-music', action='store_true', help='Explicitly omit background music, retain action SFX')
     args = parser.parse_args()
-    render(args.project, args.track, args.offset)
+    render(args.project, args.track, args.offset, music_mode='none' if args.no_music else None)

@@ -2,7 +2,7 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。支持 Windows、macOS、Linux，以及 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等可读写文件并运行命令的助手。
 metadata:
-  version: "3.11.0"
+  version: "3.12.0"
 ---
 
 # adu-motion-video
@@ -38,7 +38,7 @@ metadata:
 
 3.6.0 新增当前分镜局部重配和素材版本检查，并为通用视频抽帧接入共享色彩处理。**04-A · 仪器台演示** 当前候选 `doubao-console-performance@0.1.2-candidate` 增加有界文字布局，原 0.1.1 三组的同内容技术重放仍保留；静音新文案检查不代替新口播完整声画或独立复用验收，详见[模板说明](references/doubao-console-template.md)。新预览统一使用带导出证据与版本检查的 `preview` 命令。
 
-用户未锁定单一风格，或要求自动比较全部模板时，先读[全库自动选型](references/automatic-selection.md)，运行 `auto-capabilities`。助手根据整篇台词整理语义阶段、短标题、真实媒体和准确落点，形成 `adu-auto-brief/1`，再执行 `auto-plan → auto-build`。当前 11 种风格、39 组参与竖屏比较，其中既有 10 种风格、32 组也参与横屏比较，优先完整可用的统一风格；必要时仅在有独立入场合同的组间组合。长段提供有实际内容依据的完整分段路线，不循环补时长。用户锁定风格就设置 `allowedStyles`；不要让用户手填各套字段。构建会重验选型和素材，混合工程保持全片口播/字幕时钟与音效尾音，默认跨风格配乐坡道须连续试听。机器检查仍为 experimental，详见[本轮测试](docs/template-auto-selection-3.10.md)。
+用户未锁定单一风格，或要求自动比较全部模板时，先读[全库自动选型](references/automatic-selection.md)，运行 `auto-capabilities`。助手根据整篇台词整理语义阶段、短标题、真实媒体和准确落点，形成 `adu-auto-brief/1`，再执行 `auto-plan → auto-build`。当前 11 种风格、39 组参与竖屏比较，其中既有 10 种风格、32 组也参与横屏比较，优先完整可用的统一风格；必要时仅在有独立入场合同的组间组合。长段提供有实际内容依据的完整分段路线，不循环补时长。用户锁定风格就设置 `allowedStyles`；不要让用户手填各套字段。构建会重验选型和素材，混合工程保持全片口播/字幕时钟与音效尾音，整片显式绑定同一首本期配乐，须连续试听。机器检查仍为 experimental，详见[本轮测试](docs/template-auto-selection-3.10.md)。
 
 新文案先按[系统适配机制](references/adaptive-composition.md)形成 `brief.json`，运行 `bash "$PL" macro-plan 包ID@版本 brief.json 新规划目录`。该入口按语义阶段、数量、原速动作窗和前后场依赖筛选，再在合法组合内减少效果重复。当前横竖屏版本的 10 个风格、32 个完整组已有代码核对的适配 profile，能力仍为 adaptation-experimental。输出 `spec.json/report.json/report.md/profile.json`；退出码 0 为绑定检查通过，2 为已保存待补或受阻草稿，1 为无效输入。媒体或真实关键词时码缺失时修改 brief 并重新规划，不填源演示时码。`macro-spec` 保留为历史/人工配方入口，它不提供这层语义与邻接诊断；新制作优先沿用带 `adaptation` 的计划，构建会重新验证。
 
@@ -46,7 +46,7 @@ metadata:
 
 1. `bash "$PL" doctor` 检查 Node、Python、FFmpeg 和 Chrome；缺依赖且允许安装时再 `bash "$PL" setup`。保持源工程和原成片只读，输出到不存在的新路径。
 2. 先锁定用户指定的模板来源。素材目录里的其他 `anim`、新工程或旧成片不自动成为动画底稿；不能只插入少数模板片段就称整片使用了指定模板。逐场记录来源包与场景 ID，混用完整包见[来源与多包编排](references/full-project-templating.md#来源与多包编排)。对齐新口播和文案，取得关键台词的准确时间。SRT 只有整句时间时，不可臆测句内某个词的时间；用逐词对齐数据或人工标注。读包的 `role`、`cues`、`motionWindows`、`slots`，按意义挑选、重排或重复完整场景。先列出分镜和缺少的素材。
-3. 按新口播编写 brief，运行 `bash "$PL" macro-plan 包ID@版本 /路径/本期brief.json /已有父目录/新规划目录`；查看报告，缺项回到 brief 补齐后重新规划，使用生成的 `spec.json` 构建。在渲染前按[复用内容核对](references/adaptive-composition.md#复用前核对实际表达)核对阶段与真实台词、关键事件落点、素材身份及全片重复。规划器检查声明的结构，不会判断填写的阶段是否忠于台词。仅人工维护历史配方时使用 `macro-spec`，它的 cue 留空，示例文字及原片时长只供认识接口；必须填写本期内容与实际时码，不能给每个重复组机械加同一偏移。`brand` 填本期账号。本期音乐可用 `music:{mode:"track",path,offset}` 指定；未指定时按原编曲结构重合成。人物窗默认在 macOS 使用 Vision 跟踪新口播人脸；不能自动跟踪时须显式配置审核过的 `faceTracking:{mode:"fixed",cx,cy,h}`。任何来源演示数据与示例文字都须替换或明确标“示意”。素材的空路径代表缺项；媒体准备与容量限制看包目录中的 `README.md`。
+3. 按新口播编写 brief，运行 `bash "$PL" macro-plan 包ID@版本 /路径/本期brief.json /已有父目录/新规划目录`；查看报告，缺项回到 brief 补齐后重新规划，使用生成的 `spec.json` 构建。在渲染前按[复用内容核对](references/adaptive-composition.md#复用前核对实际表达)核对阶段与真实台词、关键事件落点、素材身份及全片重复。规划器检查声明的结构，不会判断填写的阶段是否忠于台词。仅人工维护历史配方时使用 `macro-spec`，它的 cue 留空，示例文字及原片时长只供认识接口；必须填写本期内容与实际时码，不能给每个重复组机械加同一偏移。`brand` 填本期账号。本期音乐必须用 `music:{mode:"track",path,offset}` 显式绑定；缺曲目就 needs-binding，旧源合成底乐已淘汰。只在用户明确不要背景音乐时使用 `music:{mode:"none"}`，动作 SFX 保留。人物窗默认在 macOS 使用 Vision 跟踪新口播人脸；不能自动跟踪时须显式配置审核过的 `faceTracking:{mode:"fixed",cx,cy,h}`。任何来源演示数据与示例文字都须替换或明确标“示意”。素材的空路径代表缺项；媒体准备与容量限制看包目录中的 `README.md`。
 4. `bash "$PL" macro-build 包ID@版本 /路径/新规划目录/spec.json /路径/剪好口播.mp4 /路径/新工程 [--subs-js /路径/字幕.js]`。新口播长度应与计划总帧数相符。适配器把关键动作窗口锁在原速，较长段落只伸展可停留区；如果时间不够，会报错，改分镜或片段长度，不靠全片线性拉伸。缺文字、数字、媒体或关键 cue 也会报错。
 5. `bash "$PL" stills /路径/新工程 0,4,12,...` 抽查首帧、每个 cue 前中后、最长文字、场景接缝和片尾；小圆窗需看到双眼、嘴巴和下巴，fixed 参数须从本期素材确定并检查低头、抬头等极端姿态；再播放所有复杂运动区间，与原工程对照。检查字体、媒体比例/裁切、真实口型、字幕、SFX 与音乐。修订配置或工程并重新验证。
 6. `bash "$PL" audio /路径/新工程` → `bash "$PL" mix /路径/新工程` → `bash "$PL" render /路径/新工程 /路径/新片_v1.mp4` → `bash "$PL" check /路径/新片_v1.mp4`。完整观看并听取最终编码文件；`check` 的帧数、解码和响度不能替代视觉与内容验收。新预览统一通过 `bash "$PL" preview /路径/新工程 /路径/新片_v1.mp4 /已有父目录/新预览目录` 发布，绑定真实成片 SHA，显示播放版本并提示旧标签页更新。HDR/DV、源位深和元数据风险须按[素材色彩与预览](references/color-and-preview.md)留下实际对照证据，不只检查标签。
@@ -59,7 +59,7 @@ metadata:
 
 规划后读取 `report.rhythm` 及报告的“全片重复与停留检查”：连续同组、两三组固定循环、同类动作连续使用和新增超过四秒的停留都要核对本期表达。`ready` 仍只代表绑定检查通过；同一合法组反复出现时，补充语义成立的候选、调整表达分段或另做并验收变体，不为换效果选缺素材的组。动作不足时拒绝硬塞，长段在允许的 hold 容量内延长；镜头数不是随机动画数。
 
-共享运行时只移动 SFX 起音点，保留原生成器的 `d` 和音色；片尾后的尾音支持在规划及构建都复核。本轮范围见[长短素材压力测试](docs/template-stress-3.9.md)。
+共享运行时只移动 SFX 起音点，保留原生成器的 `d` 和音色；新工程 SFX 随机种子与配乐隔离，使换曲不改变动作音效，旧冻结 stems 不自动重生成；片尾后的尾音支持在规划及构建都复核。本轮范围见[长短素材压力测试](docs/template-stress-3.9.md)。
 
 ## 不可省略的检查
 
@@ -71,4 +71,6 @@ metadata:
 
 更多细节：[完整工程复用](references/full-project-templating.md) · [制作约定](references/rules.md) · [字幕](references/subtitle-options.md) · [配乐](references/audio.md) · [手绘](references/handdrawn-animation.md) · [排错](references/troubleshooting.md)。
 
-3.11.0 新增 **06 · 活力色彩 / 06-A · 原生竖屏** `vibrant-color-performance@0.1.0-candidate`：四组原编舞和三组基础动画，只有 portrait 合同。读[输入与验证范围](references/vibrant-color-template.md)，不同意图/四步骤/三成本条的含义不能随意互换；示意条高不是报价或真实统计。动作整体保护，不循环补长，尾音支持帧须满足。提炼过程现在提供独立[adu-template-extractor Skill](skills/adu-template-extractor/SKILL.md)，按实际主库位置运行，可单独安装。
+3.11.0 新增 **06 · 活力色彩 / 06-A · 原生竖屏** `vibrant-color-performance@0.1.0-candidate`：四组原编舞和三组基础动画，只有 portrait 合同。读[输入与验证范围](references/vibrant-color-template.md)，不同意图/四步骤/三成本条的含义不能随意互换；示意条高不是报价或真实统计。动作整体保护，不循环补长，尾音支持帧须满足。模板的输入要求与技术检查范围以上述说明为准。
+
+3.12.0 新工程淘汰 `adu-source-score-synth-v1` 全部时长变体和已知旧配乐文件，改为显式本期 track/offset/SHA；整片同曲、独立 SFX 与跨场尾音保持。报告新增最后声明动作窗到段尾的复核指标，不把未保护区间判作静止。提炼 Skill 属于所有者本地工具，不随公开库分发。实测与接入边界见[本轮记录](docs/editorial-music-3.12.md)。

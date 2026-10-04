@@ -445,7 +445,27 @@ def rhythm_diagnostics(path: list[dict], segments: list[dict], fps: int) -> dict
                 findings.append({"code": "repeated-effect-family", "effect": effect,
                                  "segmentIds": [s["id"] for s in segments[start:end]],
                                  "suggestion": "连续使用相同动作家族；检查人物构图、动作强弱与证据节奏，避免只换标题。"})
+    action_spans = []
     for i, c in enumerate(path):
+        planned = c.get("planned") or {}
+        windows = planned.get("motionWindows", [])
+        if windows:
+            bounds = sorted((w["outputStartFrame"], w["outputEndFrame"]) for w in windows)
+            merged = []
+            for start, end in bounds:
+                if merged and start <= merged[-1][1]:
+                    merged[-1][1] = max(merged[-1][1], end)
+                else:
+                    merged.append([start, end])
+            protected = sum(end - start for start, end in merged)
+            tail = (planned["endFrame"] - merged[-1][1]) / fps
+            action_spans.append({"segmentId": segments[i]["id"], "sceneId": c["sceneId"],
+                                 "protectedSeconds": round(protected / fps, 6),
+                                 "protectedShare": protected / segments[i]["durationFrames"],
+                                 "postProtectedSeconds": round(tail, 6)})
+            if tail > 4:
+                findings.append({"code": "long-post-protected-span", **action_spans[-1],
+                                 "suggestion": "最后声明动作窗后超过四秒；核对阅读、真人和动态证据是否仍有内容变化。此指标不证明静止，不自动剪短或补循环。"})
         for gap in (c.get("planned") or {}).get("intervals", []):
             added = (gap["endFrame"] - gap["startFrame"]) / fps - (gap["sourceEnd"] - gap["sourceStart"])
             if added > 4:
@@ -453,7 +473,9 @@ def rhythm_diagnostics(path: list[dict], segments: list[dict], fps: int) -> dict
                                  "addedSeconds": round(added, 6),
                                  "suggestion": "停留区增加超过四秒；检查真实阅读需求及人物、证据视频的连续性，不自动重播动作。"})
     return {"sceneUsage": list(usage.values()), "segmentCount": len(ids),
-            "uniqueSceneCount": len(usage), "reviewRequired": bool(findings), "findings": findings,
+            "uniqueSceneCount": len(usage), "actionSpans": action_spans,
+            "actionSpanScope": "declared protected windows only; outside windows is not a static-picture verdict",
+            "reviewRequired": bool(findings), "findings": findings,
             "policy": "review-only; preserve semantics, action clocks and audio; no random alternatives"}
 
 

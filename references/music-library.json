@@ -1,0 +1,20 @@
+{
+  "schema": "adu-music-policy-catalog/1",
+  "policy": "adu-episode-music/1",
+  "retired": [
+    {
+      "id": "adu-source-score-synth-v1",
+      "scope": "generator identity, all durations and source-score variants",
+      "knownRenditionSha256": [
+        "6d7507eaec5974a02bd8bbbc9912a89e216521428a9b498da10db8bccaf39e65"
+      ]
+    }
+  ],
+  "activeBundledTracks": [],
+  "binding": "Select a licensed episode file or app-registered track and explicit offset; SHA pinned at build.",
+  "limits": [
+    "Known SHA rejects renamed exact rendition; edited or reencoded historical audio cannot be identified by this SHA alone.",
+    "There is no universal default track and no synthesized/silent fallback.",
+    "Historical frozen packages and existing previews remain historical."
+  ]
+}

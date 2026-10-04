@@ -67,7 +67,7 @@ class MacroBindingTests(unittest.TestCase):
         from build_macro_project import write_project_audio
         with tempfile.TemporaryDirectory() as tmp:
             stage=Path(tmp)
-            write_project_audio(stage,{'mode':'synth'})
+            write_project_audio(stage,{'mode':'none'})
             self.assertTrue((stage/'audio_runtime/macro_audio.py').is_file())
             self.assertTrue((stage/'audio_runtime/audiolib.py').is_file())
             self.assertNotIn('ADU_MOTION_VIDEO_ROOT',(stage/'audio.py').read_text())

@@ -85,7 +85,7 @@ def build_auto(plan_path, talk, output, subs_js=None):
         width,height=(1080,1920) if result['spec'].get('layout')=='portrait' else (1920,1080)
         total=result['report']['durationFrames']
         for i,run in enumerate(runs):
-            spec=deepcopy(run['spec']); spec.pop('music',None)
+            spec=deepcopy(run['spec']); spec['music']={'mode':'none'} # one global episode track owns music
             # Only final part owns deliberate global fade; narrator is never
             # faded/reset merely because a style boundary was reached.
             if i<len(runs)-1: spec.pop('fadeEndSeconds',None)
@@ -145,10 +145,10 @@ def build_auto(plan_path, talk, output, subs_js=None):
             f'<style>html,body{{margin:0;background:#000;overflow:hidden}}#stage{{position:relative;width:{width}px;height:{height}px}}</style>'+
             '<div id="stage"></div><script src="auto_plan.js"></script><script src="auto_runtime.js"></script></html>\n')
         runtime=stage/'audio_runtime';runtime.mkdir()
-        for name in ['auto_audio.py','macro_audio.py','audiolib.py','adaptation_audio.py','mix_recipe.py']:
+        for name in ['auto_audio.py','macro_audio.py','audiolib.py','adaptation_audio.py','mix_recipe.py','music_policy.py']:
             shutil.copy2(ROOT/'scripts'/name,runtime/name)
-        music=deepcopy(result['spec'].get('music',dict(mode='synth')))
-        require(isinstance(music,dict) and music.get('mode') in {'synth','track'},'music must specify synth or track')
+        from music_policy import selection
+        music,_=selection(result['spec'].get('music'),Path(saved['sourceDirectory']),total/60)
         if music['mode']=='track':
             source=Path(music['path']);(stage/'assets').mkdir()
             target=stage/'assets'/('music'+source.suffix);shutil.copy2(source,target)
@@ -161,10 +161,10 @@ def build_auto(plan_path, talk, output, subs_js=None):
         write(stage/'recipe_versions.json',dict(schema='adu-multi-pack-provenance/1',parts=provenance,
               qualityStatus='experimental-built-not-visually-accepted',layout=plan['layout'],
               frozenRuntime={p:hashlib.sha256((stage/p).read_bytes()).hexdigest() for p in
-                             ['auto_runtime.js','auto_plan.js','audio_runtime/auto_audio.py','audio_runtime/audiolib.py']}))
+                             ['auto_runtime.js','auto_plan.js','audio_runtime/auto_audio.py','audio_runtime/audiolib.py','audio_runtime/music_policy.py','macro_music.json']}))
         write(stage/'macro_build_report.json',dict(status='experimental-built-not-visually-accepted',
               narrationFrames=total,outputFrames=total,parts=len(parts),voiceRetimed=False,
-              subtitleClock='global',musicBoundary='120ms gain ramps; continuous listening required'))
+              subtitleClock='global',musicBoundary='one episode track; no per-pack background fallback; continuous listening required'))
         stage.rename(output)
 
 

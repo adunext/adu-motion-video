@@ -22,4 +22,6 @@ bash scripts/pipeline.sh macro-plan classic-performance@1.0.0 \
 
 第三个参数是尚不存在的输出目录，生成 `spec.json`、`report.json`、`report.md`。第一、第二份预期 `needs-binding`，第三份预期 `blocked`；三份均为 `ready: false`，不能直接构建。保留报告中的淘汰原因和未解决项。补入真实媒体及人工标注或逐词对齐后的 cue，审核规划后再构建；示例自带的时长只是分镜预算，并非真实配音时间。
 
+3.12.0 起还须显式绑定本期 `music:{mode:"track",path,offset}`，偏移后覆盖全片；缺音乐保持 needs-binding。历史示例报告不包含这次新增音乐校验，重跑以实际输出为准。只在明确无 BGM 的合成布局测试或用户要求时使用 `music:{mode:"none"}`，动作 SFX 保留。
+
 完整说明：[从一套模板适配不同文案](../../references/adaptive-composition.md)。

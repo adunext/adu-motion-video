@@ -37,7 +37,7 @@ class AutoTests(unittest.TestCase):
 
     def brief(self,segments,**kw):
         return dict(schema='adu-auto-brief/1',brand='合成测试账号',fps=60,layout='portrait',segments=segments,
-                    narrationDuration=sum(s['durationFrames'] for s in segments)/60,**kw)
+                    narrationDuration=sum(s['durationFrames'] for s in segments)/60,music={'mode':'none'},**kw)
 
     def entry(self,style):return next(x for x in self.entries if x['styleId']==style)
 
@@ -166,6 +166,33 @@ class AutoTests(unittest.TestCase):
             brief['music']['offset']=39
             self.assertFalse(choose(brief,self.root,self.entries)['report']['ready'])
 
+    def test_missing_or_retired_music_does_not_build_or_choose_silent_fallback(self):
+        e=self.entry('01-A'); segment=self.segment(e,e['manifest']['scenes'][0])
+        brief=self.brief([segment],allowedStyles=['01-A'])
+        del brief['music']
+        result=choose(brief,self.root,self.entries)
+        self.assertEqual(result['report']['status'],'needs-binding')
+        self.assertFalse(result['report']['ready']); self.assertEqual(result['runs'],[])
+        self.assertEqual(result['spec']['music']['mode'],'track')
+        brief['music']=dict(mode='synth')
+        result=choose(brief,self.root,self.entries)
+        self.assertEqual(result['report']['status'],'blocked')
+        self.assertIn('retired',str(result['report']['blocking']))
+
+    def test_long_post_protected_span_is_a_review_metric_not_a_static_verdict(self):
+        from adaptation import rhythm_diagnostics
+        entry=self.entry('01-A'); scene=entry['manifest']['scenes'][0]
+        segment=self.segment(entry,scene,frames=600)
+        candidate=dict(sceneId=scene['id'],contract=entry['profile']['scenes'][0],
+                       planned=dict(endFrame=600,motionWindows=[dict(outputStartFrame=0,outputEndFrame=180)]))
+        report=rhythm_diagnostics([candidate],[segment],60)
+        self.assertEqual(report['actionSpans'][0]['postProtectedSeconds'],7)
+        self.assertEqual(report['actionSpans'][0]['protectedSeconds'],3)
+        self.assertEqual(report['findings'][0]['code'],'long-post-protected-span')
+        self.assertIn('not a static',report['actionSpanScope'])
+        candidate['planned']['motionWindows'][0]['outputEndFrame']=420
+        self.assertEqual(rhythm_diagnostics([candidate],[segment],60)['findings'],[])
+
     def test_real_mixed_build_browser_audio_and_frame_exact_narration(self):
         import wave
         a=self.entry('01-A');b=self.entry('02-A')
@@ -174,6 +201,10 @@ class AutoTests(unittest.TestCase):
         brief['faceTracking']=dict(mode='fixed',cx=.5,cy=.5,h=.6)
         with tempfile.TemporaryDirectory(prefix='adu-auto-integration-') as tmp:
             tmp=Path(tmp)
+            from test_music_policy import tone
+            music=tmp/'replacement.wav'
+            tone(music,seconds=brief['narrationDuration']+2)
+            brief['music']=dict(mode='track',path=str(music),offset=1)
             video_asset=tmp/'evidence.mp4'
             subprocess.run(['ffmpeg','-v','error','-n','-f','lavfi','-i','testsrc2=size=160x90:rate=2:duration=30',
                 '-vf','setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709',
@@ -207,6 +238,10 @@ class AutoTests(unittest.TestCase):
             evidence=json.loads(runtime.stdout);self.assertTrue(evidence['deterministic']);self.assertGreater(evidence['seeks'],20)
             subprocess.run([sys.executable,str(project/'audio.py')],check=True,capture_output=True)
             self.assertEqual(read_json(project/'macro_audio_report.json')['parts'],2)
+            self.assertEqual(read_json(project/'macro_audio_report.json')['mode'],'track')
+            self.assertEqual(read_json(project/'macro_music.json')['path'],'assets/music.wav')
+            for part in plan['parts']:
+                self.assertEqual(read_json(project/part['path']/'macro_music.json')['mode'],'none')
             with wave.open(str(project/'voice.wav'),'rb') as voice:
                 params=voice.getparams();original=voice.readframes(voice.getnframes())
             slices=[]
@@ -228,14 +263,14 @@ class AutoTests(unittest.TestCase):
             if os.environ.get('ADU_AUTO_REPORT'):
                 Path(os.environ['ADU_AUTO_REPORT']).write_text(json.dumps(dict(
                     schema='adu-auto-test-evidence/1',source='tests/test_auto_templates.py',
-                    styles=10,groups=32,composition=dict(frames=total,fps=60,parts=len(plan['parts']),
+                    styles=11,groups=39,composition=dict(frames=total,fps=60,parts=len(plan['parts']),
                     width=1080,height=1920,seeks=evidence['seeks'],repeatRoundTrips=evidence['repeatRoundTrips'],
                     softwareRaster=True,deterministicPixels=True,
                     subtitleGlobalClock=True,voicePCMRejoinIdentical=True,
                     preparedMedia=[dict(slot=x['slotId'],frames=x['preparedFrames']) for x in receipt['entries']],
                     seamEncodedFrames=int(video['nb_frames']),seamDecodePassed=True),
                     audio=read_json(project/'macro_audio_report.json'),
-                    scope='synthetic source, truthful test annotations, source score synthesis and half-second seam encoding; no human whole-film AV acceptance'
+                    scope='synthetic source and selected test track, truthful test annotations, global action SFX and half-second seam encoding; no human whole-film AV acceptance'
                 ),ensure_ascii=False,indent=2)+'\n')
 
 

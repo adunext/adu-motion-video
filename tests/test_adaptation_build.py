@@ -28,6 +28,8 @@ class AdaptationBuildTest(unittest.TestCase):
         contract = next(s for s in profile['scenes'] if s['sceneId'] == 's09')
         with tempfile.TemporaryDirectory(prefix='adu-adaptation-build-') as tmp:
             root = Path(tmp)
+            from test_music_policy import tone
+            tone(root / 'test-track.wav', seconds=7)
             subprocess.run(['ffmpeg', '-v', 'error', '-f', 'lavfi', '-i',
                             'color=c=0x203040:s=720x1280:r=60:d=5.483333333',
                             '-f', 'lavfi', '-i', 'sine=frequency=440:duration=5.483333333',
@@ -44,6 +46,7 @@ class AdaptationBuildTest(unittest.TestCase):
                                    for q in source['cues'] if q['id'] in contract['cueRoles']},
                        'candidates': {'s09': {'slots': slots}}}
             brief = {'schema': 'adu-adaptation-brief/1', 'brand': '适配回归测试', 'fps': 60,
+                     'music': {'mode': 'track', 'path': str(root / 'test-track.wav'), 'offset': .5},
                      'faceTracking': {'mode': 'fixed', 'cx': .5, 'cy': .5, 'h': .3}, 'segments': [segment]}
             (root / 'brief.json').write_text(json.dumps(brief, ensure_ascii=False))
             result = plan(packdir, root / 'brief.json', root / 'planning')
@@ -77,6 +80,9 @@ class AdaptationBuildTest(unittest.TestCase):
             sound = json.loads((project / 'audio_boundary_report.json').read_text())
             self.assertEqual(sound['status'], 'needs-listening')
             self.assertTrue((project / 'sfx.wav').stat().st_size > 0)
+            music = json.loads((project / 'macro_music.json').read_text())
+            self.assertEqual(music['path'], 'assets/music.wav')
+            self.assertEqual(json.loads((project / 'macro_audio_report.json').read_text())['mode'], 'track')
 
 
 if __name__ == '__main__': unittest.main()

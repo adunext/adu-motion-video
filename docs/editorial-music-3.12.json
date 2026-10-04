@@ -1,0 +1,150 @@
+{
+  "schema": "adu-runtime-release-evidence/1",
+  "version": "3.12.0",
+  "date": "2026-10-04",
+  "musicPolicy": "adu-episode-music/1",
+  "retiredGenerator": "adu-source-score-synth-v1",
+  "tests": {
+    "distinct": 101,
+    "modules": {
+      "test_music_policy": 8,
+      "test_macro_binding": 9,
+      "test_auto_templates": 12,
+      "test_adaptation": 27,
+      "test_template_stress": 4,
+      "test_adaptation_audio": 9,
+      "test_adaptation_build": 1,
+      "test_adaptation_intake": 5,
+      "test_mix_recipe": 4,
+      "test_rematch": 18,
+      "test_rematch_cli": 4
+    },
+    "execution": "59-test core pass plus final 49-test focused pass; seven shared music methods counted once, one new manual-build gate; 101 distinct successful methods",
+    "platform": "macOS, local Python/Node/Chrome/FFmpeg; Windows/WSL and Linux not rerun here"
+  },
+  "verified": [
+    "Explicit episode track/offset and pinned bytes; missing/retired/short track rejected before media import.",
+    "Real frozen macro runner and two-part mixed build use supplied synthetic tracks; no per-pack synth fallback.",
+    "Switching tracks or explicit no-BGM retains identical action SFX bytes in the new runtime.",
+    "Composite action sound starts at1.99s and survives2s scene seam; generator and reverb support unchanged.",
+    "Pinned track edit and saved synth mode rejected by generated frozen audio runner.",
+    "Known historical retired WAV rejected read-only; renaming exact bytes does not bypass hash.",
+    "Basic audio and demo route retain action SFX with explicit no-BGM fixture."
+  ],
+  "integration": {
+    "frames": 1652,
+    "fps": 60,
+    "parts": 2,
+    "width": 1080,
+    "height": 1920,
+    "seeks": 58,
+    "repeatRoundTrips": 16,
+    "softwareRaster": true,
+    "deterministicPixels": true,
+    "subtitleGlobalClock": true,
+    "voicePCMRejoinIdentical": true,
+    "preparedMedia": [
+      {
+        "slot": "overview",
+        "frames": 90
+      },
+      {
+        "slot": "detail",
+        "frames": 200
+      },
+      {
+        "slot": "result",
+        "frames": 280
+      }
+    ],
+    "seamEncodedFrames": 30,
+    "seamDecodePassed": true
+  },
+  "demoSmoke": {
+    "scope": "demo pipeline smoke; 0.5s 320x180 encode only, 36s action sound generation; no full demo AV acceptance",
+    "frames": 30,
+    "fps": "60/1",
+    "audioMode": "none",
+    "sfx": 35,
+    "cleanedTemporaryDirectory": true
+  },
+  "retiredRendition": {
+    "sha256": "6d7507eaec5974a02bd8bbbc9912a89e216521428a9b498da10db8bccaf39e65",
+    "actualFileChecked": true,
+    "rejected": true
+  },
+  "editorialSourceAudit": {
+    "sourceRevision": "3893b09d772f05d555c417c1a1d2d88727c0fca49326a790cad9ff4f75232830",
+    "sourceFileSha256": "2244a232b7f70e8c86fc11154430da852680d2ee142acf9d1019b4f16a5d3efd",
+    "sourceSceneCount": 10,
+    "stableSceneCount": 3,
+    "coveredIndices": [
+      0,
+      4,
+      5
+    ],
+    "groups": [
+      {
+        "sceneId": "claim-and-response",
+        "sourceUnitIndex": 0,
+        "source": {
+          "start": 0,
+          "end": 15.466
+        },
+        "sourceLines": {
+          "start": 19,
+          "end": 38
+        },
+        "sourceBlockSha256": "cb72a352e9a63073178b3bb6acbdbb4f355d5a6dc2e01dc34281a0bb36e71cb4",
+        "byteIdenticalToCompleteSourceUnit": true,
+        "sfxCalls": 9
+      },
+      {
+        "sceneId": "evidence-and-focus",
+        "sourceUnitIndex": 4,
+        "source": {
+          "start": 68.6,
+          "end": 84.3
+        },
+        "sourceLines": {
+          "start": 93,
+          "end": 104
+        },
+        "sourceBlockSha256": "a2eda0c4dda30ad44e9718e1a965a44340345926244f795fd1164b6ea80f3157",
+        "byteIdenticalToCompleteSourceUnit": true,
+        "sfxCalls": 8
+      },
+      {
+        "sceneId": "decompose-and-consolidate",
+        "sourceUnitIndex": 5,
+        "source": {
+          "start": 84.3,
+          "end": 101.666
+        },
+        "sourceLines": {
+          "start": 107,
+          "end": 122
+        },
+        "sourceBlockSha256": "f9e544b0dd615ea038ccacc518cad80ad5b30e32c3175cee239b517515b40964",
+        "byteIdenticalToCompleteSourceUnit": true,
+        "sfxCalls": 9
+      }
+    ],
+    "remainingIdentified": 7,
+    "scope": "read-only exact source-unit comparison; no new D group release or new film AV acceptance"
+  },
+  "boundaries": {
+    "frozenPacksUnchanged": true,
+    "existingFilmsUnchanged": true,
+    "ADuDirCodeUnchanged": true,
+    "integrationBaseline": "3.2.0 @209c977d6686d77e19e7079e8c0cf81e2c451d40; no automatic cutover",
+    "localExtractionSkill": "local-only1.0.1; removed from current public tree; existing Git history not rewritten"
+  },
+  "limitations": [
+    "No human continuous review of a new full film in this runtime release.",
+    "Seven remaining D source units are identified, not extracted or selectable.",
+    "New SFX random-seed contract does not claim historical synth stems are byte-identical; preserve existing stems for old-film music-only replacement.",
+    "SHA detects exact retired bytes, not all transcodes or edits.",
+    "Existing frozen builds do not gain new policy through a skill update."
+  ]
+}

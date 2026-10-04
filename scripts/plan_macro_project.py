@@ -55,8 +55,14 @@ def markdown_report(report: dict, spec: dict) -> str:
                   '| 镜头组 | 次数 | 总时长 |', '| --- | --- | --- |']
         for row in rhythm['sceneUsage']:
             lines.append(f"| {cell(row['sceneId'])} | {row['count']} | {row['durationFrames'] / spec['fps']:.2f}s |")
+        if rhythm.get('actionSpans'):
+            lines += ['', '| 段落 | 声明动作保护窗 | 最后保护窗至段尾 |',
+                      '| --- | --- | --- |']
+            for row in rhythm['actionSpans']:
+                lines.append(f"| {cell(row['segmentId'])} | {row['protectedSeconds']:.2f}s | {row['postProtectedSeconds']:.2f}s |")
+            lines += ['', '保护窗之外不等于静止，须检查真实阅读、口播与动态证据。容量上限不是推荐时长。']
         for finding in rhythm.get('findings', []):
-            location = ', '.join(finding.get('segmentIds', [])) or finding.get('sceneId', '')
+            location = ', '.join(finding.get('segmentIds', [])) or finding.get('segmentId', finding.get('sceneId', ''))
             lines.append(f"- **{cell(finding['code'])} {cell(location)}**：{cell(finding['suggestion'])}")
     if report.get('selection'):
         lines += ['', '## 动作与强弱', '', '| 段落 | 动作家族 | 强度（1–3） |', '| --- | --- | --- |']
@@ -91,6 +97,8 @@ def plan(pack_dir: Path, brief_path: Path, output: Path, profiles_root: Path = R
     validate_profile(profile, manifest)
     brief = resolve_project_paths(read_json(brief_path), brief_path.parent)
     result = plan_adaptation(manifest, profile, brief, brief_path.parent, allow_pending_talk=True)
+    from music_policy import apply
+    apply(result, brief.get('music'), brief_path.parent)
     with tempfile.TemporaryDirectory(prefix='.adu-plan-', dir=output.parent) as tmp:
         stage = Path(tmp) / 'plan'
         stage.mkdir()

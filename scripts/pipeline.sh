@@ -4,7 +4,7 @@
 # setup                       install the skill's Node/Python packages (Chrome/FFmpeg separate)
 # new <dir>                   new 36s template demo project; no creator footage needed
 # import <dir> <talk.mp4>     extract edited narration + frames; no raw footage / ASR needed
-# demo <NEW dir>              new + generated music/sfx + verified demo.mp4 (no narration)
+# demo <NEW dir>              new + action SFX + demo.mp4 (explicit no narration/BGM)
 # stills <dir> t1,t2,...       save PNGs in a NEW stills/run-* directory
 # audio <dir>                 collect cues and build bgm.wav / sfx.wav
 # mix <dir> [music-volume]    build mix.wav; VOICE=none explicitly omits narration
@@ -139,6 +139,16 @@ import)
 demo)
   [ "$#" -eq 2 ] || { echo 'Usage: pipeline.sh demo <NEW directory>' >&2; exit 2; }
   bash "$0" new "$D"
+  python3 - "$D/audio.py" <<'PY'
+from pathlib import Path
+import sys
+p = Path(sys.argv[1]); text = p.read_text()
+default = "MUSIC = dict(mode='track', path='', offset=None)"
+if text.count(default) != 1:
+    raise SystemExit('Demo recipe changed; review its explicit no-BGM binding')
+p.write_text(text.replace(default, "MUSIC = dict(mode='none') # Explicit synthetic layout/SFX demo"))
+print('Demo only: no narration or background music; action SFX retained.')
+PY
   bash "$0" audio "$D"
   VOICE=none bash "$0" mix "$D"
   bash "$0" render "$D" "$D/demo.mp4" "${K:-3}"

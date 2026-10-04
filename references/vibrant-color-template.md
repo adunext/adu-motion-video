@@ -19,7 +19,7 @@
 
 文案按最终字体实测宽度有界收敛，超出可读下限报错。候选状态和实际测试见[本轮记录](../docs/vibrant-color-3.11.md)，静音示意不代替新真人口播连续声画与独立使用验收。
 
-来源修订与提炼方案：[adapter](../adapters/vibrant-color/README.md)。提炼流程现作为独立[adu-template-extractor Skill](../skills/adu-template-extractor/SKILL.md)，从历史案例总结来源冻结、完整边界、容量、时钟、HDR、字幕、声音、重配、平台与发布证据。
+来源修订与提炼方案：[adapter](../adapters/vibrant-color/README.md)。本包的输入容量与实际验证范围见本页及发行记录。
 
 新增三组同风格基础动画，分别声明输入、独立人物姿态与音效边界，来源标记为 `newly-authored-style-extension`，不宣称来自原片：
 

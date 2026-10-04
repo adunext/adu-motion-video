@@ -228,23 +228,9 @@ def choose(brief, directory, entries=None):
         return (state, len(report['missing']) + len(report['blocking']), coherence,
                 report['score'] if report['score'] is not None else float('inf'), result['route'], result['style'])
     selected = min(results, key=rank)
-    music = brief.get('music', {'mode':'synth'})
-    require(isinstance(music, dict) and music.get('mode') in {'synth','track'}, 'music must use synth or track')
-    if music['mode'] == 'track':
-        require(isinstance(music.get('path'), str) and music['path'].strip(), 'music.path needs an actual episode file')
-        offset = number(music.get('offset'), 'music.offset')
-        require(offset >= 0, 'music.offset must be nonnegative')
-        try:
-            metadata = probe_media(Path(music['path']), 'audio')
-            require('duration' in metadata, 'music needs a finite real audio duration')
-            duration = metadata['duration']
-            require(duration-offset >= selected['report']['durationSeconds']-1/60,
-                    'music is shorter than the whole output after offset; provide a complete track, never silently loop')
-        except AdaptError as exc:
-            for result in results:
-                result['report']['blocking'].append(str(exc))
-                result['report'].update(ready=False,status='blocked')
-                result['spec']['adaptation']['ready'] = False
+    from music_policy import apply
+    for result in results:
+        apply(result, brief.get('music'), directory)
     runs = child_runs(selected['spec'], index, directory) if selected['report']['ready'] else []
     for run in runs:
         run['spec'].update(brief.get('styleSettings', {}).get(run['style'], {}))

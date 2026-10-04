@@ -20,4 +20,6 @@
 
 自动比较风格、长短文案与不同素材时，读取[全库选型](references/automatic-selection.md)，由当前助手整理真实语义与候选字段，不让用户手填复杂配置。`auto-plan` 同时比较完整单风格和合法混合路线；`auto-build` 重验后沿用一次口播导入、全局字幕和 SFX 尾音。缺字体/素材、超容量、错误数量及无独立跨风格入口不能绕过；有实际含义的分段路线保持整片帧数一致。
 
-3.11.0 新增 06-A「活力色彩 · 原生竖屏」七个完整组，选择 `vibrant-color-performance@0.1.0-candidate` 并显式 layout=portrait。当前竖屏11风格/39组，横屏仍10风格/32组；不得为新包猜横屏。提炼新来源时使用[adu-template-extractor](skills/adu-template-extractor/SKILL.md)，读[模板说明](references/vibrant-color-template.md)与实际验证记录。
+3.11.0 新增 06-A「活力色彩 · 原生竖屏」七个完整组，选择 `vibrant-color-performance@0.1.0-candidate` 并显式 layout=portrait。当前竖屏11风格/39组，横屏仍10风格/32组；不得为新包猜横屏。读[模板说明](references/vibrant-color-template.md)与实际验证记录。
+
+3.12.0 新工程配乐必须显式绑定 track/path/offset；旧 source synth 全部时长变体淘汰，缺配乐待补，不回退静音。只有明确无BGM才用 none。当前 SFX 独立种子不等于历史 synth 字节；换乐已交付影片应保留旧 stems。最后动作保护窗后的时间只作阅读/人物/证据连续性复核，不判作静止。提炼 Skill 仅本地维护，不加入公开分发。

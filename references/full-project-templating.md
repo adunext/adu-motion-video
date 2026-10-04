@@ -65,7 +65,7 @@ bash "$PL" check /已有目录/新片_v1.mp4
 
 `macro-build` 可在新工程路径后加 `--subs-js /路径/新字幕.js`。没有字幕输入时工程不会自动凭空生成中英字幕。`macro-spec` 和 `macro-build` 均拒绝覆盖已有目标文件/目录，需使用新路径。直接检查编译出的 `macro_plan.json` 可看到每场源索引、输出帧范围、锚点、绑定和声音事件。若只想预先验证时间与槽，可用 `python3 scripts/adapt_project.py packs/anim3/manifest.json 配置.json --out 新计划.json`；这仍不能代替构建和视觉验收。
 
-默认 `music.mode="synth"`：按原编曲结构合成新配乐。自有音乐可在配置中设置 `"music":{"mode":"track","path":"/路径/本期音乐.mp3","offset":0}`，偏移点按本期重拍选择；音乐从偏移点起必须覆盖全片，后续 `audio` 命令读取此配置。使用人脸裁切的场景，其 `faceTracking` 默认 `auto`，需要 macOS Vision/Swift 且失追超过 1 秒会拒绝；`fixed` 需显式给新 720×1280 口播帧归一化的 `cx/cy/h` 并逐镜检查。`anim4` 单色等宽字默认用 macOS 系统字体；其他平台须提供有使用权的 `monoFontFile` 并做字体对照。`subtitlePreset` 默认 `large-en`，也可设 `standard`。`fadeEndSeconds` 默认 0，仅在有意留出无口播收尾时可设 0–2 秒。
+3.12.0 起新工程必须显式选择 `"music":{"mode":"track","path":"/路径/本期音乐.mp3","offset":0}`，偏移点按本期重拍选择，剩余音乐必须覆盖全片；缺项保存 needs-binding，不合成旧底乐或偷偷改成静音。只在明确不要背景音乐时设置 `"music":{"mode":"none"}`。旧 source synth 全时长变体已淘汰；构建后固定音乐 SHA、相对素材路径及音效运行代码，`audio` 重验实际文件。背景选择不改变新工程动作 SFX；旧冻结工程不自动升级。使用人脸裁切的场景，其 `faceTracking` 默认 `auto`，需要 macOS Vision/Swift 且失追超过 1 秒会拒绝；`fixed` 需显式给新 720×1280 口播帧归一化的 `cx/cy/h` 并逐镜检查。`anim4` 单色等宽字默认用 macOS 系统字体；其他平台须提供有使用权的 `monoFontFile` 并做字体对照。`subtitlePreset` 默认 `large-en`，也可设 `standard`。`fadeEndSeconds` 默认 0，仅在有意留出无口播收尾时可设 0–2 秒。
 
 ### 配置格式
 

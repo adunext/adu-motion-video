@@ -10,7 +10,7 @@
 
 三组基础动画支持换行及中间阅读区延长最多600帧；入场、退出和音效只执行一次。原四组没有合法延长区，短段、错误数量、超容量、超长单组和声音支持不足应拒绝。中文近上限测试发现回声标题宽度不足，关键词容量收紧到9字符，保持72px可读下限，没有用裁字或无限缩小掩盖问题。
 
-新增可独立安装的 [adu-template-extractor Skill](../skills/adu-template-extractor/SKILL.md)，将来源冻结、去个人化、基础动画、语义槽、文本容量、原生画幅、媒体/HDR、输出时钟、声音尾音与发布证据纳入每次提炼。Windows/WSL、macOS、Linux；Codex、Claude Code、豆包、DeepSeek、WorkBuddy按实际文件/命令能力使用。本轮实测平台为macOS。
+模板使用支持 Windows/WSL、macOS、Linux；Codex、Claude Code、豆包、DeepSeek、WorkBuddy按实际文件/命令能力使用。本轮实测平台为macOS。
 
 ## 已运行的检查
 
