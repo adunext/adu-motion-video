@@ -1,6 +1,8 @@
 # adu-motion-video 3.14.0-rc.1 · 兼容性升级
 
-2026-10-05。本版为本地兼容性候选；此前公开版本为 3.13.0-rc.2。没有替换其他安装副本、ADuDir 桌面内嵌 Skill 或历史冻结工程。
+2026-10-05。本版为兼容性预发布（rc.1）；此前公开版本为 3.13.0-rc.2。没有替换其他安装副本、ADuDir 桌面内嵌 Skill 或历史冻结工程。
+
+[版本与下载](https://github.com/adunext/adu-motion-video/releases/tag/v3.14.0-rc.1) · [完整安装包](https://github.com/adunext/adu-motion-video/releases/download/v3.14.0-rc.1/adu-motion-video_3.14.0-rc.1.zip)
 
 ## 用户可见变化
 

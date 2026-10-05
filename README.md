@@ -18,7 +18,7 @@ Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选�
 
 [浏览模板](#模板库)　·　[开始使用](#开始使用)　·　[适用场景](#适用场景)　·　[模板特点](#模板特点)　·　[技术资料](#技术资料)
 
-**3.14.0-rc.1 兼容性升级候选：** Windows 原生 Python 与 macOS 共用命令入口；原字体仅优先推荐，缺失时自动使用随包开源中英文字体。保留 3.13 的模板适配、竖屏字幕与创作引导。[查看兼容说明](references/compatibility.md)。
+**3.14.0-rc.1 兼容性预发布：** Windows 原生 Python 与 macOS 共用命令入口；原字体仅优先推荐，缺失时自动使用随包开源中英文字体。保留 3.13 的模板适配、竖屏字幕与创作引导。[下载新版安装包](https://github.com/adunext/adu-motion-video/releases/download/v3.14.0-rc.1/adu-motion-video_3.14.0-rc.1.zip) · [版本说明](https://github.com/adunext/adu-motion-video/releases/tag/v3.14.0-rc.1) · [查看兼容说明](references/compatibility.md)。
 
 ---
 
