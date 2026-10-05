@@ -1,6 +1,7 @@
-# Validated source replay profile: macOS, CPython 3.14.7, 1080p60.
-# Other Python/platform combinations need their own install and media validation.
-numpy==2.5.3
-pillow==12.3.0
-scipy==1.18.1
-opencv-python-headless==5.0.0.93
+# pip chooses wheels compatible with the running Python/OS.
+# Historical exact validation versions remain in the release evidence.
+numpy>=1.26,<3
+pillow>=10,<13
+scipy>=1.11,<2
+opencv-python-headless>=4.8,<6
+fonttools>=4.50,<5

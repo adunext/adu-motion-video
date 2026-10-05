@@ -2,7 +2,7 @@
 """Instantiate an entire authored scene pack for new narration and supplied media.
 
 The output is a new browser video project with copied media and audio recipes.
-It needs the documented system tools and fonts; raster acceptance is separate. No
+It needs the documented system tools; fonts have a portable fallback. No
 source media or prior project is changed. The script rejects missing bindings
 and assets instead of silently leaving a source episode's content on screen.
 """
@@ -144,51 +144,11 @@ def safe_name(value: str) -> str:
 
 
 def copy_external_fonts(pack: dict, spec: dict, spec_dir: Path, stage: Path) -> tuple[str, list[dict]]:
-    """Require explicit, fingerprinted fonts instead of silently substituting.
-
-    Font binaries excluded from a public pack can travel in the owner's new
-    project. This records the input; it does not grant redistribution rights.
-    """
-    requirements = pack.get('externalFonts', [])
-    if not isinstance(requirements, list): fail('externalFonts must be an array')
-    inputs = spec.get('externalFontFiles', {})
-    if not isinstance(inputs, dict): fail('externalFontFiles must be an object')
-    declared = [item.get('id') for item in requirements if isinstance(item, dict)]
-    if len(declared) != len(requirements) or any(not isinstance(id, str) for id in declared) or len(set(declared)) != len(declared):
-        fail('External font IDs must be distinct')
-    if set(inputs) - set(declared): fail('Unknown externalFontFiles ID')
-    def font_weight(item):
-        value = str(item.get('weight', item['id'].rsplit('-', 1)[-1] if re.search(r'-[1-9]00$', item['id']) else '400'))
-        if not re.fullmatch(r'[1-9]00(?: [1-9]00)?', value) or int(value.split()[0]) > int(value.split()[-1]):
-            fail('Invalid external font weight')
-        return value
-    verified = []
-    for item in requirements:
-        id = item.get('id'); family = item.get('family'); expected = item.get('sha256')
-        format = item.get('format'); extension = item.get('extension')
-        if not isinstance(id, str) or not re.fullmatch(r'[a-z][a-z0-9-]*', id): fail('Invalid external font ID')
-        if not isinstance(family, str) or not re.fullmatch(r'[A-Za-z][A-Za-z0-9 _-]*', family): fail('Invalid external font family')
-        if not isinstance(expected, str) or not re.fullmatch(r'[0-9a-f]{64}', expected): fail('External font needs a frozen SHA256')
-        if (format, extension) not in {('truetype','.ttf'),('opentype','.otf'),('woff','.woff'),('woff2','.woff2')}:
-            fail('Unsupported external font format/extension')
-        value = inputs.get(id)
-        if value is None and not item.get('required', True): continue
-        if not isinstance(value, str) or not value.strip(): fail(f'Provide externalFontFiles.{id}; source font substitution is not automatic')
-        source = (spec_dir / value).resolve()
-        if not source.is_file() or source.suffix.lower() != extension: fail(f'External font {id} must be a supplied {extension} file')
-        actual = hashlib.sha256(source.read_bytes()).hexdigest()
-        if actual != expected: fail(f'External font {id} differs from the reviewed source font; review a new pack version')
-        font_weight(item)
-        verified.append((source, item))
-    css = []; report = []
-    for source, item in verified:
-        target = stage / 'fonts' / (item['id'] + item['extension'])
-        target.parent.mkdir(exist_ok=True); shutil.copy2(source, target)
-        weight = font_weight(item)
-        css.append(f"@font-face{{font-family:'{item['family']}';font-style:normal;font-weight:{weight};src:url(fonts/{target.name}) format('{item['format']}')}}")
-        report.append({'id':item['id'],'family':item['family'],'sha256':item['sha256'],
-                       'projectFile':target.relative_to(stage).as_posix(),'mode':'explicit-owner-supplied'})
-    return '\n'.join(css) + ('\n' if css else ''), report
+    from font_policy import install
+    try:
+        return install(pack, spec, spec_dir, stage)
+    except ValueError as exc:
+        raise AdaptError(str(exc)) from exc
 
 
 def prepare_face(stage: Path, spec: dict, needed: bool, fps: int, frames: int) -> dict:
@@ -200,19 +160,11 @@ def prepare_face(stage: Path, spec: dict, needed: bool, fps: int, frames: int) -
         if needed: fail('This pack uses face crops: select auto tracking or supply an explicit fixed cx/cy/h crop')
         return {'mode': 'none', 'reason': 'selected pack uses uncropped portrait cards'}
     if mode == 'auto':
-        if sys.platform != 'darwin' or not shutil.which('swiftc'):
-            fail('Automatic face tracking needs macOS Vision and Swift; supply faceTracking:{mode:fixed,cx,cy,h} and inspect every cropped shot')
-        subprocess.run(['bash', str(ROOT / 'scripts' / 'face_track.sh'), str(stage)], check=True)
-        script = (stage / 'face.js').read_text()
-        match = re.fullmatch(r'\s*const FACE\s*=\s*(\{.*\})\s*;\s*', script, flags=re.S)
-        if not match: fail('Face tracking did not produce valid FACE data')
-        data = json.loads(match[1]); face = data.get('clip_000', {})
-        samples = face.get('f', [])
-        if not samples or samples[0] > fps or frames - samples[-1] > fps:
-            fail('Face tracking lacks samples near the clip boundaries; inspect the shot or specify a reviewed fixed crop')
-        if any(b - a > fps for a, b in zip(samples, samples[1:])):
-            fail('Face tracking lost the presenter for over one second; inspect the shot before cropping')
-        return {'mode': 'vision', 'samples': len(samples), 'maxGapFrames': max((b-a for a,b in zip(samples,samples[1:])), default=0)}
+        from face_tracking import auto_face
+        try:
+            return auto_face(stage, fps, frames)
+        except ValueError as exc:
+            raise AdaptError(str(exc)) from exc
     if mode == 'fixed':
         values = {k: setting.get(k) for k in ('cx', 'cy', 'h')}
         if any(not isinstance(x, (float, int)) or isinstance(x, bool) or not 0 < x <= 1 for x in values.values()):
@@ -522,25 +474,10 @@ def build(pack_dir: Path, spec_path: Path, talk: Path, output: Path, subs_js: Pa
             face = re.search(r"font-family\s*:\s*['\"]([^'\"]+)['\"]", match.group())
             return '' if face and face.group(1) in families else match.group()
         css = re.sub(r'@font-face\s*\{[^}]*\}', keep_face, css, flags=re.I)
-        font_report = {'mode': 'system-font-stack'}
-        if re.search(r"['\"]SFM['\"]", css):
-            css = re.sub(r"@font-face\s*\{[^}]*font-family\s*:\s*['\"]SFM['\"][^}]*\}", '', css)
-            custom_font = spec.get('monoFontFile')
-            if custom_font:
-                font = (spec_path.parent / custom_font).resolve()
-                if not font.is_file() or font.suffix.lower() not in ('.ttf', '.otf', '.woff', '.woff2'):
-                    fail('monoFontFile must be a supplied font file with redistribution rights')
-                target_font = stage / 'assets' / ('mono' + font.suffix.lower())
-                shutil.copy2(font, target_font)
-                font_url = 'assets/' + target_font.name
-                font_report = {'mode': 'supplied', 'file': font_url}
-            else:
-                font = Path('/System/Library/Fonts/SFNSMono.ttf')
-                if not font.is_file(): fail('The source uses SFM; provide a licensed monoFontFile and visually check the font substitution')
-                font_url = font.as_uri()
-                font_report = {'mode': 'macOS-system-SFM', 'portable': False}
-            css = "@font-face{font-family:'SFM';src:url(" + json.dumps(font_url) + ");}\n" + css
-        if external_font_report: font_report['externalFonts'] = external_font_report
+        # Frozen legacy SFM URLs point outside the project and fail on Windows.
+        # The portable alias and owner-supplied mono file live in project/fonts.
+        css = re.sub(r"@font-face\s*\{[^}]*font-family\s*:\s*['\"]SFM['\"][^}]*\}", '', css)
+        font_report = read_json(stage / 'font_policy.json')
         (stage / 'style.css').write_text(external_font_css + css)
         # Use the hardened shared library: missing talk/wall media fail explicitly,
         # 60fps timecode, deterministic frame readiness, optional face fallback.
@@ -747,6 +684,10 @@ function raceAt(e, sourceTime, opacity=1) {
                                                      'audio_runtime/adaptation_audio.py', 'audio_runtime/music_policy.py', 'audio_runtime/sound_catalog.py', 'macro_music.json', *pack.get('runtimeFiles', []), *generated_runtime, *layout_files]},
                       'layout': plan['layout'],
                       'qualityStatus': 'built-not-visually-accepted'}
+        provenance['fontPolicy'] = font_report
+        for font in (stage / 'fonts').iterdir():
+            if font.is_file(): provenance['frozenRuntime'][font.relative_to(stage).as_posix()] = hashlib.sha256(font.read_bytes()).hexdigest()
+        provenance['frozenRuntime']['font_policy.json'] = hashlib.sha256((stage / 'font_policy.json').read_bytes()).hexdigest()
         if adaptation['applicable']:
             provenance['adaptation'] = {key: spec['adaptation'][key]
                                         for key in ('profileId', 'profileVersion', 'profileDigest')}

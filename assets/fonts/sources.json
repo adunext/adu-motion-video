@@ -1,0 +1,30 @@
+{
+  "repository": "https://github.com/google/fonts",
+  "commit": "9710da1eacb3be272583c3224dcb70f9da6eadbb",
+  "files": [
+    {
+      "file": "NotoSansSC.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/9710da1eacb3be272583c3224dcb70f9da6eadbb/ofl/notosanssc/NotoSansSC%5Bwght%5D.ttf",
+      "sha256": "a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da",
+      "bytes": 17772300
+    },
+    {
+      "file": "notosanssc-OFL.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/9710da1eacb3be272583c3224dcb70f9da6eadbb/ofl/notosanssc/OFL.txt",
+      "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9",
+      "bytes": 4388
+    },
+    {
+      "file": "NotoSansMono.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/9710da1eacb3be272583c3224dcb70f9da6eadbb/ofl/notosansmono/NotoSansMono%5Bwdth%2Cwght%5D.ttf",
+      "sha256": "2cb2adb378a8f574213e23df697050b83c54c27df465a2015552740b2769a081",
+      "bytes": 1708408
+    },
+    {
+      "file": "notosansmono-OFL.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/9710da1eacb3be272583c3224dcb70f9da6eadbb/ofl/notosansmono/OFL.txt",
+      "sha256": "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a",
+      "bytes": 4396
+    }
+  ]
+}

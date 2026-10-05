@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import sys
 from color_management import engine
+from pipeline import venv_python
 
 ROOT = Path(__file__).resolve().parent.parent
 failures = []
@@ -31,7 +32,11 @@ def command(args):
 report('Python', sys.version_info >= (3, 10), sys.version.split()[0], 'Install Python 3.10+ and run this command with python3.')
 for tool in ('node', 'npm', 'ffmpeg', 'ffprobe'):
     path = shutil.which(tool)
-    okay, version = command([tool, '--version' if tool in ('node', 'npm') else '-version']) if path else (False, 'not on PATH')
+    args = [tool, '--version' if tool in ('node', 'npm') else '-version']
+    if tool == 'npm' and os.name == 'nt' and path:
+        cli = Path(path).parent / 'node_modules/npm/bin/npm-cli.js'
+        args = ['node', str(cli), '--version']
+    okay, version = command(args) if path else (False, 'not on PATH')
     if tool == 'node' and okay:
         okay = int(version.lstrip('v').split('.')[0]) >= 18
     fix = 'Install Node.js 18+ (includes npm).' if tool in ('node', 'npm') else 'Install FFmpeg (must include ffprobe and libx264).'
@@ -49,20 +54,20 @@ if shutil.which('node'):
 import {chrome} from './scripts/chrome.mjs';
 const require = createRequire(import.meta.url);
 let code = 0;
-try {console.log('Playwright: ' + require('playwright-core/package.json').version);} catch {console.log('Playwright: missing; run bash scripts/pipeline.sh setup'); code = 1;}
+try {console.log('Playwright: ' + require('playwright-core/package.json').version);} catch {console.log('Playwright: missing; run python scripts/pipeline.py setup (macOS/Linux: python3)'); code = 1;}
 try {console.log('Browser: ' + chrome());} catch(e) {console.log('Browser: ' + e.message); code = 1;}
 process.exitCode = code;
 """
     okay, detail = command(['node', '--input-type=module', '-e', js])
     report('Browser runtime', okay, detail, 'Run setup for Playwright; install Chrome or set CHROME if a browser is missing.')
-python = ROOT / '.venv' / ('Scripts/python.exe' if os.name == 'nt' else 'bin/python')
-modules = ['numpy', 'PIL', 'cv2', 'scipy']
-if python.is_file():
+python = venv_python()
+modules = ['numpy', 'PIL', 'cv2', 'scipy', 'fontTools']
+if python is not None:
     okay, detail = command([str(python), '-c', 'import importlib.util,json; print(json.dumps([m for m in ' + repr(modules) + ' if importlib.util.find_spec(m) is None]))'])
     missing = json.loads(detail) if okay else modules
-    report('Audio/alignment Python packages', okay and not missing, ', '.join(missing) + ' missing' if missing else 'ready', 'bash scripts/pipeline.sh setup')
+    report('Audio/alignment Python packages', okay and not missing, ', '.join(missing) + ' missing' if missing else 'ready', 'python scripts/pipeline.py setup (macOS/Linux: python3)')
 else:
-    report('Audio/alignment Python packages', False, 'skill .venv not created', 'bash scripts/pipeline.sh setup (silent rendering does not require this environment)')
-print('Platforms: Windows (via WSL), macOS, Linux; Bash workflow. Optional automatic face tracking: macOS Vision + Swift; use reviewed fixed crops elsewhere. Native Windows shell workflow is not tested.')
+    report('Audio/alignment Python packages', False, 'skill .venv not created', 'python scripts/pipeline.py setup (macOS/Linux: python3) (silent rendering does not require this environment)')
+print('Platforms: native Windows Python CLI, macOS and Linux; WSL/Bash remains compatible. Vision is preferred on macOS; local OpenCV tracking/wide framing is available elsewhere. Check actual crop and font layout on the target OS.')
 print('This checks installed tools only. It does not validate fonts, media, animation quality or GPU behavior; run the demo next.')
 sys.exit(1 if failures else 0)

@@ -15,7 +15,7 @@
 
 ## 字体
 - 标题：`-apple-system,'PingFang SC'` 600–800，字距 -1 到 -6px
-- 等宽标签：`'SFM'`（SF Mono）或 Geist Mono，22px，灰色，格式 `// 02 — 实测`
+- 等宽标签：`'SFM'`（原片优先 SF Mono）或 Geist Mono；缺失时使用随包 Noto Sans Mono，22px，灰色，格式 `// 02 — 实测`
 - 大标题 150–190px，h1 108px，h2 88px，h3 56px（style.css 里的 .h1/.h2/.h3）
 
 ## 版式

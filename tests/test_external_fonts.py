@@ -2,6 +2,7 @@ import hashlib
 from pathlib import Path
 import sys
 import tempfile
+import shutil
 import unittest
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -15,17 +16,27 @@ class ExternalFontsTest(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory(prefix='adu-owner-font-test-')
         self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name);self.stage=self.root/'project';self.stage.mkdir()
-        self.font=self.root/'owner.ttf';self.font.write_bytes(b'reviewed font fixture')
+        self.font=self.root/'owner.ttf';shutil.copy2(ROOT/'assets/fonts/NotoSansSC.ttf',self.font)
         self.pack={'externalFonts':[{'id':'title','family':'YSBT','sha256':hashlib.sha256(self.font.read_bytes()).hexdigest(),
                                     'format':'truetype','extension':'.ttf','required':True}]}
 
-    def test_missing_or_changed_font_refuses_substitution(self):
-        with self.assertRaisesRegex(AdaptError,'Provide externalFontFiles.title'):
-            copy_external_fonts(self.pack,{},self.root,self.stage)
-        self.font.write_bytes(b'different font fixture')
-        with self.assertRaisesRegex(AdaptError,'differs from the reviewed'):
-            copy_external_fonts(self.pack,{'externalFontFiles':{'title':'owner.ttf'}},self.root,self.stage)
-        self.assertFalse((self.stage/'fonts').exists())
+    def test_missing_or_invalid_recommendation_uses_bundled_fonts(self):
+        css, report=copy_external_fonts(self.pack,{},self.root,self.stage)
+        self.assertEqual(report[0]['mode'],'bundled-fallback')
+        self.assertIn('fonts/NotoSansSC.ttf',css)
+        self.font.write_bytes(b'not a font')
+        _, report=copy_external_fonts(self.pack,{'externalFontFiles':{'title':'owner.ttf'}},self.root,self.stage)
+        self.assertEqual(report[0]['mode'],'bundled-fallback')
+        self.assertTrue((self.stage/'fonts/notosanssc-OFL.txt').is_file())
+        with self.assertRaisesRegex(AdaptError,'Exact font requested'):
+            copy_external_fonts(self.pack,{'fontPolicy':'exact'},self.root,self.stage)
+
+    def test_different_valid_owner_font_is_accepted_and_pinned(self):
+        shutil.copy2(ROOT/'assets/fonts/NotoSansMono.ttf',self.font)
+        css,report=copy_external_fonts(self.pack,{'externalFontFiles':{'title':'owner.ttf'}},self.root,self.stage)
+        self.assertEqual(report[0]['mode'],'user-substitute')
+        self.assertEqual(report[0]['sha256'],hashlib.sha256(self.font.read_bytes()).hexdigest())
+        self.assertIn('unicode-range:',css)
 
     def test_verified_owner_font_becomes_local_project_asset(self):
         css,report=copy_external_fonts(self.pack,{'externalFontFiles':{'title':'owner.ttf'}},self.root,self.stage)

@@ -32,3 +32,7 @@ The paper-ball-performance@1.0.0 pack and its retained candidate embed the same 
 The 02-B GIF and silent MP4 are cropped stage-only previews derived from the accepted new-content sample. They exclude presenter footage, account tags, subtitles and all audio; they show only the calendar/capability/unboxing/delivery choreography, not a full-frame or reusable personal-media source.
 
 The vivid-sticker-performance candidates include only recipe code and external-font fingerprints, not the source presenter, generated stickers, noise texture, font binaries or commercial music. The 05-A silent viewing exports use newly authored SVG illustrations from examples/vivid-sticker-preview and a synthetic presenter placeholder; these assets are toolkit examples, not the original 3D artwork or new-episode audiovisual acceptance evidence.
+
+## 3.14 portable fallback fonts
+
+Unmodified Noto Sans SC and Noto Sans Mono variable TTF files are bundled under assets/fonts with their complete SIL Open Font License 1.1 notices. Their source repository commit, URLs, SHA-256 and sizes are recorded in [sources.json](assets/fonts/sources.json). Both font notices accompany every newly generated portable project. No Apple font is redistributed. The current runtime treats historical source-font fingerprints as recommendations by default and validates actual substituted fonts/layout; the earlier mandatory-font descriptions above remain historical source-pack provenance.

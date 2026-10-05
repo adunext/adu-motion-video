@@ -14,11 +14,11 @@ Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选�
 
 **多助手：Codex · Claude Code · 豆包 · DeepSeek · WorkBuddy**
 
-可通过助手的 Skill 机制加载，也可让助手读取本仓库的 `SKILL.md` 和 `AGENTS.md`。自动制作需要助手所在环境能读写素材并执行本地命令；Windows 的现有命令流程通过 WSL 运行。详见[平台与助手接入说明](references/compatibility.md#平台与助手接入)。
+可通过助手的 Skill 机制加载，也可让助手读取本仓库的 `SKILL.md` 和 `AGENTS.md`。自动制作需要助手所在环境能读写素材并执行本地命令；Windows 可原生使用 Python 入口，macOS/Linux 使用同一实现，旧 Bash/WSL 入口也可使用。详见[平台与助手接入说明](references/compatibility.md)。
 
 [浏览模板](#模板库)　·　[开始使用](#开始使用)　·　[适用场景](#适用场景)　·　[模板特点](#模板特点)　·　[技术资料](#技术资料)
 
-**3.13.0-rc.2 升级候选：** 改善文案依据、横竖屏选型与字幕阅读；新增交付阅读、自然收束、三项节拍和独立成果入口，补全杂志分屏来源组及基础动画。可选口播修剪默认关闭。候选仍待同视频声画验收，[查看升级与迁移说明](references/quality-upgrade.md)。
+**3.14.0-rc.1 兼容性升级候选：** Windows 原生 Python 与 macOS 共用命令入口；原字体仅优先推荐，缺失时自动使用随包开源中英文字体。保留 3.13 的模板适配、竖屏字幕与创作引导。[查看兼容说明](references/compatibility.md)。
 
 ---
 
@@ -291,8 +291,8 @@ curl -fsS https://adudir.com/api/lottie-catalog/file/insider_loading.json -o ins
 
 - 一条已经剪好、长度确定的口播视频，以及对应文案；带时间码的字幕（SRT）有助于绑定动作，关键字最好有逐词时间。
 - 本期要展示的录屏、图片、头像、标识、作品视频和可用配乐。公开 demo 仅供观看，不提供可复用的原始真人或第三方素材。选用需要这些素材的场景时，必须提供本期有权使用的素材。
-- 期望的画幅、账号名、字幕语言和交付目录。横屏使用 **1920×1080、60fps**，竖屏使用 **1080×1920、60fps**。当前十种风格、32 个完整组均有竖屏候选版本，按[模板目录](references/template-catalog.md)选择对应版本并声明画幅，不能直接裁切横屏。
-- 可执行制作命令的 Windows、macOS 或 Linux 环境，以及 Node.js 18+、Python、FFmpeg 9+ / ffprobe 和 Chrome/Chromium。Windows 使用 WSL，并在 WSL 内准备依赖；macOS/Linux 使用 Bash。Python 包固定在 requirements-runtime.txt，先运行 doctor。既有稳定组的验收记录使用 macOS / CPython 3.14.7 / 1080p60；更换系统、字体或 Python 组合后应检查本期成片。
+- 期望的画幅、账号名、字幕语言和交付目录。横屏使用 **1920×1080、60fps**，竖屏使用 **1080×1920、60fps**。当前竖屏十一种风格、54 个完整组可选，按[模板目录](references/template-catalog.md)选择对应版本并声明画幅，不能直接裁切横屏。
+- 可执行制作命令的 Windows、macOS 或 Linux 环境，以及 Node.js 18+、Python、FFmpeg 9+ / ffprobe 和 Chrome/Chromium。Windows 原生使用 Python 入口，macOS/Linux 使用同一实现；Bash/WSL 仍可选。Python 3.10+ 的依赖按 requirements-runtime.txt 解析适合当前系统的版本，先运行 doctor。既有稳定组的验收记录使用 macOS / CPython 3.14.7 / 1080p60；更换系统、字体或 Python 组合后应检查本期成片。
 
 最终可得到一个可再编辑的项目目录、带音乐与音效的 MP4，以及帧数、解码和响度检查结果。画面质量仍须观看完整成片并与原工程关键动作对照；命令通过不等于视觉验收通过。
 
@@ -306,7 +306,7 @@ curl -fsS https://adudir.com/api/lottie-catalog/file/insider_loading.json -o ins
 | [D 杂志分屏](packs/editorial-performance/1.0.0/README.md) | 版心、人物与证据分栏、跨栏交接 | Stable；三个组，本期新片按用户要求无背景配乐 |
 | [E 节拍字效](packs/kinetic-performance/1.0.0/README.md) | 整词推动实体、撞击回稳、四项收拢 | Stable；三个组，完整新片与独立使用已确认 |
 | [纸面透视组](packs/paper-balance/1.0.0/README.md) | 疑问、天平、用途、批注与三步确认 | Stable；一个续接组，保留约 0.37 秒的源入场 |
-| [纸面聚合组](packs/paper-ball-performance/1.0.0/README.md) | 六类资料聚合成网络；日历、能力、开箱与交付 | Stable；两个组，标题字体为显式用户输入，原声不变速 |
+| [纸面聚合组](packs/paper-ball-performance/1.0.0/README.md) | 六类资料聚合成网络；日历、能力、开箱与交付 | Stable；两个组，标题字体优先推荐、默认支持随包回退，原声不变速 |
 | [完整场景包 `anim3`](packs/anim3/README.md) | 12 个连续编辑卡片场景，保留人物、道具、数字、镜头、转场与原场景音效编舞 | 实验性；新文案与素材需逐场绑定和验收 |
 | [03-A 深色 3D · 多屏展陈](references/dark-3d-template.md) | 保留 9 个完整场景，新增原生竖屏；作品墙、九宫格、软件窗口与赛道 | Candidate / 待声画确认；完整新内容与冷安装证据见验证记录 |
 | [基础 `TPL`](references/templates.md) | 9 个短场景函数，用于快速原型或从零组合较轻的片段 | Quick-start；不代表上述原工程的全部动画 |
@@ -317,6 +317,16 @@ curl -fsS https://adudir.com/api/lottie-catalog/file/insider_loading.json -o ins
 ![视觉家族与场景选择示意](assets/tutorials/02-style-map.png)
 
 ### 用你选择的助手开始
+
+下载并解压本版到当前助手可读取的位置。在原生 Windows 的 PowerShell/CMD 中切换到 Skill 文件夹，运行：
+
+```powershell
+python scripts/pipeline.py doctor
+python scripts/pipeline.py setup
+python scripts/pipeline.py packs
+```
+
+macOS/Linux 可使用 `python3 scripts/pipeline.py` 的同名命令。下列保留已有 Bash 安装示例：
 
 ```bash
 # 以下在 macOS/Linux 的 Bash 或 Windows 的 WSL 中执行
@@ -330,7 +340,7 @@ bash "$PL" doctor
 bash "$PL" setup
 ```
 
-豆包、DeepSeek、WorkBuddy 等助手可将仓库添加到其可读取的工作区，按 [平台与助手接入说明](references/compatibility.md#平台与助手接入)加载；无需使用 Codex 或 Claude Code 的目录。让 Agent 先阅读 [SKILL.md](SKILL.md)、[制作约定](references/rules.md) 和所选包说明。先发现包，选显式版本；以下以稳定的 A 包为例：
+豆包、DeepSeek、WorkBuddy 等助手可将仓库添加到其可读取的工作区，按 [平台与助手接入说明](references/compatibility.md)加载；无需使用 Codex 或 Claude Code 的目录。让 Agent 先阅读 [SKILL.md](SKILL.md)、[制作约定](references/rules.md) 和所选包说明。先发现包，选显式版本；以下以稳定的 A 包为例：
 
 ```bash
 bash "$PL" packs
@@ -344,7 +354,7 @@ bash "$PL" render /已有目录/新工程 /已有目录/新片_v1_16x9_60fps.mp4
 bash "$PL" check /已有目录/新片_v1_16x9_60fps.mp4
 ```
 
-以上路径只是格式示例，规划目录和新工程路径必须事先不存在。brief 结构见[适配机制](references/adaptive-composition.md)与[可运行示例](examples/adaptation/README.md)。可传 `--subs-js /路径/新口播字幕.js` 给 `macro-build`；字幕必须与新口播对齐。历史人工入口 `macro-spec` 列出全部组的接口；生成的 cue 留空，须绑定本期真实台词，示例文案与原片时长不代表已适配。配置须显式指定本期音乐 `music:{mode:"track",path,offset}`，缺项保持待补，旧默认合成底乐已停用；用户明确无BGM才设 `music:{mode:"none"}`，以及本期混音增益 `mix:{musicVolume:0.42}`；完成后会把实际选择、处理图和声音摘要保存为 `mix_recipe.json`，详见[声音与重现](references/audio.md)。`anim4` 和 `anim3/s06` 默认在 macOS 使用 Vision 跟踪新口播人脸，其他系统要显式提供审核过的固定裁切。构建器要求目标场景总帧数与剪好口播相符，按输出帧网格量化后必须完全一致。长短差异和动作锚点的处理见[完整工程复用与验收](references/full-project-templating.md)。
+以上路径只是格式示例，规划目录和新工程路径必须事先不存在。brief 结构见[适配机制](references/adaptive-composition.md)与[可运行示例](examples/adaptation/README.md)。可传 `--subs-js /路径/新口播字幕.js` 给 `macro-build`；字幕必须与新口播对齐。历史人工入口 `macro-spec` 列出全部组的接口；生成的 cue 留空，须绑定本期真实台词，示例文案与原片时长不代表已适配。配置须显式指定本期音乐 `music:{mode:"track",path,offset}`，缺项保持待补，旧默认合成底乐已停用；用户明确无BGM才设 `music:{mode:"none"}`，以及本期混音增益 `mix:{musicVolume:0.42}`；完成后会把实际选择、处理图和声音摘要保存为 `mix_recipe.json`，详见[声音与重现](references/audio.md)。`anim4` 和 `anim3/s06` 默认在 macOS 使用 Vision 跟踪新口播人脸，其他系统使用本地 OpenCV，检测不可用时使用宽幅固定构图并复核裁切。构建器要求目标场景总帧数与剪好口播相符，按输出帧网格量化后必须完全一致。长短差异和动作锚点的处理见[完整工程复用与验收](references/full-project-templating.md)。
 
 可以直接对 Agent 说：
 
@@ -369,3 +379,5 @@ MIT License · 第三方说明见 [THIRD_PARTY.md](THIRD_PARTY.md)。
 **3.11.0 升级完成**：新增06-A「活力色彩」原生竖屏七组，模板库竖屏达到11风格/39组。[查看本轮验证记录](docs/vibrant-color-3.11.md)。
 
 **3.12.0 升级完成**：淘汰旧默认合成底乐，显式选择本期配乐；新工程换曲保持动作音效一致，混合模板保留跨场尾音；新增段尾节奏复核指标。提炼 Skill 仅保留本地，移除公开副本。[查看验证与接入范围](docs/editorial-music-3.12.md)。
+
+**3.14.0-rc.1 兼容性升级**：原生 Windows/macOS 共用 Python 入口；指定字体、SF Mono 和 Vision 不再是制作前置条件；随包字体支持离线回退，Python 依赖按当前版本解析。[验证范围与更新重点](docs/compatibility-3.14.md)。

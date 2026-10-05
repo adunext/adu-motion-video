@@ -12,14 +12,7 @@ export function chrome(explicit = process.env.CHROME) {
     if (!executable(file)) throw Error(`CHROME/browser path is not executable: ${file}`);
     return file;
   }
-  const candidates = [
-    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    '/Applications/Chromium.app/Contents/MacOS/Chromium',
-    '/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser',
-  ];
-  for (const dir of [process.env.PROGRAMFILES, process.env['PROGRAMFILES(X86)'], process.env.LOCALAPPDATA].filter(Boolean)) {
-    candidates.push(path.join(dir, 'Google/Chrome/Application/chrome.exe'));
-  }
+  const candidates = browserCandidates();
   const names = new Set(['Google Chrome for Testing', 'Chromium', 'chrome', 'chrome.exe', 'headless_shell', 'chrome-headless-shell']);
   function search(dir, depth = 0) {
     if (!fs.existsSync(dir) || depth > 7) return [];
@@ -36,4 +29,17 @@ export function chrome(explicit = process.env.CHROME) {
   const found = candidates.find(executable);
   if (found) return found;
   throw Error('No existing Chromium/Chrome found. Install Chrome, set CHROME to its executable, or explicitly run: npx playwright-core install chromium');
+}
+
+export function browserCandidates(platform = process.platform, env = process.env) {
+  if (platform === 'win32') {
+    return [env.PROGRAMFILES, env['PROGRAMFILES(X86)'], env.LOCALAPPDATA].filter(Boolean)
+      .flatMap(dir => [path.join(dir, 'Google/Chrome/Application/chrome.exe'),
+                      path.join(dir, 'Microsoft/Edge/Application/msedge.exe')]);
+  }
+  if (platform === 'darwin') return [
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Chromium.app/Contents/MacOS/Chromium',
+    '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge'];
+  return ['/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser'];
 }

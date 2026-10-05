@@ -2,7 +2,7 @@
 
 用户选择“模板 01 的 B 风格”或 `01-B` 等编号时，先按[模板与风格目录](references/template-catalog.md)查找一级模板、二级风格和对应版本。需要辅助动画素材时，可使用[阿杜导演公开素材 API](references/lottie-assets.md)，下载到本期工程并检查渲染与来源；素材库不代替本期真人或真实证据。
 
-支持 Windows、macOS、Linux，以及 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等助手。自动制作要求当前助手环境能读写素材并执行命令；没有 Skill 加载机制时，可直接读取本仓库说明。Windows 的现有 Bash 流程通过 WSL 运行，依赖与素材路径以 WSL 环境为准；平台差异见[兼容说明](references/compatibility.md#平台与助手接入)。请先完整阅读本仓库的 [SKILL.md](SKILL.md) 和 [制作约定](references/rules.md)，再按 [完整工程复用说明](references/full-project-templating.md)工作。用户当前要求优先；不要把仓库中的历史账号、数据或示例素材当作本期内容。
+支持 Windows、macOS、Linux，以及 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等助手。自动制作要求当前助手环境能读写素材并执行命令；没有 Skill 加载机制时，可直接读取本仓库说明。Windows 可原生使用 `python scripts/pipeline.py`，macOS/Linux 使用 `python3 scripts/pipeline.py`；旧 Bash/WSL 入口仍保留，依赖与素材路径以实际执行环境为准；平台差异见[兼容说明](references/compatibility.md)。请先完整阅读本仓库的 [SKILL.md](SKILL.md) 和 [制作约定](references/rules.md)，再按 [完整工程复用说明](references/full-project-templating.md)工作。用户当前要求优先；不要把仓库中的历史账号、数据或示例素材当作本期内容。
 
 默认通过 `bash scripts/pipeline.sh packs` 找到相关包与显式版本，读取清单和 README，复用**完整镜头组或场景**。A 的三个组、B 的两个组、C/D/E 各三个组、02-A 纸面天平续接组和 02-B 纸面聚合两个组在 1.0.0 为 stable，既有验收记录使用 macOS 1080p60；旧候选与未验证的 B 计划干扰组保留，旧 anim3/anim4 为 experimental。各自的成熟度与验证范围按清单和[能力矩阵](docs/capability-matrix.md)。先依据新口播与文案选择有意义的宏场景，填准时间、文字、数值和本期媒体，再构建工程并做连续声画检查。9 个 `TPL` 仅供 quick-start；它们不代表完整工程效果。手绘角色续接沿用[手绘方法](references/handdrawn-animation.md)，目前尚未形成完整包。
 
@@ -18,7 +18,7 @@
 
 长短素材先核对真实口播时长与分镜总帧数，读 `report.rhythm` 的全片重复/轮换/同类效果/停留提示；优先补内容与合法候选，不用缺素材的组换取变化。长证据素材按明确 offset 抽取所需区间，剩余时长不足不循环。构建在大规模抽帧前复核真实口播元数据；新运行时保留 SFX 生成器长度。范围见[长短素材压力测试](docs/template-stress-3.9.md)。
 
-自动比较风格、长短文案与不同素材时，读取[全库选型](references/automatic-selection.md)，由当前助手整理真实语义与候选字段，不让用户手填复杂配置。`auto-plan` 同时比较完整单风格和合法混合路线；`auto-build` 重验后沿用一次口播导入、全局字幕和 SFX 尾音。缺字体/素材、超容量、错误数量及无独立跨风格入口不能绕过；有实际含义的分段路线保持整片帧数一致。
+自动比较风格、长短文案与不同素材时，读取[全库选型](references/automatic-selection.md)，由当前助手整理真实语义与候选字段，不让用户手填复杂配置。`auto-plan` 同时比较完整单风格和合法混合路线；`auto-build` 重验后沿用一次口播导入、全局字幕和 SFX 尾音。缺真实素材、超容量、错误数量及无独立跨风格入口不能绕过；有实际含义的分段路线保持整片帧数一致。
 
 3.11.0 新增 06-A「活力色彩 · 原生竖屏」七个完整组，选择 `vibrant-color-performance@0.1.0-candidate` 并显式 layout=portrait。当前竖屏11风格/39组，横屏仍10风格/32组；不得为新包猜横屏。读[模板说明](references/vibrant-color-template.md)与实际验证记录。
 
@@ -35,3 +35,5 @@
 当前候选目录、变体合同、字幕比例与可选 basic 修剪以[3.13.0-rc.1 升级说明](references/quality-upgrade.md)为准；旧版本号段落为历史记录。只按实际路径的版本运行，不自动替换另一安装或桌面内嵌副本。最终升级接受由所有者连续看听 A/B 决定。
 
 用户说“加载这个 skill，引导我开始创作”时，读取 references/start-creating.md，清楚说明先发素材、方向/画幅和可选补充，再推荐匹配模板；不要只说已加载、不告诉用户下一步。已有素材直接核对推进，不能重复要求用户填写复杂配置。
+
+3.14.0-rc.1：字体为优先推荐项，默认 preferred，缺少原字体时自动使用随包 Noto 字体并记录替换；不得因原字体 SHA、macOS SF Mono 或 Vision 缺失要求用户停工。检查实际文字布局与裁切，只有明确要求精确字体时启用 exact。运行入口、依赖选择与验证边界见 references/compatibility.md。

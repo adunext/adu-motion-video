@@ -41,6 +41,21 @@ class AutoTests(unittest.TestCase):
 
     def entry(self,style):return next(x for x in self.entries if x['styleId']==style)
 
+    def test_shared_optional_font_does_not_block_unrelated_styles(self):
+        from auto_templates import requirements, font_spec
+        plain={'styleId':'plain','manifest':{'layouts':{'portrait':{}},'externalFonts':[]}}
+        with_font={'styleId':'with-font','manifest':{'layouts':{'portrait':{}},'externalFonts':[
+            {'id':'title','family':'YSBT','sha256':'0'*64,'extension':'.ttf','format':'truetype'}]}}
+        brief={'layout':'portrait','externalFontFiles':{'title':'unavailable.ttf'}}
+        self.assertEqual(requirements(plain,brief),[])
+        self.assertEqual(requirements(with_font,brief),[])
+        self.assertEqual(font_spec(plain,brief)['externalFontFiles'],{})
+        self.assertEqual(font_spec(with_font,brief)['externalFontFiles'],brief['externalFontFiles'])
+        # A style-specific typo is a config error rather than a shared asset.
+        brief['styleSettings']={'plain':{'externalFontFiles':{'typo':'missing.ttf'}}}
+        with self.assertRaisesRegex(AdaptError,'Unknown externalFontFiles'):
+            requirements(plain,brief)
+
     def test_all_real_contracts_and_independent_full_style_paths(self):
         caps=capabilities(self.entries)
         self.assertEqual(caps['styles'],11);self.assertEqual(len(caps['groups']),54)
@@ -51,14 +66,12 @@ class AutoTests(unittest.TestCase):
                 if entry['styleId'] in ('05-A','06-A'):segments.append(self.segment(entry,entry['manifest']['scenes'][2 if entry['styleId']=='06-A' else 0],len(segments)))
                 result=choose(self.brief(segments,allowedStyles=[entry['styleId']]),self.root,self.entries)
                 self.assertNotEqual(result['report']['status'],'blocked',result['report'])
+                self.assertTrue(result['report']['ready'], result['report'])
                 if entry['manifest'].get('externalFonts'):
-                    self.assertFalse(result['report']['ready'])
-                    self.assertIn('externalFontFiles',str(result['report']['missing']))
-                else:
-                    self.assertTrue(result['report']['ready'],result['report'])
-                    for run in result['runs']:
-                        self.assertTrue(validate_adapted_spec(entry['manifest'],run['spec'],self.root,
-                                                            ROOT/'adaptation-profiles',allow_pending_talk=True)['ready'])
+                    self.assertTrue(result['report']['fontWarnings'])
+                for run in result['runs']:
+                    self.assertTrue(validate_adapted_spec(entry['manifest'],run['spec'],self.root,
+                                                        ROOT/'adaptation-profiles',allow_pending_talk=True)['ready'])
 
     def test_complete_cross_style_route_beats_unbound_coherent_route(self):
         a=self.entry('01-A');b=self.entry('02-A')
@@ -98,11 +111,16 @@ class AutoTests(unittest.TestCase):
         with self.assertRaisesRegex(AdaptError,'entire narration'):
             choose(brief,self.root,self.entries)
 
-    def test_locked_style_cannot_silently_change_or_missing_font_be_ready(self):
+    def test_locked_style_keeps_missing_font_as_recommendation(self):
         e=self.entry('02-B');source=e['manifest']['scenes'][0]
-        result=choose(self.brief([self.segment(e,source)],allowedStyles=['02-B']),self.root,self.entries)
-        self.assertFalse(result['report']['ready']);self.assertEqual(result['report']['selectedStyle'],'02-B')
-        self.assertIn('externalFontFiles.title',result['report']['missing'])
+        brief=self.brief([self.segment(e,source)],allowedStyles=['02-B'])
+        result=choose(brief,self.root,self.entries)
+        self.assertTrue(result['report']['ready']);self.assertEqual(result['report']['selectedStyle'],'02-B')
+        self.assertTrue(result['report']['fontWarnings'])
+        brief['fontPolicy']='exact'
+        result=choose(brief,self.root,self.entries)
+        self.assertFalse(result['report']['ready'])
+        self.assertIn('externalFontFiles.title',str(result['report']['missing']))
 
     def test_ready_alternatives_reduce_adjacent_repeat_within_one_style(self):
         # Controlled one-intent fixtures verify the optimizer without claiming

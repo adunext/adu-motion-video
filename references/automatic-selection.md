@@ -37,7 +37,7 @@ bash "$PL" check /已有目录/新片_v1.mp4
 | `music` | 全片显式 `{mode:"track",path,offset}`，曲长覆盖整片；用户明确不要BGM才用 `{mode:"none"}`。 |
 | `narrationDuration` | 剪好口播的实际视频时长，按 60fps 网格量化后须等于分镜总帧数。 |
 
-`auto-plan` 保存完整比较报告、选中的路线、可构建的分组 spec 和 source/profile 指纹。退出码 0 是导入前绑定检查通过，2 是待补/受阻草稿，1 是无效输入。部分字体没有随包分发，缺字体不会被报告成 ready。
+`auto-plan` 保存完整比较报告、选中的路线、可构建的分组 spec 和 source/profile 指纹。退出码 0 是导入前绑定检查通过，2 是待补/受阻草稿，1 是无效输入。原字体作为推荐项，不影响默认 ready；缺失时使用随包字体，并记录 fontWarnings。只有明确启用 exact 才要求源字体匹配。
 
 ## 选择和重复处理
 

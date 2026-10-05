@@ -110,7 +110,7 @@ async function main() {
   try {
     if (opt.output && spawnSync('ffmpeg', ['-version'], { stdio: 'ignore' }).status !== 0) throw Error('ffmpeg executable not found');
     if (opt.output) {
-      const plan = spawnSync(process.env.ADU_PYTHON || 'python3', [path.join(path.dirname(fileURLToPath(import.meta.url)), 'color_management.py'), '--export-plan'], { encoding: 'utf8' });
+      const plan = spawnSync(process.env.ADU_PYTHON || (process.platform === 'win32' ? 'python' : 'python3'), [path.join(path.dirname(fileURLToPath(import.meta.url)), 'color_management.py'), '--export-plan'], { encoding: 'utf8' });
       if (plan.status !== 0) throw Error(`Color preflight failed: ${plan.stderr || plan.error?.message}`);
       color = JSON.parse(plan.stdout);
     }

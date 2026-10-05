@@ -60,7 +60,8 @@ def capabilities(entries, layout="portrait"):
                                fields=[{k: deepcopy(v) for k, v in slot.items() if k not in
                                         {'sourceText', 'sourceRanges', 'ranges', 'bindings', 'sourceCode', 'sourceSpans', 'sourceAsset'}}
                                        for slot in source.get('slots', [])],
-                               externalFonts=manifest.get('externalFonts', []),
+                               externalFonts=[dict(f, sourceRequired=f.get('required', True), required=False, recommended=True) for f in manifest.get('externalFonts', [])],
+                               fontPolicy='preferred by default; exact only when explicitly requested',
                                layouts=list(manifest.get('layouts', {'landscape': {}})),
                                manifestDigest=manifest_digest(manifest)))
     available = [g for g in groups if layout in g['layouts']]
@@ -72,27 +73,38 @@ def capabilities(entries, layout="portrait"):
                 status='experimental; source candidates retain their maturity')
 
 
+def font_spec(entry, brief):
+    """Shared recommendations belong only to candidates declaring those IDs.
+
+    Explicit per-style bindings retain strict ID validation, so typos still
+    receive a useful error rather than being silently ignored.
+    """
+    supplied = brief.get('styleSettings', {}).get(entry['styleId'], {})
+    require(isinstance(supplied, dict), 'styleSettings entries must be objects')
+    spec = {**brief, **supplied}
+    if 'externalFontFiles' not in supplied and 'externalFontFiles' in brief:
+        fonts = brief['externalFontFiles']
+        require(isinstance(fonts, dict), 'externalFontFiles must be an object')
+        ids = {font['id'] for font in entry['manifest'].get('externalFonts', [])}
+        spec['externalFontFiles'] = {key: value for key, value in fonts.items() if key in ids}
+    return spec
+
+
 def requirements(entry, brief):
     missing = []
     layouts = entry['manifest'].get('layouts', {'landscape': {}})
-    supplied = brief.get('styleSettings', {}).get(entry['styleId'], {})
-    require(isinstance(supplied, dict), 'styleSettings entries must be objects')
-    fonts = supplied.get('externalFontFiles', brief.get('externalFontFiles', {}))
-    require(isinstance(fonts, dict), 'externalFontFiles must be an object')
-    for font in entry['manifest'].get('externalFonts', []):
-        raw = fonts.get(font['id'])
-        path = Path(raw) if isinstance(raw, str) and raw else None
-        if path is None or not path.is_file():
-            if font.get('required', True): missing.append('externalFontFiles.' + font['id'])
-        elif path.suffix.lower() != font['extension']:
-            missing.append('externalFontFiles.' + font['id'] + ': incorrect font extension')
-        elif hashlib.sha256(path.read_bytes()).hexdigest() != font['sha256']:
-            missing.append('externalFontFiles.' + font['id'] + ': SHA differs from frozen font')
-    if 'SFM' in (entry['path'] / 'style.css').read_text():
-        raw = supplied.get('monoFontFile', brief.get('monoFontFile'))
-        if raw and not Path(raw).is_file(): missing.append('monoFontFile: missing supplied file')
-        elif not raw and not Path('/System/Library/Fonts/SFNSMono.ttf').is_file():
-            missing.append('monoFontFile: source SFM requires an explicitly supplied licensed font on this platform')
+    layout = brief.get('layout', 'landscape')
+    if layout not in layouts: missing.append('layout: pack has no ' + layout + ' contract')
+    from font_policy import choices
+    spec = font_spec(entry, brief)
+    try:
+        choices(entry['manifest'], spec, Path('.'))
+    except ValueError as exc:
+        if spec.get('fontPolicy', 'preferred') == 'exact':
+            missing.append(str(exc))
+        else:
+            raise AdaptError(str(exc)) from exc
+
     return missing
 
 
@@ -141,7 +153,7 @@ def prepare_brief(brief, directory):
     require(isinstance(brief.get('styleSettings', {}), dict), 'styleSettings must be an object')
     result = resolve_project_paths(brief, directory)
     for key, value in result.get('styleSettings', {}).items():
-        require(isinstance(value, dict) and set(value) <= {'monoFontFile', 'externalFontFiles'},
+        require(isinstance(value, dict) and set(value) <= {'monoFontFile', 'externalFontFiles', 'fontPolicy'},
                 'styleSettings only supports font binding objects')
     result['styleSettings'] = {key: resolve_project_paths(value, directory)
                                for key, value in result.get('styleSettings', {}).items()}
@@ -242,9 +254,11 @@ def choose(brief, directory, entries=None):
         apply(result, brief.get('music'), directory)
     runs = child_runs(selected['spec'], index, directory) if selected['report']['ready'] else []
     for run in runs:
-        run['spec'].update(brief.get('styleSettings', {}).get(run['style'], {}))
+        entry = next(e for e in entries if e['styleId'] == run['style'])
+        bound_fonts = font_spec(entry, brief)
+        run['spec'].update({key: bound_fonts[key] for key in ('monoFontFile', 'externalFontFiles', 'fontPolicy') if key in bound_fonts})
         require(set(brief.get('styleSettings', {}).get(run['style'], {})) <=
-                {'monoFontFile', 'externalFontFiles'}, 'styleSettings only supports font bindings')
+                {'monoFontFile', 'externalFontFiles', 'fontPolicy'}, 'styleSettings only supports font bindings')
     report = {**selected['report'], 'schema': 'adu-auto-report/1', 'selectedStyle': selected['style'],
               'selectedSegmentation': selected['route'], 'stylesCompared': len(entries),
               'groupsCompared': len(profile['scenes']),
@@ -253,6 +267,12 @@ def choose(brief, directory, entries=None):
               'alternatives': [dict(style=x['style'], segmentation=x['route'], status=x['report']['status'],
                                     missing=x['report']['missing'], score=x['report']['score']) for x in results],
               'nextActions': []}
+    from font_policy import recommendations
+    selected_styles = {run['style'] for run in runs}
+    report['fontWarnings'] = [dict(style=e['styleId'], **warning)
+                              for e in entries if e['styleId'] in selected_styles
+                              for warning in recommendations(e['manifest'],
+                                  font_spec(e, brief), directory)]
     if not report['ready']:
         report['nextActions'] = ['Inspect rejected candidates and capability fields; the assistant must revise genuine semantic segmentation, short display copy or real media bindings, then replan.',
                                  'Never invent missing phases, keyword timestamps, evidence or extra items; never loop animations or stretch protected action windows.']

@@ -1,6 +1,6 @@
 # 本地导出与检查工具
 
-下列路径相对本 skill 根目录；在其他目录执行时加上安装目录前缀，或沿用 README 的 `SKILL_DIR` / `PL` 变量。所有带空格的路径加引号，Shell 入口使用 Bash。常规导出不会联网安装工具。Windows 当前通过 WSL 执行同一套命令，并在 WSL 内准备 Node、Python、FFmpeg 和浏览器；macOS/Linux 使用 Bash。多助手加载与平台差异见[兼容说明](compatibility.md#平台与助手接入)。
+下列路径相对本 skill 根目录；在其他目录执行时加上安装目录前缀，或沿用 README 的 `SKILL_DIR` / `PL` 变量。所有带空格的路径加引号。优先使用 Python 入口：Windows 原生 `python scripts/pipeline.py 命令`，macOS/Linux `python3 scripts/pipeline.py 命令`。下文 Bash 示例在 Windows 可替换为 Python 的同名命令；直接 Python 工具也以 `python -X utf8` 执行。常规导出不会联网安装工具，Bash/WSL 入口仍可使用。多助手加载与平台差异见[兼容说明](compatibility.md)。
 
 ## 第一次使用
 
@@ -12,7 +12,7 @@ bash scripts/pipeline.sh doctor
 bash scripts/pipeline.sh demo '/用户指定目录/首次演示'
 ```
 
-`doctor` 只读取环境并报告缺项。`demo` 使用随包插画、合成配乐与音效，在新目录生成 18 秒演示；不需要私人媒体。验证成功后，正式项目需接入本次口播、文案和素材并关闭 `CONFIG.demo`。静音独立示例另见 [examples/README.md](../examples/README.md)。
+`doctor` 只读取环境并报告缺项。`demo` 使用随包插画与动作音效，在新目录生成 36 秒演示，明确没有口播和背景音乐；不需要私人媒体。验证成功后，正式项目需接入本次口播、文案和素材并关闭 `CONFIG.demo`。静音独立示例另见 [examples/README.md](../examples/README.md)。
 
 ## 工程检查和建新片
 
@@ -31,7 +31,7 @@ bash scripts/pipeline.sh import '/本集/新工程目录' '/素材/剪好的口�
 
 生成 `talk/clip_000/`、`talkmap.js`、48kHz `voice.wav` 和 `import.json`。按报告中的帧率/时长设置配置并关闭演示，再重排场景、进度、字幕和配乐；导入不会改写创意内容。要匹配多条原始拍摄素材时才使用 `align_talk.py`。
 
-首次缺少依赖时显式执行 `scripts/pipeline.sh setup`，不要在常规制作中重新安装。Python 音频/对齐工具使用 skill 自带 `.venv/bin/python`；基础检查和导出编排只用标准库。Playwright 优先查找 skill 自带 `node_modules`，其次已有本机安装；浏览器可显式指定。
+首次缺少依赖时显式执行 `scripts/pipeline.sh setup`，不要在常规制作中重新安装。Python 入口自动识别 skill 自带 `.venv/bin/python`（macOS/Linux）或 `.venv/Scripts/python.exe`（Windows）；基础检查和导出编排只用标准库。Playwright 优先查找 skill 自带 `node_modules`，其次已有本机安装；浏览器可显式指定。
 
 ## 关键帧与短片段
 

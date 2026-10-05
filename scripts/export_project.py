@@ -128,8 +128,16 @@ def sources(project):
                          {'node_modules', '__pycache__', 'parts', 'vparts', 'stills'})
         for name in sorted(names):
             p = Path(root) / name
-            if p.suffix.lower() in {'.html', '.js', '.mjs', '.css', '.json', '.py', '.srt', '.vtt', '.wav', '.mp3', '.aac', '.m4a', '.flac', '.ogg', '.jpg', '.jpeg', '.png', '.webp', '.svg', '.woff', '.woff2', '.ttf', '.otf', '.bin'} and p.is_file():
-                result[str(p.relative_to(project))] = fingerprint_file(p)['sha256']
+            if p.suffix.lower() in {'.html', '.js', '.mjs', '.css', '.json', '.py', '.srt', '.vtt', '.wav', '.mp3', '.aac', '.m4a', '.flac', '.ogg', '.jpg', '.jpeg', '.png', '.webp', '.svg', '.woff', '.woff2', '.ttf', '.otf', '.bin', '.txt'} and p.is_file():
+                result[p.relative_to(project).as_posix()] = fingerprint_file(p)['sha256']
+    font_receipt = project / 'font_policy.json'
+    if font_receipt.exists():
+        fonts = json.loads(font_receipt.read_text(encoding='utf-8'))
+        for row in fonts.get('source', {}).get('files', []):
+            name = 'fonts/' + row['file']
+            if result.get(name) != row['sha256']: raise ValueError('Bundled font/notice changed; rebuild: ' + name)
+        for row in fonts.get('fonts', []):
+            if result.get(row['projectFile']) != row['sha256']: raise ValueError('Selected font changed; rebuild: ' + row['projectFile'])
     receipt_path = project / 'media_color.json'
     if receipt_path.exists():
         receipt = json.loads(receipt_path.read_text())

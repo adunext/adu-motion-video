@@ -2,12 +2,12 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。支持 Windows、macOS、Linux，以及 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等可读写文件并运行命令的助手。
 metadata:
-  version: "3.13.0-rc.2"
+  version: "3.14.0-rc.1"
 ---
 
 # adu-motion-video
 
-当前为 **3.13.0-rc.2 质量升级候选**，实际默认映射以 template-catalog.json 为准。新增候选接入横竖屏选型，旧版本可显式使用，稳定验收不追认到新增组；读[升级范围与验收](references/quality-upgrade.md)。最终效果待用户同视频 A/B 确认。
+当前为 **3.14.0-rc.1 兼容性升级候选**，实际默认映射以 template-catalog.json 为准。新增候选接入横竖屏选型，旧版本可显式使用，稳定验收不追认到新增组；读[升级范围与验收](references/quality-upgrade.md)。最终效果待用户同视频 A/B 确认。
 
 用户提供剪好的口播视频、文案，最好还有新口播的时间码字幕；选用含录屏、作品墙、头像、标识或配乐的场景时，还须提供本期有权使用的素材。你负责把**完整场景编舞**适配到新台词与片长，生成可编辑工程，核查后导出新 MP4。先读 [制作约定](references/rules.md)。`SKILL_DIR` 是本文件目录，`PL="$SKILL_DIR/scripts/pipeline.sh"`。 制作记录保存实际 Skill 路径、版本和所用入口；同名旧安装、仓库版本与已生成工程的冻结运行代码可能不同，不能用最新版说明追认旧工程。
 
@@ -19,7 +19,7 @@ metadata:
 
 同一份 Skill 面向 Windows、macOS、Linux，可由 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等助手使用。先确认助手执行环境能读写素材并运行命令；有 Skill 机制就加载本文件，否则先读取本文件和 [AGENTS.md](AGENTS.md)。不凭助手名称推定当前客户端具备本地执行能力。
 
-命令入口使用 Bash：Windows 当前通过 WSL 运行，并在 WSL 内安装依赖、使用该环境的素材路径；macOS/Linux 直接使用 Bash。按 [兼容说明](references/compatibility.md#平台与助手接入)检查路径、字体、浏览器及可选人脸跟踪。已有 macOS 验收记录描述的是实测环境，不能据此拒绝其他平台的制作请求。
+优先使用跨平台 Python 入口：Windows 原生 `python scripts/pipeline.py 命令`，macOS/Linux `python3 scripts/pipeline.py 命令`；旧 Bash/WSL 入口调用同一实现。下文 `bash "$PL" 命令` 在 Windows 可直接改用实际 Skill 路径的 `python scripts/pipeline.py 命令`。按 [兼容说明](references/compatibility.md)检查路径、字体、浏览器及可选人脸跟踪。指定字体仅优先推荐，缺失/不匹配时自动使用随包 OFL 中英文字体，并记录替换及实际文件摘要；不得要求用户补推荐字体才选型或构建。精确字体复刻只在用户明确要求时选 `fontPolicy="exact"`。已有 macOS 验收记录描述的是实测环境，不能据此拒绝其他平台的制作请求。
 
 ## 选择入口
 
@@ -36,7 +36,7 @@ metadata:
 2. 只需轻量短片、探索版式时，使用 9 个基础 [`TPL`](references/templates.md)；它们是 quick-start，不包含完整工程包里的全部动作。
 3. 手绘角色、补录同镜头续接，读[手绘动画方法](references/handdrawn-animation.md)。目前没有对应完整工程包，不要把方法文档称为已自动模板化。
 
-3.3.0 新增 **02-B · 纸面聚合** `paper-ball-performance@1.0.0`：六类资料聚合成网络，以及七步日历、六类能力、三项开箱和交付卡堆叠两个稳定组。源/重放对照与 18.2667 秒不同内容样片已获作者声画确认。需要本期真人口播/文案，并显式提供固定 SHA 的标题字体；详见[包说明](packs/paper-ball-performance/1.0.0/README.md)。这是组级增量，不是新整片路线；严格栅格问题保留在 review.json。3.2.0 的十五个稳定组与旧候选均保持原字节，当前七个风格共十七个稳定组。
+3.3.0 新增 **02-B · 纸面聚合** `paper-ball-performance@1.0.0`：六类资料聚合成网络，以及七步日历、六类能力、三项开箱和交付卡堆叠两个稳定组。源/重放对照与 18.2667 秒不同内容样片已获作者声画确认。需要本期真人口播/文案，标题字体优先推荐原字体，缺失时由随包字体回退；详见[包说明](packs/paper-ball-performance/1.0.0/README.md)。这是组级增量，不是新整片路线；严格栅格问题保留在 review.json。3.2.0 的十五个稳定组与旧候选均保持原字节，当前七个风格共十七个稳定组。
 
 3.8.0 新增 **05-A · 鲜色角色叙事** `vivid-sticker-performance@0.1.1-candidate`，读取[专门说明](references/vivid-sticker-template.md)。三组分别为关键词递进到结论、两准备者向三接收者交接成果、三反馈汇入后升级。首版已提供横竖屏、命名槽、固定数量和完整动作窗；源码局部、静音文案与真实构建检查不等于新口播连续声画或独立复用已验收。
 
@@ -52,7 +52,7 @@ metadata:
 
 1. `bash "$PL" doctor` 检查 Node、Python、FFmpeg 和 Chrome；缺依赖且允许安装时再 `bash "$PL" setup`。保持源工程和原成片只读，输出到不存在的新路径。
 2. 先锁定用户指定的模板来源。素材目录里的其他 `anim`、新工程或旧成片不自动成为动画底稿；不能只插入少数模板片段就称整片使用了指定模板。逐场记录来源包与场景 ID，混用完整包见[来源与多包编排](references/full-project-templating.md#来源与多包编排)。对齐新口播和文案，取得关键台词的准确时间。SRT 只有整句时间时，不可臆测句内某个词的时间；用逐词对齐数据或人工标注。读包的 `role`、`cues`、`motionWindows`、`slots`，按意义挑选、重排或重复完整场景。先列出分镜和缺少的素材。
-3. 按新口播编写 brief，运行 `bash "$PL" macro-plan 包ID@版本 /路径/本期brief.json /已有父目录/新规划目录`；查看报告，缺项回到 brief 补齐后重新规划，使用生成的 `spec.json` 构建。在渲染前按[复用内容核对](references/adaptive-composition.md#复用前核对实际表达)核对阶段与真实台词、关键事件落点、素材身份及全片重复。规划器检查声明的结构，不会判断填写的阶段是否忠于台词。仅人工维护历史配方时使用 `macro-spec`，它的 cue 留空，示例文字及原片时长只供认识接口；必须填写本期内容与实际时码，不能给每个重复组机械加同一偏移。`brand` 填本期账号。本期音乐必须用 `music:{mode:"track",path,offset}` 显式绑定；缺曲目就 needs-binding，旧源合成底乐已淘汰。只在用户明确不要背景音乐时使用 `music:{mode:"none"}`，动作 SFX 保留。人物窗默认在 macOS 使用 Vision 跟踪新口播人脸；不能自动跟踪时须显式配置审核过的 `faceTracking:{mode:"fixed",cx,cy,h}`。任何来源演示数据与示例文字都须替换或明确标“示意”。素材的空路径代表缺项；媒体准备与容量限制看包目录中的 `README.md`。
+3. 按新口播编写 brief，运行 `bash "$PL" macro-plan 包ID@版本 /路径/本期brief.json /已有父目录/新规划目录`；查看报告，缺项回到 brief 补齐后重新规划，使用生成的 `spec.json` 构建。在渲染前按[复用内容核对](references/adaptive-composition.md#复用前核对实际表达)核对阶段与真实台词、关键事件落点、素材身份及全片重复。规划器检查声明的结构，不会判断填写的阶段是否忠于台词。仅人工维护历史配方时使用 `macro-spec`，它的 cue 留空，示例文字及原片时长只供认识接口；必须填写本期内容与实际时码，不能给每个重复组机械加同一偏移。`brand` 填本期账号。本期音乐必须用 `music:{mode:"track",path,offset}` 显式绑定；缺曲目就 needs-binding，旧源合成底乐已淘汰。只在用户明确不要背景音乐时使用 `music:{mode:"none"}`，动作 SFX 保留。人物窗优先使用 macOS Vision，Windows/其他环境使用本地 OpenCV；检测不可用时使用宽幅固定构图并提示复核眼睛、嘴巴和下巴，不能把回退说成跟踪通过。也可显式配置 `faceTracking:{mode:"fixed",cx,cy,h}`。任何来源演示数据与示例文字都须替换或明确标“示意”。素材的空路径代表缺项；媒体准备与容量限制看包目录中的 `README.md`。
 4. `bash "$PL" macro-build 包ID@版本 /路径/新规划目录/spec.json /路径/剪好口播.mp4 /路径/新工程 [--subs-js /路径/字幕.js]`。新口播长度应与计划总帧数相符。适配器把关键动作窗口锁在原速，较长段落只伸展可停留区；如果时间不够，会报错，改分镜或片段长度，不靠全片线性拉伸。缺文字、数字、媒体或关键 cue 也会报错。
 5. `bash "$PL" stills /路径/新工程 0,4,12,...` 抽查首帧、每个 cue 前中后、最长文字、场景接缝和片尾；小圆窗需看到双眼、嘴巴和下巴，fixed 参数须从本期素材确定并检查低头、抬头等极端姿态；再播放所有复杂运动区间，与原工程对照。检查字体、媒体比例/裁切、真实口型、字幕、SFX 与音乐。修订配置或工程并重新验证。
 6. `bash "$PL" audio /路径/新工程` → `bash "$PL" mix /路径/新工程` → `bash "$PL" render /路径/新工程 /路径/新片_v1.mp4` → `bash "$PL" check /路径/新片_v1.mp4`。完整观看并听取最终编码文件；`check` 的帧数、解码和响度不能替代视觉与内容验收。新预览统一通过 `bash "$PL" preview /路径/新工程 /路径/新片_v1.mp4 /已有父目录/新预览目录` 发布，绑定真实成片 SHA，显示播放版本并提示旧标签页更新。HDR/DV、源位深和元数据风险须按[素材色彩与预览](references/color-and-preview.md)留下实际对照证据，不只检查标签。
@@ -88,3 +88,5 @@ metadata:
 提供原文 `contentEvidence` 与每段 `ownershipRefs`，覆盖所有保留台词且不重复、不错序；显示文案的 `supportingRefs` 可多对多。助手核对否定、条件、数字、单位和实体，代码验证来源摘要与声明归属。旧工程缺依据会明确报告 `source-unrecorded`，不能称已经验证台词匹配。使用有名输入；规划、素材重配、构建使用同一组选场校验。
 
 口播修剪默认关闭；本次用户明确开启 `repairPolicy.mode=basic` 才能尝试基础修剪，旧工程或 map 不代表开启。空间字幕位置不改变字幕时间。先构建并检查真实字体、媒体、动作与声尾，再完整导出与连续看听；最后由用户对同输入 A/B 确认效果。技术 ready、静帧和短接缝不替代最终验收。
+
+3.14.0-rc.1 新增原生 Windows/macOS 共用 Python 命令入口、UTF-8 路径处理及可移植字体。字体、字重和 Vision 仅优先推荐，不因缺失这些推荐项阻止制作；真实媒体、数量、时间轴与最终排版检查仍需成立。读[兼容与字体策略](references/compatibility.md)。

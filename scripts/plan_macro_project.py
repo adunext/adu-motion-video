@@ -66,6 +66,10 @@ def markdown_report(report: dict, spec: dict) -> str:
         for finding in rhythm.get('findings', []):
             location = ', '.join(finding.get('segmentIds', [])) or finding.get('segmentId', finding.get('sceneId', ''))
             lines.append(f"- **{cell(finding['code'])} {cell(location)}**：{cell(finding['suggestion'])}")
+    if report.get('fontWarnings'):
+        lines += ['', '## 字体推荐与回退', '', '推荐字体缺失不会阻止制作；构建使用随包字体，检查实际排版。', '']
+        for warning in report['fontWarnings']:
+            lines.append('- ' + cell(warning['family']) + '：' + cell(warning['mode']))
     if report.get('selection'):
         lines += ['', '## 动作与强弱', '', '| 段落 | 动作家族 | 强度（1–3） |', '| --- | --- | --- |']
         for item in report['selection']:
@@ -107,6 +111,8 @@ def plan(pack_dir: Path, brief_path: Path, output: Path, profiles_root: Path = R
     from repair_intake import prepare
     brief = prepare(brief, edit_map)
     result = plan_adaptation(manifest, profile, brief, brief_path.parent, allow_pending_talk=True)
+    from font_policy import recommendations
+    result['report']['fontWarnings'] = recommendations(manifest, result['spec'], brief_path.parent)
     from music_policy import apply
     apply(result, brief.get('music'), brief_path.parent)
     with tempfile.TemporaryDirectory(prefix='.adu-plan-', dir=output.parent) as tmp:

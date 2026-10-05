@@ -24,3 +24,6 @@ references/local-profile.md
 
 # Owner-local extraction skill is not part of the public distribution
 /skills/adu-template-extractor/
+
+# Portable, unmodified OFL fallback fonts and their notices
+!assets/fonts/*.ttf

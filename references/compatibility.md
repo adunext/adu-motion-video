@@ -1,65 +1,39 @@
-# 兼容与验证边界
+# 平台、助手与字体兼容
 
-## 同一份 skill
+同一份 Skill 支持 Windows、macOS、Linux，可用于 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等能够读取文件并执行命令的助手。仅对话客户端可以规划，实际构建需要可访问素材的执行环境；不根据助手名称猜测权限或安装目录。
 
-同一份 Skill 可在 Windows、macOS、Linux 使用，支持 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等助手。接入方式取决于当前助手环境提供的文件与命令能力。
+## 命令入口
 
-## 平台与助手接入
+在实际 Skill 目录运行：
 
-| 助手 | 接入方式 |
-| --- | --- |
-| Codex / Claude Code | 安装到对应的 skills 目录，加载 `SKILL.md`；也可显式读取仓库 |
-| 豆包 / DeepSeek / WorkBuddy | 有 Skill 机制时加载本仓库；否则将仓库放入可读取的工作区，让助手先读 `SKILL.md` 和 `AGENTS.md` |
-| 其他助手 | 能读取说明、读写素材并执行命令，即可沿用通用 Agent 入口 |
+| 平台 | 环境检查 | 安装 Skill 依赖 |
+| --- | --- | --- |
+| Windows 原生 PowerShell/CMD | `python scripts/pipeline.py doctor` | `python scripts/pipeline.py setup` |
+| macOS/Linux | `python3 scripts/pipeline.py doctor` | `python3 scripts/pipeline.py setup` |
+| 已有 Bash/WSL | `bash scripts/pipeline.sh doctor` | `bash scripts/pipeline.sh setup` |
 
-助手名称不等于执行能力：仅能对话的客户端可协助规划，自动生成工程和导出需要连接可访问素材的命令执行环境。不要编造未确认的安装目录、插件接口或本地权限。
+三种入口调用同一实现，支持 packs、new、import、macro-plan/build、auto-plan/build、audio、mix、stills、render、check、preview 和可选 repair。推荐字体不属于 doctor 的缺项。Node 18+、Python 3.10+、浏览器及具备所需转换/编码能力的 FFmpeg 是执行工具；setup 安装 Node/Python 包，不安装系统软件。依赖范围由 pip 选择当前 Python/OS 可用的轮子，不强装作者 Python 3.14 的固定版本。
 
-| 平台 | 当前命令接入方式 |
-| --- | --- |
-| Windows | 通过 WSL 使用 Bash；在 WSL 内安装和运行 Node、Python、FFmpeg、Chrome/Chromium 与 Skill 依赖 |
-| macOS | 使用 Bash 和本机依赖；可选 Vision 人脸跟踪需要 Swift |
-| Linux | 使用 Bash 和本机依赖；人物窗可配置经审核的固定裁切 |
+所有包含空格的路径加引号。入口以参数数组调用工具，不让素材路径成为 shell 代码；Windows 使用 `os.pathsep`、Scripts/python.exe 和 UTF-8。旧 Mac 虚拟环境搬到 Windows 时，setup 另建当前系统的环境，不覆盖另一系统环境。Chrome/Chromium/Edge 自动查找，也可设置 CHROME 为浏览器可执行文件；不自动下载浏览器。
 
-Windows 的 `C:\素材` 在 WSL 中通常为 `/mnt/c/素材`；仓库、素材和输出都使用命令执行环境可访问的路径。WSL 流程不直接套用 Windows 原生命令、Python 虚拟环境或浏览器路径。原生 PowerShell/CMD 的完整命令链尚未验收。所有含空格的路径都加引号。
+WSL 仍可使用，但需要在 WSL 中安装依赖，使用 `/mnt/c/...` 等 WSL 可读路径，不混用原生 Windows 与 WSL 的 Python/浏览器。
 
-更换平台先运行 `doctor`，再核对浏览器、字体、素材裁切、HDR/SDR 色彩和最终声音。Vision 自动跟踪只适用于 macOS；需要人物窗的包在其他平台显式配置审核过的 `faceTracking:{mode:"fixed",cx,cy,h}`，不可把缺少 Vision 当作整个 Skill 不支持该平台。包使用 macOS 系统字体时，其他平台按该包说明提供有使用权的替代字体。
+## 字体是推荐项
 
-既有 macOS 验收记录保留为实际证据；平台支持与特定系统上的声画验收分别记录，不将历史环境写成使用资格限制，也不把接入说明当作 Windows/Linux 已完成整片验收。
+默认 `fontPolicy="preferred"`：优先使用用户提供的有效推荐字体；用户提供不同的有效字体也可使用并记录实际 SHA。没有、损坏或不支持的推荐字体会回退至随包未修改的 Noto Sans SC / Noto Sans Mono，生成的工程包含字体、来源摘要与 OFL 许可证，渲染不依赖联网取字体，不要求安装 PingFang、SF Mono、Geist 或原标题字体。
 
-Codex 与 Claude Code 可分别安装，也可显式创建符号链接共享同一目录；不要覆盖现有安装。依赖和媒体不会由符号链接自动搬运。
+源字体的指纹保留用于追溯，不作为默认选型/构建前置条件；模板原有 externalFonts.required 是历史提炼元数据。auto-plan 输出 fontWarnings 作为建议；构建记录 font_policy.json 与 macro_build_report.json。只有用户明确要精确字体复刻时才使用 `fontPolicy="exact"`，不能由助手默认开启。
 
-旧 `adu-video-studio` 保留为兼容入口。其最小无声 starter 是此前的独立验证样例，不是本口播模板的第二套默认实现。
+字体替换可能改变字形、字重和行宽。使用实际字体检查中英文字形、断行、标题与字幕安全区；通过短标题、合法换行、布局或合理字号调整解决溢出。推荐字体缺失不等于排版失败；排版实际溢出也不能因已经回退就忽略。少见字符和 Emoji 还须检查实际系统字形，随包字体不宣称覆盖全部 Unicode。
 
-## 运行时不可混装
+## 人物与素材
 
-| 项目 | DOM/SVG 口播模板 | 旧 studio 最小 starter |
-|---|---|---|
-| mk | mk(parent, html, x, y, opt) | mk(parent, className, x, y, width, height) |
-| show | show(element, t, t0, opt) | show(element, t, at, duration, distance) |
-| Scene | Scene(start, end, bg, opt) | Scene(start, end, theme) |
-| update 的 t | 全片绝对时间 | 场景局部时间 |
+macOS 优先使用 Vision/Swift；其他环境使用本地 OpenCV 检测。没有可靠检测结果时使用宽幅固定构图，报告 reviewRequired 和警告，继续保留实际口播帧；检查全段眼睛、嘴巴、下巴及接缝，再调整固定裁切。回退不是身份识别或裁切验收，也不能用旧人物帧补空白。
 
-Canvas/p5 还需要等待画笔、字体与纹理初始化，并按实际输出画布取帧；不能把 DOM 的 `mk/Scene` 函数直接搬进画布绘制。见 [handdrawn-animation.md](handdrawn-animation.md)。
+真实口播、图片、证据视频、字体回退资产、脚本与时间轴必须存在且有效。HDR/DV 沿用色彩探测与核验，不因跨平台改成只写标签。缺少真实媒体、错误数量、素材时长不足或动作窗口装不下仍需要修订输入/分镜。
 
-同一个场景要匹配整套运行时。复用视觉配方时改写签名和时间，不把函数文件机械拼接。
+## 实测与旧工程
 
-## 对齐指标
+本期实测与局限见[3.14 兼容验证](../docs/compatibility-3.14.md)。macOS 验证不等于 Windows 真机已经导出验收，也不作为拒绝 Windows 用户使用的资格限制。字体回退、命令执行、几何检查与真人整片声画分别描述。
 
-`align_talk.py` 从 1.0 / 1.05 / 1.1 / 1.15 / 1.2 选择全片共同速度，不能宣称任意逐段变速识别。验证比例来自有运动辨识度的采样点：预测帧与局部最佳匹配帧误差不超过一帧。它不包含每一帧，也不验证所有字幕、声音或切点。
-
-每个新项目都要保存实际对齐日志与抽查结果。过去某条视频的匹配率或倍速不能作为新素材的保证，也不能把少量采样通过说成整片逐帧验证。
-
-## 可选数据与媒体
-
-- 没有字幕数据可以关闭字幕，不代表带字幕交付已完成。
-- 没有人脸轨迹时固定中心裁切；这是默认位置，不是人脸追踪。
-- 没有 TALKMAP 时仍需模板所用的 talk 图片序列。纯动效片需移除人物依赖。
-- 没有 WALL 时不要调用作品墙组件。缺失实际图片、字体或脚本是错误，不统一当作可选文件忽略。
-- 新工程可生成空的可选数据脚本以保证入口可加载，作者仍需按画面所用组件补齐素材。
-- Vision 人脸追踪依赖 macOS；其它阶段另行验证目标系统、字体与浏览器。
-
-## 尺寸与示例
-
-`config.js` 的宽高不会自动重排绝对坐标。横竖屏各自检查正文、人物、字幕、安全区和片尾。
-
-`examples/` 是提炼的场景/声音/字幕/竖屏源码，不包含完整原始媒体。结构与可运行范围见 [projects.md](projects.md)。不要把本地字体、照片和网络作品自动当作可分发资产。
+旧冻结工程保留自身运行代码，不自动换字体或裁切；升级另存新工程。旧 adu-video-studio 为兼容入口，其 mk/Scene/update 合同不同，不能混装运行时。Canvas/p5 同样须等待实际字体、图片与纹理就绪，见[手绘方法](handdrawn-animation.md)。
