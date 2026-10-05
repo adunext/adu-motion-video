@@ -4,203 +4,108 @@
 
 # Adu-motion-video
 
-**阿杜开源的高质量动画动效模板 Skill。选好模板和风格，把口播与素材交给 AI，就能开始剪辑。**
+**阿杜实验室 · 开源动画模板 Skill**
 
-**阿杜实验室**
+**阿杜的模板是代码级的完整动画模板，不是提示词，也不是参考视频。**
 
-Adu-motion-video（简称 **adumotion**）提供经过阿杜与 Opus 5.5 筛选、制作的完整动画模板。场景、动作、转场和音效已经做好，AI 按你的口播、文案和素材制作新视频，交付 **MP4 与可编辑工程**。
+模板包含可运行的场景源码、画面布局、动画时间轴、转场与音效编排。AI 根据你的文案和素材，选择、组合完整镜头组，制作新视频，交付 **MP4 与可编辑工程**。你可以继续修改文字、素材和动画，复用同一风格制作下一期。
 
-**多平台：Windows · macOS · Linux**
-
-**多助手：Codex · Claude Code · 豆包 · DeepSeek · WorkBuddy**
-
-可通过助手的 Skill 机制加载，也可让助手读取本仓库的 `SKILL.md` 和 `AGENTS.md`。自动制作需要助手所在环境能读写素材并执行本地命令；Windows 可原生使用 Python 入口，macOS/Linux 使用同一实现，旧 Bash/WSL 入口也可使用。详见[平台与助手接入说明](references/compatibility.md)。
-
-[浏览模板](#模板库)　·　[开始使用](#开始使用)　·　[适用场景](#适用场景)　·　[模板特点](#模板特点)　·　[技术资料](#技术资料)
-
-**3.14.0-rc.1 兼容性预发布：** Windows 原生 Python 与 macOS 共用命令入口；原字体仅优先推荐，缺失时自动使用随包开源中英文字体。保留 3.13 的模板适配、竖屏字幕与创作引导。[下载新版安装包](https://github.com/adunext/adu-motion-video/releases/download/v3.14.0-rc.1/adu-motion-video_3.14.0-rc.1.zip) · [版本说明](https://github.com/adunext/adu-motion-video/releases/tag/v3.14.0-rc.1) · [查看兼容说明](references/compatibility.md)。
+[浏览模板](#模板库)　·　[开始创作](#开始使用)　·　[下载安装包](https://github.com/adunext/adu-motion-video/releases/download/v3.14.0-rc.1/adu-motion-video_3.14.0-rc.1.zip)　·　[更新说明](https://github.com/adunext/adu-motion-video/releases/tag/v3.14.0-rc.1)
 
 ---
 
 ## 模板库
 
-先选一级模板，再从一行预览中选择风格。**已发布 2 类模板 · 7 种风格 · 17 个镜头组**；深色 3D、深色科技控制台与鲜色角色叙事为候选，实际核验范围见各板块。
+**6 类模板 · 11 种风格。** 按画面风格选择，告诉 AI 完整编号，例如 **01-B**。每套模板旁标明支持的画幅；点击小预览查看视频。
 
-**3.13.0-rc.2 候选目录有 11 种风格、54 个完整组参与竖屏选型；其中 10 种风格、47 组参与横屏选型。** [查看版本与使用方式 →](references/portrait.md) 旧稳定横屏与已交付视频保留。
+### 01 · 现代图文口播
 
-<p align="center">
-  <a href="references/portrait.md"><img src="assets/demos/portrait-layouts.webp" alt="九风格原生竖屏布局示意，占位素材" width="720"></a><br>
-  <sub>既有九风格竖屏构图示意 · 05-A 见下方独立预览，实际文案与人物须按本期检查</sub>
-</p>
+> **横屏 ✓ · 竖屏 ✓**
 
-点击动图查看 MP4，使用时告诉 AI 图下的完整编号，例如 **01-B**。[查看完整目录与素材要求 →](references/template-catalog.md)
-
-### 模板 01 · 现代图文口播
-
-> **已发布**　｜　5 种风格 · 14 个镜头组
-
-**适用：** 真人讲解、知识拆解、工具演示。<br>
-**准备：** 口播、文案，以及自己的演示录屏或证据视频。
+清爽文字、图解与真人窗口，配合节奏强调、连续形变、纵深舞台和分屏交接。适合知识讲解、工具演示、观点拆解与方法分享。
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/01-A.mp4?raw=true"><img src="assets/demos/01-A.gif" alt="01-A · 原片节奏" width="128" height="72"></a><br><strong>01-A</strong><br><sub>原片节奏</sub></td>
-    <td align="center" width="144"><a href="assets/demos/01-B.mp4?raw=true"><img src="assets/demos/01-B.gif" alt="01-B · 连续形变" width="128" height="72"></a><br><strong>01-B</strong><br><sub>连续形变</sub></td>
-    <td align="center" width="144"><a href="assets/demos/01-C.mp4?raw=true"><img src="assets/demos/01-C.gif" alt="01-C · 纵深舞台" width="128" height="72"></a><br><strong>01-C</strong><br><sub>纵深舞台</sub></td>
-    <td align="center" width="144"><a href="assets/demos/01-D.mp4?raw=true"><img src="assets/demos/01-D.gif" alt="01-D · 杂志分屏" width="128" height="72"></a><br><strong>01-D</strong><br><sub>杂志分屏</sub></td>
-    <td align="center" width="144"><a href="assets/demos/01-E.mp4?raw=true"><img src="assets/demos/01-E.gif" alt="01-E · 节拍字效" width="128" height="72"></a><br><strong>01-E</strong><br><sub>节拍字效</sub></td>
+    <td align="center" width="144"><a href="assets/demos/01-A.mp4?raw=true"><img src="assets/demos/01-A.gif" alt="01-A 原片节奏" width="128" height="72"></a><br><strong>01-A</strong><br><sub>原片节奏</sub></td>
+    <td align="center" width="144"><a href="assets/demos/01-B.mp4?raw=true"><img src="assets/demos/01-B.gif" alt="01-B 连续形变" width="128" height="72"></a><br><strong>01-B</strong><br><sub>连续形变</sub></td>
+    <td align="center" width="144"><a href="assets/demos/01-C.mp4?raw=true"><img src="assets/demos/01-C.gif" alt="01-C 纵深舞台" width="128" height="72"></a><br><strong>01-C</strong><br><sub>纵深舞台</sub></td>
+    <td align="center" width="144"><a href="assets/demos/01-D.mp4?raw=true"><img src="assets/demos/01-D.gif" alt="01-D 杂志分屏" width="128" height="72"></a><br><strong>01-D</strong><br><sub>杂志分屏</sub></td>
+    <td align="center" width="144"><a href="assets/demos/01-E.mp4?raw=true"><img src="assets/demos/01-E.gif" alt="01-E 节拍字效" width="128" height="72"></a><br><strong>01-E</strong><br><sub>节拍字效</sub></td>
   </tr>
 </table>
 
 ---
 
-### 模板 02 · 纸面透视讲解
+### 02 · 纸面透视讲解
 
-> **已发布**　｜　2 种风格 · 3 个镜头组
+> **横屏 ✓ · 竖屏 ✓**
 
-**适用：** 两难选择、抽象观点、资料聚合与行动交付。<br>
-**准备：** 口播、文案，以及所选风格需要的插图或指定字体。
+纸张质感、透视卡片、天平与信息网络，让抽象关系变成直观图解。适合选择对比、资料整理、流程说明与行动步骤。
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/02-A.mp4?raw=true"><img src="assets/demos/02-A.gif" alt="02-A · 纸面天平" width="128" height="72"></a><br><strong>02-A</strong><br><sub>纸面天平</sub></td>
-    <td align="center" width="144"><a href="assets/demos/02-B.mp4?raw=true"><img src="assets/demos/02-B.gif" alt="02-B · 纸面聚合，局部静音预览" width="104" height="72"></a><br><strong>02-B</strong><br><sub>纸面聚合</sub></td>
+    <td align="center" width="144"><a href="assets/demos/02-A.mp4?raw=true"><img src="assets/demos/02-A.gif" alt="02-A 纸面天平" width="128" height="72"></a><br><strong>02-A</strong><br><sub>纸面天平</sub></td>
+    <td align="center" width="144"><a href="assets/demos/02-B.mp4?raw=true"><img src="assets/demos/02-B.gif" alt="02-B 纸面聚合" width="104" height="72"></a><br><strong>02-B</strong><br><sub>纸面聚合</sub></td>
   </tr>
 </table>
 
 ---
 
-### 模板 03 · 深色 3D
+### 03 · 深色 3D
 
-> **待声画确认**　｜　9 场原编舞 + 1 个独立成果组 · 横屏 / 原生竖屏
+> **横屏 ✓ · 竖屏 ✓**
 
-暗色舞台、立体窗口、镜头推进与多屏展陈。已制作不同内容的完整九场样片，并补齐 HDR 转 SDR 色彩处理。
-
-**适用：** 产品演示、工具评测、作品集。<br>
-**准备：** 口播，以及所选场景需要的作品、比较视频或软件录屏。[查看模板说明 →](references/dark-3d-template.md)
+暗色舞台、立体窗口、多屏展陈与镜头推进，突出作品细节与视觉层次。适合产品演示、软件评测、成果比较与作品集。
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/03-A.mp4?raw=true"><img src="assets/demos/03-A.gif" alt="03-A · 多屏展陈，新内容横屏窗口预览" width="128" height="72"></a><br><strong>03-A · 横屏</strong><br><sub>多屏展陈</sub></td>
-    <td align="center" width="144"><a href="assets/demos/03-A-portrait.mp4?raw=true"><img src="assets/demos/03-A-portrait.gif" alt="03-A · 多屏展陈，新内容原生竖屏窗口预览" width="40" height="72"></a><br><strong>03-A · 竖屏</strong><br><sub>多屏展陈</sub></td>
+    <td align="center" width="144"><a href="assets/demos/03-A.mp4?raw=true"><img src="assets/demos/03-A.gif" alt="03-A 多屏展陈" width="128" height="72"></a><br><strong>03-A</strong><br><sub>多屏展陈</sub></td>
   </tr>
 </table>
 
 ---
 
-### 模板 04 · 深色科技控制台
+### 04 · 深色科技控制台
 
-> **候选 · 新增交付阅读收束**　｜　4 个完整镜头组 · 横屏 / 竖屏候选
+> **横屏 ✓ · 竖屏 ✓**
 
-粒子仪器台、玻璃面板、双输入融合、对话步骤与手册交付。从豆包工程提炼，三组分别保留自己的编舞与动作音效。
-
-**适用：** 工具实测、流程讲解、自动化成果演示。<br>
-**准备：** 本期口播、文案、图片、纹理和指定字体。[查看范围与核验记录 →](references/doubao-console-template.md)
+粒子仪器台、玻璃面板与信息流，配合输入融合、步骤展开和结果交付。适合技术讲解、自动化流程与工具实测。
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/04-A.mp4?raw=true"><img src="assets/demos/04-A.gif" alt="04-A · 仪器台演示，同内容重放局部" width="118" height="72"></a><br><strong>04-A</strong><br><sub>仪器台演示</sub></td>
+    <td align="center" width="144"><a href="assets/demos/04-A.mp4?raw=true"><img src="assets/demos/04-A.gif" alt="04-A 仪器台演示" width="118" height="72"></a><br><strong>04-A</strong><br><sub>仪器台演示</sub></td>
   </tr>
 </table>
 
 ---
 
-### 模板 05 · 鲜色角色叙事
+### 05 · 鲜色角色叙事
 
-> **候选 · 新增两种自然收束**　｜　5 个完整镜头组 · 横屏 / 原生竖屏
+> **横屏 ✓ · 竖屏 ✓**
 
-鲜色便签、角色贴纸、物件交接与金色光环。保留关键词递进到结论、准备成果后交接、反馈汇入后升级三种完整表达。
+鲜色便签、角色贴纸、物件接力与光环强调，将关键词、成果和反馈串成连贯表达。适合教程交接、方法分享、成果复用与迭代说明。
 
-**适用：** 方法分享、教程交接、成果复用、反馈迭代。<br>
-**准备：** 本期口播、文案、交接贴纸、纹理和指定字体。[查看输入与核验范围 →](references/vivid-sticker-template.md)
-
-<table><tr><td align="center" width="144"><a href="assets/demos/05-A.mp4?raw=true"><img src="assets/demos/05-A.gif" alt="05-A · 角色与物件接力，静音矢量示意" width="128" height="72"></a><br><strong>05-A</strong><br><sub>角色与物件接力</sub></td></tr></table>
-
----
-
-### 模板 06 · 活力色彩
-
-> **候选 · 原生竖屏**　｜　7 个完整镜头组 · 1080×1920 / 60fps
-
-纸白、红、蓝与荧光黄绿，配合划除字、步骤归一、回声标题与成本累积。保留完整动作与音效边界，适合观点表达、自动化反思和概念性成本讲解；新增关键词、双要点、总结三组基础动画，支持段落换行与有界阅读延长。
-
-**准备：** 本期口播、文案、准确时码、纹理与指定字体。[查看输入与验证范围 →](references/vibrant-color-template.md)
-
-<table><tr><td align="center" width="144"><a href="assets/demos/06-A.mp4?raw=true"><img src="assets/demos/06-A.gif" alt="06-A · 活力色彩，竖屏静音新文案示意" width="40" height="72"></a><br><strong>06-A</strong><br><sub>原生竖屏</sub></td></tr></table>
-
-06-A 动图为三组基础动画的10.5秒静音示意，仅提供竖屏。成本条为示意，不能当作真实数值图；公开预览使用占位人物和新文案，无原人物或配乐，新真人口播连续声画与独立使用仍待验收。
-
-动图为静音预览：01–03 各 8 秒，04-A 为 3.9 秒开场局部。04-A 尚待不同内容与独立复用验收。05-A 为 7.1 秒静音矢量示意，不含原人物、原贴纸或录音，尚待新口播连续声画与独立复用验收。样片来源、声音与具体发布范围见下方说明。
-
-<details>
-<summary>展开预览说明与已发布范围</summary>
-
-02-B 为排除人物、字幕、账号角标和声音的开箱交付局部，其它已有 MP4 demo 含声音。01-A、01-B、02-A 展示的是已发布模板制作的新内容；01-C、01-D、01-E 展示原工程的风格短段，其三个组已完成各自新内容整片与独立使用验收，并随 3.2.0 发布；预览不代表来源的所有演出已进入稳定库。
-
-3.3.0 新增的 [02-B · 纸面聚合](packs/paper-ball-performance/1.0.0/README.md) 只覆盖两个已验收镜头组；完整源工程的其它 32 场保持原状态。新稿的六卡、七页与十卡属于固定示意编舞，须按本期意义填写。更多模板与风格持续更新。
-
-03-A 展示不同内容九场样片的横屏与原生竖屏软件窗口段，仅包含所有者口播与本人录屏，公开预览无声。完整样片各 108.4 秒；此前 1.1.0 的冷安装、声音与时钟记录保留；1.1.1 重出色彩修正版，最终连续声画仍待作者确认。当前为候选版本，不计入十七个稳定组。1.1.1 修复 HLG 素材直抽 JPEG 的偏色，导出校验 SDR 色彩范围与 BT.709 标记。完整私人影片和第三方作品不作为模板输入分发。
-
-</details>
+<table>
+  <tr>
+    <td align="center" width="144"><a href="assets/demos/05-A.mp4?raw=true"><img src="assets/demos/05-A.gif" alt="05-A 角色与物件接力" width="128" height="72"></a><br><strong>05-A</strong><br><sub>角色与物件接力</sub></td>
+  </tr>
+</table>
 
 ---
 
-## 开始使用
+### 06 · 活力色彩
 
-| 步骤 | 要做什么 |
-| --- | --- |
-| **1 · 添加 Skill** | 在 Codex、Claude Code、豆包、DeepSeek 或 WorkBuddy 中加载 Skill，或让助手读取仓库说明 |
-| **2 · 准备素材** | 提供剪好的口播、文案和对应录屏、图片；有字幕文件也一起提供 |
-| **3 · 选择模板** | 报出完整编号，并说明素材位置和输出目录 |
+> **竖屏 ✓ · 仅竖屏**
 
-### 添加 Skill
+纸白、红、蓝与荧光黄绿，搭配大字冲击、回声标题、步骤归一和形状变化。适合观点表达、步骤讲解、要点总结与概念性成本说明。
 
-把这段话发给 AI：
+<table>
+  <tr>
+    <td align="center" width="144"><a href="assets/demos/06-A.mp4?raw=true"><img src="assets/demos/06-A.gif" alt="06-A 原生竖屏" width="40" height="72"></a><br><strong>06-A</strong><br><sub>原生竖屏</sub></td>
+  </tr>
+</table>
 
-```text
-请添加 adu-motion-video Skill：
-https://github.com/adunext/adu-motion-video
-请根据当前 Windows、macOS 或 Linux 环境接入；没有 Skill 加载机制时，先阅读 SKILL.md 和 AGENTS.md。
-确认能读取素材、执行命令，并检查制作视频需要的环境。
-```
-
-### 让 AI 引导你开始
-
-加载 Skill 后，把这句话发给 AI：
-
-```text
-加载这个 skill，引导我开始创作。
-```
-
-还未指定 Skill 时可写：**“加载 adu-motion-video Skill，引导我开始创作。”**
-
-AI 会清楚告诉你先发哪些素材、怎么选择横竖屏和模板。你可以先上传口播视频，或提供当前助手能访问的素材文件夹路径；有文案、SRT、录屏、图片和配乐就一起发。没选模板可让 AI 推荐，不必一次准备齐所有内容。最终交付 MP4 和可编辑工程。[查看引导示例 →](references/start-creating.md)
-
-### 制作视频
-
-把编号和素材目录换成自己的：
-
-```text
-使用 adu-motion-video，选模板 01 的 B 风格（01-B · 连续形变），
-帮我剪辑这条口播。
-
-口播、文案、字幕和录屏都在：/我的素材目录
-请按我的内容安排动画，输出 MP4 和可编辑工程到：/我的输出目录
-```
-
-需要小图标或动画素材时，也可以加一句：**“从阿杜导演的动画素材 API 中挑选合适的素材。”** 真人、产品画面和实际操作录屏仍由你提供。
-
----
-
-## 适用场景
-
-| 场景 | 可以怎么用 |
-| --- | --- |
-| **口播视频** | 为真人讲解加重点、图解、动画和字幕 |
-| **知识讲解 / 科普** | 把抽象概念、关系和步骤讲清楚 |
-| **AI 工具 / 软件教程** | 用录屏配合动画，突出操作与实际效果 |
-| **产品介绍 / 功能演示** | 展示卖点、使用流程和前后变化 |
-| **观点解读 / 方法分享** | 用对比、拆解、归纳和行动步骤组织内容 |
+预览用于了解风格，部分为局部或静音示意。部分新版模板仍为候选；各版本包含的镜头组、素材要求与发布状态见[完整模板目录](references/template-catalog.md)。
 
 ---
 
@@ -208,176 +113,55 @@ AI 会清楚告诉你先发哪些素材、怎么选择横竖屏和模板。你�
 
 | 特点 | 说明 |
 | --- | --- |
-| **模板级开源，Token 消耗低** | 完整动画已经做好，AI 主要处理文案、素材和时间安排，减少从零编写动画与反复试错的消耗 |
-| **输出更稳定** | 复用检查过的动作与转场，便于同一系列保持一致的质量 |
-| **阿杜逐个精选，持续更新** | 阿杜每天筛选新的高质量动画，和 Opus 5.5 一起制作更多模板与风格 |
-| **自带动画素材来源** | 阿杜导演公开素材 API 提供精选整理的 **11,028 个 Lottie 动画**，无需 API Key，可用于图标、点缀与辅助讲解。[查看动画目录 →](https://adudir.com/api/lottie-catalog/manifest) |
-| **成片与工程都交给你** | 导出 MP4 后仍能修改文字、素材和动画，继续做下一版 |
-
-素材 API 后续计划支持按需生成图片、动画等素材；当前开放的是现有动画的查询与下载。
+| **代码级完整模板** | 动画源码、布局、动作时间轴和音效编排可以直接运行与编辑 |
+| **按内容适配** | 根据表达关系选择完整镜头组，绑定你的文字、图片、视频和口播 |
+| **保持连贯节奏** | 结合动作、转场、字幕与音效安排时间，复用同一风格制作系列内容 |
+| **横竖屏按需选择** | 支持情况见每套模板标记，竖屏采用对应布局 |
+| **字体不阻碍制作** | 原字体优先推荐，缺失时自动使用随包中英文字体，并检查实际排版 |
+| **交付可继续修改** | 输出 MP4 与可编辑工程，后续可以改文案、换素材、再导出 |
 
 ---
 
-## 技术资料
+## 开始使用
 
-新增[文案适配机制](references/adaptive-composition.md)：按表达关系选择完整镜头组，检查数量、动作时间、相邻衔接与声音尾音，并在合格组合内减少效果重复。当前横屏10风格/47组、竖屏11风格/54组具有版本绑定规划规则；[两种文案与诊断示例](examples/adaptation/README.md)可查看选场差异。适配能力仍需本期声画验收，原模板发布等级保持不变。
+**平台：Windows · macOS · Linux**<br>
+**助手：Codex · Claude Code · 豆包 · DeepSeek · WorkBuddy**
 
-新增[全库选型](references/automatic-selection.md)：助手根据整篇文案整理候选，比较全部风格和不同分段路线；优先统一风格，必要时组合有独立入场的完整组。长短素材、文字容量、字体和真实视频区间共同参与检查。跨模板工程保持口播、字幕和音效的全片时钟；组合仍需连续声画验收。
+当前助手需要能读取素材并执行本地命令；没有 Skill 加载机制时，可让助手读取安装目录中的 `SKILL.md` 与 `AGENTS.md`。[平台与助手说明](references/compatibility.md)
 
-新增图片或视频后，可[只重新匹配当前分镜](references/local-rematch.md)：保留其它分镜、文案和声音设置，检查素材与前后衔接，再保存新方案。配置或素材发生变化后，旧建议不能直接覆盖当前工作。
+| 步骤 | 操作 |
+| --- | --- |
+| **1 · 安装与配置** | [下载 Skill](https://github.com/adunext/adu-motion-video/releases/download/v3.14.0-rc.1/adu-motion-video_3.14.0-rc.1.zip)，解压到助手可访问的位置，让助手加载并检查制作环境 |
+| **2 · 提供素材** | 上传口播视频、文案或旁白音频，也可提供素材文件夹路径；有字幕、录屏、图片和配乐就一起发 |
+| **3 · 选择与制作** | 告诉助手模板编号、横竖屏和输出位置；不确定时让助手推荐，完成后检查 MP4 与可编辑工程 |
 
-04-A 的三个候选组另带同样的适配合同。新制作增加[色彩证据与版本预览](references/color-and-preview.md)：探测 HDR/DV 和真实位深，绑定输入及输出 SHA，旧标签页会提示新版，避免把旧影片误当作当前交付。
+> **首次安装和配置环境可能耗时较长。** 需要准备视频工具、下载并安装依赖，耗时取决于当前环境与网络。配置完成后，后续制作可以复用环境，无需每次重新安装。
 
-<details>
-<summary><strong>展开模板版本、素材 API 与安装制作说明</strong></summary>
+### 让 AI 引导你开始
 
-以下内容供需要安装命令、接口调用、模板版本和开发细节的用户查阅。
+安装并加载后，把这句话发给 AI：
 
-**3.10.0** 增加全库比较与混合工程构建，测试真实分段恢复、跨模板字幕、逐采样口播连续性与接缝编码；[测试范围](docs/template-auto-selection-3.10.md)。
-
-**3.9.0** 增加全片重复与停留诊断，修复长片为换效果选择缺素材候选的问题；口播时长先核对再抽帧，延长阅读区不拉伸音效。十种风格、32 组已执行长短素材与横竖屏运行检查，实际范围见[压力测试记录](docs/template-stress-3.9.md)。
-
-**3.6.1** 统一新口播先走语义规划的引导；人工配置草稿不再预填源演示 cue，补充台词、证据身份、重复演出和人物裁切核对。旧工程与冻结包保持原字节。
-
-**3.6.0** 增加当前分镜重配、未消费输入诊断、素材版本检查与通用视频色彩证据；04-A 新候选修正长文案裁切和遮挡。156 项 Python 与 11 项 Node 测试通过，四套新文案完成静音排版检查；完整声画与界面接入边界见[本次验证记录](docs/template-adaptation-3.6.md)。
-
-**3.3.1** 补齐素材导入的 HDR → SDR 转换与标准 SDR 导出色彩校验，03-A 采用 1.1.1 色彩修正候选。已有十七组和旧候选的冻结字节保持不变。
-
-**3.3.0** 保留 3.2.0 的十五组，并增加纸面聚合两个组。此前稳定范围为 A「原片节奏」三个组、B「连续形变」两个组、C「舞台镜头」/D「杂志分屏」/E「节拍字效」各三个组，以及试点外来源的纸面透视续接组，当时验收环境为 macOS、横屏 1080p60。五条路线的源演出与对应新内容已经作者确认；B/C/D/E 的完整新片由未参与提炼的执行者从冻结公开包和本期输入独立制作。每条路线保留自己的运动、人物与声音，通过命名语义字段绑定新内容。逐组范围与限制见[能力与验收矩阵](docs/capability-matrix.md)。B 的计划干扰组与旧候选原字节保留；旧 `anim3/anim4` 的 21 个宏场景仍为 experimental，9 个基础 `TPL` 为 quick-start。
-
-### 历史发布版本（当前候选见升级说明）
-
-编号表示“一级模板－二级风格”，不随话题或案例名称变化。AI 遇到编号时，先查[模板与风格目录](references/template-catalog.md)，再读取相应包；已发布模板的具体镜头范围见[能力与验收矩阵](docs/capability-matrix.md)。
-
-| 编号 | 实际包版本 | 状态 |
-| --- | --- | --- |
-| 01-A | `classic-performance@1.0.0` | 已发布 |
-| 01-B | `continuous-performance@1.0.0` | 已发布 |
-| 01-C | `stage-performance@1.0.0` | 已发布；三个完整组 |
-| 01-D | `editorial-performance@1.0.0` | 已发布；三个完整组 |
-| 01-E | `kinetic-performance@1.0.0` | 已发布；三个完整组 |
-| 02-A | `paper-balance@1.0.0` | 已发布；一个段落镜头组 |
-| 02-B | `paper-ball-performance@1.0.0` | 3.3.0；两个完整镜头组 |
-| 03-A | `anim4-showcase-macro@1.1.1-candidate` | 待声画确认；九场，横屏与原生竖屏 |
-| 04-A | `doubao-console-performance@0.1.2-candidate` | 三组候选；长短文案布局修正，待新口播完整声画与独立复用验收 |
-| 05-A | `vivid-sticker-performance@0.1.1-candidate` | 三组候选；横竖屏、静音文案与构建流程已检查 |
-
-3.3.0 共七个风格中的十七个稳定完整镜头组。02-B 的源/重放对照与 18.2667 秒新内容已获作者确认，严格栅格审计的 1 issue/2 warning 和复查结果仍保留；此增量不声称完整新路线或新独立作者验证。完整实测范围为 macOS、横屏 1920×1080、60fps。竖屏需重新布局，其它系统与字体组合需另行验证。新稿要留足动作与读字时间；实际 Token 消耗随素材处理、片长和修改量变化，尚无统一量化基准。
-
-### 公开动画素材 API
-
-- 动画目录：`GET https://adudir.com/api/lottie-catalog/manifest`
-- 动画说明：`GET https://adudir.com/api/lottie-catalog/annotations`
-- 下载单个动画：`GET https://adudir.com/api/lottie-catalog/file/{preset}.json`
-
-**无需登录或 API Key。** 截至 2026-10-01，线上目录返回 `total: 11028`；目录、注解和单文件下载均已实测。先查目录与注解，再按返回的 `preset` 下载需要的 JSON，保存到本期工程的素材目录。获取方法和使用边界见[动画素材 API](references/lottie-assets.md)。
-
-**请求额度：每个 IP 每天 20 次，全接口每天合计 2,000 次，北京时间零点重置。** 查询目录、注解和下载素材共用额度，请缓存后按需使用。超额返回 `429`；每日额度用完时按 `Retry-After` 等待，避免反复重试。
-
-```bash
-# 查询目录；避免每条视频都重新拉全库
-curl -fsS https://adudir.com/api/lottie-catalog/manifest -o lottie-manifest.json
-
-# 示例：下载一个已核实存在的加载动画
-curl -fsS https://adudir.com/api/lottie-catalog/file/insider_loading.json -o insider_loading.json
+```text
+加载 adu-motion-video Skill，引导我开始创作。
 ```
 
-素材 API 提供可用动画文件；各模板仍按自己的素材与渲染要求接入。生成素材接口尚未开放。第三方动画沿用各自原始许可，仓库 MIT 许可不替代素材许可。
+AI 会告诉你先发哪些素材、如何选择模板和画幅。已有素材可以直接提供，不必一次填完所有信息。
 
-<details>
-<summary><strong>展开安装、制作命令与验收说明</strong></summary>
+### 已有素材，直接制作
 
-### 先准备什么
-
-- 一条已经剪好、长度确定的口播视频，以及对应文案；带时间码的字幕（SRT）有助于绑定动作，关键字最好有逐词时间。
-- 本期要展示的录屏、图片、头像、标识、作品视频和可用配乐。公开 demo 仅供观看，不提供可复用的原始真人或第三方素材。选用需要这些素材的场景时，必须提供本期有权使用的素材。
-- 期望的画幅、账号名、字幕语言和交付目录。横屏使用 **1920×1080、60fps**，竖屏使用 **1080×1920、60fps**。当前竖屏十一种风格、54 个完整组可选，按[模板目录](references/template-catalog.md)选择对应版本并声明画幅，不能直接裁切横屏。
-- 可执行制作命令的 Windows、macOS 或 Linux 环境，以及 Node.js 18+、Python、FFmpeg 9+ / ffprobe 和 Chrome/Chromium。Windows 原生使用 Python 入口，macOS/Linux 使用同一实现；Bash/WSL 仍可选。Python 3.10+ 的依赖按 requirements-runtime.txt 解析适合当前系统的版本，先运行 doctor。既有稳定组的验收记录使用 macOS / CPython 3.14.7 / 1080p60；更换系统、字体或 Python 组合后应检查本期成片。
-
-最终可得到一个可再编辑的项目目录、带音乐与音效的 MP4，以及帧数、解码和响度检查结果。画面质量仍须观看完整成片并与原工程关键动作对照；命令通过不等于视觉验收通过。
-
-### 选择制作路线
-
-| 路线 | 内容与用途 | 当前边界 |
-| --- | --- | --- |
-| [A 原片节奏](packs/classic-performance/1.0.0/README.md) | 主张与人物、真实证据聚焦、三项分解归纳 | Stable；三个组，已验收的 macOS 1080p60 |
-| [B 连续形变](packs/continuous-performance/1.0.0/README.md) | 同一容器改变角色、拆解与闭合 | Stable；两个组，计划干扰组仍为 candidate |
-| [C 舞台镜头](packs/stage-performance/1.0.0/README.md) | 前中后层、人物让位、实际证据与概念归纳 | Stable；三个组，完整新片与独立使用已确认 |
-| [D 杂志分屏](packs/editorial-performance/1.0.0/README.md) | 版心、人物与证据分栏、跨栏交接 | Stable；三个组，本期新片按用户要求无背景配乐 |
-| [E 节拍字效](packs/kinetic-performance/1.0.0/README.md) | 整词推动实体、撞击回稳、四项收拢 | Stable；三个组，完整新片与独立使用已确认 |
-| [纸面透视组](packs/paper-balance/1.0.0/README.md) | 疑问、天平、用途、批注与三步确认 | Stable；一个续接组，保留约 0.37 秒的源入场 |
-| [纸面聚合组](packs/paper-ball-performance/1.0.0/README.md) | 六类资料聚合成网络；日历、能力、开箱与交付 | Stable；两个组，标题字体优先推荐、默认支持随包回退，原声不变速 |
-| [完整场景包 `anim3`](packs/anim3/README.md) | 12 个连续编辑卡片场景，保留人物、道具、数字、镜头、转场与原场景音效编舞 | 实验性；新文案与素材需逐场绑定和验收 |
-| [03-A 深色 3D · 多屏展陈](references/dark-3d-template.md) | 保留 9 个完整场景，新增原生竖屏；作品墙、九宫格、软件窗口与赛道 | Candidate / 待声画确认；完整新内容与冷安装证据见验证记录 |
-| [基础 `TPL`](references/templates.md) | 9 个短场景函数，用于快速原型或从零组合较轻的片段 | Quick-start；不代表上述原工程的全部动画 |
-| [手绘卡通叙事](references/handdrawn-animation.md) | 角色与道具表演、同镜头续接的方法 | 目前是制作方法和既有示例，尚未提取为完整场景包 |
-
-`anim3`、`anim4` 是工程包 ID，不是用户视频标题或两种固定品牌风格。完整场景包可挑选、重排、重复场景，但必须尊重动作顺序、素材含义和片长。短到容不下原动作的片段会拒绝构建；多出的时间优先给可停留的画面，不会把所有动画整段慢放。作品墙需要先把至少 27 个真实独立作品制备为 389 张展示精灵，并如实保留独立作品数；不能直接拿 27 张精灵输入构建器。指定模板后，素材目录中的其他现成工程不会自动成为动画底稿。跨包逐场组合目前需要额外编排，见[来源与多包编排](references/full-project-templating.md#来源与多包编排)。详见[完整工程复用与验收](references/full-project-templating.md)。
-
-![视觉家族与场景选择示意](assets/tutorials/02-style-map.png)
-
-### 用你选择的助手开始
-
-下载并解压本版到当前助手可读取的位置。在原生 Windows 的 PowerShell/CMD 中切换到 Skill 文件夹，运行：
-
-```powershell
-python scripts/pipeline.py doctor
-python scripts/pipeline.py setup
-python scripts/pipeline.py packs
+```text
+使用 adu-motion-video，选择 01-B · 连续形变，制作竖屏视频。
+素材在：[我的素材文件夹路径]
+请按我的文案安排动画、字幕和声音，
+输出 MP4 与可编辑工程到：[我的输出目录]
 ```
 
-macOS/Linux 可使用 `python3 scripts/pipeline.py` 的同名命令。下列保留已有 Bash 安装示例：
+---
 
-```bash
-# 以下在 macOS/Linux 的 Bash 或 Windows 的 WSL 中执行
-# Codex / Claude Code 可安装到对应 skills 目录；其他助手可读取任意安装位置的 SKILL.md
-git clone https://github.com/adunext/adu-motion-video.git ~/.claude/skills/adu-motion-video
-# Codex 可用：git clone https://github.com/adunext/adu-motion-video.git ~/.codex/skills/adu-motion-video
+## 使用资料
 
-PL="$HOME/.claude/skills/adu-motion-video/scripts/pipeline.sh"
-# 若装在 Codex 目录：PL="$HOME/.codex/skills/adu-motion-video/scripts/pipeline.sh"
-bash "$PL" doctor
-bash "$PL" setup
-```
+[完整模板目录](references/template-catalog.md)　·　[创作引导](references/start-creating.md)　·　[安装与制作工具](references/tooling.md)　·　[平台与字体兼容](references/compatibility.md)　·　[动画素材](references/lottie-assets.md)
 
-豆包、DeepSeek、WorkBuddy 等助手可将仓库添加到其可读取的工作区，按 [平台与助手接入说明](references/compatibility.md)加载；无需使用 Codex 或 Claude Code 的目录。让 Agent 先阅读 [SKILL.md](SKILL.md)、[制作约定](references/rules.md) 和所选包说明。先发现包，选显式版本；以下以稳定的 A 包为例：
+当前下载版本为 **3.14.0-rc.1 预发布版**。更新内容与实际验证范围见[版本说明](https://github.com/adunext/adu-motion-video/releases/tag/v3.14.0-rc.1)。
 
-```bash
-bash "$PL" packs
-bash "$PL" macro-plan classic-performance@1.0.0 /已有目录/本期brief.json /已有目录/新规划
-# 阅读 report.md，缺项补回 brief 后重新规划；ready 仍需核对实际台词与素材
-bash "$PL" macro-build classic-performance@1.0.0 /已有目录/新规划/spec.json /已有目录/剪好口播.mp4 /已有目录/新工程
-bash "$PL" stills /已有目录/新工程 0,4,12
-bash "$PL" audio /已有目录/新工程
-bash "$PL" mix /已有目录/新工程
-bash "$PL" render /已有目录/新工程 /已有目录/新片_v1_16x9_60fps.mp4
-bash "$PL" check /已有目录/新片_v1_16x9_60fps.mp4
-```
-
-以上路径只是格式示例，规划目录和新工程路径必须事先不存在。brief 结构见[适配机制](references/adaptive-composition.md)与[可运行示例](examples/adaptation/README.md)。可传 `--subs-js /路径/新口播字幕.js` 给 `macro-build`；字幕必须与新口播对齐。历史人工入口 `macro-spec` 列出全部组的接口；生成的 cue 留空，须绑定本期真实台词，示例文案与原片时长不代表已适配。配置须显式指定本期音乐 `music:{mode:"track",path,offset}`，缺项保持待补，旧默认合成底乐已停用；用户明确无BGM才设 `music:{mode:"none"}`，以及本期混音增益 `mix:{musicVolume:0.42}`；完成后会把实际选择、处理图和声音摘要保存为 `mix_recipe.json`，详见[声音与重现](references/audio.md)。`anim4` 和 `anim3/s06` 默认在 macOS 使用 Vision 跟踪新口播人脸，其他系统使用本地 OpenCV，检测不可用时使用宽幅固定构图并复核裁切。构建器要求目标场景总帧数与剪好口播相符，按输出帧网格量化后必须完全一致。长短差异和动作锚点的处理见[完整工程复用与验收](references/full-project-templating.md)。
-
-可以直接对 Agent 说：
-
-> 使用 adu-motion-video 的完整场景包制作这条新口播。口播、SRT、文案和本期录屏在 `/实际路径/素材目录`。先运行 packs，按语义选择显式版本的完整镜头组或场景，列出所需替代素材和关键台词时间，补齐配置后生成工程；检查首帧、转场、文字裁切、口型、音乐和音效，再导出新 MP4。不要把原工程的示例文字、数字或第三方素材带进新片。
-
-Agent 缺少 Skill 机制时，先读 [AGENTS.md](AGENTS.md)。基础模板只需运行 `bash "$PL" demo /不存在的新目录` 查看 36 秒无口播、无BGM的布局与音效示例；参数见[模板目录](references/templates.md)。
-
-### 验收与扩展
-
-至少检查第一帧有人物时人物是否可见、所有关键动作前后帧、最长文案的字体与安全区、录屏和图片裁切、场景交接、全段口型、字幕、音乐层次、音效位置及片尾。再与原工程的对应动作连续播放对照。任何一项未完成，只能标记为 experimental 或局部通过，不能宣称完整复刻验收通过。[教程：检查连续动作](assets/tutorials/03-continuity.png) · [验证记录](docs/validation.md)。
-
-已完成的新 Opus 工程可按[持续模板接入](references/template-intake.md)登记与冻结。按新增价值区分案例、预设、变体、镜头组、路线与引擎；接收、候选和稳定发布各有证据状态。包 ID/版本和运行代码固定在新工程，后续升级不会自动改变旧片。候选提炼保留完整因果、人物、进退与声音，经过新内容及独立使用再扩大稳定库。仓库结构与贡献要求见[完整工程复用与验收](references/full-project-templating.md)。
-
-MIT License · 第三方说明见 [THIRD_PARTY.md](THIRD_PARTY.md)。
-
-</details>
-
-</details>
-
-阿杜实验室 · [AI 执行入口](SKILL.md) · [模板与风格目录](references/template-catalog.md) · [动画素材 API](references/lottie-assets.md) · [更新与下载](https://github.com/adunext/adu-motion-video/releases) · [MIT License](LICENSE) · [第三方说明](THIRD_PARTY.md)
-
-**3.11.0 升级完成**：新增06-A「活力色彩」原生竖屏七组，模板库竖屏达到11风格/39组。[查看本轮验证记录](docs/vibrant-color-3.11.md)。
-
-**3.12.0 升级完成**：淘汰旧默认合成底乐，显式选择本期配乐；新工程换曲保持动作音效一致，混合模板保留跨场尾音；新增段尾节奏复核指标。提炼 Skill 仅保留本地，移除公开副本。[查看验证与接入范围](docs/editorial-music-3.12.md)。
-
-**3.14.0-rc.1 兼容性升级**：原生 Windows/macOS 共用 Python 入口；指定字体、SF Mono 和 Vision 不再是制作前置条件；随包字体支持离线回退，Python 依赖按当前版本解析。[验证范围与更新重点](docs/compatibility-3.14.md)。
+阿杜实验室 · [AI 执行入口](SKILL.md) · [更新与下载](https://github.com/adunext/adu-motion-video/releases) · [MIT License](LICENSE) · [第三方说明](THIRD_PARTY.md)
