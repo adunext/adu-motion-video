@@ -16,7 +16,7 @@
 
 ## 模板库
 
-**6 类模板 · 11 种风格。** 按画面风格选择，告诉 AI 完整编号，例如 **01-B**。每套模板旁标明支持的画幅；点击小预览查看视频。
+**6 类模板 · 11 种风格。** 按画面风格选择，告诉 AI 完整编号，例如 **01-B**。每套模板旁标明支持的画幅；每行最多展示 3 个风格，点击预览图或“播放示例视频”打开播放器。
 
 ### 01 · 现代图文口播
 
@@ -26,11 +26,13 @@
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/01-A.mp4?raw=true"><img src="assets/demos/01-A.gif" alt="01-A 原片节奏" width="128" height="72"></a><br><strong>01-A</strong><br><sub>原片节奏</sub></td>
-    <td align="center" width="144"><a href="assets/demos/01-B.mp4?raw=true"><img src="assets/demos/01-B.gif" alt="01-B 连续形变" width="128" height="72"></a><br><strong>01-B</strong><br><sub>连续形变</sub></td>
-    <td align="center" width="144"><a href="assets/demos/01-C.mp4?raw=true"><img src="assets/demos/01-C.gif" alt="01-C 纵深舞台" width="128" height="72"></a><br><strong>01-C</strong><br><sub>纵深舞台</sub></td>
-    <td align="center" width="144"><a href="assets/demos/01-D.mp4?raw=true"><img src="assets/demos/01-D.gif" alt="01-D 杂志分屏" width="128" height="72"></a><br><strong>01-D</strong><br><sub>杂志分屏</sub></td>
-    <td align="center" width="144"><a href="assets/demos/01-E.mp4?raw=true"><img src="assets/demos/01-E.gif" alt="01-E 节拍字效" width="128" height="72"></a><br><strong>01-E</strong><br><sub>节拍字效</sub></td>
+    <td align="center" width="256"><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=01-A"><img src="assets/demos/01-A.gif" alt="01-A 原片节奏" width="240" height="135"></a><br><strong>01-A</strong><br><sub>原片节奏</sub><br><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=01-A">▶ 播放示例视频</a></td>
+    <td align="center" width="256"><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=01-B"><img src="assets/demos/01-B.gif" alt="01-B 连续形变" width="240" height="135"></a><br><strong>01-B</strong><br><sub>连续形变</sub><br><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=01-B">▶ 播放示例视频</a></td>
+    <td align="center" width="256"><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=01-C"><img src="assets/demos/01-C.gif" alt="01-C 纵深舞台" width="240" height="135"></a><br><strong>01-C</strong><br><sub>纵深舞台</sub><br><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=01-C">▶ 播放示例视频</a></td>
+  </tr>
+  <tr>
+    <td align="center" width="256"><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=01-D"><img src="assets/demos/01-D.gif" alt="01-D 杂志分屏" width="240" height="135"></a><br><strong>01-D</strong><br><sub>杂志分屏</sub><br><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=01-D">▶ 播放示例视频</a></td>
+    <td align="center" width="256"><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=01-E"><img src="assets/demos/01-E.gif" alt="01-E 节拍字效" width="240" height="135"></a><br><strong>01-E</strong><br><sub>节拍字效</sub><br><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=01-E">▶ 播放示例视频</a></td>
   </tr>
 </table>
 
@@ -44,8 +46,8 @@
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/02-A.mp4?raw=true"><img src="assets/demos/02-A.gif" alt="02-A 纸面天平" width="128" height="72"></a><br><strong>02-A</strong><br><sub>纸面天平</sub></td>
-    <td align="center" width="144"><a href="assets/demos/02-B.mp4?raw=true"><img src="assets/demos/02-B.gif" alt="02-B 纸面聚合" width="104" height="72"></a><br><strong>02-B</strong><br><sub>纸面聚合</sub></td>
+    <td align="center" width="256"><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=02-A"><img src="assets/demos/02-A.gif" alt="02-A 纸面天平" width="240" height="135"></a><br><strong>02-A</strong><br><sub>纸面天平</sub><br><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=02-A">▶ 播放示例视频</a></td>
+    <td align="center" width="256"><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=02-B"><img src="assets/demos/02-B.gif" alt="02-B 纸面聚合" width="194" height="135"></a><br><strong>02-B</strong><br><sub>纸面聚合</sub><br><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=02-B">▶ 播放示例视频</a></td>
   </tr>
 </table>
 
@@ -59,7 +61,7 @@
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/03-A.mp4?raw=true"><img src="assets/demos/03-A.gif" alt="03-A 多屏展陈" width="128" height="72"></a><br><strong>03-A</strong><br><sub>多屏展陈</sub></td>
+    <td align="center" width="256"><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=03-A"><img src="assets/demos/03-A.gif" alt="03-A 多屏展陈" width="240" height="135"></a><br><strong>03-A</strong><br><sub>多屏展陈</sub><br><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=03-A">▶ 播放示例视频</a></td>
   </tr>
 </table>
 
@@ -73,7 +75,7 @@
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/04-A.mp4?raw=true"><img src="assets/demos/04-A.gif" alt="04-A 仪器台演示" width="118" height="72"></a><br><strong>04-A</strong><br><sub>仪器台演示</sub></td>
+    <td align="center" width="256"><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=04-A"><img src="assets/demos/04-A.gif" alt="04-A 仪器台演示" width="221" height="135"></a><br><strong>04-A</strong><br><sub>仪器台演示</sub><br><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=04-A">▶ 播放示例视频</a></td>
   </tr>
 </table>
 
@@ -87,7 +89,7 @@
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/05-A.mp4?raw=true"><img src="assets/demos/05-A.gif" alt="05-A 角色与物件接力" width="128" height="72"></a><br><strong>05-A</strong><br><sub>角色与物件接力</sub></td>
+    <td align="center" width="256"><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=05-A"><img src="assets/demos/05-A.gif" alt="05-A 角色与物件接力" width="240" height="135"></a><br><strong>05-A</strong><br><sub>角色与物件接力</sub><br><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=05-A">▶ 播放示例视频</a></td>
   </tr>
 </table>
 
@@ -101,7 +103,7 @@
 
 <table>
   <tr>
-    <td align="center" width="144"><a href="assets/demos/06-A.mp4?raw=true"><img src="assets/demos/06-A.gif" alt="06-A 原生竖屏" width="40" height="72"></a><br><strong>06-A</strong><br><sub>原生竖屏</sub></td>
+    <td align="center" width="256"><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=06-A"><img src="assets/demos/06-A.gif" alt="06-A 原生竖屏" width="135" height="240"></a><br><strong>06-A</strong><br><sub>原生竖屏</sub><br><a href="https://adunext.github.io/adu-motion-video/examples/gallery/?template=06-A">▶ 播放示例视频</a></td>
   </tr>
 </table>
 

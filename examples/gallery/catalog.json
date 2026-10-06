@@ -1,0 +1,133 @@
+[
+  {
+    "id": "01-A",
+    "title": "原片节奏",
+    "family": "现代图文口播",
+    "layouts": [
+      "landscape",
+      "portrait"
+    ],
+    "previewLayout": "landscape",
+    "portraitPreview": false,
+    "hasAudio": true
+  },
+  {
+    "id": "01-B",
+    "title": "连续形变",
+    "family": "现代图文口播",
+    "layouts": [
+      "landscape",
+      "portrait"
+    ],
+    "previewLayout": "landscape",
+    "portraitPreview": false,
+    "hasAudio": true
+  },
+  {
+    "id": "01-C",
+    "title": "纵深舞台",
+    "family": "现代图文口播",
+    "layouts": [
+      "landscape",
+      "portrait"
+    ],
+    "previewLayout": "landscape",
+    "portraitPreview": false,
+    "hasAudio": true
+  },
+  {
+    "id": "01-D",
+    "title": "杂志分屏",
+    "family": "现代图文口播",
+    "layouts": [
+      "landscape",
+      "portrait"
+    ],
+    "previewLayout": "landscape",
+    "portraitPreview": false,
+    "hasAudio": true
+  },
+  {
+    "id": "01-E",
+    "title": "节拍字效",
+    "family": "现代图文口播",
+    "layouts": [
+      "landscape",
+      "portrait"
+    ],
+    "previewLayout": "landscape",
+    "portraitPreview": false,
+    "hasAudio": true
+  },
+  {
+    "id": "02-A",
+    "title": "纸面天平",
+    "family": "纸面透视讲解",
+    "layouts": [
+      "landscape",
+      "portrait"
+    ],
+    "previewLayout": "landscape",
+    "portraitPreview": false,
+    "hasAudio": true
+  },
+  {
+    "id": "02-B",
+    "title": "纸面聚合",
+    "family": "纸面透视讲解",
+    "layouts": [
+      "landscape",
+      "portrait"
+    ],
+    "previewLayout": "landscape",
+    "portraitPreview": false,
+    "hasAudio": false
+  },
+  {
+    "id": "03-A",
+    "title": "多屏展陈",
+    "family": "深色 3D",
+    "layouts": [
+      "landscape",
+      "portrait"
+    ],
+    "previewLayout": "landscape",
+    "portraitPreview": true,
+    "hasAudio": false
+  },
+  {
+    "id": "04-A",
+    "title": "仪器台演示",
+    "family": "深色科技控制台",
+    "layouts": [
+      "landscape",
+      "portrait"
+    ],
+    "previewLayout": "landscape",
+    "portraitPreview": false,
+    "hasAudio": false
+  },
+  {
+    "id": "05-A",
+    "title": "角色与物件接力",
+    "family": "鲜色角色叙事",
+    "layouts": [
+      "landscape",
+      "portrait"
+    ],
+    "previewLayout": "landscape",
+    "portraitPreview": false,
+    "hasAudio": false
+  },
+  {
+    "id": "06-A",
+    "title": "原生竖屏",
+    "family": "活力色彩",
+    "layouts": [
+      "portrait"
+    ],
+    "previewLayout": "portrait",
+    "portraitPreview": false,
+    "hasAudio": false
+  }
+]
