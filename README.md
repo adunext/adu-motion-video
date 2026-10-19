@@ -18,6 +18,8 @@ MotionGit 是面向 AI 视频创作的开放格式与模板协作平台。新版
 
 [下载最新 `.motion` 模板](https://motiongit.com/@adunext)　·　[如何开始](#开始创作)　·　[查看风格](#模板库)　·　[MotionGit 使用指南](https://motiongit.com/use)
 
+已有旧版源码安装时，先按[源码更新说明](references/source-updates.md)从新副本运行 `update-source`；保留现有工程、参数、Key 和无关源码改动。新版 `.motion` 包继续使用各自的官网升级入口。
+
 ---
 
 ## 模板库

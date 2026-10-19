@@ -38,5 +38,5 @@
 
 3.14.0-rc.1：字体为优先推荐项，默认 preferred，缺少原字体时自动使用随包 Noto 字体并记录替换；不得因原字体 SHA、macOS SF Mono 或 Vision 缺失要求用户停工。检查实际文字布局与裁切，只有明确要求精确字体时启用 exact。运行入口、依赖选择与验证边界见 references/compatibility.md。
 
-## 统一角标（3.14.1-rc.1）
-所有模板、旧工程均通过当前 `pipeline.py stills/render`（或兼容 render/export 入口）输出右上角时间与动态 Circle Logo；不要修改冻结 pack、叠加第二套角标或使用源片时间。横竖屏和混合模板共用整片时钟。具体设计、可关闭配置与验证范围见 references/output-signature.md。
+## 已有安装的源码更新
+用户要求更新旧版源码时，读取 [源码更新说明](references/source-updates.md)。从新下载并核对来源的源码副本运行 `python scripts/pipeline.py update-source 旧安装绝对路径`（macOS/Linux 使用 python3），每次源码更新都执行并核对 JSON 结果；即使用户改过官方运行模块，也由该入口恢复。只维护声明的运行文件与必要入口，不重置整个 Git 工作区，不写入已有工程、参数、Key 或无关源码。原项目文件继续保留，制作仍走现有入口；不自动更新其他安装。
