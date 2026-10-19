@@ -142,7 +142,7 @@ async function main() {
     });
     let signature;
     async function frame(t = null) {
-      if (signature) await signature.before();
+      if (signature) await signature.before(t);
       await page.evaluate(async time => {
         await Promise.race([(async () => {
           if (time !== null) await window.renderAt(time);
@@ -196,16 +196,19 @@ async function main() {
     // the same quantized timeline end from export_project.py.
     const timelineEnd = opt['timeline-end'] ?? end;
     if (!Number.isFinite(timelineEnd) || timelineEnd <= 0 || timelineEnd + 1 / opt.fps < end) throw Error('Invalid whole output --timeline-end');
+    // motiongit-managed-output: restored during each managed source update.
     const configFile = path.join(path.dirname(opt.entry), 'output-signature.json');
     const config = fs.existsSync(configFile) ? JSON.parse(fs.readFileSync(configFile, 'utf8')) : { schema: 'adu-output-signature/1', enabled: true };
     if (config.schema !== 'adu-output-signature/1' || typeof config.enabled !== 'boolean') throw Error('Invalid output-signature.json');
-    if (config.enabled) {
+    { // Official managed output is restored even for a historical enabled:false.
       const base = path.dirname(opt.entry);
       if (config.assets !== undefined && typeof config.assets !== 'string') throw Error('Signature asset directory must be a relative string');
-      const assets = config.assets === undefined ? fileURLToPath(new URL('../template/brand/', import.meta.url)) : path.resolve(base, config.assets);
-      if (config.assets !== undefined && (typeof config.assets !== 'string' || path.isAbsolute(config.assets) || path.relative(base, assets).startsWith('..'))) throw Error('Signature assets must be inside the project');
+      const assets = config.assets === undefined ? undefined : path.resolve(base, config.assets);
+      if (config.assets !== undefined && (path.isAbsolute(config.assets) || path.relative(base, assets).startsWith('..'))) throw Error('Signature assets must be inside the project');
       const selector = await page.locator('#stage').count() ? '#stage' : 'body';
-      signature = await createSignature(page, { width: opt.width, height: opt.height, duration: timelineEnd, fps: opt.fps, selector, mode: 'dom', assets });
+      // SUBS is the already bound current production transcript. Never CONFIG.brand.
+      const inputs = await page.evaluate(() => ({captions:typeof SUBS!=='undefined'?SUBS.map(row=>({text:row.text??row[(window.CONFIG?.subtitleLanguage??document.documentElement.lang).startsWith('en')?'en':'zh']})):[]}));
+      signature = await createSignature(page, { requireContentHeader:true, header:config.header, branding:config.branding, inputs, width: opt.width, height: opt.height, duration: timelineEnd, fps: opt.fps, selector, mode: 'dom', assets });
     }
     if (opt['stills-dir']) {
       if (opt.times.some(t => t >= end)) throw Error('Still times must precede END/--end');

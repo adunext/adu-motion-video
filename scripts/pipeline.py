@@ -181,10 +181,11 @@ def main(argv=None):
     if not args or args[0] in ('help', '--help', '-h'):
         print(__doc__ + '\nCommands: doctor, setup, packs, new, import, demo, stills, audio, mix, render, vert, seg, check,\n'
               'auto-capabilities, auto-plan, auto-build, macro-spec, macro-plan, macro-build,\n'
-              'macro-rematch, macro-apply-rematch, preview, repair-plan, repair-apply')
+              'macro-rematch, macro-apply-rematch, preview, repair-plan, repair-apply, update-source')
         return
     command, *args = args
     direct = {'doctor': ('doctor.py', []), 'packs': ('pack_catalog.py', ['list']),
+              'update-source': ('update_source.py', []),
               'auto-capabilities': ('auto_templates.py', ['capabilities']),
               'auto-plan': ('auto_templates.py', ['plan']), 'auto-build': ('build_auto_project.py', []),
               'macro-plan': ('plan_macro_project.py', []), 'macro-rematch': ('rematch_macro_project.py', ['propose']),

@@ -1,0 +1,8 @@
+{
+  "profile": "motiongit.legacy-source-update/1",
+  "baselineCommit": "4a52ae2cff542cfb0bfcf6e93e5120c55d0110cf",
+  "sha256": {
+    "scripts/render_project.mjs": "f78b2499e918b5f344cfbaf0a877f2b3fa7e225511ec732cc4c9d827b7e1c899",
+    "scripts/output-signature.mjs": "06792ac6b237bfe911f9ba58a459e5d3b957774e4ee97a3f240f45338e9993cc"
+  }
+}

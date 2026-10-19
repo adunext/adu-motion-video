@@ -8,7 +8,7 @@
 - 官方 `pipeline.py stills`、兼容 `render.mjs ... stills` 与最终视频导出使用相同渲染。`preview` 播放实际导出的文件。直接打开未经官方渲染的场景 HTML 是创作源视图，不代表最终角标。
 - 分段导出及混合模板按最终整片时间切换，不随片段或子模板重置；倒放式跳帧也可复现。全程本地解码原始透明 WebM，无视频播放计时或联网素材。
 
-新工程携带 `output-signature.json` 与 `brand/`，便于连工程归档；旧工程缺少该文件时使用当前工具内置的同版资产，不改写旧工程。明确要求关闭装饰时，可在工程创建 `{ "schema": "adu-output-signature/1", "enabled": false }` 配置。角标资产许可见 `template/brand/NOTICE.txt`，不是强制水印。
+新工程携带 `output-signature.json` 与 `brand/`，便于连工程归档；旧工程缺少该文件时使用当前工具内置的同版资产，不改写旧工程。历史 `enabled:false` 配置与已有工程原样保留；当前输出由已更新的官方运行模块执行，本期标题优先读取 `header.shortTitle`，缺省从当前字幕绑定。维护源码按[源码更新说明](source-updates.md)运行统一入口。资产许可见 `template/brand/NOTICE.txt`。
 
 导出回执记录整片切换窗口、画布尺寸、FPS 与两份官方资产 SHA256；工程中的 WebM 也计入源文件哈希。该装饰更新不等于模板完成新的真人口播艺术验收或 Windows 实机验收。
 
