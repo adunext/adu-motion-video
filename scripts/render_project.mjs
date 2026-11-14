@@ -233,6 +233,10 @@ async function main() {
     if (opt.audio) args.push('-map', '1:a:0', '-c:a', 'aac', '-ar', '48000', '-b:a', '192k', '-af', 'apad');
     else args.push('-an');
     args.push('-t', String(duration), '-movflags', '+faststart', output);
+    // Lossless PNG through the DevTools protocol with Chromium's fast zlib
+    // setting: the decoded pixels equal page.screenshot({type:'png'}), but the
+    // capture costs about half as much per frame (compression level only).
+    const capture = await context.newCDPSession(page);
     ff = spawn('ffmpeg', args, { stdio: ['pipe', 'ignore', 'pipe'] });
     let diagnostic = '', pipeError;
     ff.stderr.on('data', chunk => { diagnostic = (diagnostic + chunk).slice(-8000); });
@@ -241,7 +245,8 @@ async function main() {
     for (let i = first; i < last; i++) {
       if (pipeError || ff.exitCode !== null) throw Error(`FFmpeg stopped: ${diagnostic || pipeError?.message}`);
       await frame(i / opt.fps);
-      const buffer = await page.screenshot({ type: 'png' }); check();
+      const { data } = await capture.send('Page.captureScreenshot', { format: 'png', optimizeForSpeed: true });
+      const buffer = Buffer.from(data, 'base64'); check();
       await new Promise((resolve, reject) => ff.stdin.write(buffer, e => e ? reject(e) : resolve()));
       if ((i - first) % (opt.fps * 5) === 0) console.error(`Rendered ${i - first + 1}/${count} frames`);
     }

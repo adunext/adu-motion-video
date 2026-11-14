@@ -2,12 +2,12 @@
 name: adu-motion-video
 description: 使用完整动画工程包，把新口播、文案与自有素材制作成可编辑动效视频和 60fps MP4；也支持轻量 TPL、手绘续接、字幕与改旧片。支持 Windows、macOS、Linux，以及 Codex、Claude Code、豆包、DeepSeek、WorkBuddy 等可读写文件并运行命令的助手。
 metadata:
-  version: "3.14.1-rc.1"
+  version: "3.14.2-rc.1"
 ---
 
 # adu-motion-video
 
-当前为 **3.14.1-rc.1 角标更新候选**，实际默认映射以 template-catalog.json 为准。新增候选接入横竖屏选型，旧版本可显式使用，稳定验收不追认到新增组；读[升级范围与验收](references/quality-upgrade.md)。最终效果待用户同视频 A/B 确认。
+当前为 **3.14.2-rc.1 导出提速候选**（在 3.14.1-rc.1 角标更新上只改逐帧截图方式），实际默认映射以 template-catalog.json 为准。新增候选接入横竖屏选型，旧版本可显式使用，稳定验收不追认到新增组；读[升级范围与验收](references/quality-upgrade.md)。最终效果待用户同视频 A/B 确认。
 
 用户提供剪好的口播视频、文案，最好还有新口播的时间码字幕；选用含录屏、作品墙、头像、标识或配乐的场景时，还须提供本期有权使用的素材。你负责把**完整场景编舞**适配到新台词与片长，生成可编辑工程，核查后导出新 MP4。先读 [制作约定](references/rules.md)。`SKILL_DIR` 是本文件目录，`PL="$SKILL_DIR/scripts/pipeline.sh"`。 制作记录保存实际 Skill 路径、版本和所用入口；同名旧安装、仓库版本与已生成工程的冻结运行代码可能不同，不能用最新版说明追认旧工程。
 
@@ -90,5 +90,7 @@ metadata:
 口播修剪默认关闭；本次用户明确开启 `repairPolicy.mode=basic` 才能尝试基础修剪，旧工程或 map 不代表开启。空间字幕位置不改变字幕时间。先构建并检查真实字体、媒体、动作与声尾，再完整导出与连续看听；最后由用户对同输入 A/B 确认效果。技术 ready、静帧和短接缝不替代最终验收。
 
 3.14.0-rc.1 新增原生 Windows/macOS 共用 Python 命令入口、UTF-8 路径处理及可移植字体。字体、字重和 Vision 仅优先推荐，不因缺失这些推荐项阻止制作；真实媒体、数量、时间轴与最终排版检查仍需成立。读[兼容与字体策略](references/compatibility.md)。
+
+3.14.2-rc.1 导出逐帧截图改走 DevTools 协议的快速无损 PNG（`Page.captureScreenshot`，`optimizeForSpeed`），像素与原来完全相同，每帧截图耗时约减半；色彩管线、编码参数不变，见[导出提速说明](docs/export-speed-3.14.2.md)。
 
 3.14.1-rc.1 全部模板的官方静帧、预览和导出统一显示右上角成片时间与动态 Circle Logo 交替；横竖屏保留安全边距，分段与混合模板共用整片时钟，原用户品牌保留。旧工程无需重建，使用当前导出入口即可补齐。不要单独再叠时码或 Logo；见[角标说明](references/output-signature.md)。

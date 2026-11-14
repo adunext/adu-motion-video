@@ -175,7 +175,7 @@ MotionGit 是面向 AI 视频创作的开放格式与模板协作平台。新版
 
 ### 继续使用旧版 Skill
 
-已有旧工程或需要沿用仓库制作工具时，仍可 [下载旧版 Skill 3.14.1-rc.1](https://github.com/adunext/adu-motion-video/releases/download/v3.14.1-rc.1/adu-motion-video_3.14.1-rc.1.zip)，按[旧版创作引导](references/start-creating.md)安装和使用。新版 `.motion` 模板优先从 MotionGit 下载。
+已有旧工程或需要沿用仓库制作工具时，仍可 [下载旧版 Skill 3.14.2-rc.1](https://github.com/adunext/adu-motion-video/releases/download/v3.14.2-rc.1/adu-motion-video_3.14.2-rc.1.zip)，按[旧版创作引导](references/start-creating.md)安装和使用。新版 `.motion` 模板优先从 MotionGit 下载。
 
 ---
 
